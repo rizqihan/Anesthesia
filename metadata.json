@@ -1,0 +1,6 @@
+{
+  "name": "Anesthesia",
+  "description": "A collection of offline-capable medical mini-apps including dosage calculators, drug interaction checkers, and a symptom checker tailored for Indonesian and English users.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

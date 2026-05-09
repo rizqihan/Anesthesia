@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Home, Calculator, Pill, Activity, Syringe, Settings, Book, ChevronLeft, ChevronRight, Menu } from 'lucide-react';
+import { Home, Settings, ChevronLeft, Wifi, WifiOff, AlertTriangle, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -23,23 +23,21 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const getProviderName = () => {
     switch (store.aiProvider) {
-      case 'default_gemini': return 'Gemini (Built-in)';
-      case 'custom_gemini': return 'Gemini (Custom)';
-      case 'openai_compatible': return 'OpenAI Compatible';
-      default: return 'AI Config';
+      case 'default_gemini': return 'Gemini';
+      case 'custom_gemini': return 'Gemini Custom';
+      case 'openai_compatible': return 'OpenAI Compat';
+      default: return 'AI';
     }
   };
 
+  const aiStatus = isOffline ? 'offline' : isAiConfigured() ? 'ready' : 'missing';
+
   useEffect(() => {
-    // Basic offline detection
     const handleOnline = () => setOfflineStatus(false);
     const handleOffline = () => setOfflineStatus(true);
-    
     setOfflineStatus(!navigator.onLine);
-    
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
-    
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
@@ -51,107 +49,172 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     { name: t.settings, href: '/settings', icon: Settings },
   ];
 
+  const statusDotClass = aiStatus === 'ready' ? 'status-dot status-dot-green' : aiStatus === 'missing' ? 'status-dot status-dot-amber' : 'status-dot status-dot-red';
+  const statusLabel = aiStatus === 'ready' ? t.ready : aiStatus === 'missing' ? t.missing_config : t.offline;
+
   return (
     <>
-      {/* Top Bar */}
-      <header className="h-[56px] bg-white border-b border-slate-200 flex items-center justify-between px-5 shrink-0 z-10 w-full fixed md:static top-0">
-        <div className="flex items-center gap-4">
-          <div className="font-[800] text-[20px] text-sky-600 tracking-[-0.5px] flex items-center gap-2">
-            <span>{t.app_name}</span>
-            <span className="font-normal text-slate-500 text-[14px] hidden sm:inline">Clinical Assistant</span>
+      {/* ─── Top Bar ─── */}
+      <header
+        className="h-[56px] shrink-0 flex items-center justify-between px-5 z-10 w-full fixed md:static top-0"
+        style={{
+          background: 'rgba(8, 13, 23, 0.85)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          boxShadow: '0 1px 0 rgba(255,255,255,0.03), 0 4px 24px rgba(0,0,0,0.4)',
+        }}
+      >
+        {/* Logo */}
+        <div className="flex items-center gap-3">
+          <div
+            className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+            style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)', boxShadow: '0 0 16px rgba(59,130,246,0.4)' }}
+          >
+            <Activity className="w-4 h-4 text-white" />
+          </div>
+          <div>
+            <span className="font-[800] text-[17px] gradient-text tracking-tight">{t.app_name}</span>
+            <span className="ml-2 text-[12px] hidden sm:inline" style={{ color: 'var(--text-muted)' }}>Clinical Assistant</span>
           </div>
         </div>
-        
-        <div className="flex gap-4 items-center">
-          {isOffline && (
-            <div className="text-[11px] font-semibold bg-green-100 text-green-800 px-2.5 py-1 rounded-full flex items-center gap-1">
-              <span>●</span>
-              <span className="hidden sm:inline">Offline Access: ACTIVE</span>
-              <span className="sm:hidden">OFFLINE</span>
-            </div>
-          )}
-          
-          <div className="text-[12px] font-semibold border border-slate-200 rounded-md p-1 cursor-pointer bg-slate-50 flex">
-            <button 
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-0.5 rounded ${language === 'en' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'}`}
-            >
-              EN
-            </button>
-            <button 
-              onClick={() => setLanguage('id')}
-              className={`px-2 py-0.5 rounded ${language === 'id' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'}`}
-            >
-              ID
-            </button>
+
+        {/* Right controls */}
+        <div className="flex items-center gap-3">
+          {/* Offline badge */}
+          <AnimatePresence>
+            {isOffline && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="badge-offline text-[10px] hidden sm:flex items-center gap-1"
+              >
+                <WifiOff className="w-3 h-3" />
+                <span>OFFLINE</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Language toggle */}
+          <div
+            className="flex rounded-lg p-[3px] gap-[2px]"
+            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-card)' }}
+          >
+            {(['en', 'id'] as const).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => setLanguage(lang)}
+                className="px-2.5 py-1 rounded-md text-[11px] font-[700] transition-all duration-200"
+                style={language === lang ? {
+                  background: 'rgba(59,130,246,0.2)',
+                  color: '#93c5fd',
+                  border: '1px solid rgba(59,130,246,0.3)',
+                  boxShadow: '0 0 10px rgba(59,130,246,0.15)',
+                } : {
+                  color: 'var(--text-muted)',
+                  border: '1px solid transparent',
+                }}
+              >
+                {lang.toUpperCase()}
+              </button>
+            ))}
           </div>
         </div>
       </header>
 
-      {/* Main Layout */}
+      {/* ─── Main Layout ─── */}
       <div className="flex flex-1 overflow-hidden pt-[56px] md:pt-0 pb-[60px] md:pb-0 relative">
-        {/* Sidebar */}
-        <motion.nav 
+        {/* Sidebar (Desktop) */}
+        <motion.nav
           initial={false}
-          animate={{ width: isCollapsed ? 70 : 220 }}
-          transition={{ type: "tween", ease: "easeInOut", duration: 0.25 }}
-          className="hidden md:flex flex-col bg-slate-900 text-white shrink-0 overflow-hidden relative"
+          animate={{ width: isCollapsed ? 68 : 220 }}
+          transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+          className="hidden md:flex flex-col shrink-0 overflow-hidden relative"
+          style={{
+            background: 'rgba(8, 13, 23, 0.95)',
+            borderRight: '1px solid rgba(255,255,255,0.06)',
+          }}
         >
-          <div className="p-4 flex items-center text-slate-400 h-[60px]">
-            <motion.span 
-               initial={false}
-               animate={{ opacity: isCollapsed ? 0 : 1 }}
-               className="text-[10px] uppercase tracking-[1px] font-semibold whitespace-nowrap"
+          {/* Sidebar top glow */}
+          <div
+            className="absolute top-0 left-0 right-0 h-[1px]"
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.4), transparent)' }}
+          />
+
+          {/* Collapse toggle */}
+          <div className="flex items-center px-4 h-[52px] border-b relative" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+            <motion.span
+              initial={false}
+              animate={{ opacity: isCollapsed ? 0 : 1, width: isCollapsed ? 0 : 'auto' }}
+              className="text-[10px] uppercase tracking-[1.5px] font-[700] overflow-hidden whitespace-nowrap"
+              style={{ color: 'var(--text-muted)' }}
             >
-              Main Menu
+              Navigation
             </motion.span>
-            <button 
+            <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="p-1.5 rounded hover:bg-slate-800 text-slate-400 transition-colors absolute right-4"
+              className="absolute right-3 p-1.5 rounded-lg transition-all"
+              style={{ color: 'var(--text-muted)' }}
             >
-              <motion.div animate={{ rotate: isCollapsed ? 180 : 0 }}>
-                <ChevronLeft className="w-5 h-5" />
+              <motion.div animate={{ rotate: isCollapsed ? 180 : 0 }} transition={{ duration: 0.25 }}>
+                <ChevronLeft className="w-4 h-4" />
               </motion.div>
             </button>
           </div>
-          
-          <div className="flex-1 overflow-y-auto mt-2">
+
+          {/* Nav items */}
+          <div className="flex-1 py-3 overflow-y-auto">
             {navItems.map((item) => {
               const isActive = pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/');
               return (
-                <Link 
-                  key={item.href} 
+                <Link
+                  key={item.href}
                   href={item.href}
-                  className={`px-5 py-3 flex items-center cursor-pointer transition-colors text-[14px] border-l-[3px] gap-3 ${isActive ? 'bg-slate-800 border-sky-600 text-white' : 'border-transparent text-slate-400 hover:bg-slate-800/50 hover:text-white'}`}
                   title={isCollapsed ? item.name : undefined}
+                  className={`nav-item flex items-center gap-3 px-4 py-3 mx-2 rounded-lg mb-1 text-[13px] font-[500] ${isActive ? 'nav-item-active' : ''}`}
+                  style={isActive ? {
+                    background: 'rgba(59,130,246,0.1)',
+                    color: '#93c5fd',
+                    border: '1px solid rgba(59,130,246,0.2)',
+                    boxShadow: '0 0 20px rgba(59,130,246,0.08)',
+                  } : {
+                    color: 'var(--text-secondary)',
+                  }}
                 >
-                  <item.icon className="w-5 h-5 shrink-0" />
-                  <motion.span 
+                  <item.icon className="w-4 h-4 shrink-0" />
+                  <motion.span
                     initial={false}
-                    animate={{ opacity: isCollapsed ? 0 : 1 }}
-                    className="truncate whitespace-nowrap block"
+                    animate={{ opacity: isCollapsed ? 0 : 1, width: isCollapsed ? 0 : 'auto' }}
+                    className="overflow-hidden whitespace-nowrap truncate"
                   >
                     {item.name}
                   </motion.span>
                 </Link>
-              )
+              );
             })}
           </div>
 
-          <div className="mt-auto p-4 border-t border-slate-800 h-[60px] flex items-center relative">
-            <motion.div 
-               initial={false}
-               animate={{ opacity: isCollapsed ? 0 : 1 }}
-               className="text-[11px] text-slate-400 truncate w-[140px]"
-            >
-              {getProviderName()}: {isOffline ? t.offline : isAiConfigured() ? t.ready : t.missing_config}
-            </motion.div>
-            
-            {isCollapsed && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className={`w-2 h-2 rounded-full ${isOffline ? 'bg-red-500' : isAiConfigured() ? 'bg-green-500' : 'bg-orange-500'}`}></div>
-              </div>
-            )}
+          {/* AI Status footer */}
+          <div
+            className="p-4 border-t relative"
+            style={{ borderColor: 'rgba(255,255,255,0.05)' }}
+          >
+            <div className="flex items-center gap-2.5">
+              <span className={statusDotClass} />
+              <motion.div
+                initial={false}
+                animate={{ opacity: isCollapsed ? 0 : 1, width: isCollapsed ? 0 : 'auto' }}
+                className="overflow-hidden"
+              >
+                <div className="text-[10px] font-[600] whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
+                  {getProviderName()}
+                </div>
+                <div className={`text-[10px] font-[700] whitespace-nowrap ${aiStatus === 'ready' ? 'text-emerald-400' : aiStatus === 'missing' ? 'text-amber-400' : 'text-rose-400'}`}>
+                  {statusLabel}
+                </div>
+              </motion.div>
+            </div>
           </div>
         </motion.nav>
 
@@ -164,19 +227,38 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Bottom Navigation (Mobile) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 flex justify-around p-2 z-20 pb-safe overflow-x-auto">
+      <nav
+        className="md:hidden fixed bottom-0 left-0 right-0 flex justify-around px-2 pb-safe z-20"
+        style={{
+          background: 'rgba(8, 13, 23, 0.92)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderTop: '1px solid rgba(255,255,255,0.07)',
+          paddingTop: '8px',
+          paddingBottom: '12px',
+        }}
+      >
         {navItems.map((item) => {
           const isActive = pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/');
           return (
-            <Link 
-              key={item.href} 
+            <Link
+              key={item.href}
               href={item.href}
-              className={`flex flex-col items-center p-2 min-w-[64px] rounded-lg shrink-0 ${isActive ? 'text-sky-600' : 'text-slate-500'}`}
+              className="flex flex-col items-center py-1 px-4 rounded-xl min-w-[60px] transition-all"
+              style={isActive ? { color: '#60a5fa' } : { color: 'var(--text-muted)' }}
             >
-              <item.icon className="w-6 h-6 mb-1" />
-              <span className="text-[10px] font-medium whitespace-nowrap">{item.name}</span>
+              <div
+                className="p-2 rounded-xl mb-0.5 transition-all"
+                style={isActive ? {
+                  background: 'rgba(59,130,246,0.15)',
+                  boxShadow: '0 0 12px rgba(59,130,246,0.25)',
+                } : {}}
+              >
+                <item.icon className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] font-[600]">{item.name}</span>
             </Link>
-          )
+          );
         })}
       </nav>
     </>

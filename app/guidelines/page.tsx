@@ -10,20 +10,20 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase();
-  if (cat.includes('cardio')) return <HeartPulse className="w-5 h-5 text-rose-500" />;
-  if (cat.includes('pulmonology') || cat.includes('respiratory')) return <Wind className="w-5 h-5 text-sky-500" />;
-  if (cat.includes('obste') || cat.includes('pediat') || cat.includes('matern')) return <Baby className="w-5 h-5 text-pink-500" />;
-  if (cat.includes('endocrin') || cat.includes('gastro')) return <Pill className="w-5 h-5 text-amber-500" />;
-  return <Stethoscope className="w-5 h-5 text-indigo-500" />;
+  if (cat.includes('cardio')) return <HeartPulse className="w-5 h-5" style={{ color: '#fb7185' }} />;
+  if (cat.includes('pulmonology') || cat.includes('respiratory')) return <Wind className="w-5 h-5" style={{ color: '#60a5fa' }} />;
+  if (cat.includes('obste') || cat.includes('pediat') || cat.includes('matern')) return <Baby className="w-5 h-5" style={{ color: '#f472b6' }} />;
+  if (cat.includes('endocrin') || cat.includes('gastro')) return <Pill className="w-5 h-5" style={{ color: '#fbbf24' }} />;
+  return <Stethoscope className="w-5 h-5" style={{ color: '#a78bfa' }} />;
 };
 
-const getCategoryColor = (category: string) => {
+const getCategoryStyle = (category: string): { bg: string; border: string; color: string } => {
   const cat = category.toLowerCase();
-  if (cat.includes('cardio')) return 'bg-rose-50 text-rose-700 border-rose-100';
-  if (cat.includes('pulmonology')) return 'bg-sky-50 text-sky-700 border-sky-100';
-  if (cat.includes('obste')) return 'bg-pink-50 text-pink-700 border-pink-100';
-  if (cat.includes('endocrin') || cat.includes('gastro')) return 'bg-amber-50 text-amber-700 border-amber-100';
-  return 'bg-indigo-50 text-indigo-700 border-indigo-100';
+  if (cat.includes('cardio')) return { bg: 'rgba(244,63,94,0.1)', border: 'rgba(244,63,94,0.25)', color: '#fb7185' };
+  if (cat.includes('pulmonology')) return { bg: 'rgba(59,130,246,0.1)', border: 'rgba(59,130,246,0.25)', color: '#60a5fa' };
+  if (cat.includes('obste')) return { bg: 'rgba(236,72,153,0.1)', border: 'rgba(236,72,153,0.25)', color: '#f472b6' };
+  if (cat.includes('endocrin') || cat.includes('gastro')) return { bg: 'rgba(245,158,11,0.1)', border: 'rgba(245,158,11,0.25)', color: '#fbbf24' };
+  return { bg: 'rgba(139,92,246,0.1)', border: 'rgba(139,92,246,0.25)', color: '#a78bfa' };
 };
 
 export default function GuidelinesPage() {
@@ -31,111 +31,84 @@ export default function GuidelinesPage() {
   const t = translations[language];
   const [search, setSearch] = useState('');
 
-  const guidelines = useLiveQuery(
-    () => {
-      if (typeof window === 'undefined') return [];
-      if (!search.trim()) {
-        return db.guidelines.limit(20).toArray();
-      }
-      return db.guidelines
-        .filter(g => 
-          g.title.en.toLowerCase().includes(search.toLowerCase()) || 
-          g.title.id.toLowerCase().includes(search.toLowerCase())
-        )
-        .limit(20)
-        .toArray();
-    },
-    [search]
-  );
+  const guidelines = useLiveQuery(() => {
+    if (typeof window === 'undefined') return [];
+    if (!search.trim()) return db.guidelines.limit(20).toArray();
+    return db.guidelines.filter(g =>
+      g.title.en.toLowerCase().includes(search.toLowerCase()) ||
+      g.title.id.toLowerCase().includes(search.toLowerCase())
+    ).limit(20).toArray();
+  }, [search]);
 
   return (
-    <div className="space-y-4">
-      <div className="mb-4">
-        <div className="flex items-center space-x-3 mb-1">
-          <h2 className="text-[18px] font-bold text-slate-900">{t.clinical_guidelines_title}</h2>
-          <span className="inline-flex items-center space-x-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-100">
-            <WifiOff className="w-3 h-3" />
-            <span>{t.offline_capable}</span>
-          </span>
+    <div className="space-y-5">
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div className="flex items-center gap-3">
+          <div className="icon-box" style={{ background: 'linear-gradient(135deg,#0f766e,#14b8a6)', boxShadow: '0 0 16px rgba(20,184,166,0.35)' }}>
+            <BookOpen className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-[18px] font-[800] tracking-tight" style={{ color: 'var(--text-primary)' }}>{t.clinical_guidelines_title}</h1>
+            <span className="badge-offline mt-0.5 inline-flex"><WifiOff className="w-2.5 h-2.5" />{t.offline_capable}</span>
+          </div>
         </div>
-        <p className="text-slate-500 text-[13px]">
-          {t.clinical_guidelines_desc}
-        </p>
-      </div>
-
-      <div className="mb-6">
-        <div className="relative max-w-lg">
-          <Search className="w-5 h-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-          <input 
-            type="text" 
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 text-[14px] rounded-lg border border-slate-300 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 bg-white shadow-sm"
-            placeholder={language === 'en' ? 'Search guidelines by title or keyword...' : 'Cari pedoman berdasarkan judul atau kata kunci...'}
-          />
+        <div className="relative w-full sm:w-auto sm:min-w-[280px]">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-muted)' }} />
+          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}
+            className="glass-input w-full pl-9 pr-3 py-2.5 text-[13px] font-[500]"
+            placeholder={language === 'en' ? 'Search guidelines...' : 'Cari pedoman...'} />
         </div>
       </div>
 
       <div className="relative min-h-[300px]">
         {!guidelines ? (
-          <div className="absolute inset-0 flex items-center justify-center text-[14px] text-slate-500">
-            <span className="w-5 h-5 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin inline-block mr-3"></span>
-            {language === 'en' ? 'Loading database...' : 'Memuat database...'}
+          <div className="flex items-center justify-center gap-3 py-16">
+            <span className="w-5 h-5 border-2 border-t-transparent rounded-full animate-spin-slow" style={{ borderColor: 'rgba(20,184,166,0.5)', borderTopColor: 'transparent' }} />
+            <span className="text-[13px]" style={{ color: 'var(--text-secondary)' }}>{language === 'en' ? 'Loading database...' : 'Memuat database...'}</span>
           </div>
         ) : guidelines.length === 0 ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-[14px] text-slate-500">
-            <BookOpen className="w-10 h-10 text-slate-300 mb-3" />
-            {language === 'en' ? 'No guidelines found.' : 'Tidak ada pedoman ditemukan.'}
+          <div className="flex flex-col items-center justify-center py-16 gap-3">
+            <BookOpen className="w-10 h-10" style={{ color: 'var(--text-muted)' }} />
+            <span className="text-[13px]" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? 'No guidelines found.' : 'Tidak ada pedoman ditemukan.'}</span>
           </div>
         ) : (
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-            initial="hidden"
-            animate="show"
-            variants={{
-              hidden: { opacity: 0 },
-              show: {
-                opacity: 1,
-                transition: { staggerChildren: 0.05 }
-              }
-            }}
-          >
+          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            initial="hidden" animate="show"
+            variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.05 } } }}>
             <AnimatePresence mode="popLayout">
-              {guidelines.map(g => (
-                <motion.div 
-                  key={g.id}
-                  layout
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition-all flex flex-col h-full group"
-                >
-                  <div className="p-5 flex-1 flex flex-col">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100 group-hover:bg-white group-hover:shadow-sm transition-all">
-                        {getCategoryIcon(g.category)}
+              {guidelines.map(g => {
+                const catStyle = getCategoryStyle(g.category);
+                return (
+                  <motion.div key={g.id} layout initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }}
+                    className="glass-card flex flex-col h-full group cursor-default overflow-hidden">
+                    <div className="p-5 flex-1 flex flex-col">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="p-2.5 rounded-xl transition-all group-hover:scale-105"
+                          style={{ background: catStyle.bg, border: `1px solid ${catStyle.border}` }}>
+                          {getCategoryIcon(g.category)}
+                        </div>
+                        <span className="text-[10px] px-2.5 py-1 rounded-full font-[700] uppercase tracking-wider"
+                          style={{ background: catStyle.bg, border: `1px solid ${catStyle.border}`, color: catStyle.color }}>
+                          {g.category}
+                        </span>
                       </div>
-                      <span className={`text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider border ${getCategoryColor(g.category)}`}>
-                        {g.category}
-                      </span>
+                      <h3 className="font-[700] text-[14px] leading-snug mb-3 transition-colors" style={{ color: 'var(--text-primary)' }}>
+                        {language === 'en' ? g.title.en : g.title.id}
+                      </h3>
+                      <p className="text-[12px] leading-relaxed flex-1" style={{ color: 'var(--text-secondary)' }}>
+                        {language === 'en' ? g.content.en : g.content.id}
+                      </p>
                     </div>
-                    
-                    <h3 className="font-bold text-slate-900 text-[15px] leading-snug mb-3 group-hover:text-sky-700 transition-colors">
-                      {language === 'en' ? g.title.en : g.title.id}
-                    </h3>
-                    
-                    <p className="text-[13px] text-slate-600 leading-relaxed max-w-prose">
-                      {language === 'en' ? g.content.en : g.content.id}
-                    </p>
-                  </div>
-                  <div className="px-5 py-3 bg-slate-50 border-t border-slate-100 text-[12px] font-medium text-slate-500 flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 hover:text-sky-600 cursor-pointer transition-colors">
+                    <div className="px-5 py-3 flex items-center gap-2 text-[11px] font-[500] transition-all"
+                      style={{ borderTop: '1px solid rgba(255,255,255,0.05)', color: 'var(--text-muted)' }}
+                      onMouseEnter={e => (e.currentTarget.style.color = catStyle.color)}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}>
                       <FileText className="w-3.5 h-3.5" />
-                      {language === 'en' ? 'Read full guideline' : 'Baca pedoman lengkap'}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
+                      <span>{language === 'en' ? 'Read full guideline' : 'Baca pedoman lengkap'}</span>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </AnimatePresence>
           </motion.div>
         )}

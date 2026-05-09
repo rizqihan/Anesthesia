@@ -1,57 +1,12 @@
 export const GUIDELINES_DB = [
-  {
-    title: {
-      en: 'AHA/ACC Hypertension Guidelines 2017',
-      id: 'Pedoman Hipertensi AHA/ACC 2017'
-    },
-    category: 'Cardiology',
-    content: {
-      en: 'Normal: <120/<80 mmHg. Elevated: 120-129/<80 mmHg. Stage 1: 130-139 or 80-89 mmHg. Stage 2: >=140 or >=90 mmHg. Treatment recommendations based on ASCVD risk.',
-      id: 'Normal: <120/<80 mmHg. Meningkat: 120-129/<80 mmHg. Stadium 1: 130-139 atau 80-89 mmHg. Stadium 2: >=140 atau >=90 mmHg. Rekomendasi pengobatan berdasarkan risiko ASCVD.'
-    }
-  },
-  {
-    title: {
-      en: 'ADA Diabetes Guidelines 2023',
-      id: 'Pedoman Diabetes ADA 2023'
-    },
-    category: 'Endocrinology',
-    content: {
-      en: 'Diagnostic Criteria: FPG >= 126 mg/dL, or PG 2-hour >= 200 mg/dL, or A1C >= 6.5%. First line therapy: Metformin + lifestyle modifications. Target A1C generally < 7.0%.',
-      id: 'Kriteria Diagnostik: GDP >= 126 mg/dL, atau GD 2 Jam PP >= 200 mg/dL, atau A1C >= 6.5%. Terapi lini pertama: Metformin + modifikasi gaya hidup. Target A1C umumnya < 7.0%.'
-    }
-  },
-  {
-    title: {
-      en: 'GINA Asthma Guidelines 2023',
-      id: 'Pedoman Asma GINA 2023'
-    },
-    category: 'Pulmonology',
-    content: {
-      en: 'Focus on ICS-formoterol as reliever and controller therapy. Avoid SABA-only treatment due to risk of exacerbations. Stepwise approach to asthma management.',
-      id: 'Fokus pada ICS-formoterol sebagai terapi pelega dan pengontrol. Hindari pengobatan hanya dengan SABA karena risiko eksaserbasi. Pendekatan bertahap untuk manajemen asma.'
-    }
-  },
-  {
-    title: {
-      en: 'KDIGO CKD Guidelines 2012 (Updated)',
-      id: 'Pedoman PGK KDIGO 2012 (Diperbarui)'
-    },
-    category: 'Nephrology',
-    content: {
-      en: 'Classification based on CGA status (Cause, GFR category, Albuminuria category). Target BP < 120 mmHg systolic for most patients. Use RAS inhibitors and SGLT2 inhibitors.',
-      id: 'Klasifikasi berdasarkan status CGA (Penyebab, Kategori LFG, Kategori Albuminuria). Target TD < 120 mmHg sistolik untuk sebagian besar pasien. Gunakan penghambat RAS dan penghambat SGLT2.'
-    }
-  },
-  {
-    title: {
-      en: 'GOLD COPD Guidelines 2023',
-      id: 'Pedoman PPOK GOLD 2023'
-    },
-    category: 'Pulmonology',
-    content: {
-      en: 'Diagnosis requires FEV1/FVC < 0.70 post-bronchodilator. New ABE assessment tool combining exacerbation risk and symptoms. Initial pharmacological treatment: LAMA or LABA or LABA+LAMA.',
-      id: 'Diagnosis membutuhkan FEV1/FVC < 0.70 pasca-bronkodilator. Alat penilaian ABE baru yang menggabungkan risiko eksaserbasi dan gejala. Perawatan farmakologis awal: LAMA atau LABA atau LABA+LAMA.'
-    }
-  }
+  { title: { en: 'KDIGO 2024 CKD Guideline', id: 'Pedoman PGK KDIGO 2024' }, category: 'Nephrology', content: { en: 'Comprehensive guidelines for the evaluation and management of Chronic Kidney Disease, emphasizing eGFR and albuminuria.', id: 'Pedoman komprehensif untuk evaluasi dan manajemen Penyakit Ginjal Kronis, menekankan eGFR dan albuminuria.' } },
+  { title: { en: 'AHA/ACC 2023 Coronary Disease', id: 'AHA/ACC 2023 Penyakit Koroner' }, category: 'Cardiology', content: { en: 'Guideline for the management of patients with chronic coronary disease, focusing on lifestyle, medical therapy, and revascularization.', id: 'Pedoman untuk manajemen pasien dengan penyakit koroner kronis, dengan fokus pada gaya hidup, terapi medis, dan revaskularisasi.' } },
+  { title: { en: 'IDSA/ATS 2019 CAP Guidelines', id: 'Pedoman CAP IDSA/ATS 2019' }, category: 'Pulmonology', content: { en: 'Diagnosis and treatment of adults with community-acquired pneumonia, including macrolide and beta-lactam recommendations.', id: 'Diagnosis dan pengobatan orang dewasa dengan pneumonia didapat dari komunitas, termasuk rekomendasi makrolida dan beta-laktam.' } },
+  { title: { en: 'WGO 2023 Probiotics & Prebiotics', id: 'WGO 2023 Probiotik & Prebiotik' }, category: 'Gastroenterology', content: { en: 'Global guidelines detailing evidence-based indications for probiotic and prebiotic strains in gastrointestinal disorders.', id: 'Pedoman global yang merinci indikasi berbasis bukti untuk strain probiotik dan prebiotik pada gangguan gastrointestinal.' } },
+  { title: { en: 'EASD/ADA 2022 Hyperglycemia', id: 'Hiperglikemia EASD/ADA 2022' }, category: 'Endocrinology', content: { en: 'Consensus report on the management of hyperglycemia in type 2 diabetes, highlighting weight management and cardiovascular risk.', id: 'Laporan konsensus tentang manajemen hiperglikemia pada diabetes tipe 2, menyoroti manajemen berat badan dan risiko kardiovaskular.' } },
+  { title: { en: 'GINA 2023 Asthma Strategy', id: 'Strategi Asma GINA 2023' }, category: 'Pulmonology', content: { en: 'Global strategy for asthma management and prevention, advocating against SABA-only treatment.', id: 'Strategi global untuk manajemen dan pencegahan asma, merekomendasikan untuk menghindari pengobatan hanya dengan SABA.' } },
+  { title: { en: 'GOLD 2024 COPD Strategy', id: 'Strategi PPOK GOLD 2024' }, category: 'Pulmonology', content: { en: 'Diagnosis, management, and prevention of COPD, introducing the ABE assessment tool and blood eosinophil guides.', id: 'Diagnosis, tata laksana, dan pencegahan PPOK, memperkenalkan alat penilaian ABE dan panduan eosinofil darah.' } },
+  { title: { en: 'AACE 2023 T2D Algorithm', id: 'Algoritma DM Tipe 2 AACE 2023' }, category: 'Endocrinology', content: { en: 'Comprehensive algorithm for type 2 diabetes management, featuring complication-centric approaches.', id: 'Algoritma komprehensif untuk manajemen diabetes tipe 2, menampilkan pendekatan yang berpusat pada komplikasi.' } },
+  { title: { en: 'ESC 2024 Hypertension', id: 'Hipertensi ESC 2024' }, category: 'Cardiology', content: { en: 'European guidelines for the management of elevated blood pressure and hypertension, updating target blood pressure goals.', id: 'Pedoman Eropa untuk manajemen tekanan darah tinggi dan hipertensi, memperbarui target pencapaian tekanan darah.' } },
+  { title: { en: 'ACOG Gestational Hypertension', id: 'Hipertensi Gestasional ACOG' }, category: 'Obstetrics', content: { en: 'Practice bulletin on the diagnosis and management of gestational hypertension and preeclampsia.', id: 'Buletin praktik tentang diagnosis dan pengelolaan hipertensi gestasional dan preeklamsia.' } }
 ];

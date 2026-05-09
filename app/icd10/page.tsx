@@ -11,106 +11,82 @@ import { motion, AnimatePresence } from 'motion/react';
 export default function Icd10Page() {
   const { language } = useAppStore();
   const t = translations[language];
-
   const [icdSearch, setIcdSearch] = useState('');
-  const filteredICD = useLiveQuery(
-    async () => {
-      if (typeof window === 'undefined') return [];
-      if (!icdSearch) return [];
-      const query = icdSearch.toLowerCase();
-      // Manual filter works well for partial word queries on small/medium DB
-      return db.icd10
-        .filter(item => 
-          item.code.toLowerCase().includes(query) || 
-          item.name.toLowerCase().includes(query) || 
-          item.indonesian.toLowerCase().includes(query)
-        )
-        .limit(50)
-        .toArray();
-    },
-    [icdSearch]
-  );
+
+  const filteredICD = useLiveQuery(async () => {
+    if (typeof window === 'undefined') return [];
+    if (!icdSearch) return [];
+    const q = icdSearch.toLowerCase();
+    return db.icd10.filter(item =>
+      item.code.toLowerCase().includes(q) ||
+      item.name.toLowerCase().includes(q) ||
+      item.indonesian.toLowerCase().includes(q)
+    ).limit(50).toArray();
+  }, [icdSearch]);
 
   return (
-    <div className="space-y-4">
-      <div className="mb-4">
-        <div className="flex items-center space-x-3 mb-1">
-          <h2 className="text-[18px] font-bold text-slate-900">{t.icd10_search}</h2>
-          <span className="inline-flex items-center space-x-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-100">
-            <WifiOff className="w-3 h-3" />
-            <span>{t.offline_capable}</span>
-          </span>
+    <div className="space-y-5">
+      <div className="flex items-center gap-3">
+        <div className="icon-box" style={{ background: 'linear-gradient(135deg,#b45309,#f59e0b)', boxShadow: '0 0 16px rgba(245,158,11,0.35)' }}>
+          <Book className="w-5 h-5 text-white" />
         </div>
-        <p className="text-slate-500 text-[13px]">
-          {language === 'en' ? 'Search for ICD-10 codes and conditions offline.' : 'Cari kode ICD-10 dan kondisi secara offline.'}
-        </p>
+        <div>
+          <h1 className="text-[18px] font-[800] tracking-tight" style={{ color: 'var(--text-primary)' }}>{t.icd10_search}</h1>
+          <span className="badge-offline mt-0.5 inline-flex"><WifiOff className="w-2.5 h-2.5" />{t.offline_capable}</span>
+        </div>
       </div>
 
-      <div className="bg-white rounded-lg border border-slate-200 flex flex-col overflow-hidden max-w-4xl shadow-sm">
-        <div className="px-3.5 py-2.5 border-b border-slate-100 bg-slate-50 uppercase tracking-[0.5px] text-[13px] font-bold text-slate-700 flex items-center space-x-2">
-          <Book className="w-4 h-4 text-slate-500" />
-          <span>{t.icd10_search}</span>
+      <div className="glass-card-static overflow-hidden max-w-4xl">
+        <div className="section-header">
+          <Book className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+          <span className="section-header-label">{t.icd10_search}</span>
         </div>
-        <div className="p-3.5 flex flex-col gap-3">
+        <div className="p-5 flex flex-col gap-3">
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-            <input 
-              type="text"
-              value={icdSearch}
-              onChange={(e) => setIcdSearch(e.target.value)}
-              className="w-full rounded-md border border-slate-300 pl-9 pr-2 py-2 text-[13px] focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 transition-all font-medium"
-              placeholder={t.search_icd}
-              autoFocus
-            />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-muted)' }} />
+            <input type="text" value={icdSearch} onChange={(e) => setIcdSearch(e.target.value)} autoFocus
+              className="glass-input w-full pl-9 pr-3 py-2.5 text-[13px] font-[500]"
+              placeholder={t.search_icd} />
           </div>
-          
+
           <AnimatePresence>
             {icdSearch && (
-              <motion.div 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="border border-slate-200 rounded divide-y divide-slate-100 bg-white max-h-[500px] overflow-y-auto"
-              >
-                {filteredICD && filteredICD.length > 0 ? (
-                  filteredICD.map((item, index) => (
-                    <motion.div 
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.02 }}
-                      key={item.code} 
-                      className="px-3 py-3 flex flex-col sm:flex-row sm:items-baseline sm:justify-between text-[13px] hover:bg-slate-50 transition-colors"
-                    >
-                      <div className="flex items-center space-x-2">
-                         <span className="font-bold text-sky-700 w-14 shrink-0">{item.code}</span>
-                         <span className="text-slate-800 font-medium">{language === 'en' ? item.name : item.indonesian}</span>
-                      </div>
-                      <span className="text-slate-500 text-[11px] mt-1 sm:mt-0">{language === 'en' ? item.indonesian : item.name}</span>
-                    </motion.div>
-                  ))
-                ) : (
-                  <div className="px-3 py-8 text-center text-[12px] text-slate-500">
-                     {language === 'en' ? 'No ICD-10 codes found for your search.' : 'Tidak ada kode ICD-10 yang ditemukan.'}
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
+                className="rounded-xl overflow-hidden divide-y max-h-[520px] overflow-y-auto" style={{ border: '1px solid var(--border-card)' }}>
+                {filteredICD && filteredICD.length > 0 ? filteredICD.map((item, idx) => (
+                  <motion.div key={item.code} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.02 }}
+                    className="px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 transition-colors cursor-default"
+                    style={{ background: 'var(--bg-card)' }}
+                    onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card-hover)')}
+                    onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-card)')}>
+                    <div className="flex items-center gap-3">
+                      <span className="font-[800] text-[13px] w-16 shrink-0 font-mono" style={{ color: '#fbbf24' }}>{item.code}</span>
+                      <span className="font-[500] text-[13px]" style={{ color: 'var(--text-primary)' }}>
+                        {language === 'en' ? item.name : item.indonesian}
+                      </span>
+                    </div>
+                    <span className="text-[11px] ml-[76px] sm:ml-0" style={{ color: 'var(--text-muted)' }}>
+                      {language === 'en' ? item.indonesian : item.name}
+                    </span>
+                  </motion.div>
+                )) : (
+                  <div className="py-10 text-center text-[12px]" style={{ color: 'var(--text-muted)' }}>
+                    {language === 'en' ? 'No ICD-10 codes found.' : 'Tidak ada kode ICD-10 ditemukan.'}
                   </div>
                 )}
               </motion.div>
             )}
           </AnimatePresence>
+
           {!icdSearch && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-8 text-slate-400 text-[12px] border border-dashed border-slate-200 rounded bg-slate-50"
-            >
+            <div className="py-10 text-center rounded-xl text-[12px]" style={{ border: '1px dashed rgba(255,255,255,0.07)', color: 'var(--text-muted)' }}>
               {t.search_icd}
-            </motion.div>
+            </div>
           )}
         </div>
       </div>
-      
-      <div className="text-[11px] text-slate-400 max-w-4xl text-center mt-4">
-        {t.disclaimer}
-      </div>
+
+      <div className="text-center text-[11px]" style={{ color: 'var(--text-muted)' }}>{t.disclaimer}</div>
     </div>
   );
 }

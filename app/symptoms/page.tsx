@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Activity, AlertTriangle, Cpu, WifiOff } from 'lucide-react';
+import { Activity, Cpu, AlertCircle } from 'lucide-react';
 import { generateAIResponse } from '@/lib/ai';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function SymptomCheckerPage() {
   const { language, isOffline } = useAppStore();
@@ -16,118 +17,85 @@ export default function SymptomCheckerPage() {
 
   const handleAnalyze = async () => {
     if (!symptom.trim()) return;
-    setLoading(true);
-    setResult('');
-    setError('');
-
+    setLoading(true); setResult(''); setError('');
     if (isOffline) {
-      setError(language === 'en' 
-        ? 'OFFLINE MODE: Symptom Checker requires internet connection for AI analysis.' 
-        : 'MODE OFFLINE: Pemeriksa Gejala memerlukan koneksi internet untuk analisis AI.');
-      setLoading(false);
-      return;
+      setError(language === 'en' ? 'OFFLINE MODE: Requires internet for AI analysis.' : 'MODE OFFLINE: Memerlukan internet.');
+      setLoading(false); return;
     }
-
     try {
-      const prompt = `You are a medical assistant app tool used by doctors. The doctor is analyzing these symptoms: "${symptom}". 
-      Respond in ${language === 'en' ? 'English' : 'Indonesian'}. 
-      Provide a concise differential diagnosis, flag any red flags strictly, and recommend next steps. 
-      Start with a medical disclaimer.`;
-
-      const responseText = await generateAIResponse(prompt);
-
-      setResult(responseText);
+      const prompt = `You are a medical assistant used by doctors. Analyze: "${symptom}". Respond in ${language === 'en' ? 'English' : 'Indonesian'}. Provide differential diagnosis, red flags, and next steps. Start with a disclaimer.`;
+      setResult(await generateAIResponse(prompt));
     } catch (err: any) {
-      setError(err.message || (language === 'en' ? 'Failed to process request. Please try again.' : 'Gagal memproses permintaan. Silakan coba lagi.'));
-    } finally {
-      setLoading(false);
-    }
+      setError(err.message || (language === 'en' ? 'Failed to analyze.' : 'Gagal menganalisis.'));
+    } finally { setLoading(false); }
   };
 
   return (
-    <div className="space-y-4">
-      <div className="mb-4">
-        <div className="flex items-center space-x-3 mb-1">
-          <h2 className="text-[18px] font-bold text-slate-900">{t.symptom_checker}</h2>
-          <div className="flex space-x-1.5">
-            <span className="inline-flex items-center space-x-1 bg-purple-50 text-purple-700 text-[10px] font-bold px-2 py-0.5 rounded border border-purple-100">
-              <Cpu className="w-3 h-3" />
-              <span>{t.requires_ai}</span>
-            </span>
-          </div>
+    <div className="space-y-5 max-w-4xl">
+      <div className="flex items-center gap-3">
+        <div className="icon-box" style={{ background: 'linear-gradient(135deg,#047857,#10b981)', boxShadow: '0 0 16px rgba(16,185,129,0.35)' }}>
+          <Activity className="w-5 h-5 text-white" />
         </div>
-        <p className="text-slate-500 text-[13px]">
-          {language === 'en' ? 'AI-powered diagnostic assistance.' : 'Bantuan diagnostik didukung AI.'}
-        </p>
+        <div>
+          <h1 className="text-[18px] font-[800] tracking-tight" style={{ color: 'var(--text-primary)' }}>{t.symptom_checker}</h1>
+          <span className="badge-ai mt-0.5 inline-flex"><Cpu className="w-2.5 h-2.5" />{t.requires_ai}</span>
+        </div>
       </div>
 
-      <div className="bg-white rounded-lg border border-slate-200 flex flex-col overflow-hidden max-w-4xl">
-        <div className="px-3.5 py-2.5 border-b border-slate-100 bg-slate-50 uppercase tracking-[0.5px] text-[13px] font-bold text-slate-700">
-          {language === 'en' ? 'Symptom Entry' : 'Entri Gejala'}
-        </div>
-        <div className="p-3.5 flex flex-col md:flex-row gap-4">
-          <div className="flex-1 flex flex-col gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Input Panel */}
+        <div className="glass-card-static overflow-hidden">
+          <div className="section-header">
+            <span className="section-header-label">{language === 'en' ? 'Symptom Entry' : 'Entri Gejala'}</span>
+          </div>
+          <div className="p-5 flex flex-col gap-4">
             <div>
-              <label className="block text-[11px] font-semibold text-slate-700 mb-1">{t.describe_symptoms}</label>
-              <textarea 
-                rows={5}
-                value={symptom}
-                onChange={(e) => setSymptom(e.target.value)}
-                className="w-full rounded border border-slate-300 px-2 py-2 text-[13px] focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 resize-none"
-                placeholder={language === 'en' ? "e.g., 45yo male presenting with sudden onset chest pain radiating to left arm..." : "misal: pria 45 tahun datang dengan keluhan nyeri dada mendadak menjalar ke lengan kiri..."}
-              />
+              <label className="form-label">{t.describe_symptoms}</label>
+              <textarea rows={6} value={symptom} onChange={(e) => setSymptom(e.target.value)}
+                className="glass-input w-full px-3 py-2.5 text-[13px] font-[500] resize-none"
+                placeholder={language === 'en' ? 'e.g., 45yo male with sudden onset chest pain radiating to left arm, diaphoresis...' : 'mis: Pria 45 tahun, nyeri dada mendadak menjalar ke lengan kiri...'} />
             </div>
-            
-            <button 
-              onClick={handleAnalyze}
-              disabled={loading || !symptom.trim()}
-              className="w-full rounded bg-sky-600 text-white font-semibold py-2.5 text-[13px] hover:bg-sky-500 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 disabled:opacity-50 flex items-center justify-center space-x-2 mt-auto"
-            >
-              {loading ? (
-                <div className="flex space-x-2 items-center">
-                  <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                   <span>{language === 'en' ? 'Analyzing...' : 'Menganalisis...'}</span>
-                </div>
-              ) : (
-                 <>
-                   <Cpu className="w-4 h-4" />
-                   <span>{t.analyze_symptoms}</span>
-                 </>
-              )}
+            <button onClick={handleAnalyze} disabled={loading || !symptom.trim()} className="btn-primary w-full py-2.5 text-[13px] flex items-center justify-center gap-2">
+              {loading ? (<><span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin-slow" /><span>{language === 'en' ? 'Analyzing...' : 'Menganalisis...'}</span></>) : (<><Cpu className="w-4 h-4" /><span>{t.analyze_symptoms}</span></>)}
             </button>
           </div>
+        </div>
 
-          <div className="flex-1 border-t md:border-t-0 md:border-l border-slate-200 pt-4 md:pt-0 md:pl-4 flex flex-col">
-            <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-              {language === 'en' ? 'Possible Conditions' : 'Kemungkinan Kondisi'}
-            </label>
-            
-            {!result && !error && !loading && (
-               <div className="flex-1 flex items-center justify-center text-[12px] text-slate-400 border border-dashed border-slate-300 rounded bg-slate-50 p-4 text-center min-h-[150px]">
-                 {language === 'en' ? 'Results will appear here.' : 'Hasil akan muncul di sini.'}
-               </div>
-            )}
-
-            {error && (
-                <div className="flex-1 p-3 text-[12px] text-red-700 bg-red-50 border border-red-200 rounded min-h-[150px]">
-                    {error}
-                </div>
-            )}
-
-            {result && (
-              <div className="flex-1 bg-white border border-slate-300 rounded p-3 overflow-y-auto max-h-[300px]">
-                <div className="text-[12px] text-slate-700 whitespace-pre-wrap leading-relaxed">
-                  {result}
-                </div>
-              </div>
-            )}
+        {/* Result Panel */}
+        <div className="glass-card-static overflow-hidden flex flex-col">
+          <div className="section-header">
+            <span className="section-header-label">{language === 'en' ? 'Possible Conditions' : 'Kemungkinan Kondisi'}</span>
+          </div>
+          <div className="p-5 flex-1 flex flex-col">
+            <AnimatePresence mode="wait">
+              {!result && !error && !loading && (
+                <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex-1 flex items-center justify-center rounded-xl min-h-[160px]" style={{ border: '1px dashed rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+                  <p className="text-[12px]" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? 'Results will appear here.' : 'Hasil akan muncul di sini.'}</p>
+                </motion.div>
+              )}
+              {loading && (
+                <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex-1 flex items-center justify-center gap-3 min-h-[160px]">
+                  <span className="w-5 h-5 border-2 border-t-transparent rounded-full animate-spin-slow" style={{ borderColor: 'rgba(16,185,129,0.6)', borderTopColor: 'transparent' }} />
+                  <span className="text-[12px]" style={{ color: 'var(--text-secondary)' }}>{language === 'en' ? 'AI is thinking...' : 'AI sedang berpikir...'}</span>
+                </motion.div>
+              )}
+              {error && (
+                <motion.div key="error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-start gap-3 p-4 rounded-xl" style={{ background: 'rgba(244,63,94,0.08)', border: '1px solid rgba(244,63,94,0.2)' }}>
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#fb7185' }} />
+                  <span className="text-[12px]" style={{ color: '#fda4af' }}>{error}</span>
+                </motion.div>
+              )}
+              {result && (
+                <motion.div key="result" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="result-box overflow-y-auto max-h-[360px] flex-1">
+                  <div className="text-[12px] leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--text-secondary)' }}>{result}</div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
-      
-      <div className="text-[11px] text-slate-400 max-w-4xl text-center mt-4">
-        {t.disclaimer}
-      </div>
+
+      <div className="text-center text-[11px]" style={{ color: 'var(--text-muted)' }}>{t.disclaimer}</div>
     </div>
   );
 }

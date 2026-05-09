@@ -3,18 +3,18 @@ import './globals.css';
 import AppShell from '@/components/AppShell';
 
 export const metadata: Metadata = {
-  title: 'Anesthesia',
-  description: 'Medical Professional Mini-Apps Suite',
+  title: 'Anesthesia — Clinical Assistant',
+  description: 'Premium medical professional mini-apps suite for anesthesiologists',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     title: 'Anesthesia',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#f8fafc',
+  themeColor: '#080d17',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -26,8 +26,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
-      <body className="bg-slate-100 text-slate-900 antialiased h-screen overflow-hidden flex flex-col font-['Helvetica_Neue',Arial,sans-serif]" suppressHydrationWarning>
+    <html lang="en" style={{ colorScheme: 'dark' }}>
+      <body
+        className="antialiased h-screen overflow-hidden flex flex-col"
+        style={{ background: 'var(--bg-base)', color: 'var(--text-primary)', fontFamily: "'Inter', sans-serif" }}
+        suppressHydrationWarning
+      >
         <AppShell>
           {children}
         </AppShell>
@@ -35,5 +39,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-

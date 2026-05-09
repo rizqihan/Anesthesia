@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Syringe, WifiOff } from 'lucide-react';
+import { Syringe, WifiOff, AlertTriangle } from 'lucide-react';
 import db from '@/lib/db';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { motion, AnimatePresence } from 'motion/react';
@@ -15,117 +15,95 @@ function DosageCalculatorContent() {
   const searchParams = useSearchParams();
   const initDrugId = searchParams?.get('drug');
 
-  // Only drugs with dosing info
   const calculableDrugs = useLiveQuery(async () => {
     if (typeof window === 'undefined') return [];
     const drugs = await db.drugs.toArray();
     return drugs.filter(d => Boolean(d.dosing));
   }, []) || [];
 
-  const bestInitialDrug = (initDrugId && calculableDrugs.some(d => d.id === initDrugId)) 
-    ? initDrugId 
-    : (calculableDrugs[0]?.id || '');
-
+  const bestInitialDrug = (initDrugId && calculableDrugs.some(d => d.id === initDrugId)) ? initDrugId : (calculableDrugs[0]?.id || '');
   const [weight, setWeight] = useState('');
   const [selectedDrug, setSelectedDrug] = useState('');
-  const [result, setResult] = useState<{ dose: number, maxReached: boolean } | null>(null);
+  const [result, setResult] = useState<{ dose: number; maxReached: boolean } | null>(null);
 
   const actualSelectedDrug = selectedDrug || bestInitialDrug;
   const drug = calculableDrugs.find(d => d.id === actualSelectedDrug);
 
   const handleCalculate = () => {
     const w = parseFloat(weight);
-    if (w > 0 && drug && drug.dosing) {
-      let calculatedDose = w * drug.dosing.dosePerKg;
+    if (w > 0 && drug?.dosing) {
+      let dose = w * drug.dosing.dosePerKg;
       let maxReached = false;
-      if (calculatedDose > drug.dosing.maxDose) {
-        calculatedDose = drug.dosing.maxDose;
-        maxReached = true;
-      }
-      setResult({ dose: calculatedDose, maxReached });
+      if (dose > drug.dosing.maxDose) { dose = drug.dosing.maxDose; maxReached = true; }
+      setResult({ dose, maxReached });
     }
   };
 
   return (
-    <div className="space-y-4">
-      <div className="mb-4">
-        <div className="flex items-center space-x-3 mb-1">
-          <h2 className="text-[18px] font-bold text-slate-900">{t.dosage_calculator}</h2>
-          <span className="inline-flex items-center space-x-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-100">
-            <WifiOff className="w-3 h-3" />
-            <span>{t.offline_capable}</span>
-          </span>
+    <div className="space-y-5">
+      <div className="flex items-center gap-3">
+        <div className="icon-box" style={{ background: 'linear-gradient(135deg,#0369a1,#0ea5e9)', boxShadow: '0 0 16px rgba(14,165,233,0.35)' }}>
+          <Syringe className="w-5 h-5 text-white" />
         </div>
-        <p className="text-slate-500 text-[13px]">
-          {language === 'en' ? 'Weight-based dosing reference.' : 'Referensi dosis berbasis berat badan.'}
-        </p>
+        <div>
+          <h1 className="text-[18px] font-[800] tracking-tight" style={{ color: 'var(--text-primary)' }}>{t.dosage_calculator}</h1>
+          <span className="badge-offline mt-0.5 inline-flex"><WifiOff className="w-2.5 h-2.5" />{t.offline_capable}</span>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="bg-white rounded-lg border border-slate-200 flex flex-col overflow-hidden">
-          <div className="px-3.5 py-2.5 border-b border-slate-100 bg-slate-50 uppercase tracking-[0.5px] text-[13px] font-bold text-slate-700">
-            {language === 'en' ? 'Calculate Dosage' : 'Hitung Dosis'}
+        <div className="glass-card-static overflow-hidden">
+          <div className="section-header">
+            <span className="section-header-label">{language === 'en' ? 'Calculate Dosage' : 'Hitung Dosis'}</span>
           </div>
-          <div className="p-3.5 flex-1 flex flex-col gap-3">
+          <div className="p-5 flex flex-col gap-4">
             <div>
-              <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-                {language === 'en' ? 'Select Drug' : 'Pilih Obat'}
-              </label>
-              <select
-                value={actualSelectedDrug}
-                onChange={(e) => setSelectedDrug(e.target.value)}
-                className="w-full rounded border border-slate-300 px-2 py-2 text-[13px] focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 bg-white"
-              >
-                {calculableDrugs.map(d => (
-                  <option key={d.id} value={d.id}>{d.genericName} ({d.dosing?.dosePerKg} {d.dosing?.unit}/kg)</option>
-                ))}
+              <label className="form-label">{language === 'en' ? 'Select Drug' : 'Pilih Obat'}</label>
+              <select value={actualSelectedDrug} onChange={(e) => setSelectedDrug(e.target.value)} className="glass-input w-full px-3 py-2.5 text-[13px]">
+                {calculableDrugs.map(d => (<option key={d.id} value={d.id}>{d.genericName} ({d.dosing?.dosePerKg} {d.dosing?.unit}/kg)</option>))}
               </select>
-              {drug && drug.dosing && (
-                <div className="mt-2 text-[12px] text-slate-600 bg-slate-50 p-2 rounded border border-slate-200">
-                  <span className="font-semibold text-slate-900">Info: </span> 
-                  {language === 'en' ? drug.dosing.notes.en : drug.dosing.notes.id} 
+              {drug?.dosing && (
+                <div className="mt-2 p-3 rounded-lg text-[11px]" style={{ background: 'rgba(14,165,233,0.08)', border: '1px solid rgba(14,165,233,0.15)' }}>
+                  <span className="font-[600]" style={{ color: '#38bdf8' }}>Info: </span>
+                  <span style={{ color: 'var(--text-secondary)' }}>{language === 'en' ? drug.dosing.notes.en : drug.dosing.notes.id}</span>
                   <br />
-                  <span className="text-[11px] text-slate-400 mt-1 block">Freq: {drug.dosing.frequency} | Max: {drug.dosing.maxDose} {drug.dosing.unit}</span>
+                  <span style={{ color: 'var(--text-muted)' }}>Freq: {drug.dosing.frequency} | Max: {drug.dosing.maxDose} {drug.dosing.unit}</span>
                 </div>
               )}
             </div>
-
             <div>
-              <label className="block text-[11px] font-semibold text-slate-700 mb-1">{t.patient_weight}</label>
-              <input 
-                type="number"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-                className="w-full rounded border border-slate-300 px-2 py-2 text-[13px] focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600"
-                placeholder="e.g. 20"
-              />
+              <label className="form-label">{t.patient_weight}</label>
+              <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="glass-input w-full px-3 py-2.5 text-[13px]" placeholder="e.g. 20" />
             </div>
+            <button onClick={handleCalculate} disabled={!weight} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
+          </div>
+        </div>
 
-            <button 
-              onClick={handleCalculate}
-              disabled={!weight}
-              className="mt-2 w-full rounded bg-sky-600 text-white font-semibold py-2.5 text-[13px] hover:bg-sky-500 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 disabled:opacity-50"
-            >
-              {t.calculate}
-            </button>
-
+        <div className="flex flex-col gap-4">
+          <AnimatePresence>
             {result && (
-              <div className="mt-2 p-3 bg-slate-50 border border-dashed border-slate-300 rounded text-center">
-                <div className="text-[11px] text-slate-500 uppercase font-semibold">
+              <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="glass-card-static p-6 text-center">
+                <div className="text-[10px] font-[700] uppercase tracking-[1.5px] mb-2" style={{ color: 'var(--text-muted)' }}>
                   {language === 'en' ? 'Recommended Dose' : 'Dosis Rekomendasi'}
                 </div>
-                <div className="text-[24px] font-bold text-sky-600 flex justify-center items-baseline space-x-1">
-                  <span>{result.dose.toFixed(1)}</span>
-                  <span className="text-[14px] text-slate-500 font-normal">{drug?.dosing?.unit}</span>
+                <div className="text-[48px] font-[800] tracking-tight" style={{ color: '#38bdf8' }}>
+                  {result.dose.toFixed(1)}
+                  <span className="text-[18px] font-[400] ml-2" style={{ color: 'var(--text-secondary)' }}>{drug?.dosing?.unit}</span>
                 </div>
                 {result.maxReached && (
-                  <div className="mt-1 text-[11px] font-semibold text-orange-600 bg-orange-100 rounded px-2 py-0.5 inline-block">
-                    {language === 'en' ? 'Maximum adult dose reached' : 'Mencapai batas maksimal dosis'}
+                  <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-[600]" style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.25)', color: '#fbbf24' }}>
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                    <span>{language === 'en' ? 'Maximum dose reached' : 'Mencapai batas maksimal'}</span>
                   </div>
                 )}
-              </div>
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
+          {!result && (
+            <div className="glass-card-static p-6 flex items-center justify-center min-h-[160px]" style={{ border: '1px dashed rgba(255,255,255,0.08)' }}>
+              <p className="text-[12px]" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? 'Result will appear here' : 'Hasil akan muncul di sini'}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -134,7 +112,7 @@ function DosageCalculatorContent() {
 
 export default function DosagePage() {
   return (
-    <Suspense fallback={<div className="p-4 text-slate-500 text-sm">Loading dosage calculator...</div>}>
+    <Suspense fallback={<div className="p-4 text-[13px]" style={{ color: 'var(--text-muted)' }}>Loading...</div>}>
       <DosageCalculatorContent />
     </Suspense>
   );

@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Calculator, Pill, Activity, Syringe, Sparkles, BookOpen, Cpu, WifiOff, Book } from 'lucide-react';
+import { Calculator, Pill, Activity, Syringe, BookOpen, Cpu, WifiOff, Book, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function Home() {
@@ -16,116 +16,192 @@ export default function Home() {
       title: t.medical_calculators,
       icon: Calculator,
       href: '/calculators',
-      description: language === 'en' ? 'BMI, Creatinine Clearance, etc.' : 'IMT, Klirens Kreatinin, dll.',
-      color: 'bg-indigo-100 text-indigo-700',
-      tags: ['offline']
+      description: language === 'en' ? 'BMI, IBW/ABW, Creatinine Clearance, eGFR' : 'IMT, BBI/BBD, Klirens Kreatinin, eGFR',
+      iconBg: 'linear-gradient(135deg, #1d4ed8, #3b82f6)',
+      iconGlow: 'rgba(59,130,246,0.35)',
+      accentColor: '#60a5fa',
+      tags: ['offline'] as ('offline' | 'ai')[],
     },
     {
       title: t.interaction_checker,
       icon: Pill,
       href: '/interactions',
-      description: language === 'en' ? 'Check interactions between multiple drugs' : 'Cek interaksi antara beberapa obat',
-      color: 'bg-rose-100 text-rose-700',
-      tags: ['ai']
+      description: language === 'en' ? 'AI-powered drug-drug interaction analysis' : 'Analisis interaksi obat didukung AI',
+      iconBg: 'linear-gradient(135deg, #be123c, #f43f5e)',
+      iconGlow: 'rgba(244,63,94,0.35)',
+      accentColor: '#fb7185',
+      tags: ['ai'] as ('offline' | 'ai')[],
     },
     {
       title: t.symptom_checker,
       icon: Activity,
       href: '/symptoms',
-      description: language === 'en' ? 'AI-powered symptom analysis' : 'Analisis gejala didukung AI',
-      color: 'bg-emerald-100 text-emerald-700',
-      tags: ['ai']
+      description: language === 'en' ? 'Differential diagnosis & red flag detection' : 'Diagnosis banding & deteksi red flag',
+      iconBg: 'linear-gradient(135deg, #047857, #10b981)',
+      iconGlow: 'rgba(16,185,129,0.35)',
+      accentColor: '#34d399',
+      tags: ['ai'] as ('offline' | 'ai')[],
     },
     {
       title: t.icd10_search,
       icon: Book,
       href: '/icd10',
-      description: language === 'en' ? 'Quick offline dictionary for ICD-10 codes' : 'Kamus offline cepat untuk kode ICD-10',
-      color: 'bg-amber-100 text-amber-700',
-      tags: ['offline']
+      description: language === 'en' ? 'Offline ICD-10 code lookup & classification' : 'Pencarian kode ICD-10 offline',
+      iconBg: 'linear-gradient(135deg, #b45309, #f59e0b)',
+      iconGlow: 'rgba(245,158,11,0.35)',
+      accentColor: '#fbbf24',
+      tags: ['offline'] as ('offline' | 'ai')[],
     },
     {
       title: t.dosage_calculator,
       icon: Syringe,
       href: '/dosage',
-      description: language === 'en' ? 'Weight-based pediatric/adult dosing' : 'Dosis pediatrik/dewasa berbasis berat badan',
-      color: 'bg-sky-100 text-sky-700',
-      tags: ['offline']
+      description: language === 'en' ? 'Weight-based pediatric & adult dosing' : 'Dosis pediatrik/dewasa berbasis berat badan',
+      iconBg: 'linear-gradient(135deg, #0369a1, #0ea5e9)',
+      iconGlow: 'rgba(14,165,233,0.35)',
+      accentColor: '#38bdf8',
+      tags: ['offline'] as ('offline' | 'ai')[],
     },
     {
       title: t.drug_formulary,
       icon: Pill,
       href: '/formulary',
-      description: language === 'en' ? 'Search drugs, indications, and formulations offline' : 'Cari obat, indikasi, dan formulasi secara offline',
-      color: 'bg-indigo-100 text-indigo-700',
-      tags: ['offline']
+      description: language === 'en' ? 'Drugs, indications, contraindications & formulations' : 'Obat, indikasi, kontraindikasi & formulasi',
+      iconBg: 'linear-gradient(135deg, #5b21b6, #8b5cf6)',
+      iconGlow: 'rgba(139,92,246,0.35)',
+      accentColor: '#a78bfa',
+      tags: ['offline'] as ('offline' | 'ai')[],
     },
     {
       title: t.clinical_guidelines_title,
       icon: BookOpen,
       href: '/guidelines',
-      description: t.clinical_guidelines_desc,
-      color: 'bg-teal-100 text-teal-700',
-      tags: ['offline']
+      description: language === 'en' ? 'Evidence-based clinical practice guidelines' : 'Pedoman praktik klinis berbasis bukti',
+      iconBg: 'linear-gradient(135deg, #0f766e, #14b8a6)',
+      iconGlow: 'rgba(20,184,166,0.35)',
+      accentColor: '#2dd4bf',
+      tags: ['offline'] as ('offline' | 'ai')[],
     },
   ];
 
   const container = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
+    show: { opacity: 1, transition: { staggerChildren: 0.07 } },
   };
 
-  const itemAnim: any = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 30 } }
+  const cardAnim = {
+    hidden: { opacity: 0, y: 16 },
+    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 350, damping: 30 } },
   };
 
   return (
-    <div className="space-y-4">
-      <div className="mb-4">
-        <h2 className="text-[18px] font-bold text-slate-900 mb-1">
-          {language === 'en' ? 'Dashboard' : 'Dasbor'}
-        </h2>
-        <p className="text-slate-500 text-[13px]">
-          {language === 'en' ? 'Quick access to clinical tools.' : 'Akses cepat ke alat klinis.'}
-        </p>
-      </div>
+    <div className="space-y-6">
+      {/* Hero Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="flex items-start justify-between"
+      >
+        <div>
+          <h1 className="text-[22px] font-[800] tracking-tight gradient-text mb-1">
+            {language === 'en' ? 'Clinical Dashboard' : 'Dasbor Klinis'}
+          </h1>
+          <p className="text-[13px]" style={{ color: 'var(--text-secondary)' }}>
+            {language === 'en'
+              ? '7 tools · AI-powered & offline-capable'
+              : '7 alat · Didukung AI & dapat digunakan offline'}
+          </p>
+        </div>
+        <div
+          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-[600]"
+          style={{
+            background: 'rgba(16,185,129,0.1)',
+            border: '1px solid rgba(16,185,129,0.2)',
+            color: '#34d399',
+          }}
+        >
+          <span className="status-dot status-dot-green" />
+          <span>{language === 'en' ? 'System Nominal' : 'Sistem Normal'}</span>
+        </div>
+      </motion.div>
 
-      <motion.div 
+      {/* Tool Cards Grid */}
+      <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
       >
         {tools.map((tool) => (
-          <motion.div key={tool.href} variants={itemAnim} className="flex h-full">
-            <Link href={tool.href} className="flex h-full w-full">
-              <div className="bg-white rounded-lg border border-slate-200 flex flex-col overflow-hidden hover:shadow-sm transition-all group w-full hover:border-sky-300">
-                <div className="px-3.5 py-2.5 border-b border-slate-100 bg-slate-50 flex items-center gap-2 transition-colors group-hover:bg-sky-50/50">
-                  <div className={`p-1 rounded ${tool.color}`}>
-                    <tool.icon className="w-4 h-4" />
+          <motion.div key={tool.href} variants={cardAnim}>
+            <Link href={tool.href} className="block h-full">
+              <div
+                className="h-full rounded-xl overflow-hidden flex flex-col transition-all duration-250 group cursor-pointer relative"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-card)',
+                  boxShadow: 'var(--shadow-card)',
+                  backdropFilter: 'blur(12px)',
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.border = `1px solid ${tool.accentColor}44`;
+                  el.style.boxShadow = `0 0 0 1px ${tool.accentColor}22, 0 8px 40px rgba(0,0,0,0.5), 0 0 30px ${tool.iconGlow}`;
+                  el.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.border = '1px solid var(--border-card)';
+                  el.style.boxShadow = 'var(--shadow-card)';
+                  el.style.transform = 'translateY(0)';
+                }}
+              >
+                {/* Subtle top gradient line */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: `linear-gradient(90deg, transparent, ${tool.accentColor}66, transparent)` }}
+                />
+
+                <div className="p-4 flex-1 flex flex-col">
+                  {/* Icon + Arrow */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div
+                      className="icon-box"
+                      style={{ background: tool.iconBg, boxShadow: `0 0 16px ${tool.iconGlow}` }}
+                    >
+                      <tool.icon className="w-5 h-5 text-white" />
+                    </div>
+                    <ArrowRight
+                      className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-1 group-hover:translate-x-0"
+                      style={{ color: tool.accentColor }}
+                    />
                   </div>
-                  <div className="text-[13px] font-bold text-slate-700 uppercase tracking-[0.5px]">
+
+                  {/* Title */}
+                  <h3
+                    className="text-[13px] font-[700] mb-1.5 leading-tight tracking-tight group-hover:transition-colors"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
                     {tool.title}
-                  </div>
-                </div>
-                <div className="p-3.5 flex-1 flex flex-col">
-                  <p className="text-slate-600 text-[13px] leading-relaxed group-hover:text-slate-900 transition-colors mb-3">
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-[12px] leading-relaxed mb-3 flex-1" style={{ color: 'var(--text-secondary)' }}>
                     {tool.description}
                   </p>
-                  <div className="mt-auto flex flex-wrap gap-1.5">
+
+                  {/* Badges */}
+                  <div className="flex flex-wrap gap-1.5 mt-auto">
                     {tool.tags.includes('ai') && (
-                      <span className="inline-flex items-center space-x-1 bg-purple-50 text-purple-700 text-[10px] font-bold px-2 py-0.5 rounded border border-purple-100">
-                        <Cpu className="w-3 h-3" />
+                      <span className="badge-ai">
+                        <Cpu className="w-2.5 h-2.5" />
                         <span>{t.requires_ai}</span>
                       </span>
                     )}
                     {tool.tags.includes('offline') && (
-                      <span className="inline-flex items-center space-x-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-100">
-                        <WifiOff className="w-3 h-3" />
+                      <span className="badge-offline">
+                        <WifiOff className="w-2.5 h-2.5" />
                         <span>{t.offline_capable}</span>
                       </span>
                     )}

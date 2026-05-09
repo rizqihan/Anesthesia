@@ -12,188 +12,133 @@ import Link from 'next/link';
 export default function FormularyPage() {
   const { language } = useAppStore();
   const t = translations[language];
-
   const [drugSearch, setDrugSearch] = useState('');
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedClass, setSelectedClass] = useState<string>('');
-  
+  const [selectedClass, setSelectedClass] = useState('');
+
   const drugClasses = useLiveQuery(async () => {
     if (typeof window === 'undefined') return [];
     const drugs = await db.drugs.toArray();
-    const classes = new Set(drugs.map(d => d.drugClass));
-    return Array.from(classes).sort();
+    return Array.from(new Set(drugs.map(d => d.drugClass))).sort();
   }, []) || [];
-  
+
   const filteredDrugs = useLiveQuery(async () => {
     if (typeof window === 'undefined') return [];
     if (!drugSearch && !selectedClass) return [];
-    
     let result = await db.drugs.toArray();
-    
-    if (selectedClass) {
-      result = result.filter(item => item.drugClass === selectedClass);
-    }
-    
+    if (selectedClass) result = result.filter(item => item.drugClass === selectedClass);
     if (drugSearch) {
-      const query = drugSearch.toLowerCase();
-      result = result.filter(
-        item => item.genericName.toLowerCase().includes(query) || 
-        item.brandNames.some(brand => brand.toLowerCase().includes(query))
-      );
+      const q = drugSearch.toLowerCase();
+      result = result.filter(item => item.genericName.toLowerCase().includes(q) || item.brandNames.some(b => b.toLowerCase().includes(q)));
     }
-    
     return result.slice(0, 50);
   }, [drugSearch, selectedClass]);
 
   return (
-    <div className="space-y-4">
-      <div className="mb-4">
-        <div className="flex items-center space-x-3 mb-1">
-          <h2 className="text-[18px] font-bold text-slate-900">{t.drug_formulary}</h2>
-          <span className="inline-flex items-center space-x-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-100">
-            <WifiOff className="w-3 h-3" />
-            <span>{t.offline_capable}</span>
-          </span>
+    <div className="space-y-5">
+      <div className="flex items-center gap-3">
+        <div className="icon-box" style={{ background: 'linear-gradient(135deg,#5b21b6,#8b5cf6)', boxShadow: '0 0 16px rgba(139,92,246,0.35)' }}>
+          <Pill className="w-5 h-5 text-white" />
         </div>
-        <p className="text-slate-500 text-[13px]">
-          {language === 'en' ? 'Search for generic and brand drugs, indications, and formulations offline.' : 'Cari obat generik dan paten, indikasi, serta formulasi secara offline.'}
-        </p>
+        <div>
+          <h1 className="text-[18px] font-[800] tracking-tight" style={{ color: 'var(--text-primary)' }}>{t.drug_formulary}</h1>
+          <span className="badge-offline mt-0.5 inline-flex"><WifiOff className="w-2.5 h-2.5" />{t.offline_capable}</span>
+        </div>
       </div>
 
-      <div className="bg-white rounded-lg border border-slate-200 flex flex-col overflow-hidden max-w-4xl shadow-sm">
-        <div className="px-3.5 py-2.5 border-b border-slate-100 bg-slate-50 uppercase tracking-[0.5px] text-[13px] font-bold text-slate-700 flex items-center space-x-2">
-          <Pill className="w-4 h-4 text-slate-500" />
-          <span>{t.drug_formulary}</span>
+      <div className="glass-card-static overflow-hidden max-w-4xl">
+        <div className="section-header">
+          <Pill className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+          <span className="section-header-label">{t.drug_formulary}</span>
         </div>
-        <div className="p-3.5 flex flex-col gap-3">
-          <div className="flex flex-col gap-2 relative">
-            <div className="relative flex items-center gap-2">
-              <div className="relative flex-1">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                <input 
-                  type="text"
-                  value={drugSearch}
-                  onChange={(e) => setDrugSearch(e.target.value)}
-                  className="w-full rounded-md border border-slate-300 pl-9 pr-2 py-2 text-[13px] focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 transition-all font-medium"
-                  placeholder={language === 'en' ? 'Search generic or brand names...' : 'Cari nama generik atau paten...'}
-                  autoFocus
-                />
-              </div>
-              <button 
-                onClick={() => setShowFilters(!showFilters)}
-                className={`p-2 rounded-md border transition-colors ${showFilters || selectedClass ? 'bg-sky-50 border-sky-200 text-sky-600' : 'bg-white border-slate-300 text-slate-500 hover:bg-slate-50'}`}
-              >
-                <Filter className="w-4 h-4" />
-              </button>
+        <div className="p-5 flex flex-col gap-3">
+          {/* Search row */}
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-muted)' }} />
+              <input type="text" value={drugSearch} onChange={(e) => setDrugSearch(e.target.value)} autoFocus
+                className="glass-input w-full pl-9 pr-3 py-2.5 text-[13px] font-[500]"
+                placeholder={language === 'en' ? 'Search generic or brand names...' : 'Cari nama generik atau paten...'} />
             </div>
-            
-            <AnimatePresence>
-              {showFilters && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="bg-slate-50 border border-slate-200 rounded-md p-3 overflow-hidden"
-                >
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
-                    {language === 'en' ? 'Drug Class' : 'Kelas Obat'}
-                  </label>
-                  <select 
-                    value={selectedClass} 
-                    onChange={(e) => setSelectedClass(e.target.value)}
-                    className="w-full text-[13px] border-slate-300 rounded-md py-1.5 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600"
-                  >
-                    <option value="">{language === 'en' ? 'All Classes' : 'Semua Kelas'}</option>
-                    {drugClasses.map(dc => (
-                      <option key={dc} value={dc}>{dc}</option>
-                    ))}
-                  </select>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <button onClick={() => setShowFilters(!showFilters)}
+              className="p-2.5 rounded-lg transition-all"
+              style={showFilters || selectedClass ? { background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.3)', color: '#a78bfa' } : { background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-card)', color: 'var(--text-muted)' }}>
+              <Filter className="w-4 h-4" />
+            </button>
           </div>
-          
+
+          <AnimatePresence>
+            {showFilters && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                <div className="p-3 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)' }}>
+                  <label className="form-label">{language === 'en' ? 'Drug Class' : 'Kelas Obat'}</label>
+                  <select value={selectedClass} onChange={(e) => setSelectedClass(e.target.value)} className="glass-input w-full px-3 py-2 text-[13px]">
+                    <option value="">{language === 'en' ? 'All Classes' : 'Semua Kelas'}</option>
+                    {drugClasses.map(dc => (<option key={dc} value={dc}>{dc}</option>))}
+                  </select>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <AnimatePresence>
             {(drugSearch || selectedClass) && (
-              <motion.div 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="border border-slate-200 rounded divide-y divide-slate-100 bg-white max-h-[600px] overflow-y-auto"
-              >
-                {filteredDrugs && filteredDrugs.length > 0 ? (
-                  filteredDrugs.map((item, index) => (
-                    <motion.div 
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      key={item.id} 
-                      className="p-4 flex flex-col gap-2 hover:bg-slate-50 transition-colors"
-                    >
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h3 className="font-bold text-sky-700 text-[15px]">{item.genericName}</h3>
-                          <div className="text-[12px] text-slate-500 mt-0.5">
-                            <span className="font-semibold text-slate-600">{language === 'en' ? 'Brands: ' : 'Merek: '}</span> 
-                            {item.brandNames.join(', ')}
-                          </div>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="rounded-xl overflow-hidden divide-y max-h-[600px] overflow-y-auto" style={{ border: '1px solid var(--border-card)', divideColor: 'rgba(255,255,255,0.05)' }}>
+                {filteredDrugs && filteredDrugs.length > 0 ? filteredDrugs.map((item, idx) => (
+                  <motion.div key={item.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.04 }}
+                    className="p-4 flex flex-col gap-3 transition-colors" style={{ background: 'var(--bg-card)' }}
+                    onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card-hover)')}
+                    onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-card)')}>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-[700] text-[14px]" style={{ color: '#a78bfa' }}>{item.genericName}</h3>
+                        <div className="text-[12px] mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                          <span className="font-[600]" style={{ color: 'var(--text-secondary)' }}>{language === 'en' ? 'Brands: ' : 'Merek: '}</span>{item.brandNames.join(', ')}
                         </div>
-                        {item.dosing && (
-                          <Link href={`/dosage?drug=${item.id}`} className="shrink-0 bg-sky-50 text-sky-600 hover:bg-sky-100 px-3 py-1.5 rounded-full text-[11px] font-bold transition-colors inline-flex items-center space-x-1 border border-sky-100">
-                             <Syringe className="w-3 h-3" />
-                             <span>{language === 'en' ? 'Dosage Calculator' : 'Kalkulator Dosis'}</span>
-                          </Link>
-                        )}
                       </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-                         <div className="bg-slate-50 rounded p-3 border border-slate-100">
-                           <div className="flex items-center space-x-1 text-slate-700 font-semibold text-[12px] mb-1">
-                             <BookOpen className="w-3.5 h-3.5 text-sky-500" />
-                             <span>{language === 'en' ? 'Indications' : 'Indikasi'}</span>
-                           </div>
-                           <p className="text-[12px] text-slate-600 leading-relaxed">
-                             {language === 'en' ? item.indications.en : item.indications.id}
-                           </p>
-                         </div>
-                         <div className="bg-rose-50 rounded p-3 border border-rose-100">
-                           <div className="flex items-center space-x-1 text-rose-700 font-semibold text-[12px] mb-1">
-                             <AlertTriangle className="w-3.5 h-3.5" />
-                             <span>{language === 'en' ? 'Contraindications' : 'Kontraindikasi'}</span>
-                           </div>
-                           <p className="text-[12px] text-rose-600 leading-relaxed">
-                             {language === 'en' ? item.contraindications.en : item.contraindications.id}
-                           </p>
-                         </div>
-                      </div>
-                      
                       {item.dosing && (
-                        <div className="bg-white border text-slate-500 border-slate-200 rounded p-3 text-[12px]">
-                          <span className="font-semibold text-slate-700">{language === 'en' ? 'Common Dose: ' : 'Dosis Umum: '}</span>
-                          {item.dosing.dosePerKg} {item.dosing.unit}/kg ({item.dosing.frequency}). {language === 'en' ? item.dosing.notes.en : item.dosing.notes.id}
-                        </div>
+                        <Link href={`/dosage?drug=${item.id}`} className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-[600] transition-all"
+                          style={{ background: 'rgba(14,165,233,0.1)', border: '1px solid rgba(14,165,233,0.2)', color: '#38bdf8' }}>
+                          <Syringe className="w-3 h-3" />
+                          <span>{language === 'en' ? 'Dosage Calc' : 'Kalk. Dosis'}</span>
+                        </Link>
                       )}
-                    </motion.div>
-                  ))
-                ) : (
-                  <div className="px-3 py-8 text-center text-[12px] text-slate-500">
-                     {language === 'en' ? 'No drugs found for your search.' : 'Tidak ada obat yang ditemukan.'}
-                  </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="p-3 rounded-lg" style={{ background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.15)' }}>
+                        <div className="flex items-center gap-1.5 mb-1.5">
+                          <BookOpen className="w-3.5 h-3.5" style={{ color: '#34d399' }} />
+                          <span className="text-[11px] font-[700]" style={{ color: '#34d399' }}>{language === 'en' ? 'Indications' : 'Indikasi'}</span>
+                        </div>
+                        <p className="text-[12px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{language === 'en' ? item.indications.en : item.indications.id}</p>
+                      </div>
+                      <div className="p-3 rounded-lg" style={{ background: 'rgba(244,63,94,0.07)', border: '1px solid rgba(244,63,94,0.15)' }}>
+                        <div className="flex items-center gap-1.5 mb-1.5">
+                          <AlertTriangle className="w-3.5 h-3.5" style={{ color: '#fb7185' }} />
+                          <span className="text-[11px] font-[700]" style={{ color: '#fb7185' }}>{language === 'en' ? 'Contraindications' : 'Kontraindikasi'}</span>
+                        </div>
+                        <p className="text-[12px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{language === 'en' ? item.contraindications.en : item.contraindications.id}</p>
+                      </div>
+                    </div>
+                    {item.dosing && (
+                      <div className="p-2.5 rounded-lg text-[12px]" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)' }}>
+                        <span className="font-[600]" style={{ color: 'var(--text-primary)' }}>{language === 'en' ? 'Common Dose: ' : 'Dosis Umum: '}</span>
+                        <span style={{ color: 'var(--text-secondary)' }}>{item.dosing.dosePerKg} {item.dosing.unit}/kg ({item.dosing.frequency}). {language === 'en' ? item.dosing.notes.en : item.dosing.notes.id}</span>
+                      </div>
+                    )}
+                  </motion.div>
+                )) : (
+                  <div className="py-10 text-center text-[12px]" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? 'No drugs found.' : 'Tidak ada obat ditemukan.'}</div>
                 )}
               </motion.div>
             )}
           </AnimatePresence>
-          <AnimatePresence>
-            {!(drugSearch || selectedClass) && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-8 text-slate-400 text-[12px] border border-dashed border-slate-200 rounded bg-slate-50"
-              >
-                {language === 'en' ? 'Search or filter for a drug' : 'Cari atau filter obat'}
-              </motion.div>
-            )}
-          </AnimatePresence>
+
+          {!(drugSearch || selectedClass) && (
+            <div className="py-10 text-center rounded-xl text-[12px]" style={{ border: '1px dashed rgba(255,255,255,0.07)', color: 'var(--text-muted)' }}>
+              {language === 'en' ? 'Search or filter for a drug to get started' : 'Cari atau filter obat untuk memulai'}
+            </div>
+          )}
         </div>
       </div>
     </div>

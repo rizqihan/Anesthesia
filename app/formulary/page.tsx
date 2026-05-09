@@ -83,7 +83,7 @@ export default function FormularyPage() {
 
           <AnimatePresence>
             {(drugSearch || selectedClass) && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="rounded-xl overflow-hidden divide-y max-h-[600px] overflow-y-auto" style={{ border: '1px solid var(--border-card)', divideColor: 'rgba(255,255,255,0.05)' }}>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="rounded-xl overflow-hidden divide-y max-h-[600px] overflow-y-auto" style={{ border: '1px solid var(--border-card)' }}>
                 {filteredDrugs && filteredDrugs.length > 0 ? filteredDrugs.map((item, idx) => (
                   <motion.div key={item.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.04 }}
                     className="p-4 flex flex-col gap-3 transition-colors" style={{ background: 'var(--bg-card)' }}

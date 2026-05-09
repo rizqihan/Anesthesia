@@ -17,6 +17,7 @@ function DosageCalculatorContent() {
 
   // Only drugs with dosing info
   const calculableDrugs = useLiveQuery(async () => {
+    if (typeof window === 'undefined') return [];
     const drugs = await db.drugs.toArray();
     return drugs.filter(d => Boolean(d.dosing));
   }, []) || [];
@@ -26,16 +27,11 @@ function DosageCalculatorContent() {
     : (calculableDrugs[0]?.id || '');
 
   const [weight, setWeight] = useState('');
-  const [selectedDrug, setSelectedDrug] = useState(bestInitialDrug);
+  const [selectedDrug, setSelectedDrug] = useState('');
   const [result, setResult] = useState<{ dose: number, maxReached: boolean } | null>(null);
 
-  useEffect(() => {
-    if (!selectedDrug && bestInitialDrug) {
-      setSelectedDrug(bestInitialDrug);
-    }
-  }, [bestInitialDrug, selectedDrug]);
-
-  const drug = calculableDrugs.find(d => d.id === selectedDrug);
+  const actualSelectedDrug = selectedDrug || bestInitialDrug;
+  const drug = calculableDrugs.find(d => d.id === actualSelectedDrug);
 
   const handleCalculate = () => {
     const w = parseFloat(weight);
@@ -76,7 +72,7 @@ function DosageCalculatorContent() {
                 {language === 'en' ? 'Select Drug' : 'Pilih Obat'}
               </label>
               <select
-                value={selectedDrug}
+                value={actualSelectedDrug}
                 onChange={(e) => setSelectedDrug(e.target.value)}
                 className="w-full rounded border border-slate-300 px-2 py-2 text-[13px] focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 bg-white"
               >

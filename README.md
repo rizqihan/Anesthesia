@@ -67,4 +67,4 @@ Anesthesia is a modern web application built with Next.js, providing a collectio
 
 ## License
 
-This project is licensed under the terms specified in the `LICENSE` file.
+This project is licensed under the **GNU General Public License v3.0**. See the `LICENSE` file for more details.

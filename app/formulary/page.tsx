@@ -18,12 +18,14 @@ export default function FormularyPage() {
   const [selectedClass, setSelectedClass] = useState<string>('');
   
   const drugClasses = useLiveQuery(async () => {
+    if (typeof window === 'undefined') return [];
     const drugs = await db.drugs.toArray();
     const classes = new Set(drugs.map(d => d.drugClass));
     return Array.from(classes).sort();
   }, []) || [];
   
   const filteredDrugs = useLiveQuery(async () => {
+    if (typeof window === 'undefined') return [];
     if (!drugSearch && !selectedClass) return [];
     
     let result = await db.drugs.toArray();

@@ -14,6 +14,7 @@ export default function GuidelinesPage() {
 
   const guidelines = useLiveQuery(
     () => {
+      if (typeof window === 'undefined') return [];
       if (!search.trim()) {
         return db.guidelines.limit(20).toArray();
       }

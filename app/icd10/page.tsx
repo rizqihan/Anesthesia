@@ -15,6 +15,7 @@ export default function Icd10Page() {
   const [icdSearch, setIcdSearch] = useState('');
   const filteredICD = useLiveQuery(
     async () => {
+      if (typeof window === 'undefined') return [];
       if (!icdSearch) return [];
       const query = icdSearch.toLowerCase();
       // Manual filter works well for partial word queries on small/medium DB

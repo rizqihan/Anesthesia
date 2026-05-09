@@ -75,7 +75,7 @@ function DosageCalculatorContent() {
               <label className="form-label">{t.patient_weight}</label>
               <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="glass-input w-full px-3 py-2.5 text-[13px]" placeholder="e.g. 20" />
             </div>
-            <button onClick={handleCalculate} disabled={!weight} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
+            <button type="button" onClick={handleCalculate} disabled={!weight} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
           </div>
         </div>
 

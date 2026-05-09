@@ -55,7 +55,7 @@ export default function SymptomCheckerPage() {
                 className="glass-input w-full px-3 py-2.5 text-[13px] font-[500] resize-none"
                 placeholder={language === 'en' ? 'e.g., 45yo male with sudden onset chest pain radiating to left arm, diaphoresis...' : 'mis: Pria 45 tahun, nyeri dada mendadak menjalar ke lengan kiri...'} />
             </div>
-            <button onClick={handleAnalyze} disabled={loading || !symptom.trim()} className="btn-primary w-full py-2.5 text-[13px] flex items-center justify-center gap-2">
+            <button type="button" onClick={handleAnalyze} disabled={loading || !symptom.trim()} className="btn-primary w-full py-2.5 text-[13px] flex items-center justify-center gap-2">
               {loading ? (<><span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin-slow" /><span>{language === 'en' ? 'Analyzing...' : 'Menganalisis...'}</span></>) : (<><Cpu className="w-4 h-4" /><span>{t.analyze_symptoms}</span></>)}
             </button>
           </div>

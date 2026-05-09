@@ -176,7 +176,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   style={isActive ? {
                     background: 'rgba(59,130,246,0.1)',
                     color: '#93c5fd',
-                    border: '1px solid rgba(59,130,246,0.2)',
                     boxShadow: '0 0 20px rgba(59,130,246,0.08)',
                   } : {
                     color: 'var(--text-secondary)',

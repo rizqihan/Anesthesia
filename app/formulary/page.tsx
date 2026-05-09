@@ -60,7 +60,7 @@ export default function FormularyPage() {
                 className="glass-input w-full pl-9 pr-3 py-2.5 text-[13px] font-[500]"
                 placeholder={language === 'en' ? 'Search generic or brand names...' : 'Cari nama generik atau paten...'} />
             </div>
-            <button onClick={() => setShowFilters(!showFilters)}
+            <button type="button" onClick={() => setShowFilters(!showFilters)}
               className="p-2.5 rounded-lg transition-all"
               style={showFilters || selectedClass ? { background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.3)', color: '#a78bfa' } : { background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-card)', color: 'var(--text-muted)' }}>
               <Filter className="w-4 h-4" />

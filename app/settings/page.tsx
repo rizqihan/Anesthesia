@@ -129,6 +129,7 @@ export default function SettingsPage() {
             </div>
 
             <button
+              type="button"
               id="sync-btn"
               onClick={async () => {
                 const btn = document.getElementById('sync-btn');

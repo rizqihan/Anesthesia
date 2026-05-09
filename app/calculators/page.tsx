@@ -9,6 +9,40 @@ import { motion, AnimatePresence } from 'motion/react';
 const inputClass = "glass-input w-full px-3 py-2.5 text-[13px] font-[500]";
 const labelClass = "form-label";
 
+// Extracted outside to prevent remount on parent re-render
+function GenderToggle({ value, onChange, maleLabel, femaleLabel }: { value: 'M' | 'F'; onChange: (v: 'M' | 'F') => void; maleLabel: string; femaleLabel: string }) {
+  return (
+    <div className="gender-toggle">
+      {(['M', 'F'] as const).map((g) => (
+        <button
+          key={g}
+          type="button"
+          onClick={() => onChange(g)}
+          className={`gender-btn ${value === g ? 'gender-btn-active' : ''}`}
+        >
+          {g === 'M' ? maleLabel : femaleLabel}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function BigResult({ label, value, unit, color }: { label: string; value: string; unit?: string; color?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="result-box text-center"
+    >
+      <div className="text-[10px] font-[700] uppercase tracking-[1.5px] mb-2" style={{ color: 'var(--text-muted)' }}>{label}</div>
+      <div className="text-[38px] font-[800] tracking-tight" style={{ color: color || '#60a5fa' }}>
+        {value}
+        {unit && <span className="text-[16px] font-[400] ml-1.5" style={{ color: 'var(--text-secondary)' }}>{unit}</span>}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function CalculatorsPage() {
   const { language } = useAppStore();
   const t = translations[language] as any;
@@ -92,34 +126,6 @@ export default function CalculatorsPage() {
     { id: 'egfr', label: t.egfr_calculator },
   ];
 
-  const GenderToggle = ({ value, onChange }: { value: 'M' | 'F'; onChange: (v: 'M' | 'F') => void }) => (
-    <div className="gender-toggle">
-      {(['M', 'F'] as const).map((g) => (
-        <button
-          key={g}
-          onClick={() => onChange(g)}
-          className={`gender-btn ${value === g ? 'gender-btn-active' : ''}`}
-        >
-          {g === 'M' ? t.male : t.female}
-        </button>
-      ))}
-    </div>
-  );
-
-  const BigResult = ({ label, value, unit, color }: { label: string; value: string; unit?: string; color?: string }) => (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="result-box text-center"
-    >
-      <div className="text-[10px] font-[700] uppercase tracking-[1.5px] mb-2" style={{ color: 'var(--text-muted)' }}>{label}</div>
-      <div className="text-[38px] font-[800] tracking-tight" style={{ color: color || '#60a5fa' }}>
-        {value}
-        {unit && <span className="text-[16px] font-[400] ml-1.5" style={{ color: 'var(--text-secondary)' }}>{unit}</span>}
-      </div>
-    </motion.div>
-  );
-
   return (
     <div className="space-y-5 max-w-2xl mx-auto">
       {/* Header */}
@@ -142,6 +148,7 @@ export default function CalculatorsPage() {
         {tabs.map((tab) => (
           <button
             key={tab.id}
+            type="button"
             onClick={() => setActiveTab(tab.id)}
             className={`whitespace-nowrap px-3.5 py-2 rounded-lg text-[12px] font-[600] transition-all ${activeTab === tab.id ? 'tab-pill-active' : 'tab-pill-inactive'}`}
           >
@@ -153,7 +160,7 @@ export default function CalculatorsPage() {
       {/* Card */}
       <div className="glass-card-static overflow-hidden">
         <div className="section-header">
-          <span className="section-header-label">{tabs.find(t => t.id === activeTab)?.label}</span>
+          <span className="section-header-label">{tabs.find(item => item.id === activeTab)?.label}</span>
         </div>
         <div className="p-5">
           <AnimatePresence mode="wait">
@@ -163,7 +170,7 @@ export default function CalculatorsPage() {
                   <div><label className={labelClass}>{t.weight}</label><input type="number" value={bmiWeight} onChange={e => setBmiWeight(e.target.value)} className={inputClass} placeholder="e.g. 65" /></div>
                   <div><label className={labelClass}>{t.height}</label><input type="number" value={bmiHeight} onChange={e => setBmiHeight(e.target.value)} className={inputClass} placeholder="e.g. 170" /></div>
                 </div>
-                <button onClick={calculateBMI} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
+                <button type="button" onClick={calculateBMI} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
                 {bmiResult && <BigResult label="BMI" value={bmiResult.bmi} color={bmiResult.color} />}
                 {bmiResult && (
                   <div className="text-center text-[13px] font-[700] mt-1" style={{ color: bmiResult.color }}>{bmiResult.category}</div>
@@ -174,12 +181,12 @@ export default function CalculatorsPage() {
             {activeTab === 'ibw' && (
               <motion.div key="ibw" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className="flex flex-col gap-4">
                 <p className="text-[12px]" style={{ color: 'var(--text-muted)' }}>{t.bmi_info}</p>
-                <div><label className={labelClass}>{t.gender}</label><GenderToggle value={ibwGender} onChange={setIbwGender} /></div>
+                <div><label className={labelClass}>{t.gender}</label><GenderToggle value={ibwGender} onChange={setIbwGender} maleLabel={t.male} femaleLabel={t.female} /></div>
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className={labelClass}>{t.weight}</label><input type="number" value={ibwActualWeight} onChange={e => setIbwActualWeight(e.target.value)} className={inputClass} placeholder="e.g. 80" /></div>
                   <div><label className={labelClass}>{t.height}</label><input type="number" value={ibwHeight} onChange={e => setIbwHeight(e.target.value)} className={inputClass} placeholder="e.g. 170" /></div>
                 </div>
-                <button onClick={calculateIBW} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
+                <button type="button" onClick={calculateIBW} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
                 {ibwResult && (
                   <div className="grid grid-cols-2 gap-3">
                     <BigResult label={t.ideal_body_weight} value={ibwResult.ibw} unit="kg" color="#34d399" />
@@ -193,13 +200,13 @@ export default function CalculatorsPage() {
               <motion.div key="cg" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className="flex flex-col gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className={labelClass}>{t.age}</label><input type="number" value={cgAge} onChange={e => setCgAge(e.target.value)} className={inputClass} placeholder="e.g. 50" /></div>
-                  <div><label className={labelClass}>{t.gender}</label><GenderToggle value={cgGender} onChange={setCgGender} /></div>
+                  <div><label className={labelClass}>{t.gender}</label><GenderToggle value={cgGender} onChange={setCgGender} maleLabel={t.male} femaleLabel={t.female} /></div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className={labelClass}>{t.weight}</label><input type="number" value={cgWeight} onChange={e => setCgWeight(e.target.value)} className={inputClass} placeholder="e.g. 70" /></div>
                   <div><label className={labelClass}>{t.serum_creatinine}</label><input type="number" value={cgCr} onChange={e => setCgCr(e.target.value)} className={inputClass} placeholder="e.g. 1.2" /></div>
                 </div>
-                <button onClick={calculateCG} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
+                <button type="button" onClick={calculateCG} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
                 {cgResult && <BigResult label="Creatinine Clearance (mL/min)" value={cgResult} color="#38bdf8" />}
               </motion.div>
             )}
@@ -208,10 +215,10 @@ export default function CalculatorsPage() {
               <motion.div key="egfr" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className="flex flex-col gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className={labelClass}>{t.age}</label><input type="number" value={egfrAge} onChange={e => setEgfrAge(e.target.value)} className={inputClass} placeholder="e.g. 50" /></div>
-                  <div><label className={labelClass}>{t.gender}</label><GenderToggle value={egfrGender} onChange={setEgfrGender} /></div>
+                  <div><label className={labelClass}>{t.gender}</label><GenderToggle value={egfrGender} onChange={setEgfrGender} maleLabel={t.male} femaleLabel={t.female} /></div>
                 </div>
                 <div><label className={labelClass}>{t.serum_creatinine}</label><input type="number" value={egfrCr} onChange={e => setEgfrCr(e.target.value)} className={inputClass} placeholder="e.g. 1.2" /></div>
-                <button onClick={calculateEgfr} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
+                <button type="button" onClick={calculateEgfr} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
                 {egfrResult && <BigResult label="eGFR (mL/min/1.73m²)" value={egfrResult} color="#a78bfa" />}
               </motion.div>
             )}

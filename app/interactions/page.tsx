@@ -54,7 +54,7 @@ export default function InteractionsPage() {
               className="glass-input w-full px-3 py-2.5 text-[13px] font-[500]"
               placeholder={language === 'en' ? 'e.g., Amiodarone, Digoxin, Warfarin...' : 'mis: Amiodaron, Digoksin...'} />
           </div>
-          <button onClick={handleCheck} disabled={loading || !drugs.trim()} className="btn-primary w-full py-2.5 text-[13px] flex items-center justify-center gap-2">
+          <button type="button" onClick={handleCheck} disabled={loading || !drugs.trim()} className="btn-primary w-full py-2.5 text-[13px] flex items-center justify-center gap-2">
             {loading ? (<><span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin-slow" /><span>{language === 'en' ? 'Analyzing...' : 'Menganalisis...'}</span></>) : (<><ShieldAlert className="w-4 h-4" /><span>{t.check_interactions}</span></>)}
           </button>
           <AnimatePresence>

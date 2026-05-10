@@ -225,6 +225,27 @@ export default function CalculatorsPage() {
           </AnimatePresence>
         </div>
       </div>
+
+      {/* Explanation & Pitfalls Card */}
+      <motion.div 
+        key={`info-${activeTab}`}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2 }}
+        className="glass-card-static overflow-hidden"
+      >
+        <div className="section-header">
+          <span className="section-header-label">{t.explanation_pitfalls}</span>
+        </div>
+        <div className="p-5">
+          <div className="text-[13px] font-[500] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            {activeTab === 'bmi' && t.info_bmi}
+            {activeTab === 'ibw' && t.info_ibw}
+            {activeTab === 'cg' && t.info_cg}
+            {activeTab === 'egfr' && t.info_egfr}
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }

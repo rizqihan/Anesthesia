@@ -4,6 +4,11 @@ import { persist } from 'zustand/middleware';
 type Language = 'en' | 'id';
 type AIProvider = 'default_gemini' | 'custom_gemini' | 'openai_compatible';
 
+export interface DatasetSyncMeta {
+  lastSynced: string | null;
+  count: number;
+}
+
 interface AppState {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -21,6 +26,15 @@ interface AppState {
   openaiModel: string;
   setOpenaiModel: (model: string) => void;
   
+  // Per-dataset sync metadata
+  syncMeta: {
+    icd10: DatasetSyncMeta;
+    drugs: DatasetSyncMeta;
+    guidelines: DatasetSyncMeta;
+  };
+  updateSyncMeta: (dataset: 'icd10' | 'drugs' | 'guidelines', meta: Partial<DatasetSyncMeta>) => void;
+
+  // Legacy — kept for migration
   lastSyncDate: string | null;
   setLastSyncDate: (date: string | null) => void;
 }
@@ -44,6 +58,19 @@ export const useAppStore = create<AppState>()(
       openaiModel: 'llama-3.3-70b-versatile',
       setOpenaiModel: (model) => set({ openaiModel: model }),
 
+      syncMeta: {
+        icd10: { lastSynced: null, count: 0 },
+        drugs: { lastSynced: null, count: 0 },
+        guidelines: { lastSynced: null, count: 0 },
+      },
+      updateSyncMeta: (dataset, meta) =>
+        set((state) => ({
+          syncMeta: {
+            ...state.syncMeta,
+            [dataset]: { ...state.syncMeta[dataset], ...meta },
+          },
+        })),
+
       lastSyncDate: null,
       setLastSyncDate: (date) => set({ lastSyncDate: date }),
     }),
@@ -57,6 +84,7 @@ export const useAppStore = create<AppState>()(
         openaiKey: state.openaiKey,
         openaiModel: state.openaiModel,
         lastSyncDate: state.lastSyncDate,
+        syncMeta: state.syncMeta,
       }),
     }
   )

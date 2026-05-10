@@ -1,29 +1,122 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database } from 'lucide-react';
+import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles } from 'lucide-react';
 import db from '@/lib/db';
 import { ICD10_DB } from '@/lib/icd10';
 import { DRUG_DB } from '@/lib/drugs';
 import { GUIDELINES_DB } from '@/lib/guidelines';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { AnimatePresence } from 'motion/react';
+import { syncICD10, syncDrugs, syncGuidelines, type SyncResult } from '@/lib/syncAgent';
+import SyncReviewPanel from '@/components/SyncReviewPanel';
+
+type DatasetType = 'icd10' | 'drugs' | 'guidelines';
 
 export default function SettingsPage() {
   const store = useAppStore();
   const t = translations[store.language];
 
+  // AI config status
   const isAiConfigured = () => {
     if (store.aiProvider === 'default_gemini' && !process.env.NEXT_PUBLIC_GEMINI_API_KEY) return false;
     if (store.aiProvider === 'custom_gemini' && !store.customGeminiKey.trim()) return false;
     if (store.aiProvider === 'openai_compatible' && (!store.openaiEndpoint.trim() || !store.openaiKey.trim())) return false;
     return true;
   };
-
   const aiStatus = store.isOffline ? 'offline' : isAiConfigured() ? 'ready' : 'missing';
+
+  // Live record counts from IndexedDB
+  const icd10Count = useLiveQuery(() => db.icd10.count(), []) ?? 0;
+  const drugCount = useLiveQuery(() => db.drugs.count(), []) ?? 0;
+  const guidelineCount = useLiveQuery(() => db.guidelines.count(), []) ?? 0;
+
+  // Sync state
+  const [syncingDataset, setSyncingDataset] = useState<DatasetType | null>(null);
+  const [syncError, setSyncError] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [reviewData, setReviewData] = useState<{ type: DatasetType; result: SyncResult<any> } | null>(null);
+
+  // Seed initial data (first-time setup)
+  const seedDatabase = useCallback(async () => {
+    try {
+      await db.icd10.bulkPut(ICD10_DB);
+      await db.drugs.bulkPut(DRUG_DB);
+      await db.guidelines.bulkPut(GUIDELINES_DB);
+      const now = new Date().toISOString();
+      store.updateSyncMeta('icd10', { lastSynced: now, count: ICD10_DB.length });
+      store.updateSyncMeta('drugs', { lastSynced: now, count: DRUG_DB.length });
+      store.updateSyncMeta('guidelines', { lastSynced: now, count: GUIDELINES_DB.length });
+    } catch (e) {
+      console.error('Seed error:', e);
+    }
+  }, [store]);
+
+  // AI-powered sync for a specific dataset
+  const handleSync = useCallback(async (dataset: DatasetType) => {
+    if (syncingDataset) return;
+    setSyncingDataset(dataset);
+    setSyncError(null);
+
+    try {
+      // If the DB is empty, seed first
+      const counts = { icd10: icd10Count, drugs: drugCount, guidelines: guidelineCount };
+      if (counts[dataset] === 0) {
+        if (dataset === 'icd10') await db.icd10.bulkPut(ICD10_DB);
+        if (dataset === 'drugs') await db.drugs.bulkPut(DRUG_DB);
+        if (dataset === 'guidelines') await db.guidelines.bulkPut(GUIDELINES_DB);
+      }
+
+      // Call AI sync agent
+      let result;
+      if (dataset === 'icd10') result = await syncICD10();
+      else if (dataset === 'drugs') result = await syncDrugs();
+      else result = await syncGuidelines();
+
+      if (result.entries.length > 0) {
+        setReviewData({ type: dataset, result });
+      } else {
+        setSyncError(t.no_new_data);
+        setTimeout(() => setSyncError(null), 3000);
+      }
+    } catch (e) {
+      console.error('Sync error:', e);
+      setSyncError(e instanceof Error ? e.message : t.sync_error);
+    } finally {
+      setSyncingDataset(null);
+    }
+  }, [syncingDataset, icd10Count, drugCount, guidelineCount, t]);
+
+  // Approve selected entries from review panel
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleApprove = useCallback(async (selectedEntries: Record<string, any>[]) => {
+    if (!reviewData) return;
+    const { type } = reviewData;
+
+    try {
+      if (type === 'icd10') await db.icd10.bulkPut(selectedEntries as unknown as import('@/lib/db').ICD10Record[]);
+      else if (type === 'drugs') await db.drugs.bulkPut(selectedEntries as unknown as import('@/lib/drugs').Drug[]);
+      else await db.guidelines.bulkPut(selectedEntries as unknown as import('@/lib/db').GuidelineRecord[]);
+
+      const count = type === 'icd10' ? await db.icd10.count() : type === 'drugs' ? await db.drugs.count() : await db.guidelines.count();
+      store.updateSyncMeta(type, { lastSynced: new Date().toISOString(), count });
+    } catch (e) {
+      console.error('Approve error:', e);
+    }
+
+    setReviewData(null);
+  }, [reviewData, store]);
 
   const inputClass = "glass-input w-full px-3 py-2.5 text-[13px] font-[500]";
   const labelClass = "form-label";
+
+  const datasets: { key: DatasetType; label: string; icon: React.ReactNode; count: number; color: string; gradient: string }[] = [
+    { key: 'icd10', label: t.icd10_dictionary, icon: <Book className="w-3.5 h-3.5" />, count: icd10Count, color: '#fbbf24', gradient: 'rgba(251,191,36,0.1)' },
+    { key: 'drugs', label: t.drug_formulary, icon: <Pill className="w-3.5 h-3.5" />, count: drugCount, color: '#a78bfa', gradient: 'rgba(167,139,250,0.1)' },
+    { key: 'guidelines', label: t.clinical_guidelines, icon: <FileText className="w-3.5 h-3.5" />, count: guidelineCount, color: '#34d399', gradient: 'rgba(52,211,153,0.1)' },
+  ];
 
   return (
     <div className="space-y-5 max-w-4xl">
@@ -61,7 +154,7 @@ export default function SettingsPage() {
           <div className="p-5 flex flex-col gap-4">
             <div>
               <label className={labelClass}>{t.ai_provider}</label>
-              <select value={store.aiProvider} onChange={(e) => store.setAiProvider(e.target.value as any)} className={inputClass}>
+              <select value={store.aiProvider} onChange={(e) => store.setAiProvider(e.target.value as 'default_gemini' | 'custom_gemini' | 'openai_compatible')} className={inputClass}>
                 <option value="default_gemini">{t.default_gemini}</option>
                 <option value="custom_gemini">{t.custom_gemini}</option>
                 <option value="openai_compatible">{t.openai_compatible}</option>
@@ -98,61 +191,102 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Database Sync Card */}
+        {/* AI-Powered Database Sync Card */}
         <div className="glass-card-static overflow-hidden">
           <div className="section-header justify-between">
             <div className="flex items-center gap-2">
               <Database className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
               <span className="section-header-label">{t.database_sync}</span>
             </div>
-            <div className="flex items-center gap-1.5 text-[11px]" style={{ color: 'var(--text-muted)' }}>
-              <span>{t.last_synced}:</span>
-              <span className="font-[600]" style={{ color: 'var(--text-secondary)' }}>
-                {store.lastSyncDate ? new Date(store.lastSyncDate).toLocaleDateString() : t.never_synced}
-              </span>
+            <div className="flex items-center gap-1.5">
+              <Sparkles className="w-3 h-3" style={{ color: '#a78bfa' }} />
+              <span className="text-[11px] font-[600]" style={{ color: '#a78bfa' }}>{t.requires_ai}</span>
             </div>
           </div>
           <div className="p-5 flex flex-col gap-4">
-            <div className="rounded-xl overflow-hidden divide-y" style={{ border: '1px solid var(--border-card)' }}>
-              {[
-                { label: t.icd10_dictionary },
-                { label: t.drug_formulary },
-                { label: t.clinical_guidelines },
-              ].map((item) => (
-                <div key={item.label} className="px-4 py-3 flex items-center justify-between" style={{ background: 'var(--bg-card)' }}>
-                  <span className="text-[13px] font-[500]" style={{ color: 'var(--text-secondary)' }}>{item.label}</span>
-                  <div className="flex items-center gap-1.5 text-[11px] font-[700]" style={{ color: '#34d399' }}>
-                    <span className="status-dot status-dot-green" />
-                    <span>{t.up_to_date}</span>
-                  </div>
+            {/* Description */}
+            <div className="p-3 rounded-lg text-[11px]" style={{ background: 'rgba(167,139,250,0.06)', border: '1px solid rgba(167,139,250,0.12)', color: 'var(--text-muted)' }}>
+              <div className="flex items-center gap-1.5 mb-1">
+                <Sparkles className="w-3 h-3" style={{ color: '#a78bfa' }} />
+                <span className="font-[700]" style={{ color: '#a78bfa' }}>{t.database_sync}</span>
+              </div>
+              {t.ai_sync_desc}
+              {store.aiProvider === 'openai_compatible' && (
+                <div className="mt-2 pt-2" style={{ borderTop: '1px solid rgba(251,191,36,0.15)', color: '#fbbf24' }}>
+                  ⚠️ {t.no_live_search}
                 </div>
-              ))}
+              )}
             </div>
 
-            <button
-              type="button"
-              id="sync-btn"
-              onClick={async () => {
-                const btn = document.getElementById('sync-btn');
-                if (btn) {
-                  btn.innerHTML = `<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin 1s linear infinite;margin-right:8px;vertical-align:middle"></span>${t.syncing}`;
-                  btn.setAttribute('disabled', 'true');
-                  try {
-                    await db.icd10.bulkPut(ICD10_DB);
-                    await db.drugs.bulkPut(DRUG_DB);
-                    await db.guidelines.bulkPut(GUIDELINES_DB);
-                    store.setLastSyncDate(new Date().toISOString());
-                  } catch (e) { console.error('Sync error', e); }
-                  setTimeout(() => { btn.innerHTML = t.sync_now; btn.removeAttribute('disabled'); }, 500);
-                }
-              }}
-              className="btn-primary w-full py-2.5 text-[13px]"
-            >
-              {t.sync_now}
-            </button>
+            {/* Per-dataset rows */}
+            <div className="rounded-xl overflow-hidden divide-y" style={{ border: '1px solid var(--border-card)' }}>
+              {datasets.map(({ key, label, icon, count, color, gradient }) => {
+                const meta = store.syncMeta[key];
+                const isSyncing = syncingDataset === key;
+
+                return (
+                  <div key={key} className="px-4 py-3 flex items-center justify-between gap-3" style={{ background: 'var(--bg-card)' }}>
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: gradient, color }}>
+                        {icon}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-[13px] font-[600]" style={{ color: 'var(--text-primary)' }}>{label}</div>
+                        <div className="flex items-center gap-2 text-[10px]" style={{ color: 'var(--text-muted)' }}>
+                          <span className="font-[700]" style={{ color }}>{count} {t.records}</span>
+                          <span>•</span>
+                          <span>{t.last_synced}: {meta.lastSynced ? new Date(meta.lastSynced).toLocaleDateString() : t.never_synced}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      disabled={!!syncingDataset || aiStatus !== 'ready'}
+                      onClick={() => handleSync(key)}
+                      className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-[700] transition-all disabled:opacity-40"
+                      style={{ background: gradient, border: `1px solid ${color}30`, color }}>
+                      <RefreshCw className={`w-3 h-3 ${isSyncing ? 'animate-spin' : ''}`} />
+                      {isSyncing ? t.searching_ai : t.sync_dataset}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Error display */}
+            {syncError && (
+              <div className="p-3 rounded-lg text-[11px] font-[500]"
+                style={{ background: 'rgba(244,63,94,0.07)', border: '1px solid rgba(244,63,94,0.15)', color: '#fb7185' }}>
+                {syncError}
+              </div>
+            )}
+
+            {/* Seed button for first-time setup */}
+            {(icd10Count === 0 && drugCount === 0 && guidelineCount === 0) && (
+              <button
+                type="button"
+                onClick={seedDatabase}
+                className="btn-primary w-full py-2.5 text-[13px]">
+                {t.sync_now}
+              </button>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Review Modal */}
+      <AnimatePresence>
+        {reviewData && (
+          <SyncReviewPanel
+            datasetType={reviewData.type}
+            entries={reviewData.result.entries}
+            sources={reviewData.result.sources}
+            hasGrounding={reviewData.result.hasGrounding}
+            onApprove={handleApprove}
+            onDismiss={() => setReviewData(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

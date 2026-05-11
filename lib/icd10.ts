@@ -131,5 +131,30 @@ export const ICD10_DB = [
   { code: 'I97.1', name: 'Other disturbances of cardiac function following cardiac surgery', indonesian: 'Gangguan fungsi jantung lainnya setelah operasi jantung' },
   { code: 'I97.8', name: 'Other intraoperative and postprocedural complications and disorders of circulatory system', indonesian: 'Komplikasi dan gangguan sistem peredaran darah intraoperatif dan pascaprosedural lainnya' },
   { code: 'G97.1', name: 'Other reaction to spinal and lumbar puncture', indonesian: 'Reaksi lain terhadap pungsi spinal dan lumbal (termasuk PDPH)' },
-  { code: 'O74', name: 'Complications of anaesthesia during labour and delivery', indonesian: 'Komplikasi anestesi selama persalinan' }
+  { code: 'O74', name: 'Complications of anaesthesia during labour and delivery', indonesian: 'Komplikasi anestesi selama persalinan' },
+
+  // Endemic & Tropical Diseases
+  { code: 'A92.0', name: 'Chikungunya virus disease', indonesian: 'Penyakit virus Chikungunya' },
+  { code: 'A27.9', name: 'Leptospirosis, unspecified', indonesian: 'Leptospirosis, tidak spesifik' },
+  { code: 'B54', name: 'Unspecified malaria', indonesian: 'Malaria, tidak spesifik' },
+
+  // Dermatology
+  { code: 'L01', name: 'Impetigo', indonesian: 'Impetigo' },
+  { code: 'L24', name: 'Irritant contact dermatitis', indonesian: 'Dermatitis kontak iritan' },
+  { code: 'L40', name: 'Psoriasis', indonesian: 'Psoriasis' },
+  { code: 'B35.4', name: 'Tinea corporis', indonesian: 'Tinea corporis (Kurap)' },
+
+  // Pediatrics / Child Health
+  { code: 'A37', name: 'Whooping cough', indonesian: 'Batuk rejan (Pertusis)' },
+  { code: 'B26', name: 'Mumps', indonesian: 'Gondongan' },
+  { code: 'P07.3', name: 'Other preterm infants', indonesian: 'Bayi prematur lainnya' },
+
+  // Gastrointestinal
+  { code: 'K70.3', name: 'Alcoholic cirrhosis of liver', indonesian: 'Sirosis hati alkoholik' },
+  { code: 'K74.6', name: 'Other and unspecified cirrhosis of liver', indonesian: 'Sirosis hati lainnya dan tidak spesifik' },
+  { code: 'K52.9', name: 'Noninfective gastroenteritis and colitis, unspecified', indonesian: 'Gastroenteritis dan kolitis non-infeksi, tidak spesifik' },
+
+  // Psychiatry
+  { code: 'F43.1', name: 'Post-traumatic stress disorder', indonesian: 'Gangguan stres pascatrauma (PTSD)' },
+  { code: 'F51.0', name: 'Nonorganic insomnia', indonesian: 'Insomnia non-organik' }
 ];

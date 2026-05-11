@@ -25,7 +25,7 @@ export default function Icd10Page() {
   }, [icdSearch]);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#b45309,#f59e0b)', boxShadow: '0 0 16px rgba(245,158,11,0.35)' }}>
           <Book className="w-5 h-5 text-white" />
@@ -36,7 +36,7 @@ export default function Icd10Page() {
         </div>
       </div>
 
-      <div className="glass-card-static overflow-hidden max-w-4xl">
+      <div className="glass-card-static overflow-hidden">
         <div className="section-header">
           <Book className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
           <span className="section-header-label">{t.icd10_search}</span>

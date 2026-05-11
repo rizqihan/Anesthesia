@@ -40,7 +40,7 @@ function DosageCalculatorContent() {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#0369a1,#0ea5e9)', boxShadow: '0 0 16px rgba(14,165,233,0.35)' }}>
           <Syringe className="w-5 h-5 text-white" />

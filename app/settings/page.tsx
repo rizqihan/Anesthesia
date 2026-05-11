@@ -131,7 +131,7 @@ export default function SettingsPage() {
   ];
 
   return (
-    <div className="space-y-5 max-w-4xl">
+    <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#374151,#6b7280)', boxShadow: '0 0 12px rgba(107,114,128,0.25)' }}>
           <Settings className="w-5 h-5 text-white" />

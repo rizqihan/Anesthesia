@@ -35,7 +35,7 @@ export default function FormularyPage() {
   }, [drugSearch, selectedClass]);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#5b21b6,#8b5cf6)', boxShadow: '0 0 16px rgba(139,92,246,0.35)' }}>
           <Pill className="w-5 h-5 text-white" />
@@ -46,7 +46,7 @@ export default function FormularyPage() {
         </div>
       </div>
 
-      <div className="glass-card-static overflow-hidden max-w-4xl">
+      <div className="glass-card-static overflow-hidden">
         <div className="section-header">
           <Pill className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
           <span className="section-header-label">{t.drug_formulary}</span>

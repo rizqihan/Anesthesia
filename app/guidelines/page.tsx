@@ -41,7 +41,7 @@ export default function GuidelinesPage() {
   }, [search]);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
           <div className="icon-box" style={{ background: 'linear-gradient(135deg,#0f766e,#14b8a6)', boxShadow: '0 0 16px rgba(20,184,166,0.35)' }}>

@@ -35,7 +35,7 @@ export default function SymptomCheckerPage() {
   };
 
   return (
-    <div className="space-y-5 max-w-4xl">
+    <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#047857,#10b981)', boxShadow: '0 0 16px rgba(16,185,129,0.35)' }}>
           <Activity className="w-5 h-5 text-white" />

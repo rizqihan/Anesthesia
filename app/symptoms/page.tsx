@@ -6,6 +6,8 @@ import { translations } from '@/lib/i18n';
 import { Activity, Cpu, AlertCircle } from 'lucide-react';
 import { generateAIResponse } from '@/lib/ai';
 import { motion, AnimatePresence } from 'motion/react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function SymptomCheckerPage() {
   const { language, isOffline } = useAppStore();
@@ -87,7 +89,7 @@ export default function SymptomCheckerPage() {
               )}
               {result && (
                 <motion.div key="result" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="result-box overflow-y-auto max-h-[360px] flex-1">
-                  <div className="text-[12px] leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--text-secondary)' }}>{result}</div>
+                  <div className="text-[13px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)]"><ReactMarkdown remarkPlugins={[remarkGfm]}>{result}</ReactMarkdown></div>
                 </motion.div>
               )}
             </AnimatePresence>

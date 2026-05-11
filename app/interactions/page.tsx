@@ -6,6 +6,8 @@ import { translations } from '@/lib/i18n';
 import { Pill, Cpu, ShieldAlert, AlertCircle } from 'lucide-react';
 import { generateAIResponse } from '@/lib/ai';
 import { motion, AnimatePresence } from 'motion/react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function InteractionsPage() {
   const { language, isOffline } = useAppStore();
@@ -59,7 +61,7 @@ export default function InteractionsPage() {
           </button>
           <AnimatePresence>
             {error && (<motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex items-start gap-3 p-4 rounded-xl" style={{ background: 'rgba(244,63,94,0.08)', border: '1px solid rgba(244,63,94,0.2)' }}><AlertCircle className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#fb7185' }} /><span className="text-[12px] leading-relaxed" style={{ color: '#fda4af' }}>{error}</span></motion.div>)}
-            {result && (<motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="result-box"><div className="flex items-center gap-2 mb-3 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}><span className="status-dot status-dot-green" /><span className="text-[11px] font-[700] uppercase tracking-[1px]" style={{ color: 'var(--text-secondary)' }}>{t.result}</span></div><div className="text-[12px] leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--text-secondary)' }}>{result}</div></motion.div>)}
+            {result && (<motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="result-box"><div className="flex items-center gap-2 mb-3 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}><span className="status-dot status-dot-green" /><span className="text-[11px] font-[700] uppercase tracking-[1px]" style={{ color: 'var(--text-secondary)' }}>{t.result}</span></div><div className="text-[13px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)]"><ReactMarkdown remarkPlugins={[remarkGfm]}>{result}</ReactMarkdown></div></motion.div>)}
           </AnimatePresence>
         </div>
       </div>

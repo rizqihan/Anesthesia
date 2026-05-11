@@ -1,12 +1,12 @@
 {
   "/_not-found/page": "/_not-found",
   "/calculators/page": "/calculators",
+  "/dosage/page": "/dosage",
+  "/formulary/page": "/formulary",
+  "/interactions/page": "/interactions",
+  "/page": "/",
   "/icd10/page": "/icd10",
   "/settings/page": "/settings",
-  "/dosage/page": "/dosage",
-  "/interactions/page": "/interactions",
-  "/symptoms/page": "/symptoms",
   "/guidelines/page": "/guidelines",
-  "/formulary/page": "/formulary",
-  "/page": "/"
+  "/symptoms/page": "/symptoms"
 }

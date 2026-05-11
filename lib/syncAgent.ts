@@ -89,6 +89,8 @@ Find 5-8 drugs. You MAY include drugs from the list above if you have UPDATED or
 - Anesthesia-related medications (propofol, ketamine, fentanyl, etc.)
 - Available generic drugs in Indonesian pharmacies
 
+CRITICAL: The "dosing" object is MANDATORY for every drug. ALL fields inside "dosing" must be present and filled with real clinical values. The app uses these values for a dosage calculator — missing dosing data makes the drug unusable.
+
 Return ONLY a JSON object in this exact format (no markdown, no explanation):
 {
   "entries": [
@@ -111,7 +113,16 @@ Return ONLY a JSON object in this exact format (no markdown, no explanation):
 }`;
 
   const response = await generateAISearchResponse(prompt);
-  const entries = parseEntries<Drug>(response.text);
+  let entries = parseEntries<Drug>(response.text);
+
+  // Validate: reject any drug without complete dosing data
+  entries = entries.filter(d =>
+    d.id && d.genericName && d.dosing &&
+    typeof d.dosing.dosePerKg === 'number' && d.dosing.dosePerKg > 0 &&
+    typeof d.dosing.maxDose === 'number' && d.dosing.maxDose > 0 &&
+    d.dosing.unit && d.dosing.frequency &&
+    d.dosing.notes?.en && d.dosing.notes?.id
+  );
 
   const newEntries: Drug[] = [];
   const updatedEntries: UpdatedEntry<Drug>[] = [];

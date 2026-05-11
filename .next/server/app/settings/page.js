@@ -24,6 +24,8 @@ Find 5-8 drugs. You MAY include drugs from the list above if you have UPDATED or
 - Anesthesia-related medications (propofol, ketamine, fentanyl, etc.)
 - Available generic drugs in Indonesian pharmacies
 
+CRITICAL: The "dosing" object is MANDATORY for every drug. ALL fields inside "dosing" must be present and filled with real clinical values. The app uses these values for a dosage calculator — missing dosing data makes the drug unusable.
+
 Return ONLY a JSON object in this exact format (no markdown, no explanation):
 {
   "entries": [
@@ -43,7 +45,7 @@ Return ONLY a JSON object in this exact format (no markdown, no explanation):
       }
     }
   ]
-}`,c=await (0,z.h)(b),d=A(c.text),e=[],f=[];for(let b of d){let c=a.get(b.id);c?JSON.stringify(c)!==JSON.stringify(b)&&f.push({old:c,new:b}):e.push(b)}return{newEntries:e,updatedEntries:f,sources:c.sources,hasGrounding:c.hasGrounding}}async function D(){let a=new Map((await t.A.guidelines.toArray()).map(a=>[a.title.en.toLowerCase(),a])),b=`You are a clinical guidelines expert. Search for the latest clinical practice guidelines (2023-2026) from major medical organizations (WHO, ESC, AHA, ACC, GOLD, GINA, KDIGO, NICE, etc).
+}`,c=await (0,z.h)(b),d=A(c.text);d=d.filter(a=>a.id&&a.genericName&&a.dosing&&"number"==typeof a.dosing.dosePerKg&&a.dosing.dosePerKg>0&&"number"==typeof a.dosing.maxDose&&a.dosing.maxDose>0&&a.dosing.unit&&a.dosing.frequency&&a.dosing.notes?.en&&a.dosing.notes?.id);let e=[],f=[];for(let b of d){let c=a.get(b.id);c?JSON.stringify(c)!==JSON.stringify(b)&&f.push({old:c,new:b}):e.push(b)}return{newEntries:e,updatedEntries:f,sources:c.sources,hasGrounding:c.hasGrounding}}async function D(){let a=new Map((await t.A.guidelines.toArray()).map(a=>[a.title.en.toLowerCase(),a])),b=`You are a clinical guidelines expert. Search for the latest clinical practice guidelines (2023-2026) from major medical organizations (WHO, ESC, AHA, ACC, GOLD, GINA, KDIGO, NICE, etc).
 
 Current guidelines already in the database:
 ${[...a.keys()].join("; ")}

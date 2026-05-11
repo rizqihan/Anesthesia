@@ -3,14 +3,14 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Activity, Cpu, AlertCircle } from 'lucide-react';
+import { Activity, Cpu, AlertCircle, Clock, Trash2 } from 'lucide-react';
 import { generateAIResponse } from '@/lib/ai';
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 export default function SymptomCheckerPage() {
-  const { language, isOffline } = useAppStore();
+  const { language, isOffline, symptomHistory, addSymptomHistory, clearSymptomHistory } = useAppStore();
   const t = translations[language];
   const [symptom, setSymptom] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,9 @@ export default function SymptomCheckerPage() {
     }
     try {
       const prompt = `You are a medical assistant used by doctors. Analyze: "${symptom}". Respond in ${language === 'en' ? 'English' : 'Indonesian'}. Provide differential diagnosis, red flags, and next steps. Start with a disclaimer.`;
-      setResult(await generateAIResponse(prompt));
+      const aiResponse = await generateAIResponse(prompt);
+      setResult(aiResponse);
+      addSymptomHistory({ query: symptom, result: aiResponse });
     } catch (err: any) {
       setError(err.message || (language === 'en' ? 'Failed to analyze.' : 'Gagal menganalisis.'));
     } finally { setLoading(false); }
@@ -96,6 +98,36 @@ export default function SymptomCheckerPage() {
           </div>
         </div>
       </div>
+
+      {symptomHistory.length > 0 && (
+        <div className="glass-card-static overflow-hidden mt-4">
+          <div className="section-header justify-between">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+              <span className="section-header-label">{t.history}</span>
+            </div>
+            <button onClick={clearSymptomHistory} className="text-[11px] font-[600] flex items-center gap-1.5 transition-colors hover:opacity-80" style={{ color: 'var(--accent-rose)' }}>
+              <Trash2 className="w-3.5 h-3.5" />
+              {t.clear_history}
+            </button>
+          </div>
+          <div className="divide-y divide-white/5">
+            {symptomHistory.map((item) => (
+              <div key={item.id} className="p-4 hover:bg-white/5 cursor-pointer transition-colors" onClick={() => { setSymptom(item.query); setResult(item.result); setError(''); }}>
+                <div className="flex justify-between items-start mb-1.5 gap-4">
+                  <span className="text-[13px] font-[600] leading-snug line-clamp-1" style={{ color: 'var(--text-primary)' }}>{item.query}</span>
+                  <span className="text-[10px] shrink-0" style={{ color: 'var(--text-muted)' }}>
+                    {new Date(item.timestamp).toLocaleTimeString(language === 'en' ? 'en-US' : 'id-ID', { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                </div>
+                <div className="text-[11px] leading-relaxed line-clamp-2" style={{ color: 'var(--text-secondary)' }}>
+                  {item.result}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="text-center text-[11px]" style={{ color: 'var(--text-muted)' }}>{t.disclaimer}</div>
     </div>

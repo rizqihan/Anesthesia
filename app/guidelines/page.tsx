@@ -99,13 +99,26 @@ export default function GuidelinesPage() {
                         {language === 'en' ? g.content.en : g.content.id}
                       </p>
                     </div>
-                    <div className="px-5 py-3 flex items-center gap-2 text-[11px] font-[500] transition-all"
-                      style={{ borderTop: '1px solid rgba(255,255,255,0.05)', color: 'var(--text-muted)' }}
+                    <a
+                      href={g.pdfUrl ? g.pdfUrl : `https://www.google.com/search?q=${encodeURIComponent(language === 'en' ? g.title.en : g.title.id)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-5 py-3 flex items-center gap-2 text-[11px] font-[500] transition-all block w-full"
+                      style={{ borderTop: '1px solid rgba(255,255,255,0.05)', color: 'var(--text-muted)', textDecoration: 'none' }}
                       onMouseEnter={e => (e.currentTarget.style.color = catStyle.color)}
                       onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}>
-                      <FileText className="w-3.5 h-3.5" />
-                      <span>{language === 'en' ? 'Read full guideline' : 'Baca pedoman lengkap'}</span>
-                    </div>
+                      {g.pdfUrl ? (
+                        <>
+                          <FileText className="w-3.5 h-3.5" />
+                          <span>{language === 'en' ? 'Read full guideline' : 'Baca pedoman lengkap'}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Search className="w-3.5 h-3.5" />
+                          <span>{language === 'en' ? 'Search on Google' : 'Cari di Google'}</span>
+                        </>
+                      )}
+                    </a>
                   </motion.div>
                 );
               })}

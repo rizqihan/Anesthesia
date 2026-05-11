@@ -91,7 +91,9 @@ export const translations = {
     info_bmi: 'Clinical Use: Categorization of general weight status. Limitation: Cannot differentiate between adipose tissue and muscle mass, potentially misclassifying highly muscular individuals.',
     info_ibw: 'Clinical Use: Pharmacokinetic dosing adjustments, particularly in obese populations to prevent toxicity. Limitation: Applicability varies; not all pharmacologic agents utilize adjusted body weight for dosing.',
     info_cg: 'Clinical Use: Estimation of creatinine clearance for renal dosing adjustments. Limitation: May overestimate clearance in obese patients and is unreliable in acute kidney injury with fluctuating serum creatinine.',
-    info_egfr: 'Clinical Use: Staging and monitoring of Chronic Kidney Disease (CKD). Limitation: Unreliable in acute kidney injury or patients with extreme variations in muscle mass or diet.'
+    info_egfr: 'Clinical Use: Staging and monitoring of Chronic Kidney Disease (CKD). Limitation: Unreliable in acute kidney injury or patients with extreme variations in muscle mass or diet.',
+    history: 'History',
+    clear_history: 'Clear History'
   },
   id: {
     app_name: 'Anesthesia',
@@ -185,7 +187,9 @@ export const translations = {
     info_bmi: 'Indikasi Klinis: Klasifikasi status berat badan secara umum. Keterbatasan: Tidak membedakan komposisi lemak dan otot, dapat memberikan hasil tidak akurat pada individu dengan massa otot tinggi.',
     info_ibw: 'Indikasi Klinis: Perhitungan dosis obat pada pasien obesitas untuk mencegah toksisitas. Keterbatasan: Tidak semua jenis obat menggunakan berat badan yang disesuaikan dalam penentuan dosis.',
     info_cg: 'Indikasi Klinis: Estimasi klirens kreatinin untuk penyesuaian dosis obat pada gangguan ginjal. Keterbatasan: Cenderung melebih-lebihkan klirens pada pasien obesitas dan tidak akurat pada kondisi fungsi ginjal yang berfluktuasi.',
-    info_egfr: 'Indikasi Klinis: Klasifikasi stadium dan pemantauan Penyakit Ginjal Kronik (PGK). Keterbatasan: Tidak valid pada gangguan ginjal akut atau pasien dengan variasi massa otot dan diet yang ekstrem.'
+    info_egfr: 'Indikasi Klinis: Klasifikasi stadium dan pemantauan Penyakit Ginjal Kronik (PGK). Keterbatasan: Tidak valid pada gangguan ginjal akut atau pasien dengan variasi massa otot dan diet yang ekstrem.',
+    history: 'Riwayat',
+    clear_history: 'Hapus Riwayat'
   }
 };
 

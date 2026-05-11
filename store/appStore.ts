@@ -4,6 +4,13 @@ import { persist } from 'zustand/middleware';
 type Language = 'en' | 'id';
 type AIProvider = 'default_gemini' | 'custom_gemini' | 'openai_compatible';
 
+export interface HistoryItem {
+  id: string;
+  query: string;
+  result: string;
+  timestamp: number;
+}
+
 export interface DatasetSyncMeta {
   lastSynced: string | null;
   count: number;
@@ -26,6 +33,14 @@ interface AppState {
   openaiModel: string;
   setOpenaiModel: (model: string) => void;
   
+  interactionHistory: HistoryItem[];
+  addInteractionHistory: (item: Omit<HistoryItem, 'id' | 'timestamp'>) => void;
+  clearInteractionHistory: () => void;
+  
+  symptomHistory: HistoryItem[];
+  addSymptomHistory: (item: Omit<HistoryItem, 'id' | 'timestamp'>) => void;
+  clearSymptomHistory: () => void;
+
   // Per-dataset sync metadata
   syncMeta: {
     icd10: DatasetSyncMeta;
@@ -58,6 +73,18 @@ export const useAppStore = create<AppState>()(
       openaiModel: 'llama-3.3-70b-versatile',
       setOpenaiModel: (model) => set({ openaiModel: model }),
 
+      interactionHistory: [],
+      addInteractionHistory: (item) => set((state) => ({
+        interactionHistory: [{ ...item, id: Date.now().toString(), timestamp: Date.now() }, ...state.interactionHistory].slice(0, 5)
+      })),
+      clearInteractionHistory: () => set({ interactionHistory: [] }),
+
+      symptomHistory: [],
+      addSymptomHistory: (item) => set((state) => ({
+        symptomHistory: [{ ...item, id: Date.now().toString(), timestamp: Date.now() }, ...state.symptomHistory].slice(0, 5)
+      })),
+      clearSymptomHistory: () => set({ symptomHistory: [] }),
+
       syncMeta: {
         icd10: { lastSynced: null, count: 0 },
         drugs: { lastSynced: null, count: 0 },
@@ -85,6 +112,8 @@ export const useAppStore = create<AppState>()(
         openaiModel: state.openaiModel,
         lastSyncDate: state.lastSyncDate,
         syncMeta: state.syncMeta,
+        interactionHistory: state.interactionHistory,
+        symptomHistory: state.symptomHistory,
       }),
     }
   )

@@ -3,14 +3,14 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Pill, Cpu, ShieldAlert, AlertCircle } from 'lucide-react';
+import { Pill, Cpu, ShieldAlert, AlertCircle, Clock, Trash2 } from 'lucide-react';
 import { generateAIResponse } from '@/lib/ai';
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 export default function InteractionsPage() {
-  const { language, isOffline } = useAppStore();
+  const { language, isOffline, interactionHistory, addInteractionHistory, clearInteractionHistory } = useAppStore();
   const t = translations[language];
   const [drugs, setDrugs] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,9 @@ export default function InteractionsPage() {
     }
     try {
       const prompt = `Act as a clinical pharmacologist. Check interactions for: "${drugs}". Respond in ${language === 'en' ? 'English' : 'Indonesian'}. Format: Severity, Mechanism, Management. Be concise. Add disclaimer.`;
-      setResult(await generateAIResponse(prompt));
+      const aiResponse = await generateAIResponse(prompt);
+      setResult(aiResponse);
+      addInteractionHistory({ query: drugs, result: aiResponse });
     } catch (err: any) {
       setError(err.message || (language === 'en' ? 'Failed.' : 'Gagal.'));
     } finally { setLoading(false); }
@@ -65,6 +67,37 @@ export default function InteractionsPage() {
           </AnimatePresence>
         </div>
       </div>
+
+      {interactionHistory.length > 0 && (
+        <div className="glass-card-static overflow-hidden">
+          <div className="section-header justify-between">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+              <span className="section-header-label">{t.history}</span>
+            </div>
+            <button onClick={clearInteractionHistory} className="text-[11px] font-[600] flex items-center gap-1.5 transition-colors" style={{ color: 'var(--accent-rose)' }}>
+              <Trash2 className="w-3.5 h-3.5" />
+              {t.clear_history}
+            </button>
+          </div>
+          <div className="divide-y divide-white/5">
+            {interactionHistory.map((item) => (
+              <div key={item.id} className="p-4 hover:bg-white/5 cursor-pointer transition-colors" onClick={() => { setDrugs(item.query); setResult(item.result); setError(''); }}>
+                <div className="flex justify-between items-start mb-1.5 gap-4">
+                  <span className="text-[13px] font-[600] leading-snug" style={{ color: 'var(--text-primary)' }}>{item.query}</span>
+                  <span className="text-[10px] shrink-0" style={{ color: 'var(--text-muted)' }}>
+                    {new Date(item.timestamp).toLocaleTimeString(language === 'en' ? 'en-US' : 'id-ID', { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                </div>
+                <div className="text-[11px] leading-relaxed line-clamp-2" style={{ color: 'var(--text-secondary)' }}>
+                  {item.result}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="text-center text-[11px]" style={{ color: 'var(--text-muted)' }}>{t.disclaimer}</div>
     </div>
   );

@@ -12,6 +12,7 @@ export interface GuidelineRecord {
   title: { en: string; id: string };
   category: string;
   content: { en: string; id: string };
+  pdfUrl?: string;
 }
 
 const db = new Dexie('ClinicalAppDB') as Dexie & {

@@ -16,6 +16,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const isAiConfigured = () => {
+    if (store.aiProvider === 'default_gemini' && !process.env.NEXT_PUBLIC_GEMINI_API_KEY) return false;
     if (store.aiProvider === 'custom_gemini' && !store.customGeminiKey.trim()) return false;
     if (store.aiProvider === 'openai_compatible' && (!store.openaiEndpoint.trim() || !store.openaiKey.trim())) return false;
     return true;

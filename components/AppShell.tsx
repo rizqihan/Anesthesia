@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Home, Settings, ChevronLeft, Wifi, WifiOff, AlertTriangle, Activity } from 'lucide-react';
+import { Home, Settings, ChevronLeft, Wifi, WifiOff, AlertTriangle, Activity, Database, RefreshCw, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -14,6 +14,36 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const t = translations[language];
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isInitialSyncing, setIsInitialSyncing] = useState(false);
+  const [hasIgnoredSync, setHasIgnoredSync] = useState(false);
+
+  const isNotSynced = !store.lastSyncDate && 
+    !store.syncMeta.icd10.lastSynced && 
+    !store.syncMeta.drugs.lastSynced && 
+    !store.syncMeta.guidelines.lastSynced;
+
+  const handleInitialSync = async () => {
+    setIsInitialSyncing(true);
+    try {
+      const db = (await import('@/lib/db')).default;
+      const { ICD10_DB } = await import('@/lib/icd10');
+      const { DRUG_DB } = await import('@/lib/drugs');
+      const { GUIDELINES_DB } = await import('@/lib/guidelines');
+      
+      await db.icd10.bulkPut(ICD10_DB as any);
+      await db.drugs.bulkPut(DRUG_DB as any);
+      await db.guidelines.bulkPut(GUIDELINES_DB as any);
+      
+      const now = new Date().toISOString();
+      store.updateSyncMeta('icd10', { lastSynced: now, count: ICD10_DB.length });
+      store.updateSyncMeta('drugs', { lastSynced: now, count: DRUG_DB.length });
+      store.updateSyncMeta('guidelines', { lastSynced: now, count: GUIDELINES_DB.length });
+    } catch (e) {
+      console.error('Initial sync error:', e);
+    } finally {
+      setIsInitialSyncing(false);
+    }
+  };
 
   const isAiConfigured = () => {
     if (store.aiProvider === 'default_gemini' && !process.env.NEXT_PUBLIC_GEMINI_API_KEY) return false;
@@ -261,6 +291,68 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           );
         })}
       </nav>
+
+      {/* Sync Warning Modal */}
+      <AnimatePresence>
+        {isNotSynced && !hasIgnoredSync && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="glass-card-static w-full max-w-sm p-6 flex flex-col items-center text-center relative"
+            >
+              <button 
+                onClick={() => setHasIgnoredSync(true)}
+                className="absolute top-3 right-3 p-1.5 rounded-lg transition-colors hover:bg-white/5"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                <X className="w-4 h-4" />
+              </button>
+              <div className="w-14 h-14 rounded-full mb-5 flex items-center justify-center shadow-lg mt-2" style={{ background: 'rgba(251,191,36,0.1)', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.2)' }}>
+                <Database className="w-7 h-7" />
+              </div>
+              <h2 className="text-[18px] font-[800] mb-2" style={{ color: 'var(--text-primary)' }}>
+                {language === 'en' ? 'Database Not Synced' : 'Database Belum Disinkronkan'}
+              </h2>
+              <p className="text-[13px] mb-6 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                {language === 'en' 
+                  ? 'Please sync the clinical database first to enable offline features like medical calculators and drug references.'
+                  : 'Harap sinkronkan database klinis terlebih dahulu untuk mengaktifkan fitur offline seperti kalkulator medis dan referensi obat.'}
+              </p>
+              <button 
+                onClick={handleInitialSync}
+                disabled={isInitialSyncing}
+                className="btn-primary w-full py-3 text-[14px] font-[600] flex justify-center items-center gap-2"
+              >
+                {isInitialSyncing ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    {language === 'en' ? 'Syncing...' : 'Menyinkronkan...'}
+                  </>
+                ) : (
+                  <>
+                    <Database className="w-4 h-4" />
+                    {language === 'en' ? 'Sync Database Now' : 'Sinkronkan Database Sekarang'}
+                  </>
+                )}
+              </button>
+              <button 
+                onClick={() => setHasIgnoredSync(true)}
+                className="w-full py-2.5 mt-3 text-[13px] font-[600] rounded-xl transition-all hover:bg-white/5"
+                style={{ color: 'var(--text-muted)', background: 'rgba(255,255,255,0.02)' }}
+              >
+                {language === 'en' ? 'Ignore for now' : 'Abaikan untuk saat ini'}
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

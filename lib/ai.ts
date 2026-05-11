@@ -1,6 +1,16 @@
 import { useAppStore } from '@/store/appStore';
 import { GoogleGenAI } from '@google/genai';
 
+const GEMINI_MODEL = 'gemini-3.1-flash-lite';
+
+/** Normalize an OpenAI-compatible base URL to ensure it ends with /chat/completions */
+function buildOpenAIUrl(endpoint: string): string {
+  let base = endpoint.trim().replace(/\/+$/, '');
+  if (base.endsWith('/chat/completions')) return base;
+  if (!base.endsWith('/v1')) base = base.replace(/\/v1\/.*$/, '/v1');
+  return `${base}/chat/completions`;
+}
+
 export async function generateAIResponse(prompt: string): Promise<string> {
   const store = useAppStore.getState();
   
@@ -15,7 +25,7 @@ export async function generateAIResponse(prompt: string): Promise<string> {
     // The GoogleGenAI is from @google/genai package which is the official new SDK
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash',
+      model: GEMINI_MODEL,
       contents: prompt,
     });
     
@@ -24,9 +34,7 @@ export async function generateAIResponse(prompt: string): Promise<string> {
     if (!store.openaiKey) throw new Error('API key not found for OpenAI compatible endpoint');
     if (!store.openaiEndpoint) throw new Error('Endpoint URL not configured');
     
-    const url = store.openaiEndpoint.endsWith('/') 
-      ? `${store.openaiEndpoint}chat/completions` 
-      : `${store.openaiEndpoint}/chat/completions`;
+    const url = buildOpenAIUrl(store.openaiEndpoint);
 
     const response = await fetch(url, {
       method: 'POST',
@@ -82,7 +90,7 @@ export async function generateAISearchResponse(prompt: string): Promise<AISearch
 
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash',
+      model: GEMINI_MODEL,
       contents: prompt,
       config: {
         tools: [{ googleSearch: {} }],
@@ -119,9 +127,7 @@ export async function generateAISearchResponse(prompt: string): Promise<AISearch
     if (!store.openaiKey) throw new Error('API key not found for OpenAI compatible endpoint');
     if (!store.openaiEndpoint) throw new Error('Endpoint URL not configured');
 
-    const url = store.openaiEndpoint.endsWith('/')
-      ? `${store.openaiEndpoint}chat/completions`
-      : `${store.openaiEndpoint}/chat/completions`;
+    const url = buildOpenAIUrl(store.openaiEndpoint);
 
     const response = await fetch(url, {
       method: 'POST',

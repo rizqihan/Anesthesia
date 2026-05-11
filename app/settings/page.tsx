@@ -54,6 +54,19 @@ export default function SettingsPage() {
     }
   }, [store]);
 
+  const handleResetDatabase = useCallback(async () => {
+    if (!window.confirm(store.language === 'en' ? 'Are you sure you want to reset the database? Any synced data will be lost.' : 'Apakah Anda yakin ingin mereset database? Data hasil sinkronisasi akan hilang.')) return;
+    try {
+      await db.icd10.clear();
+      await db.drugs.clear();
+      await db.guidelines.clear();
+      await seedDatabase();
+    } catch (e) {
+      console.error('Reset error:', e);
+      setSyncError(store.language === 'en' ? 'Failed to reset database' : 'Gagal mereset database');
+    }
+  }, [seedDatabase, store.language]);
+
   // AI-powered sync for a specific dataset
   const handleSync = useCallback(async (dataset: DatasetType) => {
     if (syncingDataset) return;
@@ -260,13 +273,21 @@ export default function SettingsPage() {
               </div>
             )}
 
-            {/* Seed button for first-time setup */}
-            {(icd10Count === 0 && drugCount === 0 && guidelineCount === 0) && (
+            {/* Seed button for first-time setup or Reset button */}
+            {(icd10Count === 0 && drugCount === 0 && guidelineCount === 0) ? (
               <button
                 type="button"
                 onClick={seedDatabase}
                 className="btn-primary w-full py-2.5 text-[13px]">
                 {t.sync_now}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleResetDatabase}
+                className="w-full py-2.5 text-[13px] rounded-xl font-[600] transition-all"
+                style={{ background: 'rgba(244,63,94,0.1)', color: '#fb7185', border: '1px solid rgba(244,63,94,0.2)' }}>
+                {t.reset_database}
               </button>
             )}
           </div>

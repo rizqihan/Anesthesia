@@ -93,7 +93,8 @@ export const translations = {
     info_cg: 'Clinical Use: Estimation of creatinine clearance for renal dosing adjustments. Limitation: May overestimate clearance in obese patients and is unreliable in acute kidney injury with fluctuating serum creatinine.',
     info_egfr: 'Clinical Use: Staging and monitoring of Chronic Kidney Disease (CKD). Limitation: Unreliable in acute kidney injury or patients with extreme variations in muscle mass or diet.',
     history: 'History',
-    clear_history: 'Clear History'
+    clear_history: 'Clear History',
+    reset_database: 'Reset Database'
   },
   id: {
     app_name: 'Anesthesia',
@@ -189,7 +190,8 @@ export const translations = {
     info_cg: 'Indikasi Klinis: Estimasi klirens kreatinin untuk penyesuaian dosis obat pada gangguan ginjal. Keterbatasan: Cenderung melebih-lebihkan klirens pada pasien obesitas dan tidak akurat pada kondisi fungsi ginjal yang berfluktuasi.',
     info_egfr: 'Indikasi Klinis: Klasifikasi stadium dan pemantauan Penyakit Ginjal Kronik (PGK). Keterbatasan: Tidak valid pada gangguan ginjal akut atau pasien dengan variasi massa otot dan diet yang ekstrem.',
     history: 'Riwayat',
-    clear_history: 'Hapus Riwayat'
+    clear_history: 'Hapus Riwayat',
+    reset_database: 'Reset Database'
   }
 };
 

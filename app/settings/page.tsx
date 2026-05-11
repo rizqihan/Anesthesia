@@ -75,7 +75,7 @@ export default function SettingsPage() {
       else if (dataset === 'drugs') result = await syncDrugs();
       else result = await syncGuidelines();
 
-      if (result.entries.length > 0) {
+      if (result.newEntries.length > 0 || result.updatedEntries.length > 0) {
         setReviewData({ type: dataset, result });
       } else {
         setSyncError(t.no_new_data);
@@ -89,16 +89,15 @@ export default function SettingsPage() {
     }
   }, [syncingDataset, icd10Count, drugCount, guidelineCount, t]);
 
-  // Approve selected entries from review panel
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleApprove = useCallback(async (selectedEntries: Record<string, any>[]) => {
+  const handleApprove = useCallback(async (newSelected: Record<string, any>[], updateSelected: Record<string, any>[]) => {
     if (!reviewData) return;
     const { type } = reviewData;
+    const allEntries = [...newSelected, ...updateSelected];
 
     try {
-      if (type === 'icd10') await db.icd10.bulkPut(selectedEntries as unknown as import('@/lib/db').ICD10Record[]);
-      else if (type === 'drugs') await db.drugs.bulkPut(selectedEntries as unknown as import('@/lib/drugs').Drug[]);
-      else await db.guidelines.bulkPut(selectedEntries as unknown as import('@/lib/db').GuidelineRecord[]);
+      if (type === 'icd10') await db.icd10.bulkPut(allEntries as unknown as import('@/lib/db').ICD10Record[]);
+      else if (type === 'drugs') await db.drugs.bulkPut(allEntries as unknown as import('@/lib/drugs').Drug[]);
+      else await db.guidelines.bulkPut(allEntries as unknown as import('@/lib/db').GuidelineRecord[]);
 
       const count = type === 'icd10' ? await db.icd10.count() : type === 'drugs' ? await db.drugs.count() : await db.guidelines.count();
       store.updateSyncMeta(type, { lastSynced: new Date().toISOString(), count });
@@ -279,7 +278,8 @@ export default function SettingsPage() {
         {reviewData && (
           <SyncReviewPanel
             datasetType={reviewData.type}
-            entries={reviewData.result.entries}
+            newEntries={reviewData.result.newEntries}
+            updatedEntries={reviewData.result.updatedEntries}
             sources={reviewData.result.sources}
             hasGrounding={reviewData.result.hasGrounding}
             onApprove={handleApprove}

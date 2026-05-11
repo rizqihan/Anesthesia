@@ -87,11 +87,11 @@ export const translations = {
     deselect_all: 'Deselect All',
     requires_ai: 'AI Powered',
     offline_capable: 'Offline Capable',
-    explanation_pitfalls: 'Explanation & Pitfalls',
-    info_bmi: 'BMI is for calculating general body weight categories (underweight, normal, overweight, obesity). Pitfall: It does not distinguish between fat mass and muscle mass, and may misclassify muscular athletes as obese.',
-    info_ibw: 'IBW/ABW are used for dosing medications, particularly in obese patients where actual body weight may result in overdosing. Pitfall: Not all drugs require adjusted body weight for dosing.',
-    info_cg: 'Cockcroft-Gault is historically the standard formula for drug dosing adjustments in renal impairment. Pitfall: Can overestimate creatinine clearance in obese patients. May not be accurate in rapidly changing renal function.',
-    info_egfr: 'eGFR (CKD-EPI) is recommended for staging chronic kidney disease. Pitfall: Less accurate for drug dosing compared to Cockcroft-Gault. Not validated for acute kidney injury.'
+    explanation_pitfalls: 'Clinical Context & Limitations',
+    info_bmi: 'Clinical Use: Categorization of general weight status. Limitation: Cannot differentiate between adipose tissue and muscle mass, potentially misclassifying highly muscular individuals.',
+    info_ibw: 'Clinical Use: Pharmacokinetic dosing adjustments, particularly in obese populations to prevent toxicity. Limitation: Applicability varies; not all pharmacologic agents utilize adjusted body weight for dosing.',
+    info_cg: 'Clinical Use: Estimation of creatinine clearance for renal dosing adjustments. Limitation: May overestimate clearance in obese patients and is unreliable in acute kidney injury with fluctuating serum creatinine.',
+    info_egfr: 'Clinical Use: Staging and monitoring of Chronic Kidney Disease (CKD). Limitation: Unreliable in acute kidney injury or patients with extreme variations in muscle mass or diet.'
   },
   id: {
     app_name: 'Anesthesia',
@@ -181,11 +181,11 @@ export const translations = {
     deselect_all: 'Batal Semua',
     requires_ai: 'Ditenagai AI',
     offline_capable: 'Bisa Offline',
-    explanation_pitfalls: 'Penjelasan & Kekurangan',
-    info_bmi: 'IMT digunakan untuk mengkategorikan berat badan (kurang, normal, berlebih, obesitas). Kekurangan: Tidak membedakan antara massa lemak dan massa otot, atlet berotot bisa diklasifikasikan obesitas.',
-    info_ibw: 'BBI/BBD digunakan untuk penyesuaian dosis obat, terutama pada pasien obesitas untuk menghindari overdosis. Kekurangan: Tidak semua obat memerlukan berat badan yang disesuaikan untuk perhitungan dosis.',
-    info_cg: 'Cockcroft-Gault adalah rumus standar historis untuk penyesuaian dosis obat pada gangguan ginjal. Kekurangan: Dapat melebih-lebihkan klirens kreatinin pada pasien obesitas. Kurang akurat pada fungsi ginjal yang berubah cepat.',
-    info_egfr: 'eGFR (CKD-EPI) direkomendasikan untuk stadium penyakit ginjal kronis. Kekurangan: Kurang akurat untuk penyesuaian dosis obat dibandingkan Cockcroft-Gault. Tidak divalidasi untuk cedera ginjal akut.'
+    explanation_pitfalls: 'Konteks Klinis & Keterbatasan',
+    info_bmi: 'Indikasi Klinis: Klasifikasi status berat badan secara umum. Keterbatasan: Tidak membedakan komposisi lemak dan otot, dapat memberikan hasil tidak akurat pada individu dengan massa otot tinggi.',
+    info_ibw: 'Indikasi Klinis: Perhitungan dosis obat pada pasien obesitas untuk mencegah toksisitas. Keterbatasan: Tidak semua jenis obat menggunakan berat badan yang disesuaikan dalam penentuan dosis.',
+    info_cg: 'Indikasi Klinis: Estimasi klirens kreatinin untuk penyesuaian dosis obat pada gangguan ginjal. Keterbatasan: Cenderung melebih-lebihkan klirens pada pasien obesitas dan tidak akurat pada kondisi fungsi ginjal yang berfluktuasi.',
+    info_egfr: 'Indikasi Klinis: Klasifikasi stadium dan pemantauan Penyakit Ginjal Kronik (PGK). Keterbatasan: Tidak valid pada gangguan ginjal akut atau pasien dengan variasi massa otot dan diet yang ekstrem.'
   }
 };
 

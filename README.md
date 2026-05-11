@@ -1,32 +1,30 @@
 <div align="center">
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 
-# Anesthesia
+# Anesthesia — AI-Powered Clinical Assistant
 
-*A comprehensive, offline-capable suite of medical tools and mini-apps tailored for healthcare professionals.*
+*A premium, offline-capable suite of intelligent medical tools and reference apps tailored for MDs and healthcare professionals.*
 
 </div>
 
 ## Overview
 
-Anesthesia is a modern web application built with Next.js, providing a collection of medical mini-apps including dosage calculators, drug interaction checkers, and a symptom checker. It is designed to work seamlessly offline and supports both English and Indonesian languages.
+Anesthesia is a state-of-the-art web application built with Next.js, featuring a premium dark-mode glassmorphism design. It serves as a comprehensive clinical assistant, providing medical professionals with AI-driven insights, context-aware calculators, and an up-to-date offline medical knowledge base.
 
 ## Key Features
 
-- 🧮 **Medical Calculators:** Essential calculators including BMI, Creatinine Clearance, and more (Offline capable).
-- 💊 **Interaction Checker:** AI-powered tool to check interactions between multiple drugs.
-- 🩺 **Symptom Checker:** AI-powered symptom analysis for clinical decision support.
-- 📚 **ICD-10 Search:** Quick, offline dictionary for ICD-10 codes.
-- 💉 **Dosage Calculator:** Weight-based pediatric and adult dosing (Offline capable).
-- 📖 **Drug Formulary:** Search drugs, indications, and formulations offline.
-- 📋 **Clinical Guidelines:** Access standard clinical guidelines completely offline.
+- 🧠 **AI-Powered Clinical Tools:** Leverages Google Gemini for advanced symptom analysis, drug interaction checking, and clinical decision support, with responses beautifully rendered in rich markdown.
+- 🔄 **Intelligent Clinical Data Sync:** Features an AI-driven pipeline that searches for updated clinical data and enforces strict human-in-the-loop review through side-by-side diffing, ensuring your offline medical reference stays accurate and current.
+- 🧮 **Context-Aware Medical Calculators:** Essential calculators (BMI, Creatinine Clearance, Pediatric/Adult dosing) enhanced with clinical context cards that explain limitations and appropriate use cases.
+- 📋 **Smart Clinical Guidelines:** Access standard clinical guidelines offline, with intelligent links that route directly to source PDFs or automatically construct relevant web searches.
+- ⚡ **Offline-First Architecture:** Critical reference tools (ICD-10 dictionary, drug formulary, calculators) work flawlessly without an internet connection, ensuring reliability in clinical environments like operating rooms.
+- 🎨 **Premium UI/UX:** A stunning, responsive dark-mode dashboard featuring glassmorphism elements, modern typography, and smooth micro-animations.
 - 🌐 **Bilingual Support:** Full support for English and Indonesian (`id`).
-- ⚡ **Offline-First:** Critical tools work without an internet connection using local storage technologies.
 
 ## Tech Stack
 
 - **Framework:** Next.js 15
-- **UI:** React 19, Tailwind CSS, Framer Motion, Lucide React
+- **UI & Styling:** React 19, Tailwind CSS, Framer Motion, Lucide React, Glassmorphism Aesthetics
 - **State Management:** Zustand
 - **Offline Storage:** Dexie, localForage, idb-keyval
 - **AI Integration:** Google Gemini API (`@google/genai`)
@@ -37,7 +35,7 @@ Anesthesia is a modern web application built with Next.js, providing a collectio
 
 - Node.js (v20+)
 - npm or yarn
-- Google Gemini API Key (for AI features)
+- Google Gemini API Key (required for AI features like the Symptom Checker and Data Sync)
 
 ### Installation
 

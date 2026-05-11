@@ -1,6 +1,7 @@
 {
-  "name": "ai-studio-applet",
+  "name": "anesthesia",
   "version": "0.1.0",
+  "description": "AI-Powered Clinical Assistant and offline reference suite for medical professionals.",
   "private": true,
   "scripts": {
     "dev": "next dev",

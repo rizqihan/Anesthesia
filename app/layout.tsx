@@ -4,7 +4,7 @@ import AppShell from '@/components/AppShell';
 
 export const metadata: Metadata = {
   title: 'Anesthesia — Clinical Assistant',
-  description: 'Premium medical professional mini-apps suite for anesthesiologists',
+  description: 'AI-powered clinical assistant, medical calculators, and offline reference suite tailored for MDs and healthcare professionals.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,

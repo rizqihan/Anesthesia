@@ -231,7 +231,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Per-dataset rows */}
-            <div className="rounded-xl overflow-hidden divide-y" style={{ border: '1px solid var(--border-card)' }}>
+            <div className="rounded-xl overflow-hidden divide-y divide-white/[0.06]" style={{ border: '1px solid var(--border-card)' }}>
               {datasets.map(({ key, label, icon, count, color, gradient }) => {
                 const meta = store.syncMeta[key];
                 const isSyncing = syncingDataset === key;

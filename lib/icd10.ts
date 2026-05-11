@@ -119,5 +119,17 @@ export const ICD10_DB = [
   // Z Codes (Factors Influencing Health Status)
   { code: 'Z00.0', name: 'General medical examination', indonesian: 'Pemeriksaan medis umum' },
   { code: 'Z01.2', name: 'Dental examination', indonesian: 'Pemeriksaan gigi' },
-  { code: 'Z32.1', name: 'Pregnancy confirmed', indonesian: 'Kehamilan terkonfirmasi' }
+  { code: 'Z32.1', name: 'Pregnancy confirmed', indonesian: 'Kehamilan terkonfirmasi' },
+
+  // Anesthesia & Perioperative Complications
+  { code: 'T88.2', name: 'Shock due to anesthesia', indonesian: 'Syok akibat anestesi' },
+  { code: 'T88.4', name: 'Failed or difficult intubation', indonesian: 'Intubasi gagal atau sulit' },
+  { code: 'T88.5', name: 'Other complications of anesthesia', indonesian: 'Komplikasi anestesi lainnya' },
+  { code: 'J95.1', name: 'Acute pulmonary insufficiency following thoracic surgery', indonesian: 'Insufisiensi paru akut setelah operasi toraks' },
+  { code: 'J95.2', name: 'Acute pulmonary insufficiency following nonthoracic surgery', indonesian: 'Insufisiensi paru akut setelah operasi nontoraks' },
+  { code: 'J95.8', name: 'Other intraoperative and postprocedural respiratory disorders', indonesian: 'Gangguan pernapasan intraoperatif dan pascaprosedural lainnya' },
+  { code: 'I97.1', name: 'Other disturbances of cardiac function following cardiac surgery', indonesian: 'Gangguan fungsi jantung lainnya setelah operasi jantung' },
+  { code: 'I97.8', name: 'Other intraoperative and postprocedural complications and disorders of circulatory system', indonesian: 'Komplikasi dan gangguan sistem peredaran darah intraoperatif dan pascaprosedural lainnya' },
+  { code: 'G97.1', name: 'Other reaction to spinal and lumbar puncture', indonesian: 'Reaksi lain terhadap pungsi spinal dan lumbal (termasuk PDPH)' },
+  { code: 'O74', name: 'Complications of anaesthesia during labour and delivery', indonesian: 'Komplikasi anestesi selama persalinan' }
 ];

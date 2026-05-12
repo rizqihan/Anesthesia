@@ -155,7 +155,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* ─── Main Layout ─── */}
-      <div className="flex flex-1 overflow-hidden pt-[56px] md:pt-0 pb-[60px] md:pb-0 relative">
+      <div className="flex flex-1 overflow-hidden pt-[56px] md:pt-0 pb-[110px] md:pb-0 relative">
         {/* Sidebar (Desktop) */}
         <motion.nav
           initial={false}

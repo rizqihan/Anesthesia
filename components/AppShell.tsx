@@ -265,7 +265,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           WebkitBackdropFilter: 'blur(20px)',
           borderTop: '1px solid rgba(255,255,255,0.07)',
           paddingTop: '8px',
-          paddingBottom: '12px',
+          paddingBottom: 'env(safe-area-inset-bottom)',
         }}
       >
         {navItems.map((item) => {

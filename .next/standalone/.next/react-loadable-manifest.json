@@ -1,1 +1,45 @@
-{}
+{
+  "components/AppShell.tsx -> @/lib/db": {
+    "id": 809,
+    "files": [
+      "static/chunks/278-fb59b7d2555f3fed.js",
+      "static/chunks/809.7a2bc8236af321ca.js"
+    ]
+  },
+  "components/AppShell.tsx -> @/lib/drugs": {
+    "id": 2854,
+    "files": [
+      "static/chunks/854-db8128928c34a5f0.js"
+    ]
+  },
+  "components/AppShell.tsx -> @/lib/guidelines": {
+    "id": 2108,
+    "files": [
+      "static/chunks/108.a8e66d10fee9bd46.js"
+    ]
+  },
+  "components/AppShell.tsx -> @/lib/icd10": {
+    "id": 7028,
+    "files": [
+      "static/chunks/647.410d670cfdb0e575.js"
+    ]
+  },
+  "lib/pdfGenerator.tsx -> html-to-pdfmake": {
+    "id": 8015,
+    "files": [
+      "static/chunks/15.c24fb2a3629ba2d5.js"
+    ]
+  },
+  "lib/pdfGenerator.tsx -> pdfmake/build/pdfmake": {
+    "id": 9536,
+    "files": [
+      "static/chunks/5493da1b.324d4314e9bc490c.js"
+    ]
+  },
+  "lib/pdfGenerator.tsx -> pdfmake/build/vfs_fonts": {
+    "id": 1984,
+    "files": [
+      "static/chunks/63b94182.99d76ea55b2737ac.js"
+    ]
+  }
+}

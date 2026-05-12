@@ -1,12 +1,14 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/dosage/page": "app/dosage/page.js",
+  "/api/groq/models/route": "app/api/groq/models/route.js",
+  "/api/groq/route": "app/api/groq/route.js",
   "/calculators/page": "app/calculators/page.js",
+  "/dosage/page": "app/dosage/page.js",
   "/guidelines/page": "app/guidelines/page.js",
-  "/icd10/page": "app/icd10/page.js",
-  "/page": "app/page.js",
-  "/interactions/page": "app/interactions/page.js",
   "/formulary/page": "app/formulary/page.js",
+  "/icd10/page": "app/icd10/page.js",
+  "/interactions/page": "app/interactions/page.js",
+  "/page": "app/page.js",
   "/settings/page": "app/settings/page.js",
   "/symptoms/page": "app/symptoms/page.js"
 }

@@ -1,0 +1,1 @@
+"use strict";exports.id=889,exports.ids=[889],exports.modules={34889:(a,b,c)=>{c.r(b),c.d(b,{default:()=>e});let d=new(c(80120)).Ay("ClinicalAppDB");d.version(1).stores({drugs:"id, genericName, drugClass, *brandNames",icd10:"code, name, indonesian",guidelines:"++id, title.en, title.id, category"});let e=d}};

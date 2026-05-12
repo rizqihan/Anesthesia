@@ -95,7 +95,8 @@ export const translations = {
     info_egfr: 'Clinical Use: Staging and monitoring of Chronic Kidney Disease (CKD). Limitation: Unreliable in acute kidney injury or patients with extreme variations in muscle mass or diet.',
     history: 'History',
     clear_history: 'Clear History',
-    reset_database: 'Reset Database'
+    reset_database: 'Reset Database',
+    download_pdf: 'Download PDF'
   },
   id: {
     app_name: 'Anesthesia',
@@ -193,7 +194,8 @@ export const translations = {
     info_egfr: 'Indikasi Klinis: Klasifikasi stadium dan pemantauan Penyakit Ginjal Kronik (PGK). Keterbatasan: Tidak valid pada gangguan ginjal akut atau pasien dengan variasi massa otot dan diet yang ekstrem.',
     history: 'Riwayat',
     clear_history: 'Hapus Riwayat',
-    reset_database: 'Reset Database'
+    reset_database: 'Reset Database',
+    download_pdf: 'Unduh PDF'
   }
 };
 

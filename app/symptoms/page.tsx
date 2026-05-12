@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Activity, Cpu, AlertCircle, Clock, Trash2 } from 'lucide-react';
+import { Activity, Cpu, AlertCircle, Clock, Trash2, Download } from 'lucide-react';
 import { generateAIResponse } from '@/lib/ai';
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import { downloadAIResponsePDF } from '@/lib/pdfGenerator';
 
 export default function SymptomCheckerPage() {
   const { language, isOffline, symptomHistory, addSymptomHistory, clearSymptomHistory } = useAppStore();
@@ -90,8 +92,16 @@ export default function SymptomCheckerPage() {
                 </motion.div>
               )}
               {result && (
-                <motion.div key="result" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="result-box overflow-y-auto max-h-[360px] flex-1">
-                  <div className="text-[13px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)]"><ReactMarkdown remarkPlugins={[remarkGfm]}>{result}</ReactMarkdown></div>
+                <motion.div key="result" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="result-box overflow-y-auto max-h-[360px] flex-1 flex flex-col relative">
+                  <div className="flex justify-end mb-2 sticky top-0 z-10 bg-transparent">
+                    <button type="button" onClick={() => downloadAIResponsePDF('Symptom Analysis Report', language === 'en' ? 'Reported Symptoms:' : 'Gejala Dilaporkan:', symptom, t.result, result, 'symptom_report.pdf')} className="text-[11px] font-[600] flex items-center gap-1.5 transition-colors hover:text-white" style={{ color: 'var(--text-accent)' }}>
+                      <Download className="w-3.5 h-3.5" />
+                      {t.download_pdf}
+                    </button>
+                  </div>
+                  <div className="text-[13px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)]">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{result}</ReactMarkdown>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

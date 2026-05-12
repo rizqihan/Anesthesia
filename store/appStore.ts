@@ -26,6 +26,8 @@ interface AppState {
   setAiProvider: (provider: AIProvider) => void;
   customGeminiKey: string;
   setCustomGeminiKey: (key: string) => void;
+  groqModel: string;
+  setGroqModel: (model: string) => void;
   openaiEndpoint: string;
   setOpenaiEndpoint: (endpoint: string) => void;
   openaiKey: string;
@@ -64,6 +66,8 @@ export const useAppStore = create<AppState>()(
       
       aiProvider: 'default_groq',
       setAiProvider: (provider) => set({ aiProvider: provider }),
+      groqModel: 'llama-3.1-8b-instant',
+      setGroqModel: (model) => set({ groqModel: model }),
       customGeminiKey: '',
       setCustomGeminiKey: (key) => set({ customGeminiKey: key }),
       openaiEndpoint: 'https://api.groq.com/openai/v1',
@@ -106,6 +110,7 @@ export const useAppStore = create<AppState>()(
       partialize: (state) => ({ 
         language: state.language,
         aiProvider: state.aiProvider,
+        groqModel: state.groqModel,
         customGeminiKey: state.customGeminiKey,
         openaiEndpoint: state.openaiEndpoint,
         openaiKey: state.openaiKey,

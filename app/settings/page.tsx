@@ -173,6 +173,18 @@ export default function SettingsPage() {
               </select>
             </div>
 
+            {store.aiProvider === 'default_groq' && (
+              <div>
+                <label className={labelClass}>{t.groq_model}</label>
+                <select value={store.groqModel} onChange={(e) => store.setGroqModel(e.target.value)} className={inputClass}>
+                  <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant</option>
+                  <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile</option>
+                  <option value="openai/gpt-oss-20b">GPT-OSS 20B</option>
+                  <option value="openai/gpt-oss-120b">GPT-OSS 120B</option>
+                </select>
+              </div>
+            )}
+
             {store.aiProvider === 'custom_gemini' && (
               <div>
                 <label className={labelClass}>{t.api_key} (Gemini)</label>

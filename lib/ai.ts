@@ -2,7 +2,6 @@ import { useAppStore } from '@/store/appStore';
 import { GoogleGenAI } from '@google/genai';
 
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
-const GROQ_MODEL = 'llama-3.3-70b-versatile';
 const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 
 /** Normalize an OpenAI-compatible base URL to ensure it ends with /chat/completions */
@@ -28,7 +27,7 @@ export async function generateAIResponse(prompt: string): Promise<string> {
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: GROQ_MODEL,
+        model: store.groqModel || 'llama-3.1-8b-instant',
         messages: [{ role: 'user', content: prompt }],
       }),
     });
@@ -120,7 +119,7 @@ export async function generateAISearchResponse(prompt: string): Promise<AISearch
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: GROQ_MODEL,
+        model: store.groqModel || 'llama-3.1-8b-instant',
         messages: [
           { role: 'system', content: 'You are a medical data assistant. Always respond with valid JSON only. No markdown, no explanation.' },
           { role: 'user', content: prompt },

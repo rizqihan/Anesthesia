@@ -2,6 +2,8 @@ import { useAppStore } from '@/store/appStore';
 import { GoogleGenAI } from '@google/genai';
 
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 
 /** Normalize an OpenAI-compatible base URL to ensure it ends with /chat/completions */
 function buildOpenAIUrl(endpoint: string): string {
@@ -13,24 +15,49 @@ function buildOpenAIUrl(endpoint: string): string {
 
 export async function generateAIResponse(prompt: string): Promise<string> {
   const store = useAppStore.getState();
-  
-  if (store.aiProvider === 'default_gemini' || store.aiProvider === 'custom_gemini') {
-    const apiKey = store.aiProvider === 'custom_gemini' && store.customGeminiKey 
-      ? store.customGeminiKey 
-      : process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      
+
+  // --- Default Groq (built-in) ---
+  if (store.aiProvider === 'default_groq') {
+    const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+    if (!apiKey) throw new Error('Built-in Groq API key not found. Please set NEXT_PUBLIC_GROQ_API_KEY.');
+
+    const response = await fetch(GROQ_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: GROQ_MODEL,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Groq API request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.choices?.[0]?.message?.content || 'No response generated.';
+  }
+
+  // --- Custom Gemini API ---
+  if (store.aiProvider === 'custom_gemini') {
+    const apiKey = store.customGeminiKey;
     if (!apiKey) throw new Error('API key not found for Gemini');
-    
-    // Fallback to older SDK usage if 1.17.0 style is needed
-    // The GoogleGenAI is from @google/genai package which is the official new SDK
+
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
       model: GEMINI_MODEL,
       contents: prompt,
     });
-    
+
     return response.text || 'No response generated.';
-  } else if (store.aiProvider === 'openai_compatible') {
+  }
+
+  // --- OpenAI Compatible Endpoint ---
+  if (store.aiProvider === 'openai_compatible') {
     if (!store.openaiKey) throw new Error('API key not found for OpenAI compatible endpoint');
     if (!store.openaiEndpoint) throw new Error('Endpoint URL not configured');
     
@@ -81,11 +108,42 @@ export interface AISearchResponse {
 export async function generateAISearchResponse(prompt: string): Promise<AISearchResponse> {
   const store = useAppStore.getState();
 
-  if (store.aiProvider === 'default_gemini' || store.aiProvider === 'custom_gemini') {
-    const apiKey = store.aiProvider === 'custom_gemini' && store.customGeminiKey
-      ? store.customGeminiKey
-      : process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+  // --- Default Groq (built-in) — no live search, model knowledge only ---
+  if (store.aiProvider === 'default_groq') {
+    const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+    if (!apiKey) throw new Error('Built-in Groq API key not found. Please set NEXT_PUBLIC_GROQ_API_KEY.');
 
+    const response = await fetch(GROQ_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: GROQ_MODEL,
+        messages: [
+          { role: 'system', content: 'You are a medical data assistant. Always respond with valid JSON only. No markdown, no explanation.' },
+          { role: 'user', content: prompt },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Groq API request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    return {
+      text: data.choices?.[0]?.message?.content || '',
+      sources: [],
+      hasGrounding: false,
+    };
+  }
+
+  // --- Custom Gemini — with Google Search grounding ---
+  if (store.aiProvider === 'custom_gemini') {
+    const apiKey = store.customGeminiKey;
     if (!apiKey) throw new Error('API key not found for Gemini');
 
     const ai = new GoogleGenAI({ apiKey });
@@ -123,7 +181,10 @@ export async function generateAISearchResponse(prompt: string): Promise<AISearch
       sources,
       hasGrounding: sources.length > 0,
     };
-  } else if (store.aiProvider === 'openai_compatible') {
+  }
+
+  // --- OpenAI Compatible Endpoint ---
+  if (store.aiProvider === 'openai_compatible') {
     if (!store.openaiKey) throw new Error('API key not found for OpenAI compatible endpoint');
     if (!store.openaiEndpoint) throw new Error('Endpoint URL not configured');
 

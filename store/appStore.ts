@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 type Language = 'en' | 'id';
-type AIProvider = 'default_gemini' | 'custom_gemini' | 'openai_compatible';
+type AIProvider = 'default_groq' | 'custom_gemini' | 'openai_compatible';
 
 export interface HistoryItem {
   id: string;
@@ -62,7 +62,7 @@ export const useAppStore = create<AppState>()(
       isOffline: false,
       setOfflineStatus: (status) => set({ isOffline: status }),
       
-      aiProvider: 'default_gemini',
+      aiProvider: 'default_groq',
       setAiProvider: (provider) => set({ aiProvider: provider }),
       customGeminiKey: '',
       setCustomGeminiKey: (key) => set({ customGeminiKey: key }),

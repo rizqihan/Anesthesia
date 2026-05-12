@@ -46,7 +46,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   };
 
   const isAiConfigured = () => {
-    if (store.aiProvider === 'default_gemini' && !process.env.NEXT_PUBLIC_GEMINI_API_KEY) return false;
+    if (store.aiProvider === 'default_groq' && !process.env.NEXT_PUBLIC_GROQ_API_KEY) return false;
     if (store.aiProvider === 'custom_gemini' && !store.customGeminiKey.trim()) return false;
     if (store.aiProvider === 'openai_compatible' && (!store.openaiEndpoint.trim() || !store.openaiKey.trim())) return false;
     return true;
@@ -54,8 +54,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const getProviderName = () => {
     switch (store.aiProvider) {
-      case 'default_gemini': return 'Gemini';
-      case 'custom_gemini': return 'Gemini Custom';
+      case 'default_groq': return 'Groq';
+      case 'custom_gemini': return 'Gemini';
       case 'openai_compatible': return 'OpenAI Compat';
       default: return 'AI';
     }

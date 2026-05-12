@@ -21,7 +21,7 @@ export default function SettingsPage() {
 
   // AI config status
   const isAiConfigured = () => {
-    if (store.aiProvider === 'default_gemini' && !process.env.NEXT_PUBLIC_GEMINI_API_KEY) return false;
+    if (store.aiProvider === 'default_groq' && !process.env.NEXT_PUBLIC_GROQ_API_KEY) return false;
     if (store.aiProvider === 'custom_gemini' && !store.customGeminiKey.trim()) return false;
     if (store.aiProvider === 'openai_compatible' && (!store.openaiEndpoint.trim() || !store.openaiKey.trim())) return false;
     return true;
@@ -166,8 +166,8 @@ export default function SettingsPage() {
           <div className="p-5 flex flex-col gap-4">
             <div>
               <label className={labelClass}>{t.ai_provider}</label>
-              <select value={store.aiProvider} onChange={(e) => store.setAiProvider(e.target.value as 'default_gemini' | 'custom_gemini' | 'openai_compatible')} className={inputClass}>
-                <option value="default_gemini">{t.default_gemini}</option>
+              <select value={store.aiProvider} onChange={(e) => store.setAiProvider(e.target.value as 'default_groq' | 'custom_gemini' | 'openai_compatible')} className={inputClass}>
+                <option value="default_groq">{t.default_gemini}</option>
                 <option value="custom_gemini">{t.custom_gemini}</option>
                 <option value="openai_compatible">{t.openai_compatible}</option>
               </select>
@@ -223,7 +223,7 @@ export default function SettingsPage() {
                 <span className="font-[700]" style={{ color: '#a78bfa' }}>{t.database_sync}</span>
               </div>
               {t.ai_sync_desc}
-              {store.aiProvider === 'openai_compatible' && (
+              {(store.aiProvider === 'default_groq' || store.aiProvider === 'openai_compatible') && (
                 <div className="mt-2 pt-2" style={{ borderTop: '1px solid rgba(251,191,36,0.15)', color: '#fbbf24' }}>
                   ⚠️ {t.no_live_search}
                 </div>

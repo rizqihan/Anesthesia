@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles } from 'lucide-react';
+import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2 } from 'lucide-react';
 import db from '@/lib/db';
 import { ICD10_DB } from '@/lib/icd10';
 import { DRUG_DB } from '@/lib/drugs';
@@ -38,6 +38,46 @@ export default function SettingsPage() {
   const [syncError, setSyncError] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [reviewData, setReviewData] = useState<{ type: DatasetType; result: SyncResult<any> } | null>(null);
+
+  // Groq model browser
+  const [groqModels, setGroqModels] = useState<{ id: string; owned_by: string }[]>([]);
+  const [loadingGroqModels, setLoadingGroqModels] = useState(false);
+  const [groqModelsError, setGroqModelsError] = useState<string | null>(null);
+
+  const RECOMMENDED_GROQ_MODELS = [
+    'llama-3.1-8b-instant',
+    'llama-3.3-70b-versatile',
+    'openai/gpt-oss-20b',
+    'openai/gpt-oss-120b',
+  ];
+
+  const fetchGroqModels = useCallback(async () => {
+    const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+    if (!apiKey) {
+      setGroqModelsError('Groq API key not found');
+      return;
+    }
+    setLoadingGroqModels(true);
+    setGroqModelsError(null);
+    try {
+      const res = await fetch('https://api.groq.com/openai/v1/models', {
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!res.ok) throw new Error(`Failed to fetch models (${res.status})`);
+      const data = await res.json();
+      const models = (data.data || [])
+        .map((m: { id: string; owned_by?: string }) => ({ id: m.id, owned_by: m.owned_by || '' }))
+        .sort((a: { id: string }, b: { id: string }) => a.id.localeCompare(b.id));
+      setGroqModels(models);
+    } catch (e) {
+      setGroqModelsError(e instanceof Error ? e.message : 'Failed to fetch models');
+    } finally {
+      setLoadingGroqModels(false);
+    }
+  }, []);
 
   // Seed initial data (first-time setup)
   const seedDatabase = useCallback(async () => {
@@ -174,14 +214,43 @@ export default function SettingsPage() {
             </div>
 
             {store.aiProvider === 'default_groq' && (
-              <div>
-                <label className={labelClass}>{t.groq_model}</label>
-                <select value={store.groqModel} onChange={(e) => store.setGroqModel(e.target.value)} className={inputClass}>
-                  <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant</option>
-                  <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile</option>
-                  <option value="openai/gpt-oss-20b">GPT-OSS 20B</option>
-                  <option value="openai/gpt-oss-120b">GPT-OSS 120B</option>
-                </select>
+              <div className="flex flex-col gap-3">
+                <div>
+                  <label className={labelClass}>{t.groq_model}</label>
+                  <select value={store.groqModel} onChange={(e) => store.setGroqModel(e.target.value)} className={inputClass}>
+                    <optgroup label={store.language === 'en' ? 'Recommended' : 'Rekomendasi'}>
+                      <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant</option>
+                      <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile</option>
+                      <option value="openai/gpt-oss-20b">GPT-OSS 20B</option>
+                      <option value="openai/gpt-oss-120b">GPT-OSS 120B</option>
+                    </optgroup>
+                    {groqModels.length > 0 && (
+                      <optgroup label={store.language === 'en' ? 'All Available Models' : 'Semua Model Tersedia'}>
+                        {groqModels
+                          .filter(m => !RECOMMENDED_GROQ_MODELS.includes(m.id))
+                          .map(m => (
+                            <option key={m.id} value={m.id}>{m.id}</option>
+                          ))}
+                      </optgroup>
+                    )}
+                  </select>
+                </div>
+                <button
+                  type="button"
+                  onClick={fetchGroqModels}
+                  disabled={loadingGroqModels}
+                  className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-[12px] font-[600] transition-all"
+                  style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)', color: '#93c5fd' }}
+                >
+                  {loadingGroqModels ? (
+                    <><Loader2 className="w-3.5 h-3.5 animate-spin" />{store.language === 'en' ? 'Fetching models...' : 'Mengambil model...'}</>
+                  ) : (
+                    <><RefreshCw className="w-3.5 h-3.5" />{store.language === 'en' ? 'Browse All Available Models' : 'Jelajahi Semua Model'}</>
+                  )}
+                </button>
+                {groqModelsError && (
+                  <div className="text-[11px] font-[500]" style={{ color: '#fb7185' }}>{groqModelsError}</div>
+                )}
               </div>
             )}
 

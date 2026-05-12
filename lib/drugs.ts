@@ -481,5 +481,557 @@ export const DRUG_DB: Drug[] = [
         id: '80-160 mg per hari untuk kardioproteksi. 300-320 mg untuk infark miokard akut.'
       }
     }
+  },
+  {
+    id: 'azithromycin',
+    genericName: 'Azithromycin',
+    brandNames: ['Zithromax', 'Zmax', 'Meiact'],
+    drugClass: 'Macrolide Antibiotic',
+    indications: {
+      en: 'Respiratory tract infections, chlamydia, typhoid fever.',
+      id: 'Infeksi saluran pernapasan, klamidia, demam tifoid.'
+    },
+    contraindications: {
+      en: 'History of cholestatic jaundice or hepatic dysfunction with prior use.',
+      id: 'Riwayat ikterus kolestatik atau disfungsi hati dengan penggunaan sebelumnya.'
+    },
+    dosing: {
+      dosePerKg: 10,
+      unit: 'mg',
+      maxDose: 500,
+      frequency: 'q24h',
+      notes: {
+        en: 'Adults: 500 mg day 1, then 250 mg for 4 days. May prolong QT interval.',
+        id: 'Dewasa: 500 mg hari 1, lalu 250 mg selama 4 hari. Dapat memperpanjang interval QT.'
+      }
+    }
+  },
+  {
+    id: 'ceftriaxone',
+    genericName: 'Ceftriaxone',
+    brandNames: ['Rocephin', 'Broadced', 'Terfacef'],
+    drugClass: '3rd Generation Cephalosporin',
+    indications: {
+      en: 'Severe infections (meningitis, pneumonia, sepsis, gonorrhea).',
+      id: 'Infeksi berat (meningitis, pneumonia, sepsis, gonore).'
+    },
+    contraindications: {
+      en: 'Hyperbilirubinemic neonates, concurrent IV calcium in neonates.',
+      id: 'Neonatus hiperbilirubinemia, kalsium IV bersamaan pada neonatus.'
+    },
+    dosing: {
+      dosePerKg: 50,
+      unit: 'mg',
+      maxDose: 4000,
+      frequency: 'q12h or q24h',
+      notes: {
+        en: 'Adults: 1-2g IV/IM daily. Up to 4g/day for meningitis.',
+        id: 'Dewasa: 1-2g IV/IM per hari. Hingga 4g/hari untuk meningitis.'
+      }
+    }
+  },
+  {
+    id: 'cefixime',
+    genericName: 'Cefixime',
+    brandNames: ['Suprax', 'Cefspan', 'Sporetik'],
+    drugClass: '3rd Generation Cephalosporin',
+    indications: {
+      en: 'Uncomplicated UTI, otitis media, gonorrhea, typhoid.',
+      id: 'ISK tanpa komplikasi, otitis media, gonore, tifoid.'
+    },
+    contraindications: {
+      en: 'Hypersensitivity to cephalosporins.',
+      id: 'Hipersensitivitas terhadap sefalosporin.'
+    },
+    dosing: {
+      dosePerKg: 8,
+      unit: 'mg',
+      maxDose: 400,
+      frequency: 'q12h or q24h',
+      notes: {
+        en: 'Adults: 400 mg daily or 200 mg BID.',
+        id: 'Dewasa: 400 mg sehari atau 200 mg dua kali sehari.'
+      }
+    }
+  },
+  {
+    id: 'doxycycline',
+    genericName: 'Doxycycline',
+    brandNames: ['Vibramycin', 'Doxy', 'Siklon'],
+    drugClass: 'Tetracycline Antibiotic',
+    indications: {
+      en: 'Atypical pneumonia, syphilis, Lyme disease, acne.',
+      id: 'Pneumonia atipikal, sifilis, penyakit Lyme, jerawat.'
+    },
+    contraindications: {
+      en: 'Pregnancy, children < 8 years (due to tooth discoloration).',
+      id: 'Kehamilan, anak < 8 tahun (karena perubahan warna gigi).'
+    },
+    dosing: {
+      dosePerKg: 2,
+      unit: 'mg',
+      maxDose: 200,
+      frequency: 'q12h',
+      notes: {
+        en: '100 mg BID. Take with full glass of water, remain upright for 30 mins.',
+        id: '100 mg dua kali sehari. Minum dengan segelas air penuh, tetap tegak selama 30 menit.'
+      }
+    }
+  },
+  {
+    id: 'clindamycin',
+    genericName: 'Clindamycin',
+    brandNames: ['Cleocin', 'Dalacin', 'Clinidac'],
+    drugClass: 'Lincosamide Antibiotic',
+    indications: {
+      en: 'Skin/soft tissue infections, anaerobic infections, osteomyelitis.',
+      id: 'Infeksi kulit/jaringan lunak, infeksi anaerobik, osteomielitis.'
+    },
+    contraindications: {
+      en: 'History of regional enteritis, ulcerative colitis, or C. diff colitis.',
+      id: 'Riwayat enteritis regional, kolitis ulserativa, atau kolitis C. diff.'
+    },
+    dosing: {
+      dosePerKg: 10,
+      unit: 'mg',
+      maxDose: 1800,
+      frequency: 'q6h or q8h',
+      notes: {
+        en: 'Adults: 150-450 mg PO q6h. High risk for C. diff infection.',
+        id: 'Dewasa: 150-450 mg PO setiap 6 jam. Risiko tinggi infeksi C. diff.'
+      }
+    }
+  },
+  {
+    id: 'levofloxacin',
+    genericName: 'Levofloxacin',
+    brandNames: ['Levaquin', 'Cravit', 'Levofloxacin OGB'],
+    drugClass: 'Fluoroquinolone Antibiotic',
+    indications: {
+      en: 'CAP, complicated UTI, pyelonephritis, skin infections.',
+      id: 'Pneumonia (CAP), ISK terkomplikasi, pielonefritis, infeksi kulit.'
+    },
+    contraindications: {
+      en: 'History of myasthenia gravis, hypersensitivity to fluoroquinolones.',
+      id: 'Riwayat miastenia gravis, hipersensitivitas terhadap fluorokuinolon.'
+    },
+    dosing: {
+      dosePerKg: 8,
+      unit: 'mg',
+      maxDose: 750,
+      frequency: 'q24h',
+      notes: {
+        en: 'Adults: 500-750 mg daily. Adjust in renal impairment.',
+        id: 'Dewasa: 500-750 mg per hari. Sesuaikan pada gangguan ginjal.'
+      }
+    }
+  },
+  {
+    id: 'metronidazole',
+    genericName: 'Metronidazole',
+    brandNames: ['Flagyl', 'Trichodazol', 'Metronidazole OGB'],
+    drugClass: 'Nitroimidazole Antibiotic',
+    indications: {
+      en: 'Anaerobic infections, C. diff colitis, Trichomoniasis, Amoebiasis.',
+      id: 'Infeksi anaerob, kolitis C. diff, Trikomoniasis, Amebiasis.'
+    },
+    contraindications: {
+      en: 'First trimester of pregnancy, use of alcohol (disulfiram reaction).',
+      id: 'Trimester pertama kehamilan, penggunaan alkohol (reaksi disulfiram).'
+    },
+    dosing: {
+      dosePerKg: 10,
+      unit: 'mg',
+      maxDose: 2000,
+      frequency: 'q8h',
+      notes: {
+        en: 'Adults: 500 mg PO/IV q8h. Avoid alcohol during and 3 days after.',
+        id: 'Dewasa: 500 mg PO/IV setiap 8 jam. Hindari alkohol selama dan 3 hari setelahnya.'
+      }
+    }
+  },
+  {
+    id: 'meropenem',
+    genericName: 'Meropenem',
+    brandNames: ['Merrem', 'Merem', 'Ronem'],
+    drugClass: 'Carbapenem Antibiotic',
+    indications: {
+      en: 'Severe healthcare-associated infections, meningitis, complicated intra-abdominal infections.',
+      id: 'Infeksi terkait layanan kesehatan yang parah, meningitis, infeksi intra-abdomen terkomplikasi.'
+    },
+    contraindications: {
+      en: 'Anaphylaxis to beta-lactams.',
+      id: 'Anafilaksis terhadap beta-laktam.'
+    },
+    dosing: {
+      dosePerKg: 20,
+      unit: 'mg',
+      maxDose: 6000,
+      frequency: 'q8h',
+      notes: {
+        en: 'Adults: 500mg-1g IV q8h (up to 2g q8h for meningitis).',
+        id: 'Dewasa: 500mg-1g IV setiap 8 jam (hingga 2g setiap 8 jam untuk meningitis).'
+      }
+    }
+  },
+  {
+    id: 'vancomycin',
+    genericName: 'Vancomycin',
+    brandNames: ['Vancocin', 'Vancocin CP'],
+    drugClass: 'Glycopeptide Antibiotic',
+    indications: {
+      en: 'MRSA infections, severe C. diff colitis (oral).',
+      id: 'Infeksi MRSA, kolitis C. diff berat (oral).'
+    },
+    contraindications: {
+      en: 'Hypersensitivity to vancomycin.',
+      id: 'Hipersensitivitas terhadap vankomisin.'
+    },
+    dosing: {
+      dosePerKg: 15,
+      unit: 'mg',
+      maxDose: 4000,
+      frequency: 'q12h or q8h',
+      notes: {
+        en: 'Adults: 15-20 mg/kg IV q8-12h. Monitor trough levels. Slow infusion to prevent red man syndrome.',
+        id: 'Dewasa: 15-20 mg/kg IV setiap 8-12 jam. Pantau kadar terendah (trough). Infus lambat untuk mencegah sindrom red man.'
+      }
+    }
+  },
+  {
+    id: 'co-amoxiclav',
+    genericName: 'Amoxicillin / Clavulanate',
+    brandNames: ['Augmentin', 'Claneksi', 'Co-amoxiclav OGB'],
+    drugClass: 'Penicillin + Beta-lactamase inhibitor',
+    indications: {
+      en: 'Bite wounds, otitis media, sinusitis, lower respiratory infections.',
+      id: 'Luka gigitan, otitis media, sinusitis, infeksi saluran napas bawah.'
+    },
+    contraindications: {
+      en: 'History of amoxicillin/clavulanate-associated hepatic dysfunction.',
+      id: 'Riwayat disfungsi hati terkait amoksisilin/klavulanat.'
+    },
+    dosing: {
+      dosePerKg: 45,
+      unit: 'mg',
+      maxDose: 2000,
+      frequency: 'q12h or q8h',
+      notes: {
+        en: 'Dosed based on amoxicillin component. High risk of diarrhea.',
+        id: 'Dosis berdasarkan komponen amoksisilin. Risiko tinggi diare.'
+      }
+    }
+  },
+  {
+    id: 'cotrimoxazole',
+    genericName: 'Trimethoprim / Sulfamethoxazole',
+    brandNames: ['Bactrim', 'Septra', 'Sanprima'],
+    drugClass: 'Sulfonamide Antibiotic',
+    indications: {
+      en: 'Uncomplicated UTI, PCP pneumonia prophylaxis/treatment, MRSA (some).',
+      id: 'ISK tanpa komplikasi, profilaksis/pengobatan pneumonia PCP, MRSA (beberapa).'
+    },
+    contraindications: {
+      en: 'Megaloblastic anemia due to folate deficiency, infants < 2 months.',
+      id: 'Anemia megaloblastik akibat defisiensi folat, bayi < 2 bulan.'
+    },
+    dosing: {
+      dosePerKg: 8,
+      unit: 'mg',
+      maxDose: 960,
+      frequency: 'q12h',
+      notes: {
+        en: 'Dose based on Trimethoprim component. Can cause Stevens-Johnson Syndrome.',
+        id: 'Dosis berdasarkan komponen Trimetoprim. Dapat menyebabkan Sindrom Stevens-Johnson.'
+      }
+    }
+  },
+  {
+    id: 'gentamicin',
+    genericName: 'Gentamicin',
+    brandNames: ['Garamycin', 'Sagestam', 'Gentamicin OGB'],
+    drugClass: 'Aminoglycoside Antibiotic',
+    indications: {
+      en: 'Severe gram-negative infections, endocarditis synergy.',
+      id: 'Infeksi gram negatif berat, sinergi endokarditis.'
+    },
+    contraindications: {
+      en: 'Hypersensitivity to aminoglycosides.',
+      id: 'Hipersensitivitas terhadap aminoglikosida.'
+    },
+    dosing: {
+      dosePerKg: 5,
+      unit: 'mg',
+      maxDose: 500,
+      frequency: 'q24h',
+      notes: {
+        en: '5-7 mg/kg IV once daily (extended interval). Nephrotoxic and ototoxic.',
+        id: '5-7 mg/kg IV sekali sehari (interval diperpanjang). Nefrotoksik dan ototoksik.'
+      }
+    }
+  },
+  {
+    id: 'piperacillin-tazobactam',
+    genericName: 'Piperacillin / Tazobactam',
+    brandNames: ['Zosyn', 'Tazocin'],
+    drugClass: 'Antipseudomonal Penicillin + Beta-lactamase inhibitor',
+    indications: {
+      en: 'Severe intra-abdominal infections, nosocomial pneumonia, sepsis.',
+      id: 'Infeksi intra-abdomen berat, pneumonia nosokomial, sepsis.'
+    },
+    contraindications: {
+      en: 'Severe hypersensitivity to penicillins or cephalosporins.',
+      id: 'Hipersensitivitas berat terhadap penisilin atau sefalosporin.'
+    },
+    dosing: {
+      dosePerKg: 100,
+      unit: 'mg',
+      maxDose: 16000,
+      frequency: 'q6h or q8h',
+      notes: {
+        en: 'Adults: 4.5g IV q6h. Adjust in renal impairment.',
+        id: 'Dewasa: 4.5g IV setiap 6 jam. Sesuaikan pada gangguan ginjal.'
+      }
+    }
+  },
+  {
+    id: 'cefepime',
+    genericName: 'Cefepime',
+    brandNames: ['Maxipime', 'Fepime'],
+    drugClass: '4th Generation Cephalosporin',
+    indications: {
+      en: 'Severe nosocomial pneumonia, febrile neutropenia, complicated UTI.',
+      id: 'Pneumonia nosokomial berat, neutropenia febris, ISK terkomplikasi.'
+    },
+    contraindications: {
+      en: 'Hypersensitivity to cephalosporins.',
+      id: 'Hipersensitivitas terhadap sefalosporin.'
+    },
+    dosing: {
+      dosePerKg: 50,
+      unit: 'mg',
+      maxDose: 6000,
+      frequency: 'q8h or q12h',
+      notes: {
+        en: 'Adults: 1-2g IV q8-12h. Risk of neurotoxicity (encephalopathy) in renal failure.',
+        id: 'Dewasa: 1-2g IV setiap 8-12 jam. Risiko neurotoksisitas pada gagal ginjal.'
+      }
+    }
+  },
+  {
+    id: 'linezolid',
+    genericName: 'Linezolid',
+    brandNames: ['Zyvox', 'Linox'],
+    drugClass: 'Oxazolidinone Antibiotic',
+    indications: {
+      en: 'VRE infections, complicated skin infections, MRSA pneumonia.',
+      id: 'Infeksi VRE, infeksi kulit terkomplikasi, pneumonia MRSA.'
+    },
+    contraindications: {
+      en: 'Concurrent use of MAO inhibitors within 14 days.',
+      id: 'Penggunaan bersamaan inhibitor MAO dalam 14 hari.'
+    },
+    dosing: {
+      dosePerKg: 10,
+      unit: 'mg',
+      maxDose: 1200,
+      frequency: 'q12h',
+      notes: {
+        en: 'Adults: 600 mg IV/PO q12h. Risk of serotonin syndrome and myelosuppression.',
+        id: 'Dewasa: 600 mg IV/PO setiap 12 jam. Risiko sindrom serotonin dan mielosupresi.'
+      }
+    }
+  },
+  {
+    id: 'fluconazole',
+    genericName: 'Fluconazole',
+    brandNames: ['Diflucan', 'Cryptal', 'Fluconazole OGB'],
+    drugClass: 'Triazole Antifungal',
+    indications: {
+      en: 'Candidiasis (oropharyngeal, esophageal, vaginal, systemic), cryptococcal meningitis.',
+      id: 'Kandidiasis (orofaringeal, esofageal, vaginal, sistemik), meningitis kriptokokus.'
+    },
+    contraindications: {
+      en: 'Coadministration with terfenadine or QT-prolonging drugs.',
+      id: 'Pemberian bersama terfenadin atau obat yang memperpanjang QT.'
+    },
+    dosing: {
+      dosePerKg: 6,
+      unit: 'mg',
+      maxDose: 800,
+      frequency: 'q24h',
+      notes: {
+        en: 'Loading dose often required. Adjust in renal impairment. Hepatotoxic.',
+        id: 'Dosis muatan sering diperlukan. Sesuaikan pada gangguan ginjal. Hepatotoksik.'
+      }
+    }
+  },
+  {
+    id: 'acyclovir',
+    genericName: 'Acyclovir',
+    brandNames: ['Zovirax', 'Clinovir', 'Acyclovir OGB'],
+    drugClass: 'Antiviral',
+    indications: {
+      en: 'Herpes simplex, varicella zoster, herpes zoster.',
+      id: 'Herpes simpleks, varicella zoster (cacar air), herpes zoster (cacar ular).'
+    },
+    contraindications: {
+      en: 'Hypersensitivity to acyclovir or valacyclovir.',
+      id: 'Hipersensitivitas terhadap asiklovir atau valasiklovir.'
+    },
+    dosing: {
+      dosePerKg: 10,
+      unit: 'mg',
+      maxDose: 4000,
+      frequency: 'q8h (IV) or 5x/day (PO)',
+      notes: {
+        en: 'Adequate hydration needed to prevent crystalline nephropathy (especially IV).',
+        id: 'Hidrasi memadai diperlukan untuk mencegah nefropati kristalin (terutama IV).'
+      }
+    }
+  },
+  {
+    id: 'cefazolin',
+    genericName: 'Cefazolin',
+    brandNames: ['Ancef', 'Kefzol', 'Cefazolin OGB'],
+    drugClass: '1st Generation Cephalosporin',
+    indications: {
+      en: 'Surgical prophylaxis, skin/soft tissue infections, MSSA infections.',
+      id: 'Profilaksis bedah, infeksi kulit/jaringan lunak, infeksi MSSA.'
+    },
+    contraindications: {
+      en: 'Severe hypersensitivity to cephalosporins or penicillins.',
+      id: 'Hipersensitivitas berat terhadap sefalosporin atau penisilin.'
+    },
+    dosing: {
+      dosePerKg: 25,
+      unit: 'mg',
+      maxDose: 2000,
+      frequency: 'q8h',
+      notes: {
+        en: 'Adults: 1-2g IV every 8 hours. Commonly used for surgical prophylaxis (dose given 60 mins before incision).',
+        id: 'Dewasa: 1-2g IV setiap 8 jam. Umum digunakan untuk profilaksis bedah (dosis diberikan 60 menit sebelum insisi).'
+      }
+    }
+  },
+  {
+    id: 'cephalexin',
+    genericName: 'Cephalexin',
+    brandNames: ['Keflex', 'Ceporex'],
+    drugClass: '1st Generation Cephalosporin',
+    indications: {
+      en: 'Uncomplicated skin/soft tissue infections, streptococcal pharyngitis, uncomplicated UTI.',
+      id: 'Infeksi kulit/jaringan lunak tanpa komplikasi, faringitis streptokokus, ISK tanpa komplikasi.'
+    },
+    contraindications: {
+      en: 'Severe hypersensitivity to cephalosporins.',
+      id: 'Hipersensitivitas berat terhadap sefalosporin.'
+    },
+    dosing: {
+      dosePerKg: 15,
+      unit: 'mg',
+      maxDose: 1000,
+      frequency: 'q6h or q12h',
+      notes: {
+        en: 'Adults: 250-500 mg PO q6h or 500 mg PO q12h. Adjust in renal impairment.',
+        id: 'Dewasa: 250-500 mg PO setiap 6 jam atau 500 mg PO setiap 12 jam. Sesuaikan pada gangguan ginjal.'
+      }
+    }
+  },
+  {
+    id: 'cefadroxil',
+    genericName: 'Cefadroxil',
+    brandNames: ['Duricef', 'Cefat', 'Lapicef'],
+    drugClass: '1st Generation Cephalosporin',
+    indications: {
+      en: 'Pharyngitis, tonsillitis, skin/soft tissue infections, UTI.',
+      id: 'Faringitis, tonsilitis, infeksi kulit/jaringan lunak, ISK.'
+    },
+    contraindications: {
+      en: 'Severe hypersensitivity to cephalosporins.',
+      id: 'Hipersensitivitas berat terhadap sefalosporin.'
+    },
+    dosing: {
+      dosePerKg: 15,
+      unit: 'mg',
+      maxDose: 1000,
+      frequency: 'q12h or q24h',
+      notes: {
+        en: 'Adults: 500 mg - 1g PO q12h or 1g PO q24h. Take with food if GI upset occurs.',
+        id: 'Dewasa: 500 mg - 1g PO setiap 12 jam atau 1g PO setiap 24 jam. Konsumsi bersama makanan jika perut mual.'
+      }
+    }
+  },
+  {
+    id: 'cefuroxime',
+    genericName: 'Cefuroxime',
+    brandNames: ['Zinacef', 'Ceftin', 'Sharox', 'Celocin'],
+    drugClass: '2nd Generation Cephalosporin',
+    indications: {
+      en: 'Respiratory tract infections, otitis media, Lyme disease, surgical prophylaxis.',
+      id: 'Infeksi saluran pernapasan, otitis media, penyakit Lyme, profilaksis bedah.'
+    },
+    contraindications: {
+      en: 'Severe hypersensitivity to cephalosporins.',
+      id: 'Hipersensitivitas berat terhadap sefalosporin.'
+    },
+    dosing: {
+      dosePerKg: 15,
+      unit: 'mg',
+      maxDose: 1500,
+      frequency: 'q8h (IV) or q12h (PO)',
+      notes: {
+        en: 'Adults: 250-500 mg PO q12h; 750 mg - 1.5g IV q8h. Better gram-negative coverage than 1st gen.',
+        id: 'Dewasa: 250-500 mg PO setiap 12 jam; 750 mg - 1.5g IV setiap 8 jam. Cakupan gram-negatif lebih baik daripada gen 1.'
+      }
+    }
+  },
+  {
+    id: 'cefaclor',
+    genericName: 'Cefaclor',
+    brandNames: ['Ceclor', 'Cloracef'],
+    drugClass: '2nd Generation Cephalosporin',
+    indications: {
+      en: 'Otitis media, lower respiratory tract infections, skin infections, UTI.',
+      id: 'Otitis media, infeksi saluran napas bawah, infeksi kulit, ISK.'
+    },
+    contraindications: {
+      en: 'Severe hypersensitivity to cephalosporins.',
+      id: 'Hipersensitivitas berat terhadap sefalosporin.'
+    },
+    dosing: {
+      dosePerKg: 10,
+      unit: 'mg',
+      maxDose: 500,
+      frequency: 'q8h',
+      notes: {
+        en: 'Adults: 250-500 mg PO q8h. Serum sickness-like reactions are more common with Cefaclor.',
+        id: 'Dewasa: 250-500 mg PO setiap 8 jam. Reaksi mirip serum sickness lebih umum pada Cefaclor.'
+      }
+    }
+  },
+  {
+    id: 'cefoxitin',
+    genericName: 'Cefoxitin',
+    brandNames: ['Mefoxin'],
+    drugClass: '2nd Generation Cephamycin (grouped with Cephalosporins)',
+    indications: {
+      en: 'Surgical prophylaxis (GI/biliary/pelvic), intra-abdominal infections, PID.',
+      id: 'Profilaksis bedah (GI/bilier/pelvis), infeksi intra-abdomen, penyakit radang panggul (PID).'
+    },
+    contraindications: {
+      en: 'Severe hypersensitivity to cephalosporins.',
+      id: 'Hipersensitivitas berat terhadap sefalosporin.'
+    },
+    dosing: {
+      dosePerKg: 20,
+      unit: 'mg',
+      maxDose: 2000,
+      frequency: 'q6h or q8h',
+      notes: {
+        en: 'Adults: 1-2g IV q6-8h. Strong coverage against anaerobes (e.g., Bacteroides).',
+        id: 'Dewasa: 1-2g IV setiap 6-8 jam. Cakupan kuat terhadap anaerob (mis., Bacteroides).'
+      }
+    }
   }
 ];

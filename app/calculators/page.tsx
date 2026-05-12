@@ -165,7 +165,7 @@ export default function CalculatorsPage() {
         <div className="p-5">
           <AnimatePresence mode="wait">
             {activeTab === 'bmi' && (
-              <motion.div key="bmi" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className="flex flex-col gap-4">
+              <motion.div key="bmi" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="flex flex-col gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className={labelClass}>{t.weight}</label><input type="number" value={bmiWeight} onChange={e => setBmiWeight(e.target.value)} className={inputClass} placeholder="e.g. 65" /></div>
                   <div><label className={labelClass}>{t.height}</label><input type="number" value={bmiHeight} onChange={e => setBmiHeight(e.target.value)} className={inputClass} placeholder="e.g. 170" /></div>
@@ -179,7 +179,7 @@ export default function CalculatorsPage() {
             )}
 
             {activeTab === 'ibw' && (
-              <motion.div key="ibw" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className="flex flex-col gap-4">
+              <motion.div key="ibw" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="flex flex-col gap-4">
                 <p className="text-[12px]" style={{ color: 'var(--text-muted)' }}>{t.bmi_info}</p>
                 <div><label className={labelClass}>{t.gender}</label><GenderToggle value={ibwGender} onChange={setIbwGender} maleLabel={t.male} femaleLabel={t.female} /></div>
                 <div className="grid grid-cols-2 gap-4">
@@ -197,7 +197,7 @@ export default function CalculatorsPage() {
             )}
 
             {activeTab === 'cg' && (
-              <motion.div key="cg" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className="flex flex-col gap-4">
+              <motion.div key="cg" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="flex flex-col gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className={labelClass}>{t.age}</label><input type="number" value={cgAge} onChange={e => setCgAge(e.target.value)} className={inputClass} placeholder="e.g. 50" /></div>
                   <div><label className={labelClass}>{t.gender}</label><GenderToggle value={cgGender} onChange={setCgGender} maleLabel={t.male} femaleLabel={t.female} /></div>
@@ -212,7 +212,7 @@ export default function CalculatorsPage() {
             )}
 
             {activeTab === 'egfr' && (
-              <motion.div key="egfr" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className="flex flex-col gap-4">
+              <motion.div key="egfr" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="flex flex-col gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className={labelClass}>{t.age}</label><input type="number" value={egfrAge} onChange={e => setEgfrAge(e.target.value)} className={inputClass} placeholder="e.g. 50" /></div>
                   <div><label className={labelClass}>{t.gender}</label><GenderToggle value={egfrGender} onChange={setEgfrGender} maleLabel={t.male} femaleLabel={t.female} /></div>

@@ -1,5 +1,4 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 
 # Anesthesia — AI-Powered Clinical Assistant
 
@@ -13,7 +12,7 @@ Anesthesia is a state-of-the-art web application built with Next.js, featuring a
 
 ## Key Features
 
-- 🧠 **AI-Powered Clinical Tools:** Leverages Google Gemini for advanced symptom analysis, drug interaction checking, and clinical decision support, with responses beautifully rendered in rich markdown.
+- 🧠 **AI-Powered Clinical Tools:** Leverages Google Gemini, GROQ, and OpenAI compatible endpoints for advanced symptom analysis, drug interaction checking, and clinical decision support, with responses beautifully rendered in rich markdown.
 - 🔄 **Intelligent Clinical Data Sync:** Features an AI-driven pipeline that searches for updated clinical data and enforces strict human-in-the-loop review through side-by-side diffing, ensuring your offline medical reference stays accurate and current.
 - 🧮 **Context-Aware Medical Calculators:** Essential calculators (BMI, Creatinine Clearance, Pediatric/Adult dosing) enhanced with clinical context cards that explain limitations and appropriate use cases.
 - 📋 **Smart Clinical Guidelines:** Access standard clinical guidelines offline, with intelligent links that route directly to source PDFs or automatically construct relevant web searches.
@@ -27,7 +26,7 @@ Anesthesia is a state-of-the-art web application built with Next.js, featuring a
 - **UI & Styling:** React 19, Tailwind CSS, Framer Motion, Lucide React, Glassmorphism Aesthetics
 - **State Management:** Zustand
 - **Offline Storage:** Dexie, localForage, idb-keyval
-- **AI Integration:** Google Gemini API (`@google/genai`)
+- **AI Integration:** Google Gemini API (`@google/genai`), GROQ, and OpenAI compatible endpoints.
 
 ## Getting Started
 
@@ -35,7 +34,7 @@ Anesthesia is a state-of-the-art web application built with Next.js, featuring a
 
 - Node.js (v20+)
 - npm or yarn
-- Google Gemini API Key (required for AI features like the Symptom Checker and Data Sync)
+- GROQ API Key (required for AI features like the Symptom Checker and Data Sync)
 
 ### Installation
 
@@ -51,9 +50,9 @@ Anesthesia is a state-of-the-art web application built with Next.js, featuring a
    ```
 
 3. **Environment Setup:**
-   Create a `.env.local` file in the root directory and add your Gemini API key:
+   Create a `.env.local` file in the root directory and add your GROQ API key:
    ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
+   GROQ_API_KEY=your_groq_api_key_here
    ```
 
 4. **Run the development server:**

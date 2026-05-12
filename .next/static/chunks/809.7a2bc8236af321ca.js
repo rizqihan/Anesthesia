@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[809],{809:(e,i,s)=>{s.r(i),s.d(i,{default:()=>d});let n=new(s(3278)).Ay("ClinicalAppDB");n.version(1).stores({drugs:"id, genericName, drugClass, *brandNames",icd10:"code, name, indonesian",guidelines:"++id, title.en, title.id, category"});let d=n}}]);

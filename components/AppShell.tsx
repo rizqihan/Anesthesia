@@ -294,7 +294,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Sync Warning Modal */}
       <AnimatePresence>
-        {isNotSynced && !hasIgnoredSync && (
+        {isNotSynced && !hasIgnoredSync && pathname !== '/' && pathname !== '/settings' && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

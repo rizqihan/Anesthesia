@@ -2,7 +2,6 @@ import { useAppStore } from '@/store/appStore';
 import { GoogleGenAI } from '@google/genai';
 
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
-const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 
 /** Normalize an OpenAI-compatible base URL to ensure it ends with /chat/completions */
 function buildOpenAIUrl(endpoint: string): string {
@@ -15,17 +14,11 @@ function buildOpenAIUrl(endpoint: string): string {
 export async function generateAIResponse(prompt: string): Promise<string> {
   const store = useAppStore.getState();
 
-  // --- Default Groq (built-in) ---
+  // --- Default Groq (built-in, proxied through server) ---
   if (store.aiProvider === 'default_groq') {
-    const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
-    if (!apiKey) throw new Error('Built-in Groq API key not found. Please set NEXT_PUBLIC_GROQ_API_KEY.');
-
-    const response = await fetch(GROQ_ENDPOINT, {
+    const response = await fetch('/api/groq', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: store.groqModel || 'llama-3.1-8b-instant',
         messages: [{ role: 'user', content: prompt }],
@@ -107,17 +100,11 @@ export interface AISearchResponse {
 export async function generateAISearchResponse(prompt: string): Promise<AISearchResponse> {
   const store = useAppStore.getState();
 
-  // --- Default Groq (built-in) — no live search, model knowledge only ---
+  // --- Default Groq (built-in, proxied through server) — no live search ---
   if (store.aiProvider === 'default_groq') {
-    const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
-    if (!apiKey) throw new Error('Built-in Groq API key not found. Please set NEXT_PUBLIC_GROQ_API_KEY.');
-
-    const response = await fetch(GROQ_ENDPOINT, {
+    const response = await fetch('/api/groq', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: store.groqModel || 'llama-3.1-8b-instant',
         messages: [

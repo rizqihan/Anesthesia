@@ -21,7 +21,7 @@ export default function SettingsPage() {
 
   // AI config status
   const isAiConfigured = () => {
-    if (store.aiProvider === 'default_groq' && !process.env.NEXT_PUBLIC_GROQ_API_KEY) return false;
+    // default_groq is always considered configured (key is server-side)
     if (store.aiProvider === 'custom_gemini' && !store.customGeminiKey.trim()) return false;
     if (store.aiProvider === 'openai_compatible' && (!store.openaiEndpoint.trim() || !store.openaiKey.trim())) return false;
     return true;
@@ -52,21 +52,14 @@ export default function SettingsPage() {
   ];
 
   const fetchGroqModels = useCallback(async () => {
-    const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
-    if (!apiKey) {
-      setGroqModelsError('Groq API key not found');
-      return;
-    }
     setLoadingGroqModels(true);
     setGroqModelsError(null);
     try {
-      const res = await fetch('https://api.groq.com/openai/v1/models', {
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!res.ok) throw new Error(`Failed to fetch models (${res.status})`);
+      const res = await fetch('/api/groq/models');
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error?.message || `Failed to fetch models (${res.status})`);
+      }
       const data = await res.json();
       const models = (data.data || [])
         .map((m: { id: string; owned_by?: string }) => ({ id: m.id, owned_by: m.owned_by || '' }))

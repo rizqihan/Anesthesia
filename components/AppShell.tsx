@@ -46,7 +46,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   };
 
   const isAiConfigured = () => {
-    if (store.aiProvider === 'default_groq' && !process.env.NEXT_PUBLIC_GROQ_API_KEY) return false;
+    // default_groq is always considered configured (key is server-side)
     if (store.aiProvider === 'custom_gemini' && !store.customGeminiKey.trim()) return false;
     if (store.aiProvider === 'openai_compatible' && (!store.openaiEndpoint.trim() || !store.openaiKey.trim())) return false;
     return true;

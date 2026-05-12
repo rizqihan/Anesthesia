@@ -72,15 +72,19 @@ export default function GuidelinesPage() {
             <span className="text-[13px]" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? 'No guidelines found.' : 'Tidak ada pedoman ditemukan.'}</span>
           </div>
         ) : (
-          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-            initial="hidden" animate="show"
-            variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.06 } } }}>
-            <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={search.trim() || '__all__'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            >
               {guidelines.map(g => {
                 const catStyle = getCategoryStyle(g.category);
                 return (
-                  <motion.div key={g.id} layout initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                  <div key={g.id}
                     className="glass-card flex flex-col h-full group cursor-default overflow-hidden">
                     <div className="p-5 flex-1 flex flex-col">
                       <div className="flex items-start justify-between mb-4">
@@ -120,11 +124,11 @@ export default function GuidelinesPage() {
                         </>
                       )}
                     </a>
-                  </motion.div>
+                  </div>
                 );
               })}
-            </AnimatePresence>
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
         )}
       </div>
     </div>

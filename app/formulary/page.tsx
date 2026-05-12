@@ -91,9 +91,10 @@ export default function FormularyPage() {
                     onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-card)')}>
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-[700] text-[14px]" style={{ color: '#a78bfa' }}>{item.genericName}</h3>
-                        <div className="text-[12px] mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                          <span className="font-[600]" style={{ color: 'var(--text-secondary)' }}>{language === 'en' ? 'Brands: ' : 'Merek: '}</span>{item.brandNames.join(', ')}
+                        <h3 className="font-[700] text-[15px]" style={{ color: '#ffffff' }}>{item.genericName}</h3>
+                        <span className="inline-block mt-1 mb-1 px-2 py-0.5 rounded-md text-[10px] font-[600]" style={{ background: 'rgba(139,92,246,0.15)', color: '#c4b5fd', border: '1px solid rgba(139,92,246,0.25)' }}>{item.drugClass}</span>
+                        <div className="text-[12px] mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+                          <span className="font-[600]" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? 'Brands: ' : 'Merek: '}</span>{item.brandNames.join(', ')}
                         </div>
                       </div>
                       {item.dosing && (

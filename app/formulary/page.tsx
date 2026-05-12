@@ -83,9 +83,9 @@ export default function FormularyPage() {
 
           <AnimatePresence>
             {(drugSearch || selectedClass) && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="rounded-xl overflow-hidden divide-y divide-white/[0.06] max-h-[600px] overflow-y-auto" style={{ border: '1px solid var(--border-card)' }}>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25, ease: 'easeOut' }} className="rounded-xl overflow-hidden divide-y divide-white/[0.06] max-h-[600px] overflow-y-auto" style={{ border: '1px solid var(--border-card)' }}>
                 {filteredDrugs && filteredDrugs.length > 0 ? filteredDrugs.map((item, idx) => (
-                  <motion.div key={item.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.04 }}
+                  <motion.div key={item.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(idx * 0.04, 0.3), duration: 0.25, ease: 'easeOut' }}
                     className="p-4 flex flex-col gap-3 transition-colors" style={{ background: 'var(--bg-card)' }}
                     onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card-hover)')}
                     onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-card)')}>

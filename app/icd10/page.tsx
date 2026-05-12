@@ -51,10 +51,10 @@ export default function Icd10Page() {
 
           <AnimatePresence>
             {icdSearch && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25, ease: 'easeOut' }}
                 className="rounded-xl overflow-hidden divide-y divide-white/[0.06] max-h-[520px] overflow-y-auto" style={{ border: '1px solid var(--border-card)' }}>
                 {filteredICD && filteredICD.length > 0 ? filteredICD.map((item, idx) => (
-                  <motion.div key={item.code} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.02 }}
+                  <motion.div key={item.code} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(idx * 0.03, 0.3), duration: 0.25, ease: 'easeOut' }}
                     className="px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 transition-colors cursor-default"
                     style={{ background: 'var(--bg-card)' }}
                     onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card-hover)')}

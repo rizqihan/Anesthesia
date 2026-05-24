@@ -9,7 +9,7 @@ import { generateSingleCPG } from '@/lib/syncAgent';
 import { 
   BookOpen, Search, WifiOff, FileText, HeartPulse, Stethoscope, Wind, Baby, Pill, 
   Activity, FlaskConical, GitBranch, ShieldCheck, GraduationCap, ClipboardCheck, 
-  AlertTriangle, Sparkles, ChevronDown, ChevronUp, RefreshCw, X, Plus, Brain, Syringe
+  AlertTriangle, Sparkles, ChevronDown, ChevronUp, RefreshCw, X, Plus, Brain, Syringe, Scan
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -25,6 +25,7 @@ const getCategoryIcon = (category: string) => {
   if (cat.includes('anesthes') || cat.includes('surgery') || cat.includes('surgical')) return <Syringe className="w-5 h-5" style={{ color: '#818cf8' }} />;
   if (cat.includes('emergency') || cat.includes('critical') || cat.includes('icu')) return <AlertTriangle className="w-5 h-5" style={{ color: '#f97316' }} />;
   if (cat.includes('infectious')) return <ShieldCheck className="w-5 h-5" style={{ color: '#10b981' }} />;
+  if (cat.includes('radiology') || cat.includes('imaging') || cat.includes('interventional')) return <Scan className="w-5 h-5" style={{ color: '#22d3ee' }} />;
   return <Stethoscope className="w-5 h-5" style={{ color: '#a78bfa' }} />;
 };
 
@@ -40,6 +41,7 @@ const getCategoryStyle = (category: string): { bg: string; border: string; color
   if (cat.includes('anesthes') || cat.includes('surgery') || cat.includes('surgical')) return { bg: 'rgba(129,140,248,0.1)', border: 'rgba(129,140,248,0.25)', color: '#818cf8' };
   if (cat.includes('emergency') || cat.includes('critical')) return { bg: 'rgba(249,115,22,0.1)', border: 'rgba(249,115,22,0.25)', color: '#f97316' };
   if (cat.includes('infectious')) return { bg: 'rgba(16,185,129,0.1)', border: 'rgba(16,185,129,0.25)', color: '#10b981' };
+  if (cat.includes('radiology') || cat.includes('imaging') || cat.includes('interventional')) return { bg: 'rgba(6,182,212,0.1)', border: 'rgba(6,182,212,0.25)', color: '#22d3ee' };
   return { bg: 'rgba(139,92,246,0.1)', border: 'rgba(139,92,246,0.25)', color: '#a78bfa' };
 };
 
@@ -307,19 +309,24 @@ export default function GuidelinesPage() {
       {/* CPG Detail Modal Overlay */}
       <AnimatePresence>
         {selectedGuideline && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div 
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}
-            onClick={(e) => { if (e.target === e.currentTarget) setSelectedGuideline(null); }}
           >
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0"
+              style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
+              onClick={() => setSelectedGuideline(null)}
+            />
+            {/* Modal Card */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 30 }}
-              className="w-full max-w-2xl max-h-[85vh] flex flex-col rounded-2xl overflow-hidden"
+              className="w-full max-w-2xl max-h-[85vh] flex flex-col rounded-2xl overflow-hidden z-10"
               style={{ background: 'var(--bg-card)', border: '1px solid var(--border-card)', boxShadow: '0 25px 50px rgba(0,0,0,0.6)' }}
             >
               {/* Modal Header */}
@@ -702,7 +709,7 @@ export default function GuidelinesPage() {
               </div>
 
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
 

@@ -363,5 +363,78 @@
       "en": "• American Headache Society Consensus Statement on the Treatment of Migraine (Headache 2021)\n• Ailani J, et al. Headache. 2021;61(7):1021-1039",
       "id": "• Pernyataan Konsensus American Headache Society tentang Pengobatan Migrain (Headache 2021)\n• Ailani J, et al. Headache. 2021;61(7):1021-1039"
     }
+  },
+  {
+    "title": { "en": "Acute Limb Ischemia (ALI)", "id": "Iskemia Tungkai Akut (ALI)" },
+    "category": "Interventional Radiology",
+    "isStructured": true,
+    "definition": {
+      "en": "Acute Limb Ischemia (ALI) is defined as a sudden decrease in limb perfusion that causes a potential threat to limb viability. It is a medical emergency requiring rapid diagnosis and revascularization to prevent amputation and systemic complications.",
+      "id": "Iskemia Tungkai Akut (ALI) didefinisikan sebagai penurunan mendadak perfusi tungkai yang menyebabkan ancaman potensial terhadap viabilitas ekstremitas. Ini adalah keadaan darurat medis yang memerlukan diagnosis cepat dan revaskularisasi untuk mencegah amputasi serta komplikasi sistemik."
+    },
+    "symptoms": {
+      "en": "• Sudden onset of severe extremity **pain** (often distal and progressive)\n• Numbness, paresthesia, or sensory loss\n• Inability to move toes or fingers (motor weakness/paralysis)\n• Coldness or temperature discrepancy in the affected limb\n• Pale or mottled skin color",
+      "id": "• Serangan mendadak **nyeri** ekstremitas yang hebat (sering kali distal dan progresif)\n• Mati rasa, parestesia, atau hilangnya sensorik\n• Ketidakmampuan untuk menggerakkan jari kaki atau tangan (kelemahan motorik/paralisis)\n• Rasa dingin atau perbedaan suhu pada tungkai yang terkena\n• Warna kulit pucat atau bercak kebiruan (mottling)"
+    },
+    "physicalExamination": {
+      "en": "• The **6 Ps**: **Pain, Pallor, Pulselessness, Paresthesia, Paralysis, Poikilothermia** (cold limb)\n• Absent peripheral pulses (dorsalis pedis, posterior tibial, popliteal, femoral)\n• Loss of light touch, pinprick sensation, and motor dysfunction (Rutherford classification)\n• Delayed capillary refill time **(>3 seconds)** or complete absence",
+      "id": "• **6 P**: **Pain (nyeri), Pallor (pucat), Pulselessness (hilangnya nadi), Paresthesia (kesemutan), Paralysis (kelumpuhan), Poikilothermia (dingin)**\n• Hilangnya denyut nadi perifer (dorsalis pedis, tibialis posterior, popliteal, femoralis)\n• Hilangnya sensasi sentuhan ringan, tusukan jarum, dan disfungsi motorik (klasifikasi Rutherford)\n• Capillary refill time memanjang **(>3 detik)** atau tidak terdeteksi sama sekali"
+    },
+    "labFindings": {
+      "en": "• **Arterial Duplex Ultrasound**: demonstrating absence of flow or thrombosis in target vessel\n• **CT Angiography (CTA)**: Gold standard to define the level and extent of occlusion and guide intervention\n• Elevated serum lactate and creatine kinase (CK) indicating skeletal muscle ischemia\n• Elevated serum creatinine or myoglobinuria (rhabdomyolysis in late stages)",
+      "id": "• **USG Duplex Arteri**: menunjukkan tidak adanya aliran darah atau trombosis pada pembuluh darah target\n• **CT Angiografi (CTA)**: Standar emas untuk menentukan tingkat dan luasnya oklusi serta memandu intervensi\n• Peningkatan laktat serum dan kreatin kinase (CK) yang menunjukkan iskemia otot rangka\n• Peningkatan kreatinin serum atau mioglobinuria (rabdomiolisis pada stadium lanjut)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Phlegmasia Cerulea Dolens (severe venous thrombosis)\n• Acute Deep Vein Thrombosis (DVT)\n• Aortic Dissection extending to iliac arteries\n• Compartment Syndrome\n• Severe Peripheral Artery Disease (PAD) flare",
+      "id": "• Phlegmasia Cerulea Dolens (trombosis vena berat)\n• Trombosis Vena Dalam Akut (DVT)\n• Diseksi Aorta yang meluas ke arteri iliaka\n• Sindrom Kompartemen\n• Eksaserbasi Penyakit Arteri Perifer (PAD) berat"
+    },
+    "dangerSigns": {
+      "en": "• **Complete paralysis and sensory loss** (Rutherford Class III - irreversible ischemia, limb is non-viable)\n• **Profound systemic toxicity**: hyperkalemia, severe metabolic acidosis, and acute renal failure (myonephropathic syndrome)\n• Demarcated mottling that is non-blanching\n• Compartment syndrome development post-reperfusion",
+      "id": "• **Paralisis total dan hilangnya sensasi** (Rutherford Kelas III - iskemia ireversibel, tungkai tidak layak diselamatkan)\n• **Toksisitas sistemik yang mendalam**: hiperkalemia, asidosis metabolik berat, dan gagal ginjal akut (sindrom mionefropati)\n• Mottling yang terdemarkasi dan tidak memucat saat ditekan (non-blanching)\n• Perkembangan sindrom kompartemen pasca-reperfusi"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Initiate **IV Unfractionated Heparin** immediately (80 U/kg bolus followed by 18 U/kg/h infusion) to prevent thrombus propagation\n• Place limb in a **dependent position** (neutral or slightly down, do not elevate or apply heat/cold)\n• Provide aggressive pain management with IV opioids\n• Ensure adequate hydration with IV crystalloids to protect renal function",
+        "id": "• Segera mulai **Heparin IV Tidak Terfraksinasi** (bolus 80 U/kg diikuti infus 18 U/kg/jam) untuk mencegah perambatan trombus\n• Posisikan tungkai dalam posisi **dependen** (netral atau sedikit ke bawah, jangan dielevasi atau diberi panas/dingin)\n• Berikan manajemen nyeri yang agresif dengan opioid IV\n• Pastikan hidrasi yang adekuat dengan kristaloid IV untuk melindungi fungsi ginjal"
+      },
+      "definitiveTreatment": {
+        "en": "• Urgent **Endovascular Intervention** by Interventional Radiology (IR):\n  - **Catheter-Directed Thrombolysis (CDT)**: local infusion of Alteplase/rtPA directly into the clot for viable/threatened limbs (Rutherford I & IIa)\n  - **Percutaneous Mechanical Thrombectomy (PMT)**: rapid clot removal using mechanical devices (e.g. AngioJet, Penumbra)\n• Surgical revascularization (fogarty catheter embolectomy, bypass) if endovascular access is unavailable or contraindicated\n• Perform urgent **amputation** if limb is determined non-viable (Rutherford Class III) to avoid fatal systemic reperfusion injury",
+        "id": "• **Intervensi Endovaskular** darurat oleh Radiologi Intervensi (IR):\n  - **Catheter-Directed Thrombolysis (CDT)**: infus lokal Alteplase/rtPA langsung ke dalam bekuan darah untuk tungkai yang masih viable/terancam (Rutherford I & IIa)\n  - **Percutaneous Mechanical Thrombectomy (PMT)**: pembuangan cepat bekuan darah menggunakan perangkat mekanis (misal: AngioJet, Penumbra)\n• Revaskularisasi bedah (embolektomi kateter Fogarty, bypass) jika akses endovaskular tidak tersedia atau kontraindikasi\n• Lakukan **amputasi** darurat jika tungkai diputuskan tidak viable (Rutherford Kelas III) untuk menghindari cedera reperfusi sistemik yang fatal"
+      },
+      "workup": {
+        "en": "• Urgent bilateral ankle-brachial index (ABI) and continuous pulse oximetry monitoring\n• Post-procedure surveillance of distal pulses via Doppler ultrasound\n• Monitor serum potassium, creatine kinase, and creatinine hourly post-reperfusion to detect reperfusion injury",
+        "id": "• Pengukuran ankle-brachial index (ABI) bilateral darurat dan pemantauan oksimetri nadi kontinu\n• Surveilans denyut nadi perifer distal pasca-prosedur menggunakan USG Doppler\n• Pantau kalium serum, kreatin kinase, dan kreatinin setiap jam pasca-reperfusi untuk mendeteksi cedera reperfusi"
+      },
+      "rehab": {
+        "en": "• Early mobilization after hemostasis of arterial access site is achieved\n• Physical therapy to restore muscle strength and range of motion in the ischemic limb",
+        "id": "• Mobilisasi dini setelah hemostasis di lokasi akses arteri tercapai\n• Terapi fisik untuk memulihkan kekuatan otot dan rentang gerak pada tungkai yang terkena iskemia"
+      },
+      "referral": {
+        "en": "• Emergency consult to **Interventional Radiology** for catheter-based intervention, and **Vascular Surgery** for hybrid or surgical revascularization",
+        "id": "• Konsultasi darurat ke **Radiologi Intervensi** untuk intervensi berbasis kateter, dan **Bedah Vaskular** untuk revaskularisasi hibrida atau bedah"
+      }
+    },
+    "followUp": {
+      "en": "• Clinical review in **1-2 weeks** to assess vascular patency, wound healing of access sites, and resolve residual neuropathy\n• Serial ankle-brachial index (ABI) measurements and duplex ultrasound surveillance at 1, 3, 6, and 12 months",
+      "id": "• Evaluasi klinis dalam **1-2 minggu** untuk menilai patensi pembuluh darah, penyembuhan luka akses arteri, dan memulihkan neuropati sisa\n• Pengukuran ankle-brachial index (ABI) serial dan surveilans USG duplex pada 1, 3, 6, dan 12 bulan"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Long-term antiplatelet therapy (**Aspirin 81-100 mg daily** or **Clopidogrel 75 mg daily**)\n• High-intensity statin therapy (e.g. Atorvastatin 40-80 mg daily) for cardiovascular risk reduction\n• Therapeutic anticoagulation (e.g. Warfarin or DOAC) if the source is embolic (e.g., Atrial Fibrillation)",
+        "id": "• Terapi antiplatelet jangka panjang (**Aspirin 81-100 mg sehari** atau **Klopidogrel 75 mg sehari**)\n• Terapi statin intensitas tinggi (misal: Atorvastatin 40-80 mg sehari) untuk reduksi risiko kardiovaskular\n• Antikoagulan terapeutik (misal: Warfarin atau DOAC) jika sumbernya adalah emboli (misal: Fibrilasi Atrium)"
+      },
+      "nonPharmacological": {
+        "en": "• Absolute **smoking cessation**\n• Strict control of diabetes mellitus (HbA1c < 7.0%), hypertension, and hyperlipidemia\n• Regular walking program to stimulate collateral vessel formation",
+        "id": "• **Berhenti merokok secara total**\n• Kontrol ketat diabetes melitus (HbA1c < 7,0%), hipertensi, dan hiperlipidemia\n• Program jalan kaki teratur untuk merangsang pembentukan pembuluh darah kolateral"
+      }
+    },
+    "caseExample": {
+      "en": "A 68-year-old male with a history of poorly controlled atrial fibrillation presents with a sudden onset of severe, excruciating pain and coldness in his right leg for 4 hours. On examination, the right leg is pale, cold to the touch, with a complete loss of sensation and mild motor weakness in his right foot (Rutherford Class IIb). Dorsalis pedis and posterior tibial pulses are completely absent. Urgently performed CT Angiography reveals an acute embolic occlusion at the bifurcation of the right common femoral artery. He is immediately heparinized. Interventional Radiology performs emergency **Percutaneous Mechanical Thrombectomy** using an AngioJet catheter and initiates local **Catheter-Directed Thrombolysis (rtPA)**. Within 6 hours, complete flow is restored, right foot sensation and motor function return to normal, and a strong dorsalis pedis pulse is palpable.",
+      "id": "Seorang pria 68 tahun dengan riwayat fibrilasi atrium yang tidak terkontrol datang dengan onset mendadak nyeri hebat yang menyiksa dan rasa dingin pada tungkai kanan sejak 4 jam lalu. Pada pemeriksaan, tungkai kanan tampak pucat, dingin saat disentuh, disertai hilangnya sensasi sensorik total dan kelemahan motorik ringan pada kaki kanan (Rutherford Kelas IIb). Denyut nadi dorsalis pedis dan tibialis posterior menghilang total. CT Angiografi darurat menunjukkan oklusi emboli akut pada bifurkasio arteri femoralis komunis kanan. Pasien segera diberikan heparin IV. Radiologi Intervensi melakukan **Percutaneous Mechanical Thrombectomy** darurat menggunakan kateter AngioJet dan memulai **Catheter-Directed Thrombolysis (rtPA)** lokal. Dalam 6 jam, aliran darah pulih sepenuhnya, sensasi dan fungsi motorik kaki kanan kembali normal, serta denyut nadi dorsalis pedis teraba kuat."
+    },
+    "references": {
+      "en": "• 2016 AHA/ACC Guideline on the Management of Patients With Peripheral Arterial Disease (Circulation 2017)\n• Gerhard-Herman MD, et al. Circulation. 2017;135(11):e726-e779",
+      "id": "• Pedoman AHA/ACC 2016 tentang Manajemen Pasien dengan Penyakit Arteri Perifer (Circulation 2017)\n• Gerhard-Herman MD, et al. Circulation. 2017;135(11):e726-e779"
+    }
   }
 ]

@@ -1382,6 +1382,87 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
   },
   {
     "title": {
+      "en": "Acute Limb Ischemia (ALI)",
+      "id": "Iskemia Tungkai Akut (ALI)"
+    },
+    "category": "Interventional Radiology",
+    "isStructured": true,
+    "definition": {
+      "en": "Acute Limb Ischemia (ALI) is defined as a sudden decrease in limb perfusion that causes a potential threat to limb viability. It is a medical emergency requiring rapid diagnosis and revascularization to prevent amputation and systemic complications.",
+      "id": "Iskemia Tungkai Akut (ALI) didefinisikan sebagai penurunan mendadak perfusi tungkai yang menyebabkan ancaman potensial terhadap viabilitas ekstremitas. Ini adalah keadaan darurat medis yang memerlukan diagnosis cepat dan revaskularisasi untuk mencegah amputasi serta komplikasi sistemik."
+    },
+    "symptoms": {
+      "en": "• Sudden onset of severe extremity **pain** (often distal and progressive)\n• Numbness, paresthesia, or sensory loss\n• Inability to move toes or fingers (motor weakness/paralysis)\n• Coldness or temperature discrepancy in the affected limb\n• Pale or mottled skin color",
+      "id": "• Serangan mendadak **nyeri** ekstremitas yang hebat (sering kali distal dan progresif)\n• Mati rasa, parestesia, atau hilangnya sensorik\n• Ketidakmampuan untuk menggerakkan jari kaki atau tangan (kelemahan motorik/paralisis)\n• Rasa dingin atau perbedaan suhu pada tungkai yang terkena\n• Warna kulit pucat atau bercak kebiruan (mottling)"
+    },
+    "physicalExamination": {
+      "en": "• The **6 Ps**: **Pain, Pallor, Pulselessness, Paresthesia, Paralysis, Poikilothermia** (cold limb)\n• Absent peripheral pulses (dorsalis pedis, posterior tibial, popliteal, femoral)\n• Loss of light touch, pinprick sensation, and motor dysfunction (Rutherford classification)\n• Delayed capillary refill time **(>3 seconds)** or complete absence",
+      "id": "• **6 P**: **Pain (nyeri), Pallor (pucat), Pulselessness (hilangnya nadi), Paresthesia (kesemutan), Paralysis (kelumpuhan), Poikilothermia (dingin)**\n• Hilangnya denyut nadi perifer (dorsalis pedis, tibialis posterior, popliteal, femoralis)\n• Hilangnya sensasi sentuhan ringan, tusukan jarum, dan disfungsi motorik (klasifikasi Rutherford)\n• Capillary refill time memanjang **(>3 detik)** atau tidak terdeteksi sama sekali"
+    },
+    "labFindings": {
+      "en": "• **Arterial Duplex Ultrasound**: demonstrating absence of flow or thrombosis in target vessel\n• **CT Angiography (CTA)**: Gold standard to define the level and extent of occlusion and guide intervention\n• Elevated serum lactate and creatine kinase (CK) indicating skeletal muscle ischemia\n• Elevated serum creatinine or myoglobinuria (rhabdomyolysis in late stages)",
+      "id": "• **USG Duplex Arteri**: menunjukkan tidak adanya aliran darah atau trombosis pada pembuluh darah target\n• **CT Angiografi (CTA)**: Standar emas untuk menentukan tingkat dan luasnya oklusi serta memandu intervensi\n• Peningkatan laktat serum dan kreatin kinase (CK) yang menunjukkan iskemia otot rangka\n• Peningkatan kreatinin serum atau mioglobinuria (rabdomiolisis pada stadium lanjut)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Phlegmasia Cerulea Dolens (severe venous thrombosis)\n• Acute Deep Vein Thrombosis (DVT)\n• Aortic Dissection extending to iliac arteries\n• Compartment Syndrome\n• Severe Peripheral Artery Disease (PAD) flare",
+      "id": "• Phlegmasia Cerulea Dolens (trombosis vena berat)\n• Trombosis Vena Dalam Akut (DVT)\n• Diseksi Aorta yang meluas ke arteri iliaka\n• Sindrom Kompartemen\n• Eksaserbasi Penyakit Arteri Perifer (PAD) berat"
+    },
+    "dangerSigns": {
+      "en": "• **Complete paralysis and sensory loss** (Rutherford Class III - irreversible ischemia, limb is non-viable)\n• **Profound systemic toxicity**: hyperkalemia, severe metabolic acidosis, and acute renal failure (myonephropathic syndrome)\n• Demarcated mottling that is non-blanching\n• Compartment syndrome development post-reperfusion",
+      "id": "• **Paralisis total dan hilangnya sensasi** (Rutherford Kelas III - iskemia ireversibel, tungkai tidak layak diselamatkan)\n• **Toksisitas sistemik yang mendalam**: hiperkalemia, asidosis metabolik berat, dan gagal ginjal akut (sindrom mionefropati)\n• Mottling yang terdemarkasi dan tidak memucat saat ditekan (non-blanching)\n• Perkembangan sindrom kompartemen pasca-reperfusi"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Initiate **IV Unfractionated Heparin** immediately (80 U/kg bolus followed by 18 U/kg/h infusion) to prevent thrombus propagation\n• Place limb in a **dependent position** (neutral or slightly down, do not elevate or apply heat/cold)\n• Provide aggressive pain management with IV opioids\n• Ensure adequate hydration with IV crystalloids to protect renal function",
+        "id": "• Segera mulai **Heparin IV Tidak Terfraksinasi** (bolus 80 U/kg diikuti infus 18 U/kg/jam) untuk mencegah perambatan trombus\n• Posisikan tungkai dalam posisi **dependen** (netral atau sedikit ke bawah, jangan dielevasi atau diberi panas/dingin)\n• Berikan manajemen nyeri yang agresif dengan opioid IV\n• Pastikan hidrasi yang adekuat dengan kristaloid IV untuk melindungi fungsi ginjal"
+      },
+      "definitiveTreatment": {
+        "en": "• Urgent **Endovascular Intervention** by Interventional Radiology (IR):\n  - **Catheter-Directed Thrombolysis (CDT)**: local infusion of Alteplase/rtPA directly into the clot for viable/threatened limbs (Rutherford I & IIa)\n  - **Percutaneous Mechanical Thrombectomy (PMT)**: rapid clot removal using mechanical devices (e.g. AngioJet, Penumbra)\n• Surgical revascularization (fogarty catheter embolectomy, bypass) if endovascular access is unavailable or contraindicated\n• Perform urgent **amputation** if limb is determined non-viable (Rutherford Class III) to avoid fatal systemic reperfusion injury",
+        "id": "• **Intervensi Endovaskular** darurat oleh Radiologi Intervensi (IR):\n  - **Catheter-Directed Thrombolysis (CDT)**: infus lokal Alteplase/rtPA langsung ke dalam bekuan darah untuk tungkai yang masih viable/terancam (Rutherford I & IIa)\n  - **Percutaneous Mechanical Thrombectomy (PMT)**: pembuangan cepat bekuan darah menggunakan perangkat mekanis (misal: AngioJet, Penumbra)\n• Revaskularisasi bedah (embolektomi kateter Fogarty, bypass) jika akses endovaskular tidak tersedia atau kontraindikasi\n• Lakukan **amputasi** darurat jika tungkai diputuskan tidak viable (Rutherford Kelas III) untuk menghindari cedera reperfusi sistemik yang fatal"
+      },
+      "workup": {
+        "en": "• Urgent bilateral ankle-brachial index (ABI) and continuous pulse oximetry monitoring\n• Post-procedure surveillance of distal pulses via Doppler ultrasound\n• Monitor serum potassium, creatine kinase, and creatinine hourly post-reperfusion to detect reperfusion injury",
+        "id": "• Pengukuran ankle-brachial index (ABI) bilateral darurat dan pemantauan oksimetri nadi kontinu\n• Surveilans denyut nadi perifer distal pasca-prosedur menggunakan USG Doppler\n• Pantau kalium serum, kreatin kinase, dan kreatinin setiap jam pasca-reperfusi untuk mendeteksi cedera reperfusi"
+      },
+      "rehab": {
+        "en": "• Early mobilization after hemostasis of arterial access site is achieved\n• Physical therapy to restore muscle strength and range of motion in the ischemic limb",
+        "id": "• Mobilisasi dini setelah hemostasis di lokasi akses arteri tercapai\n• Terapi fisik untuk memulihkan kekuatan otot dan rentang gerak pada tungkai yang terkena iskemia"
+      },
+      "referral": {
+        "en": "• Emergency consult to **Interventional Radiology** for catheter-based intervention, and **Vascular Surgery** for hybrid or surgical revascularization",
+        "id": "• Konsultasi darurat ke **Radiologi Intervensi** untuk intervensi berbasis kateter, dan **Bedah Vaskular** untuk revaskularisasi hibrida atau bedah"
+      }
+    },
+    "followUp": {
+      "en": "• Clinical review in **1-2 weeks** to assess vascular patency, wound healing of access sites, and resolve residual neuropathy\n• Serial ankle-brachial index (ABI) measurements and duplex ultrasound surveillance at 1, 3, 6, and 12 months",
+      "id": "• Evaluasi klinis dalam **1-2 minggu** untuk menilai patensi pembuluh darah, penyembuhan luka akses arteri, dan memulihkan neuropati sisa\n• Pengukuran ankle-brachial index (ABI) serial dan surveilans USG duplex pada 1, 3, 6, dan 12 bulan"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Long-term antiplatelet therapy (**Aspirin 81-100 mg daily** or **Clopidogrel 75 mg daily**)\n• High-intensity statin therapy (e.g. Atorvastatin 40-80 mg daily) for cardiovascular risk reduction\n• Therapeutic anticoagulation (e.g. Warfarin or DOAC) if the source is embolic (e.g., Atrial Fibrillation)",
+        "id": "• Terapi antiplatelet jangka panjang (**Aspirin 81-100 mg sehari** atau **Klopidogrel 75 mg sehari**)\n• Terapi statin intensitas tinggi (misal: Atorvastatin 40-80 mg sehari) untuk reduksi risiko kardiovaskular\n• Antikoagulan terapeutik (misal: Warfarin atau DOAC) jika sumbernya adalah emboli (misal: Fibrilasi Atrium)"
+      },
+      "nonPharmacological": {
+        "en": "• Absolute **smoking cessation**\n• Strict control of diabetes mellitus (HbA1c < 7.0%), hypertension, and hyperlipidemia\n• Regular walking program to stimulate collateral vessel formation",
+        "id": "• **Berhenti merokok secara total**\n• Kontrol ketat diabetes melitus (HbA1c < 7,0%), hipertensi, dan hiperlipidemia\n• Program jalan kaki teratur untuk merangsang pembentukan pembuluh darah kolateral"
+      }
+    },
+    "caseExample": {
+      "en": "A 68-year-old male with a history of poorly controlled atrial fibrillation presents with a sudden onset of severe, excruciating pain and coldness in his right leg for 4 hours. On examination, the right leg is pale, cold to the touch, with a complete loss of sensation and mild motor weakness in his right foot (Rutherford Class IIb). Dorsalis pedis and posterior tibial pulses are completely absent. Urgently performed CT Angiography reveals an acute embolic occlusion at the bifurcation of the right common femoral artery. He is immediately heparinized. Interventional Radiology performs emergency **Percutaneous Mechanical Thrombectomy** using an AngioJet catheter and initiates local **Catheter-Directed Thrombolysis (rtPA)**. Within 6 hours, complete flow is restored, right foot sensation and motor function return to normal, and a strong dorsalis pedis pulse is palpable.",
+      "id": "Seorang pria 68 tahun dengan riwayat fibrilasi atrium yang tidak terkontrol datang dengan onset mendadak nyeri hebat yang menyiksa dan rasa dingin pada tungkai kanan sejak 4 jam lalu. Pada pemeriksaan, tungkai kanan tampak pucat, dingin saat disentuh, disertai hilangnya sensasi sensorik total dan kelemahan motorik ringan pada kaki kanan (Rutherford Kelas IIb). Denyut nadi dorsalis pedis dan tibialis posterior menghilang total. CT Angiografi darurat menunjukkan oklusi emboli akut pada bifurkasio arteri femoralis komunis kanan. Pasien segera diberikan heparin IV. Radiologi Intervensi melakukan **Percutaneous Mechanical Thrombectomy** darurat menggunakan kateter AngioJet dan memulai **Catheter-Directed Thrombolysis (rtPA)** lokal. Dalam 6 jam, aliran darah pulih sepenuhnya, sensasi dan fungsi motorik kaki kanan kembali normal, serta denyut nadi dorsalis pedis teraba kuat."
+    },
+    "references": {
+      "en": "• 2016 AHA/ACC Guideline on the Management of Patients With Peripheral Arterial Disease (Circulation 2017)\n• Gerhard-Herman MD, et al. Circulation. 2017;135(11):e726-e779",
+      "id": "• Pedoman AHA/ACC 2016 tentang Manajemen Pasien dengan Penyakit Arteri Perifer (Circulation 2017)\n• Gerhard-Herman MD, et al. Circulation. 2017;135(11):e726-e779"
+    },
+    "id": 18,
+    "content": {
+      "en": "Acute Limb Ischemia (ALI) is defined as a sudden decrease in limb perfusion that causes a potential threat to limb viability. It is a medical emergency requiring rapid diagnosis and revascularization to prevent amputation and systemic complications.",
+      "id": "Iskemia Tungkai Akut (ALI) didefinisikan sebagai penurunan mendadak perfusi tungkai yang menyebabkan ancaman potensial terhadap viabilitas ekstremitas. Ini adalah keadaan darurat medis yang memerlukan diagnosis cepat dan revaskularisasi untuk mencegah amputasi serta komplikasi sistemik."
+    }
+  },
+  {
+    "title": {
       "en": "Anaphylaxis Emergency Management",
       "id": "Penatalaksanaan Darurat Anafilaksis"
     },
@@ -1455,7 +1536,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• World Allergy Organization Anaphylaxis Guidelines 2020 (WAO Journal 2020)\n• Cardona V, et al. World Allergy Organ J. 2020;13(10):100472",
       "id": "• Pedoman Anafilaksis Organisasi Alergi Dunia 2020 (WAO Journal 2020)\n• Cardona V, et al. World Allergy Organ J. 2020;13(10):100472"
     },
-    "id": 18,
+    "id": 19,
     "content": {
       "en": "Anaphylaxis is a severe, life-threatening systemic hypersensitivity reaction characterized by rapid onset of airway, breathing, or circulatory problems, usually associated with skin and mucosal changes.",
       "id": "Anafilaksis adalah reaksi hipersensitivitas sistemik yang parah dan mengancam jiwa yang ditandai oleh onset cepat masalah jalan napas, pernapasan, atau sirkulasi, biasanya disertai perubahan kulit dan mukosa."
@@ -1536,7 +1617,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• Global Initiative for Asthma (GINA) 2023 Executive Summary (Eur Respir J 2023)\n• Reddel HK, et al. Global Initiative for Asthma, 2023",
       "id": "• Ringkasan Eksekutif Global Initiative for Asthma (GINA) 2023 (Eur Respir J 2023)\n• Reddel HK, et al. Global Initiative for Asthma, 2023"
     },
-    "id": 19,
+    "id": 20,
     "content": {
       "en": "Status asthmaticus is an acute, severe asthma exacerbation that does not respond to initial standard bronchodilator therapy and represents a life-threatening medical emergency.",
       "id": "Status astmatikus adalah eksaserbasi asma akut berat yang tidak merespons terapi bronkodilator standar awal dan merupakan keadaan darurat medis yang mengancam jiwa."
@@ -1617,7 +1698,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021 (Intensive Care Med 2021)\n• Evans L, et al. Intensive Care Med. 2021;47(11):1181-1247",
       "id": "• Kampanye Surviving Sepsis: Pedoman Internasional untuk Manajemen Sepsis dan Syok Septik 2021 (Intensive Care Med 2021)\n• Evans L, et al. Intensive Care Med. 2021;47(11):1181-1247"
     },
-    "id": 20,
+    "id": 21,
     "content": {
       "en": "Septic shock is a subset of sepsis in which particularly profound circulatory, cellular, and metabolic abnormalities are associated with a greater risk of mortality than with sepsis alone, characterized by persistent hypotension requiring vasopressors to maintain MAP >= 65 mmHg and serum lactate > 2 mmol/L despite adequate fluid resuscitation.",
       "id": "Syok septik adalah subset dari sepsis di mana kelainan sirkulasi, seluler, dan metabolik yang sangat mendalam dikaitkan dengan risiko kematian yang lebih besar daripada sepsis saja, ditandai oleh hipotensi persisten yang memerlukan vasopresor untuk mempertahankan MAP >= 65 mmHg dan laktat serum > 2 mmol/L meskipun telah dilakukan resusitasi cairan yang adekuat."
@@ -1698,7 +1779,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• 2023 AHA/ACC Clinical Performance and Quality Measures for Adults With Coronary Artery Disease (JACC 2023)\n• Virani SS, et al. J Am Coll Cardiol. 2023;82(9):839-928",
       "id": "• Parameter Kinerja Klinis dan Kualitas AHA/ACC 2023 untuk Orang Dewasa dengan Penyakit Arteri Koroner (JACC 2023)\n• Virani SS, et al. J Am Coll Cardiol. 2023;82(9):839-928"
     },
-    "id": 21,
+    "id": 22,
     "content": {
       "en": "Acute myocardial infarction (AMI) is myocardial necrosis resulting from acute obstruction of a coronary artery, classified into ST-segment elevation myocardial infarction (STEMI) or non-ST-segment elevation myocardial infarction (NSTEMI) based on ECG changes.",
       "id": "Infark miokard akut (IMA) adalah nekrosis miokard yang disebabkan oleh obstruksi akut arteri koroner, diklasifikasikan menjadi infark miokard dengan elevasi segmen ST (STEMI) atau infark miokard tanpa elevasi segmen ST (NSTEMI) berdasarkan perubahan EKG."
@@ -1779,7 +1860,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• 2019 Guidelines for the Early Management of Patients With Acute Ischemic Stroke (Stroke 2019)\n• Powers WJ, et al. Stroke. 2019;50(12):e344-e418",
       "id": "• Pedoman 2019 untuk Penatalaksanaan Awal Pasien dengan Stroke Iskemik Akut (Stroke 2019)\n• Powers WJ, et al. Stroke. 2019;50(12):e344-e418"
     },
-    "id": 22,
+    "id": 23,
     "content": {
       "en": "Acute ischemic stroke is characterized by the sudden onset of focal neurological deficits caused by a disruption of blood supply to a specific region of the brain, leading to cerebral infarction.",
       "id": "Stroke iskemik akut ditandai oleh onset mendadak defisit neurologis fokal yang disebabkan oleh gangguan aliran darah ke area tertentu di otak, menyebabkan infark serebral."
@@ -1860,7 +1941,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• ADA Consensus Statement on Hyperglycemic Crises in Adult Patients With Diabetes (Diabetes Care 2009)\n• Kitabchi AE, et al. Diabetes Care. 2009;32(7):1335-1343",
       "id": "• Pernyataan Konsensus ADA tentang Krisis Hiperglikemik pada Pasien Dewasa dengan Diabetes (Diabetes Care 2009)\n• Kitabchi AE, et al. Diabetes Care. 2009;32(7):1335-1343"
     },
-    "id": 23,
+    "id": 24,
     "content": {
       "en": "Diabetic Ketoacidosis (DKA) is an acute, life-threatening metabolic complication of diabetes characterized by the triad of hyperglycemia, metabolic acidosis, and increased total body ketone concentration.",
       "id": "Ketoasidosis Diabetik (KAD) adalah komplikasi metabolik akut dan mengancam jiwa dari diabetes yang ditandai oleh trias hiperglikemia, asidosis metabolik, dan peningkatan konsentrasi keton tubuh total."
@@ -1941,7 +2022,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• 2019 ESC Guidelines for the Diagnosis and Management of Acute Pulmonary Embolism (European Heart Journal 2020)\n• Konstantinides SV, et al. Eur Heart J. 2020;41(4):543-603",
       "id": "• Pedoman ESC 2019 untuk Diagnosis dan Penatalaksanaan Emboli Paru Akut (European Heart Journal 2020)\n• Konstantinides SV, et al. Eur Heart J. 2020;41(4):543-603"
     },
-    "id": 24,
+    "id": 25,
     "content": {
       "en": "Pulmonary Embolism (PE) is a life-threatening obstruction of the pulmonary arterial bed, most commonly resulting from a thrombus originating in the deep veins of the lower extremities (deep vein thrombosis).",
       "id": "Emboli Paru (EP) adalah obstruksi arteri pulmonal yang mengancam jiwa, paling sering disebabkan oleh trombus yang berasal dari vena dalam ekstremitas bawah (deep vein thrombosis/DVT)."
@@ -2022,7 +2103,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• Advanced Trauma Life Support (ATLS) Student Course Manual, 10th Edition (American College of Surgeons 2018)\n• American College of Surgeons Committee on Trauma, 2018",
       "id": "• Buku Manual Kursus Siswa Advanced Trauma Life Support (ATLS), Edisi ke-10 (American College of Surgeons 2018)\n• American College of Surgeons Committee on Trauma, 2018"
     },
-    "id": 25,
+    "id": 26,
     "content": {
       "en": "Tension Pneumothorax is a life-threatening, progressive accumulation of air in the pleural space under positive pressure, resulting in lung collapse, mediastinal shift, compression of the contralateral lung, and compromised venous return leading to cardiovascular collapse.",
       "id": "Tension Pneumotoraks adalah akumulasi udara progresif yang mengancam jiwa di rongga pleura di bawah tekanan positif, yang mengakibatkan kolaps paru, pergeseran mediastinum, kompresi paru kontralateral, dan terganggunya aliran balik vena yang menyebabkan kolaps kardiovaskular."
@@ -2103,7 +2184,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• Guidelines for the Treatment of Convulsive Status Epilepticus in Children and Adults: American Epilepsy Society (Epilepsy Currents 2016)\n• Glauser T, et al. Epilepsy Curr. 2016;16(1):48-61",
       "id": "• Pedoman untuk Pengobatan Status Epileptikus Konvulsif pada Anak-anak dan Dewasa: American Epilepsy Society (Epilepsy Currents 2016)\n• Glauser T, et al. Epilepsy Curr. 2016;16(1):48-61"
     },
-    "id": 26,
+    "id": 27,
     "content": {
       "en": "Status Epilepticus is defined as a continuous seizure lasting **>=5 minutes**, or recurrent seizures without full recovery of consciousness between episodes, representing a critical neurological emergency.",
       "id": "Status Epileptikus didefinisikan sebagai kejang terus-menerus selama **>=5 menit**, atau kejang berulang tanpa pemulihan kesadaran penuh di antara episode-episode kejang, yang merupakan kedaruratan neurologis kritis."
@@ -2184,7 +2265,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "• Management of Patients with Acute Lower Gastrointestinal Bleeding: An ACG Clinical Guideline (American Journal of Gastroenterology 2016)\n• Laine L, et al. Am J Gastroenterol. 2016;111(5):659-674",
       "id": "• Penatalaksanaan Pasien dengan Perdarahan Saluran Cerna Bagian Bawah Akut: Pedoman Klinis ACG (American Journal of Gastroenterology 2016)\n• Laine L, et al. Am J Gastroenterol. 2016;111(5):659-674"
     },
-    "id": 27,
+    "id": 28,
     "content": {
       "en": "Acute Upper Gastrointestinal Bleeding (UGIB) is defined as bleeding originating proximal to the ligament of Treitz, presenting as hematemesis, melena, or hematochezia, classified into non-variceal (typically peptic ulcer disease) or variceal (due to portal hypertension) bleeding.",
       "id": "Perdarahan Saluran Cerna Bagian Atas (SCBA) Akut didefinisikan sebagai perdarahan yang berasal dari bagian proksimal ligamentum Treitz, muncul sebagai hematemesis (muntah darah), melena (BAB hitam), atau hematokezia, diklasifikasikan menjadi perdarahan non-variseal (biasanya penyakit ulkus peptikum) atau variseal (akibat hipertensi porta)."

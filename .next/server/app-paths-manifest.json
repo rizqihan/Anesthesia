@@ -1,7 +1,0 @@
-{
-  "/guidelines/page": "app/guidelines/page.js",
-  "/icd10/page": "app/icd10/page.js",
-  "/calculators/page": "app/calculators/page.js",
-  "/formulary/page": "app/formulary/page.js",
-  "/settings/page": "app/settings/page.js"
-}

@@ -1,0 +1,732 @@
+[
+  {
+    "title": { "en": "Anaphylaxis Emergency Management", "id": "Penatalaksanaan Darurat Anafilaksis" },
+    "category": "Emergency Medicine",
+    "isStructured": true,
+    "definition": {
+      "en": "Anaphylaxis is a severe, life-threatening systemic hypersensitivity reaction characterized by rapid onset of airway, breathing, or circulatory problems, usually associated with skin and mucosal changes.",
+      "id": "Anafilaksis adalah reaksi hipersensitivitas sistemik yang parah dan mengancam jiwa yang ditandai oleh onset cepat masalah jalan napas, pernapasan, atau sirkulasi, biasanya disertai perubahan kulit dan mukosa."
+    },
+    "symptoms": {
+      "en": "• Rapid onset of **dyspnea**, **wheezing**, and **stridor**\n• Throat tightness and difficulty swallowing\n• **Urticaria** and **angioedema** (swelling of lips, tongue, eyelids)\n• Dizziness, confusion, and feeling of impending doom\n• Abdominal cramps, nausea, and vomiting\n• **Hypotension** and **tachycardia**",
+      "id": "• Onset cepat dari **sesak napas**, **mengi (wheezing)**, dan **stridor**\n• Rasa terikat di tenggorokan dan kesulitan menelan\n• **Urtikaria (biduran)** dan **angioedema** (bengkak pada bibir, lidah, kelopak mata)\n• Pusing, kebingungan, dan perasaan terancam bahaya maut\n• Kram perut, mual, dan muntah\n• **Hipotensi** dan **takikardia**"
+    },
+    "physicalExamination": {
+      "en": "• Hypotension, tachycardia, tachypnea, cyanosis\n• Upper airway stridor, expiratory wheezing, or decreased breath sounds\n• Warm, flushed skin or urticarial rash and soft tissue edema\n• Altered mental status secondary to cerebral hypoperfusion",
+      "id": "• Hipotensi, takikardia, takipnea, sianosis\n• Stridor jalan napas atas, mengi ekspirasi, atau suara napas menurun\n• Kulit hangat kemerahan atau ruam urtikaria dan edema jaringan lunak\n• Penurunan kesadaran sekunder akibat hipoperfusi serebral"
+    },
+    "labFindings": {
+      "en": "• Clinical diagnosis; do not delay treatment. **Serum tryptase levels** (measured **1-2 hours** after onset) can retrospectively confirm the diagnosis.",
+      "id": "• Diagnosis klinis; jangan menunda pengobatan. **Kadar triptase serum** (diukur **1-2 jam** setelah onset) dapat mengonfirmasi diagnosis secara retrospektif."
+    },
+    "differentialDiagnosis": {
+      "en": "• Severe Acute Asthma\n• Vasovagal Syncope\n• Panic Attack / Hyperventilation\n• Foreign Body Airway Obstruction",
+      "id": "• Asma Akut Berat\n• Sinkop Vasovagal\n• Serangan Panik / Hiperventilasi\n• Obstruksi Jalan Napas Benda Asing"
+    },
+    "dangerSigns": {
+      "en": "• Stridor, severe wheezing, or silent chest\n• Oxygen saturation **<92%** on room air\n• Hypotension **(systolic BP <90 mmHg)**\n• Bradycardia (late sign of impending arrest)\n• Refractory symptoms after **2 doses** of Epinephrine",
+      "id": "• Stridor, mengi berat, atau silent chest\n• Saturasi oksigen **<92%** pada udara ruangan\n• Hipotensi **(TD sistolik <90 mmHg)**\n• Bradikardia (tanda lanjut ancaman henti jantung)\n• Gejala refrakter setelah pemberian **2 dosis** Epinefrin"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Administer **Epinephrine IM 1:1000 (0.3-0.5 mg)** immediately in the anterolateral thigh\n• Establish airway and provide **high-flow oxygen**\n• Position patient flat with **legs elevated** to restore venous return\n• Start **IV fluid resuscitation** with Normal Saline **1-2 L**",
+        "id": "• Segera berikan **Epinefrin IM 1:1000 (0,3-0,5 mg)** di paha anterolateral\n• Amankan jalan napas dan berikan **oksigen aliran tinggi**\n• Baringkan pasien terlentang dengan **kaki ditinggikan** untuk memulihkan aliran balik vena\n• Mulai **resusitasi cairan IV** dengan Normal Salin **1-2 L**"
+      },
+      "definitiveTreatment": {
+        "en": "• Repeat Epinephrine every **5-15 minutes** if symptoms are refractory\n• Administer adjunctive **IV/PO antihistamines** (H1 blocker Diphenhydramine 25-50 mg, H2 blocker Ranitidine 50 mg)\n• Start **systemic corticosteroids** (Methylprednisolone 125 mg IV or Hydrocortisone 200 mg IV) to prevent biphasic reactions\n• Provide inhaled beta-agonists (Albuterol/Salbutamol) for bronchospasm",
+        "id": "• Ulangi Epinefrin setiap **5-15 menit** jika gejala masih refrakter\n• Berikan **antihistamin IV/PO** tambahan (penghambat H1 Difenhidramin 25-50 mg, penghambat H2 Ranitidin 50 mg)\n• Mulai **kortikosteroid sistemik** (Metilprednisolon 125 mg IV atau Hidrokortison 200 mg IV) untuk mencegah reaksi bifasik\n• Berikan beta-agonis inhalasi (Albuterol/Salbutamol) untuk bronkospasme"
+      },
+      "rehab": {
+        "en": "• Ensure patient and family are thoroughly educated on allergen avoidance and how to use an epinephrine auto-injector",
+        "id": "• Pastikan pasien dan keluarga diedukasi dengan teliti mengenai penghindaran alergen dan cara menggunakan auto-injektor epinefrin"
+      },
+      "referral": {
+        "en": "• Refer to an **Allergist/Immunologist** for comprehensive allergy testing and action plan formulation",
+        "id": "• Rujuk ke **Spesialis Alergi/Imunologi** untuk tes alergi komprehensif dan penyusunan rencana tindakan"
+      },
+      "workup": {
+        "en": "• Continuous blood pressure, ECG, and pulse oximetry monitoring for at least **4-8 hours** post-resolution",
+        "id": "• Pemantauan tekanan darah, EKG, dan oksimetri nadi kontinu selama minimal **4-8 jam** pasca-resolusi"
+      }
+    },
+    "followUp": {
+      "en": "• Clinic follow-up in **1-2 weeks**; provide a prescription for **two Epinephrine auto-injectors** (e.g. EpiPen)",
+      "id": "• Kontrol klinik dalam **1-2 minggu**; berikan resep untuk **dua buah auto-injektor Epinefrin** (misal: EpiPen)"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Prescription of **Epinephrine auto-injectors**\n• Immunotherapy (desensitization) for specific allergens like insect venom",
+        "id": "• Peresepan **auto-injektor Epinefrin**\n• Imunoterapi (desensitisasi) untuk alergen spesifik seperti bisa serangga"
+      },
+      "nonPharmacological": {
+        "en": "• Strict avoidance of known allergen triggers\n• Wearing medical alert jewelry at all times",
+        "id": "• Penghindaran ketat terhadap pemicu alergen yang diketahui\n• Mengenakan gelang penanda medis setiap saat"
+      }
+    },
+    "caseExample": {
+      "en": "A 28-year-old female presents to the ER with sudden onset generalized hives, lip swelling, severe wheezing, and a blood pressure of **82/46 mmHg**, 15 minutes after eating a cookie containing nuts. She was immediately given **IM Epinephrine 0.3 mg**, laid flat with elevated legs, and started on high-flow oxygen and normal saline IV. Her symptoms resolved after a single dose, and she was observed for **6 hours** before discharge with an EpiPen prescription.",
+      "id": "Seorang wanita 28 tahun datang ke UGD dengan gatal-gatal seluruh tubuh mendadak, bibir bengkak, mengi berat, dan tekanan darah **82/46 mmHg**, 15 menit setelah makan kue kering yang mengandung kacang. Pasien segera diberikan **Epinefrin IM 0.3 mg**, dibaringkan terlentang dengan kaki ditinggikan, serta diberikan oksigen aliran tinggi dan infus normal salin. Gejalanya mereda setelah satu dosis, dan diobservasi selama **6 jam** sebelum dipulangkan dengan resep EpiPen."
+    },
+    "references": {
+      "en": "• World Allergy Organization Anaphylaxis Guidelines 2020 (WAO Journal 2020)\n• Cardona V, et al. World Allergy Organ J. 2020;13(10):100472",
+      "id": "• Pedoman Anafilaksis Organisasi Alergi Dunia 2020 (WAO Journal 2020)\n• Cardona V, et al. World Allergy Organ J. 2020;13(10):100472"
+    }
+  },
+  {
+    "title": { "en": "Status Asthmaticus Management", "id": "Penatalaksanaan Status Astmatikus" },
+    "category": "Pulmonology",
+    "isStructured": true,
+    "definition": {
+      "en": "Status asthmaticus is an acute, severe asthma exacerbation that does not respond to initial standard bronchodilator therapy and represents a life-threatening medical emergency.",
+      "id": "Status astmatikus adalah eksaserbasi asma akut berat yang tidak merespons terapi bronkodilator standar awal dan merupakan keadaan darurat medis yang mengancam jiwa."
+    },
+    "symptoms": {
+      "en": "• Severe dyspnea, orthopnea, and chest tightness\n• **Inability to speak in full sentences** due to breathlessness\n• Agitation, confusion, or extreme exhaustion\n• Persistent dry cough",
+      "id": "• Sesak napas berat, ortopnea, dan dada terasa terikat\n• **Ketidakmampuan berbicara dalam kalimat utuh** akibat sesak\n• Gelisah, kebingungan, atau kelelahan luar biasa\n• Batuk kering persisten"
+    },
+    "physicalExamination": {
+      "en": "• Tachypnea **(>30/min)** and tachycardia **(>120 bpm)**\n• Accessory muscle use and intercostal retractions\n• Loud expiratory/inspiratory wheezing or **'silent chest'**\n• Pulsus paradoxus **(>20 mmHg)** and diaphoresis",
+      "id": "• Takipnea **(>30 x/menit)** dan takikardia **(>120 x/menit)**\n• Penggunaan otot bantu napas dan retraksi interkostal\n• Mengi inspirasi/ekspirasi nyaring atau **'silent chest'**\n• Pulsus paradoksus **(>20 mmHg)** dan diaforesis"
+    },
+    "labFindings": {
+      "en": "• Peak Expiratory Flow (PEF) **<50% predicted**\n• ABG showing hypoxia and a dangerous transition to **normal/elevated PaCO2** indicating respiratory muscle fatigue\n• Elevated serum lactic acid",
+      "id": "• Peak Expiratory Flow (PEF) **<50% nilai prediksi**\n• AGD menunjukkan hipoksia dan transisi berbahaya ke **PaCO2 normal/meningkat** yang menunjukkan kelelahan otot napas\n• Peningkatan asam laktat serum"
+    },
+    "differentialDiagnosis": {
+      "en": "• Acute COPD Exacerbation\n• Acute Decompensated Heart Failure (Cardiac Asthma)\n• Upper Airway Foreign Body Obstruction\n• Pulmonary Embolism",
+      "id": "• Eksaserbasi PPOK Akut\n• Gagal Jantung Dekompensasi Akut (Asma Kardial)\n• Obstruksi Benda Asing Jalan Napas Atas\n• Emboli Paru"
+    },
+    "dangerSigns": {
+      "en": "• **Silent chest** (complete absence of wheezing)\n• Cyanosis or SpO2 **<90%** on high-flow oxygen\n• Somnolence, confusion, or exhaustion\n• Bradycardia",
+      "id": "• **Silent chest** (mengi menghilang sama sekali)\n• Sianosis atau SpO2 **<90%** pada oksigen aliran tinggi\n• Somnolen, kebingungan, atau kelelahan luar biasa\n• Bradikardia"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Administer **high-flow oxygen** to maintain SpO2 **93-95%**\n• Continuous nebulized **SABA (Salbutamol 2.5-5 mg)** combined with **Ipratropium (0.5 mg)** every 20 minutes for 3 doses\n• Start **systemic corticosteroids** immediately: **IV Methylprednisolone 60-125 mg** or **IV Hydrocortisone 200 mg**",
+        "id": "• Berikan **oksigen aliran tinggi** untuk mempertahankan SpO2 **93-95%**\n• Nebulisasi kontinu **SABA (Salbutamol 2,5-5 mg)** dikombinasikan dengan **Ipratropium (0,5 mg)** setiap 20 menit sebanyak 3 dosis\n• Segera mulai **kortikosteroid sistemik**: **IV Metilprednisolon 60-125 mg** atau **IV Hidrokortison 200 mg**"
+      },
+      "definitiveTreatment": {
+        "en": "• Administer **IV Magnesium Sulfate 2 g** over 20 minutes for refractory bronchospasm\n• Consider subcutaneous **Terbutaline 0.25 mg** or IM Epinephrine\n• Initiate Non-Invasive Positive Pressure Ventilation (NIPPV) or emergency endotracheal intubation if respiratory failure occurs",
+        "id": "• Berikan **IV Magnesium Sulfat 2 g** selama 20 menit untuk bronkospasme refrakter\n• Pertimbangkan **Terbutalin subkutan 0,25 mg** atau Epinefrin IM\n• Mulai ventilasi tekanan positif non-invasif (NIPPV) atau intubasi endotrakeal darurat jika terjadi gagal napas"
+      },
+      "rehab": {
+        "en": "• Pulmonary rehabilitation post-discharge, focusing on breathing control and correct inhaler technique",
+        "id": "• Rehabilitasi paru pasca-pemulangan, berfokus pada kontrol pernapasan dan perbaikan teknik inhaler"
+      },
+      "referral": {
+        "en": "• Admit to **ICU** for impending respiratory failure. Refer to Pulmonologist for outpatient follow-up plan",
+        "id": "• Rawat di **ICU** jika ada ancaman gagal napas. Rujuk ke Spesialis Paru untuk rencana tindak lanjut rawat jalan"
+      },
+      "workup": {
+        "en": "• Serial PEF measurements, continuous pulse oximetry, serial ABG, chest X-ray to rule out pneumothorax",
+        "id": "• Pengukuran PEF serial, oksimetri nadi kontinu, AGD serial, rontgen dada untuk menyingkirkan pneumotoraks"
+      }
+    },
+    "followUp": {
+      "en": "• Follow up in **2-7 days** post-discharge; provide a written **Asthma Action Plan** and oral corticosteroid course (Prednisone 40-50 mg daily for 5-7 days)",
+      "id": "• Kontrol dalam **2-7 hari** pasca-pulang; berikan **Rencana Aksi Asma** tertulis dan satu siklus kortikosteroid oral (Prednison 40-50 mg sehari selama 5-7 hari)"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Consistent use of daily **inhaled corticosteroids (ICS) or ICS-LABA**\n• Annual **influenza vaccine**",
+        "id": "• Penggunaan konsisten **kortikosteroid inhalasi (ICS) atau ICS-LABA** harian\n• Vaksinasi **influenza tahunan**"
+      },
+      "nonPharmacological": {
+        "en": "• Strict avoidance of asthma triggers (smoke, allergens, extreme cold)\n• Daily monitoring of peak expiratory flow (PEF)",
+        "id": "• Penghindaran ketat terhadap pemicu asma (asap, alergen, dingin ekstrem)\n• Pemantauan harian arus puncak ekspirasi (PEF)"
+      }
+    },
+    "caseExample": {
+      "en": "A 19-year-old male with a history of severe asthma presents to the ER with extreme shortness of breath, only able to speak in single words, and accessory muscle use. Despite taking his albuterol inhaler 10 times at home, his chest is quiet with minimal air entry. He was started on continuous albuterol-ipratropium nebulization, received IV Methylprednisolone 125 mg, and IV Magnesium Sulfate 2 g over 20 mins. His peak flow improved from 120 L/min to 280 L/min, and he was admitted for observation.",
+      "id": "Seorang pemuda 19 tahun dengan riwayat asma berat datang ke UGD dengan sesak napas ekstrem, hanya mampu berbicara satu kata, dan menggunakan otot bantu napas. Meskipun telah menggunakan inhaler albuterol 10 kali di rumah, dadanya terdengar sunyi (silent chest) dengan aliran udara minimal. Ia segera mulai dinebulisasi albuterol-ipratropium secara kontinu, menerima Metilprednisolon IV 125 mg, dan Magnesium Sulfat IV 2 g selama 20 menit. Arus puncak ekspirasi membaik dari 120 L/menit menjadi 280 L/menit, dan ia dirawat inap untuk observasi."
+    },
+    "references": {
+      "en": "• Global Initiative for Asthma (GINA) 2023 Executive Summary (Eur Respir J 2023)\n• Reddel HK, et al. Global Initiative for Asthma, 2023",
+      "id": "• Ringkasan Eksekutif Global Initiative for Asthma (GINA) 2023 (Eur Respir J 2023)\n• Reddel HK, et al. Global Initiative for Asthma, 2023"
+    }
+  },
+  {
+    "title": { "en": "Septic Shock Management Protocol", "id": "Protokol Penatalaksanaan Syok Septik" },
+    "category": "Critical Care",
+    "isStructured": true,
+    "definition": {
+      "en": "Septic shock is a subset of sepsis in which particularly profound circulatory, cellular, and metabolic abnormalities are associated with a greater risk of mortality than with sepsis alone, characterized by persistent hypotension requiring vasopressors to maintain MAP >= 65 mmHg and serum lactate > 2 mmol/L despite adequate fluid resuscitation.",
+      "id": "Syok septik adalah subset dari sepsis di mana kelainan sirkulasi, seluler, dan metabolik yang sangat mendalam dikaitkan dengan risiko kematian yang lebih besar daripada sepsis saja, ditandai oleh hipotensi persisten yang memerlukan vasopresor untuk mempertahankan MAP >= 65 mmHg dan laktat serum > 2 mmol/L meskipun telah dilakukan resusitasi cairan yang adekuat."
+    },
+    "symptoms": {
+      "en": "• Fever or hypothermia, severe chills, and tachypnea\n• **Confusion** or altered mental status\n• Extreme weakness, oliguria, or anuria\n• Cold and clammy skin or warm flushed skin (early distributive phase)",
+      "id": "• Demam atau hipotermia, menggigil hebat, dan takipnea\n• **Kebingungan** atau penurunan kesadaran\n• Kelemahan ekstrem, oliguria, atau anuria\n• Kulit dingin basah atau hangat kemerahan (fase awal distributif)"
+    },
+    "physicalExamination": {
+      "en": "• Hypotension **(SBP <90 mmHg, MAP <65 mmHg)** and tachycardia **(>100 bpm)**\n• Tachypnea **(>22/min)**\n• Fever **(>38.0°C)** or hypothermia **(<36.0°C)**\n• Delayed capillary refill **(>2s)** or bounding pulses, dry mucous membranes",
+      "id": "• Hipotensi **(TDS <90 mmHg, MAP <65 mmHg)** dan takikardia **(>100 x/menit)**\n• Takipnea **(>22 x/menit)**\n• Demam **(>38,0°C)** atau hipotermia **(<36,0°C)**\n• Capillary refill time memanjang **(>2 detik)** atau nadi kuat/cepat, mukosa kering"
+    },
+    "labFindings": {
+      "en": "• Serum lactate **>2.0 mmol/L**\n• Leukocytosis **(>12,000/uL)** or leukopenia **(<4,000/uL)**\n• Thrombocytopenia, elevated creatinine, elevated procalcitonin or CRP\n• Metabolic acidosis with elevated anion gap",
+      "id": "• Laktat serum **>2.0 mmol/L**\n• Leukositosis **(>12.000/uL)** atau leukopenia **(<4.000/uL)**\n• Trombositopenia, kreatinin meningkat, prokalsitonin atau CRP meningkat\n• Asidosis metabolik dengan peningkatan anion gap"
+    },
+    "differentialDiagnosis": {
+      "en": "• Hypovolemic Shock\n• Cardiogenic Shock\n• Anaphylactic Shock\n• Acute Adrenal Crisis\n• Acute Pulmonary Embolism",
+      "id": "• Syok Hipovolemik\n• Syok Kardiogenik\n• Syok Anafilaktik\n• Krisis Adrenal Akut\n• Emboli Paru Akut"
+    },
+    "dangerSigns": {
+      "en": "• Persistent hypotension despite fluid challenge\n• Severe lactic acidosis **(lactate >4.0 mmol/L)**\n• Obtundation, coma, or anuria\n• Refractory hypoxemia",
+      "id": "• Hipotensi persisten meskipun telah diberikan cairan\n• Asidosis laktat berat **(laktat >4,0 mmol/L)**\n• Obtundasi, koma, atau anuria\n• Hipoksemia refrakter"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Measure lactate level immediately. Obtain blood cultures before administering antibiotics.\n• Administer broad-spectrum **IV antibiotics (e.g. Piperacillin-Tazobactam 4.5g IV)** within **1 hour** of recognition\n• Rapidly infuse **30 mL/kg** of IV crystalloid fluid (Normal Saline or Balanced Crystalloids) within the first 3 hours",
+        "id": "• Ukur kadar laktat segera. Lakukan kultur darah sebelum pemberian antibiotik.\n• Berikan **antibiotik IV spektrum luas (misal: Piperasilin-Tazobaktam 4,5g IV)** dalam **1 jam** setelah dikenali\n• Infuskan secara cepat **30 mL/kg** cairan kristaloid IV (Normal Salin atau Kristaloid Seimbang) dalam 3 jam pertama"
+      },
+      "definitiveTreatment": {
+        "en": "• If hypotension persists during or after fluid resuscitation: Start **Norepinephrine** (first choice vasopressor) titrated to maintain **MAP >= 65 mmHg**\n• Add **Vasopressin** if MAP remains low; add Dobutamine if myocardial dysfunction is present\n• Control the infectious source (e.g. abscess drainage, debridement) within **12 hours**\n• Consider low-dose **IV Hydrocortisone (200 mg/day)** for refractory shock",
+        "id": "• Jika hipotensi menetap selama atau setelah resusitasi cairan: Segera mulai **Norepinefrin** (vasopresor pilihan pertama) dititrasi untuk mempertahankan **MAP >= 65 mmHg**\n• Tambahkan **Vasopresin** jika MAP tetap rendah; tambahkan Dobutamin jika terdapat disfungsi miokard\n• Kendalikan sumber infeksi (misal: drainase abses, debridemen) dalam **12 jam**\n• Pertimbangkan **IV Hidrokortison dosis rendah (200 mg/hari)** untuk syok refrakter"
+      },
+      "rehab": {
+        "en": "• Post-intensive care syndrome (PICS) prevention: early mobilization in the ICU, physical therapy, and nutritional support",
+        "id": "• Pencegahan post-intensive care syndrome (PICS): mobilisasi dini di ICU, terapi fisik, dan dukungan nutrisi"
+      },
+      "referral": {
+        "en": "• Admit to **Intensive Care Unit (ICU)** immediately. Consult Infectious Diseases, General Surgery, or Interventional Radiology for source control",
+        "id": "• Segera rawat di **Unit Perawatan Intensif (ICU)**. Konsultasikan dengan Spesialis Penyakit Dalam/Tropik Infeksi, Bedah Umum, atau Radiologi Intervensi untuk pengendalian sumber"
+      },
+      "workup": {
+        "en": "• Continuous invasive arterial blood pressure monitoring, central venous pressure and ScvO2 monitoring, serial lactate every 2-4 hours",
+        "id": "• Pemantauan tekanan darah arterial invasif kontinu, pemantauan tekanan vena sentral dan ScvO2, laktat serial setiap 2-4 jam"
+      }
+    },
+    "followUp": {
+      "en": "• Regular post-ICU clinical review; monitor renal function, resolve anemia, support psychological health (depression/PTSD screening)",
+      "id": "• Peninjauan klinis pasca-ICU secara berkala; pantau fungsi ginjal, atasi anemia, dukung kesehatan psikologis (skrining depresi/PTSD)"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Vigilant vaccine adherence (Pneumococcal, Influenza, COVID-19)\n• Appropriate and timely prophylactic antibiotics for high-risk surgical procedures",
+        "id": "• Kepatuhan vaksinasi yang ketat (Pneumokokus, Influenza, COVID-19)\n• Antibiotik profilaksis yang tepat dan tepat waktu untuk prosedur bedah berisiko tinggi"
+      },
+      "nonPharmacological": {
+        "en": "• Hand hygiene, proper wound care, aseptic technique for all invasive procedures and catheter insertions",
+        "id": "• Kebersihan tangan (hand hygiene), perawatan luka yang tepat, teknik aseptik untuk semua prosedur invasif dan pemasangan kateter"
+      }
+    },
+    "caseExample": {
+      "en": "A 67-year-old male with a history of benign prostatic hyperplasia presents with confusion, fever (39.1C), and hypotension (84/40 mmHg). Heart rate is 115 bpm, respiratory rate 24/min. Urinalysis shows pyuria. Blood cultures and urine cultures are drawn. He is given 2 L of normal saline and IV Ceftriaxone. Despite fluid resuscitation, his blood pressure remains 86/42 mmHg and serum lactate is 3.5 mmol/L. He is started on IV Norepinephrine infusion titrated to maintain MAP >= 65 mmHg and transferred to the ICU.",
+      "id": "Seorang pria 67 tahun dengan riwayat hiperplasia prostat jinak datang dengan kebingungan, demam (39,1C), dan hipotensi (84/40 mmHg). Denyut jantung 115 x/menit, frekuensi napas 24 x/menit. Urinalisis menunjukkan piuria. Kultur darah dan urin diambil. Pasien diberikan 2 L normal salin dan Ceftriaxone IV. Meskipun telah dilakukan resusitasi cairan, tekanan darah tetap 86/42 mmHg dan laktat serum 3,5 mmol/L. Ia mulai diberikan infus Norepinefrin IV yang dititrasi untuk mempertahankan MAP >= 65 mmHg dan dipindahkan ke ICU."
+    },
+    "references": {
+      "en": "• Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021 (Intensive Care Med 2021)\n• Evans L, et al. Intensive Care Med. 2021;47(11):1181-1247",
+      "id": "• Kampanye Surviving Sepsis: Pedoman Internasional untuk Manajemen Sepsis dan Syok Septik 2021 (Intensive Care Med 2021)\n• Evans L, et al. Intensive Care Med. 2021;47(11):1181-1247"
+    }
+  },
+  {
+    "title": { "en": "Acute Myocardial Infarction (STEMI/NSTEMI)", "id": "Infark Miokard Akut (STEMI/NSTEMI)" },
+    "category": "Cardiology",
+    "isStructured": true,
+    "definition": {
+      "en": "Acute myocardial infarction (AMI) is myocardial necrosis resulting from acute obstruction of a coronary artery, classified into ST-segment elevation myocardial infarction (STEMI) or non-ST-segment elevation myocardial infarction (NSTEMI) based on ECG changes.",
+      "id": "Infark miokard akut (IMA) adalah nekrosis miokard yang disebabkan oleh obstruksi akut arteri koroner, diklasifikasikan menjadi infark miokard dengan elevasi segmen ST (STEMI) atau infark miokard tanpa elevasi segmen ST (NSTEMI) berdasarkan perubahan EKG."
+    },
+    "symptoms": {
+      "en": "• Crushing retrosternal chest pain or pressure ('elephant sitting on chest')\n• Pain radiating to **left arm**, neck, jaw, or back\n• Pain lasting **>20 minutes**, refractory to rest\n• Diaphoresis, dyspnea, nausea, vomiting, or lightheadedness",
+      "id": "• Nyeri dada retrosternal seperti ditekan atau diremas ('seperti ditindih gajah')\n• Nyeri menjalar ke **lengan kiri**, leher, rahang, atau punggung\n• Nyeri berlangsung **>20 menit**, tidak mereda dengan istirahat\n• Diaforesis (keringat dingin), sesak napas, mual, muntah, atau pusing"
+    },
+    "physicalExamination": {
+      "en": "• Anxiety, pale and diaphoretic skin\n• Hypertension or hypotension, tachycardia or bradycardia\n• Auscultation: S4 gallop, new mitral regurgitation murmur, or pulmonary rales (heart failure)",
+      "id": "• Gelisah, kulit pucat dan berkeringat dingin\n• Hipertensi atau hipotensi, takikardia atau bradikardia\n• Auskultasi: gallop S4, bising regurgitasi mitral baru, atau ronkhi basah paru (gagal jantung)"
+    },
+    "labFindings": {
+      "en": "• Elevated cardiac biomarkers: **Troponin I or T** (rising within **2-4 hours**, peaking at 24 hours)\n• Elevated CK-MB\n• Mild leukocytosis and hyperglycemia",
+      "id": "• Biomarker jantung meningkat: **Troponin I atau T** (meningkat dalam **2-4 jam**, memuncak pada 24 jam)\n• CK-MB meningkat\n• Leukositosis dan hiperglikemia ringan"
+    },
+    "differentialDiagnosis": {
+      "en": "• Aortic Dissection\n• Acute Pulmonary Embolism\n• Acute Pericarditis / Myocarditis\n• Tension Pneumothorax\n• Gastroesophageal Reflux Disease (GERD)",
+      "id": "• Diseksi Aorta\n• Emboli Paru Akut\n• Perikarditis / Miokarditis Akut\n• Tension Pneumotoraks\n• Penyakit Refluks Gastroesofageal (GERD)"
+    },
+    "dangerSigns": {
+      "en": "• **Cardiogenic shock** (systolic BP <90 mmHg with signs of hypoperfusion)\n• Pulmonary edema (rales >50% of lung fields; Killip Class III/IV)\n• Sustained **Ventricular Tachycardia or Fibrillation**\n• High-degree AV block or persistent severe chest pain",
+      "id": "• **Syok kardiogenik** (TD sistolik <90 mmHg dengan tanda hipoperfusi)\n• Edema paru (ronkhi >50% lapangan paru; Killip Kelas III/IV)\n• **Takikardia Ventrikel atau Fibrilasi Ventrikel** persisten\n• Blok AV derajat tinggi atau nyeri dada hebat menetap"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Chew **Aspirin 162-325 mg** immediately\n• Give **Sublingual Nitroglycerin 0.4 mg** every 5 minutes up to 3 doses (avoid if SBP <90 mmHg or if PDE-5 inhibitors used)\n• Administer supplemental oxygen if SpO2 <90%\n• Load P2Y12 inhibitor (**Clopidogrel 300-600 mg** or **Ticagrelor 180 mg**)\n• IV Morphine for refractory pain",
+        "id": "• Kunyah **Aspirin 162-325 mg** segera\n• Berikan **Nitrogliserin sublingual 0,4 mg** setiap 5 menit hingga 3 dosis (hindari jika TDS <90 mmHg atau jika menggunakan inhibitor PDE-5)\n• Berikan oksigen tambahan jika SpO2 <90%\n• Berikan dosis muatan (loading) inhibitor P2Y12 (**Klopidogrel 300-600 mg** atau **Tikagrelor 180 mg**)\n• IV Morfin untuk nyeri refrakter"
+      },
+      "definitiveTreatment": {
+        "en": "• For STEMI: Emergency **Primary Percutaneous Coronary Intervention (PCI)** within **90 minutes** of first medical contact. If PCI unavailable within 120 mins, administer fibrinolytic therapy (**Alteplase**) within 30 mins of arrival\n• For NSTEMI: Risk stratify and plan early invasive strategy within 24-48 hours. Initiate anticoagulation (**Enoxaparin/LMWH** or **UFH**)",
+        "id": "• Untuk STEMI: **Intervensi Koroner Perkutan (IKP/PCI) Primer** darurat dalam waktu **90 menit** sejak kontak medis pertama. Jika PCI tidak tersedia dalam 120 menit, berikan terapi fibrinolitik (**Alteplase**) dalam 30 menit setelah tiba\n• Untuk NSTEMI: Stratifikasi risiko dan rencanakan strategi invasif dini dalam 24-48 jam. Mulai antikoagulasi (**Enoksaparin/LMWH** atau **UFH**)"
+      },
+      "rehab": {
+        "en": "• Cardiac rehabilitation program starting during hospitalization, focusing on progressive exercise and smoking cessation",
+        "id": "• Program rehabilitasi jantung yang dimulai selama rawat inap, berfokus pada latihan progresif dan berhenti merokok"
+      },
+      "referral": {
+        "en": "• Admit to **Cardiac Care Unit (CCU)** immediately. Consult Interventional Cardiologist. Refer to Cardiothoracic Surgery if CABG is indicated",
+        "id": "• Segera rawat di **Cardiovascular Care Unit (CCU/ICCU)**. Konsultasi segera dengan Spesialis Jantung Intervensi. Rujuk ke Bedah Toraks Kardiovaskular jika operasi CABG diindikasikan"
+      },
+      "workup": {
+        "en": "• Immediate **12-lead ECG** (repeat every 15-30 mins for ongoing pain), serial troponins, echocardiography to assess ejection fraction",
+        "id": "• **EKG 12-sadapan** segera (ulangi setiap 15-30 menit jika nyeri berlangsung), troponin serial, ekokardiografi untuk menilai fraksi ejeksi"
+      }
+    },
+    "followUp": {
+      "en": "• Follow up with cardiologist in **1-2 weeks**; lifetime **DAPT** for 12 months, followed by aspirin monotherapy. Long-term risk factor control",
+      "id": "• Kontrol dengan spesialis jantung dalam **1-2 minggu**; **DAPT** seumur hidup/selama 12 bulan, diikuti dengan monoterapi aspirin. Kontrol faktor risiko jangka panjang"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Daily Aspirin, high-intensity statins (**Atorvastatin 80 mg**), beta-blockers, and ACE inhibitors",
+        "id": "• Aspirin harian, statin intensitas tinggi (**Atorvastatin 80 mg**), penyekat beta, dan ACE inhibitor"
+      },
+      "nonPharmacological": {
+        "en": "• Mediterranean diet, regular aerobic exercise (**150 mins/week**), smoking cessation, and weight control",
+        "id": "• Diet Mediterania, olahraga aerobik teratur (**150 menit/minggu**), berhenti merokok, dan kontrol berat badan"
+      }
+    },
+    "caseExample": {
+      "en": "A 55-year-old diabetic male presents with acute crushing chest pain for 1 hour, radiating to his jaw, with cold sweats. His 12-lead ECG reveals ST-segment elevation in leads V1-V4. SBP is 135/85 mmHg, HR 92 bpm. He immediately chews 325 mg Aspirin, receives sublingual nitroglycerin, and Clopidogrel 600 mg is administered. He is taken directly to the catheterization lab for primary PCI, where a totally occluded left anterior descending (LAD) artery is opened and a drug-eluting stent is placed within 45 minutes of arrival.",
+      "id": "Seorang pria 55 tahun dengan diabetes datang dengan nyeri dada seperti diremas akut selama 1 jam, menjalar ke rahang, disertai keringat dingin. EKG 12-sadapan menunjukkan elevasi segmen ST di sadapan V1-V4. TDS 135/85 mmHg, HR 92 x/menit. Pasien segera mengunyah Aspirin 325 mg, mendapat nitrogliserin sublingual, dan diberikan Klopidogrel 600 mg. Ia langsung dibawa ke lab kateterisasi untuk PCI primer, di mana arteri desendens anterior kiri (LAD) yang tersumbat total dibuka dan dipasang stent eluting obat dalam waktu 45 menit setelah tiba."
+    },
+    "references": {
+      "en": "• 2023 AHA/ACC Clinical Performance and Quality Measures for Adults With Coronary Artery Disease (JACC 2023)\n• Virani SS, et al. J Am Coll Cardiol. 2023;82(9):839-928",
+      "id": "• Parameter Kinerja Klinis dan Kualitas AHA/ACC 2023 untuk Orang Dewasa dengan Penyakit Arteri Koroner (JACC 2023)\n• Virani SS, et al. J Am Coll Cardiol. 2023;82(9):839-928"
+    }
+  },
+  {
+    "title": { "en": "Acute Ischemic Stroke Guideline", "id": "Pedoman Stroke Iskemik Akut" },
+    "category": "Neurology",
+    "isStructured": true,
+    "definition": {
+      "en": "Acute ischemic stroke is characterized by the sudden onset of focal neurological deficits caused by a disruption of blood supply to a specific region of the brain, leading to cerebral infarction.",
+      "id": "Stroke iskemik akut ditandai oleh onset mendadak defisit neurologis fokal yang disebabkan oleh gangguan aliran darah ke area tertentu di otak, menyebabkan infark serebral."
+    },
+    "symptoms": {
+      "en": "• **Sudden unilateral weakness** or numbness of the face, arm, or leg\n• Sudden difficulty speaking or understanding speech (**aphasia**)\n• Sudden vision loss in one or both eyes\n• Sudden trouble walking, dizziness, loss of balance, or coordination",
+      "id": "• **Kelemahan unilateral mendadak** atau mati rasa pada wajah, lengan, atau kaki\n• Kesulitan berbicara atau memahami pembicaraan (**afasia**) mendadak\n• Gangguan penglihatan mendadak pada satu atau kedua mata\n• Kesulitan berjalan mendadak, pusing, hilangnya keseimbangan, atau koordinasi"
+    },
+    "physicalExamination": {
+      "en": "• Standardized assessment using the **NIH Stroke Scale (NIHSS)**\n• Facial droop, asymmetric arm/leg drift, or dysarthria\n• Sensory deficits, hemianopia, or aphasia\n• Normal or elevated blood pressure",
+      "id": "• Penilaian standar menggunakan **NIH Stroke Scale (NIHSS)**\n• Wajah miring (mencong), kelemahan lengan/tungkai asimetris, atau disartria\n• Defisit sensorik, hemianopia, atau afasia\n• Tekanan darah normal atau meningkat"
+    },
+    "labFindings": {
+      "en": "• **Non-contrast Head CT** (Gold Standard to rule out intracranial hemorrhage before thrombolysis)\n• Baseline fingerstick glucose (must rule out hypoglycemia)\n• Coagulation studies (PT/INR, aPTT), CBC, electrolytes",
+      "id": "• **CT Scan Kepala Tanpa Kontras** (Gold Standard untuk menyingkirkan perdarahan intrakranial sebelum trombolisis)\n• Pemeriksaan glukosa stik jari (wajib menyingkirkan hipoglikemia)\n• Studi koagulasi (PT/INR, aPTT), Darah Lengkap, elektrolit"
+    },
+    "differentialDiagnosis": {
+      "en": "• Intracranial Hemorrhage\n• Hypoglycemia (stroke mimic)\n• Todd's Paralysis (post-ictal)\n• Hemiplegic Migraine\n• Brain Tumor",
+      "id": "• Perdarahan Intrakranial\n• Hipoglikemia (peniru stroke)\n• Kelumpuhan Todd (pasca-kejang)\n• Migrain Hemiplegik\n• Tumor Otak"
+    },
+    "dangerSigns": {
+      "en": "• Brain herniation signs (pupillary asymmetry, progressive stupor)\n• Severe hypertension **(>185/110 mmHg)** refractory to treatment\n• Rapidly deteriorating conscious level or active airway compromise",
+      "id": "• Tanda herniasi otak (asimetri pupil, stupor progresif)\n• Hipertensi berat **(>185/110 mmHg)** yang refrakter terhadap pengobatan\n• Penurunan kesadaran cepat atau gangguan jalan napas aktif"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Establish time of **'last known well'**\n• Maintain airway and check fingerstick glucose immediately\n• Do not lower BP unless **>220/120 mmHg** (or **>185/110 mmHg** if thrombolysis candidate)\n• Transfer immediately to CT suite",
+        "id": "• Tetapkan waktu **'terakhir kali terlihat sehat'**\n• Jaga jalan napas dan cek glukosa stik jari segera\n• Jangan turunkan TD kecuali **>220/120 mmHg** (atau **>185/110 mmHg** jika kandidat trombolisis)\n• Segera transfer ke ruang CT Scan"
+      },
+      "definitiveTreatment": {
+        "en": "• Administer **IV Alteplase (0.9 mg/kg, max 90 mg)** within **4.5 hours** of symptom onset if eligible (exclude hemorrhage on CT)\n• Perform **Mechanical Thrombectomy** within **24 hours** for large vessel occlusion (LVO) in the anterior circulation\n• Administer **Aspirin 162-325 mg** within 24-48 hours (delay 24h if Alteplase given)\n• Control BP using IV **Nicardipine** or **Labetalol**",
+        "id": "• Berikan **IV Alteplase (0,9 mg/kg, maks 90 mg)** dalam **4,5 jam** sejak onset gejala jika memenuhi syarat (singkirkan perdarahan pada CT)\n• Lakukan **Trombektomi Mekanik** dalam **24 jam** untuk oklusi pembuluh darah besar (LVO) pada sirkulasi anterior\n• Berikan **Aspirin 162-325 mg** dalam 24-48 jam (tunda 24 jam jika Alteplase diberikan)\n• Kontrol TD menggunakan IV **Nikardipin** atau **Labetalol**"
+      },
+      "rehab": {
+        "en": "• Early multidisciplinary rehabilitation: physiotherapy, speech therapy, and occupational therapy starting within **24-48 hours**",
+        "id": "• Rehabilitasi multidisiplin dini: fisioterapi, terapi wicara, dan terapi okupasi dimulai dalam **24-48 jam**"
+      },
+      "referral": {
+        "en": "• Admit to **Stroke Unit** or Neuro-ICU. Consult Neurologist and Interventional Neuroradiologist immediately",
+        "id": "• Rawat di **Unit Stroke** atau Neuro-ICU. Konsultasi segera dengan Spesialis Saraf dan Neuroradiolog Intervensi"
+      },
+      "workup": {
+        "en": "• Brain CT or MRI, CT angiogram of head/neck, transthoracic echocardiogram, carotid duplex ultrasound, lipid panel, HbA1c",
+        "id": "• CT atau MRI Otak, CT Angiografi kepala/leher, ekokardiografi transtorakal, USG karotis, profil lipid, HbA1c"
+      }
+    },
+    "followUp": {
+      "en": "• Regular follow-up with neurologist; monitor secondary prevention compliance, assess functional independence (modified Rankin Scale)",
+      "id": "• Kontrol rutin dengan spesialis saraf; pantau kepatuhan pencegahan sekunder, nilai tingkat kemandirian fungsional (Skor Rankin Modifikasi)"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Long-term antiplatelet therapy (**Aspirin 81 mg daily** or **Clopidogrel 75 mg daily**)\n• High-intensity statins (**Atorvastatin 40-80 mg daily**)\n• Optimal blood pressure and glycemic control",
+        "id": "• Terapi antiplatelet jangka panjang (**Aspirin 81 mg sehari** atau **Klopidogrel 75 mg sehari**)\n• Statin intensitas tinggi (**Atorvastatin 40-80 mg sehari**)\n• Kontrol tekanan darah dan glikemik yang optimal"
+      },
+      "nonPharmacological": {
+        "en": "• Smoking cessation, healthy low-sodium diet, regular moderate exercise, and weight control",
+        "id": "• Berhenti merokok, diet sehat rendah natrium, olahraga sedang teratur, dan kontrol berat badan"
+      }
+    },
+    "caseExample": {
+      "en": "A 68-year-old male is brought to the ER with sudden weakness of the right arm and leg and difficulty speaking, starting **90 minutes ago**. NIHSS score is 14. Fingerstick glucose is 112 mg/dL, BP 172/96 mmHg. Immediate non-contrast head CT is negative for hemorrhage. The patient meets all criteria and is given **IV Alteplase 63 mg (0.9 mg/kg)**, with 10% given as bolus and the rest infused over 1 hour. His symptoms significantly improve overnight (NIHSS drops to 3). Brain MRI 24 hours later shows a small lacunar infarct in the left internal capsule. He is started on Aspirin 81 mg and Atorvastatin 40 mg daily.",
+      "id": "Seorang pria 68 tahun dibawa ke UGD dengan kelemahan mendadak pada lengan dan tungkai kanan serta kesulitan berbicara, dimulai **90 menit yang lalu**. Skor NIHSS 14. Glukosa stik jari 112 mg/dL, TD 172/96 mmHg. CT scan kepala tanpa kontras segera menunjukkan hasil negatif untuk perdarahan. Pasien memenuhi semua kriteria dan diberikan **IV Alteplase 63 mg (0,9 mg/kg)**, dengan 10% diberikan sebagai bolus dan sisanya diinfuskan selama 1 jam. Gejalanya membaik secara signifikan keesokan harinya (NIHSS turun menjadi 3). MRI otak 24 jam kemudian menunjukkan infark lakunar kecil di kapsula interna kiri. Ia mulai diberikan Aspirin 81 mg dan Atorvastatin 40 mg sehari."
+    },
+    "references": {
+      "en": "• 2019 Guidelines for the Early Management of Patients With Acute Ischemic Stroke (Stroke 2019)\n• Powers WJ, et al. Stroke. 2019;50(12):e344-e418",
+      "id": "• Pedoman 2019 untuk Penatalaksanaan Awal Pasien dengan Stroke Iskemik Akut (Stroke 2019)\n• Powers WJ, et al. Stroke. 2019;50(12):e344-e418"
+    }
+  },
+  {
+    "title": { "en": "Diabetic Ketoacidosis (DKA) Protocol", "id": "Protokol Ketoasidosis Diabetik (KAD)" },
+    "category": "Endocrinology",
+    "isStructured": true,
+    "definition": {
+      "en": "Diabetic Ketoacidosis (DKA) is an acute, life-threatening metabolic complication of diabetes characterized by the triad of hyperglycemia, metabolic acidosis, and increased total body ketone concentration.",
+      "id": "Ketoasidosis Diabetik (KAD) adalah komplikasi metabolik akut dan mengancam jiwa dari diabetes yang ditandai oleh trias hiperglikemia, asidosis metabolik, dan peningkatan konsentrasi keton tubuh total."
+    },
+    "symptoms": {
+      "en": "• Polyuria, polydipsia, and significant weight loss\n• **Nausea, vomiting, and abdominal pain** (often mimicking an acute abdomen)\n• Generalized weakness and fatigue\n• Deep, sighing respiration (**Kussmaul breathing**)\n• Fruity odor of the breath (acetone)",
+      "id": "• Poliuria, polidipsia, dan penurunan berat badan yang signifikan\n• **Mual, muntah, dan nyeri perut** (sering kali meniru akut abdomen)\n• Kelemahan umum dan kelelahan\n• Pernapasan cepat dan dalam (**pernapasan Kussmaul**)\n• Bau napas seperti buah manis (aseton)"
+    },
+    "physicalExamination": {
+      "en": "• Signs of severe dehydration (dry mucous membranes, decreased skin turgor, sunken eyes)\n• Tachycardia and hypotension (shock in severe cases)\n• Tachypnea and Kussmaul breathing\n• Altered mental status: lethargy to coma\n• Epigastric tenderness",
+      "id": "• Tanda dehidrasi berat (mukosa kering, turgor kulit menurun, mata cowong)\n• Takikardia dan hipotensi (syok pada kasus berat)\n• Takipnea dan pernapasan Kussmaul\n• Penurunan kesadaran: letargi hingga koma\n• Nyeri tekan epigastrium"
+    },
+    "labFindings": {
+      "en": "• Blood glucose **>250 mg/dL**\n• Arterial pH **<7.30** or serum bicarbonate **<18 mEq/L**\n• Elevated blood or urine ketones\n• Elevated anion gap **(>12 mEq/L)**\n• Pseudohyponatremia (adjust sodium for glucose) and variable potassium levels",
+      "id": "• Gula darah **>250 mg/dL**\n• pH arteri **<7,30** atau bikarbonat serum **<18 mEq/L**\n• Peningkatan keton darah atau urin\n• Anion gap meningkat **(>12 mEq/L)**\n• Pseudohiponatremia (sesuaikan natrium terhadap glukosa) dan kadar kalium yang bervariasi"
+    },
+    "differentialDiagnosis": {
+      "en": "• Hyperosmolar Hyperglycemic State (HHS)\n• Alcoholic Ketoacidosis\n• Starvation Ketosis\n• Uremic Acidosis\n• Toxic Alcohol Ingestion (Methanol, Ethylene Glycol)",
+      "id": "• Status Hiperosmolar Hiperglikemik (SHH)\n• Ketoasidosis Alkoholik\n• Ketosis Kelaparan\n• Asidosis Uremikum\n• Keracunan Alkohol Toksik (Metanol, Etilen Glikol)"
+    },
+    "dangerSigns": {
+      "en": "• Severe acidosis **(pH <7.0)** or severe hypokalemia **(<3.3 mEq/L)**\n• Hemodynamic instability or refractory shock\n• Cerebral edema signs (new headache, bradycardia, worsening obtundation, especially in children)\n• Severe oliguria or anuria",
+      "id": "• Asidosis berat **(pH <7,0)** atau hipokalemia berat **(<3,3 mEq/L)**\n• Ketidakstabilan hemodinamik atau syok refrakter\n• Tanda edema serebral (sakit kepala baru, bradikardia, obtundasi memburuk, terutama pada anak)\n• Oliguria berat atau anuria"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Secure airway and start high-flow IV access\n• Fluid resuscitation: Infuse **1-1.5 L** of **0.9% Normal Saline** over the first hour\n• Check **serum potassium** immediately; do *not* start insulin if potassium is **<3.3 mEq/L**",
+        "id": "• Amankan jalan napas dan pasang jalur infus ukuran besar\n• Resusitasi cairan: Infuskan **1-1,5 L** **Normal Salin 0,9%** pada jam pertama\n• Cek **kalium serum** segera; jangan *pernah* memulai insulin jika kalium **<3,3 mEq/L**"
+      },
+      "definitiveTreatment": {
+        "en": "• **Fluid therapy**: Continue 0.9% NS at 250-500 mL/h; switch to **D5W in 0.45% saline** once blood glucose drops to **<250 mg/dL**\n• **Insulin therapy**: Administer **Regular Insulin IV infusion (0.1 units/kg/hour)**. Aim for glucose decline of **50-75 mg/dL/hour**\n• **Potassium replacement**: Add **20-30 mEq KCl per liter** of IV fluid to maintain potassium between **4.0-5.0 mEq/L**\n• Continue IV insulin until DKA resolves (pH >= 7.30, HCO3 >= 15 mEq/L, and anion gap closed <12)",
+        "id": "• **Terapi cairan**: Lanjutkan NS 0,9% dengan laju 250-500 mL/jam; alihkan ke **D5% dalam Salin 0,45%** setelah gula darah turun **<250 mg/dL**\n• **Terapi insulin**: Berikan **infus IV Insulin Regular (0,1 unit/kg/jam)**. Targetkan penurunan glukosa **50-75 mg/dL/jam**\n• **Koreksi Kalium**: Tambahkan **20-30 mEq KCl per liter** cairan IV untuk mempertahankan kalium di kisaran **4,0-5,0 mEq/L**\n• Lanjutkan insulin IV hingga KAD teratasi (pH >= 7,30, HCO3 >= 15 mEq/L, dan anion gap menutup <12)"
+      },
+      "rehab": {
+        "en": "• Nutritional counseling and transitions back to oral diet. Initiate subcutaneous basal insulin **2 hours** before stopping IV insulin",
+        "id": "• Konseling nutrisi dan transisi kembali ke diet oral. Mulai insulin basal subkutan **2 jam** sebelum menghentikan infus insulin IV"
+      },
+      "referral": {
+        "en": "• Admit to **ICU** or High Dependency Unit (HDU) for severe DKA (pH < 7.0, altered mental status, or potassium < 3.3)",
+        "id": "• Rawat di **ICU** atau High Dependency Unit (HDU) untuk KAD berat (pH < 7,0, penurunan kesadaran, atau kalium < 3,3)"
+      },
+      "workup": {
+        "en": "• Hourly capillary glucose, basic metabolic panel (electrolytes, BUN, creatinine), venous pH, and ketones every 2-4 hours",
+        "id": "• Glukosa kapiler setiap jam, panel metabolik dasar (elektrolit, BUN, kreatinin), pH vena, dan keton setiap 2-4 jam"
+      }
+    },
+    "followUp": {
+      "en": "• Post-discharge diabetes education; evaluate triggers (inadequate insulin, infection, pump malfunction). Follow up in clinic within 1-2 weeks",
+      "id": "• Edukasi diabetes pasca-pemulangan; evaluasi pemicu (dosis insulin kurang, infeksi, kerusakan pompa insulin). Kontrol di klinik dalam 1-2 minggu"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Strict adherence to daily insulin regimens. Avoid skipping basal insulin doses during illness ('Sick Day Rules')",
+        "id": "• Kepatuhan ketat terhadap rejimen insulin harian. Hindari melewatkan dosis insulin basal saat sakit ('Sick Day Rules')"
+      },
+      "nonPharmacological": {
+        "en": "• Patient education on home blood glucose and ketone monitoring during sick days. Maintaining adequate hydration",
+        "id": "• Edukasi pasien mengenai pemantauan glukosa darah dan keton mandiri di rumah saat sakit. Menjaga hidrasi adekuat"
+      }
+    },
+    "caseExample": {
+      "en": "A 21-year-old female with Type 1 Diabetes presents to the ER with severe nausea, vomiting, abdominal pain, and deep, rapid breathing. She reports skipping her insulin doses for the past 2 days. Her BP is 96/58 mmHg, HR 118 bpm, RR 28 breaths/min. Capillary glucose is **412 mg/dL**. Labs reveal arterial pH of **7.12**, bicarbonate of **9 mEq/L**, and positive serum ketones. Potassium is **4.2 mEq/L**. She is given **1.5 L of normal saline IV** in the first hour, and started on an **IV Regular Insulin infusion at 7 units/h** with **20 mEq KCl** added to each subsequent liter of fluid. Her DKA successfully resolves after 12 hours of therapy.",
+      "id": "Seorang wanita 21 tahun dengan Diabetes Tipe 1 datang ke UGD dengan mual berat, muntah, nyeri perut, dan pernapasan yang cepat dan dalam. Ia mengaku melewatkan dosis insulinnya selama 2 hari terakhir. TD-nya 96/58 mmHg, HR 118 x/menit, RR 28 x/menit. Glukosa kapiler **412 mg/dL**. Pemeriksaan lab menunjukkan pH arteri **7,12**, bikarbonat **9 mEq/L**, dan keton serum positif. Kalium **4,2 mEq/L**. Ia diberikan **1,5 L normal salin IV** pada jam pertama, lalu dimulai **infus IV Insulin Reguler dengan laju 7 unit/jam** dengan **20 mEq KCl** ditambahkan pada setiap liter cairan berikutnya. KAD-nya berhasil teratasi setelah 12 jam terapi."
+    },
+    "references": {
+      "en": "• ADA Consensus Statement on Hyperglycemic Crises in Adult Patients With Diabetes (Diabetes Care 2009)\n• Kitabchi AE, et al. Diabetes Care. 2009;32(7):1335-1343",
+      "id": "• Pernyataan Konsensus ADA tentang Krisis Hiperglikemik pada Pasien Dewasa dengan Diabetes (Diabetes Care 2009)\n• Kitabchi AE, et al. Diabetes Care. 2009;32(7):1335-1343"
+    }
+  },
+  {
+    "title": { "en": "Pulmonary Embolism (PE) Clinical Guideline", "id": "Pedoman Klinis Emboli Paru (EP)" },
+    "category": "Pulmonology",
+    "isStructured": true,
+    "definition": {
+      "en": "Pulmonary Embolism (PE) is a life-threatening obstruction of the pulmonary arterial bed, most commonly resulting from a thrombus originating in the deep veins of the lower extremities (deep vein thrombosis).",
+      "id": "Emboli Paru (EP) adalah obstruksi arteri pulmonal yang mengancam jiwa, paling sering disebabkan oleh trombus yang berasal dari vena dalam ekstremitas bawah (deep vein thrombosis/DVT)."
+    },
+    "symptoms": {
+      "en": "• **Sudden onset of dyspnea** (most common symptom)\n• Pleuritic chest pain (worse with deep breathing)\n• Cough, hemoptysis (coughing up blood)\n• Syncope or near-syncope (suggestive of massive PE)\n• Apprehension, anxiety, or feeling of impending doom",
+      "id": "• **Onset sesak napas mendadak** (gejala paling umum)\n• Nyeri dada pleuritik (memburuk dengan napas dalam)\n• Batuk, hemoptisis (batuk darah)\n• Sinkop atau hampir pingsan (mencurigakan EP masif)\n• Cemas, gelisah, atau ketakutan akan kematian"
+    },
+    "physicalExamination": {
+      "en": "• Tachypnea **(>20 breaths/min)** and tachycardia **(>100 bpm)**\n• Low oxygen saturation (SpO2)\n• Auscultation: usually clear lungs; loud P2 heart sound, tricuspid regurgitation murmur\n• Unilateral leg swelling, warmth, and tenderness (signs of **DVT**)\n• Hypotension or obstructive shock (massive PE)",
+      "id": "• Takipnea **(>20 x/menit)** dan takikardia **(>100 x/menit)**\n• Saturasi oksigen rendah (SpO2)\n• Auskultasi: biasanya paru bersih; bunyi jantung P2 mengeras, bising regurgitasi trikuspid\n• Bengkak tungkai unilateral, hangat, dan nyeri tekan (tanda-tanda **DVT**)\n• Hipotensi atau syok obstruktif (EP masif)"
+    },
+    "labFindings": {
+      "en": "• **CT Pulmonary Angiography (CTPA)**: Gold Standard diagnostic imaging\n• Elevated **D-Dimer** (useful only to rule out PE in low/moderate probability cases)\n• Elevated Troponin and BNP (signs of **right ventricular strain**)\n• ECG showing sinus tachycardia, S1Q3T3 pattern, or right bundle branch block (RBBB)",
+      "id": "• **CT Pulmonary Angiography (CTPA)**: Gold Standard pencitraan diagnostik\n• Kadar **D-Dimer** meningkat (hanya berguna menyingkirkan EP pada probabilitas rendah/sedang)\n• Peningkatan Troponin dan BNP (tanda **regangan ventrikel kanan**)\n• EKG menunjukkan takikardia sinus, pola S1Q3T3, atau right bundle branch block (RBBB)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Acute Myocardial Infarction\n• Tension Pneumothorax\n• Aortic Dissection\n• Pneumonia / Pleurisy\n• Acute Exacerbation of Asthma or COPD",
+      "id": "• Infark Miokard Akut\n• Tension Pneumotoraks\n• Diseksi Aorta\n• Pneumonia / Pleuritis\n• Eksaserbasi Akut Asma atau PPOK"
+    },
+    "dangerSigns": {
+      "en": "• **Massive PE**: hypotension (systolic BP <90 mmHg) or shock\n• Severe refractory hypoxemia (SpO2 <90% on high-flow oxygen)\n• Right ventricular dysfunction on echocardiogram\n• Recurrent syncope",
+      "id": "• **EP Masif**: hipotensi (TD sistolik <90 mmHg) atau syok\n• Hipoksemia refrakter berat (SpO2 <90% pada oksigen aliran tinggi)\n• Disfungsi ventrikel kanan pada ekokardiogram\n• Sinkop berulang"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Supplement oxygen immediately to maintain SpO2 >=90%\n• Risk stratify using **Wells Score** or **Geneva Score** and the **PESI (Pulmonary Embolism Severity Index)**\n• Initiate anticoagulation immediately if clinical suspicion is high and no contraindications exist (e.g. **Enoxaparin 1 mg/kg SC q12h**)",
+        "id": "• Berikan tambahan oksigen segera untuk mempertahankan SpO2 >=90%\n• Stratifikasi risiko menggunakan **Wells Score** atau **Geneva Score** dan **PESI (Pulmonary Embolism Severity Index)**\n• Segera mulai antikoagulasi jika kecurigaan klinis tinggi dan tidak ada kontraindikasi (misal: **Enoksaparin 1 mg/kg SC tiap 12 jam**)"
+      },
+      "definitiveTreatment": {
+        "en": "• For massive PE (hemodynamic instability): Administer **thrombolytic therapy (IV Alteplase 100 mg over 2 hours)** if no contraindications exist\n• For submassive PE (stable BP but right heart strain): Monitor closely; consider thrombolysis if clinical deterioration occurs\n• For stable patients: Long-term anticoagulation with **DOACs** (Apixaban, Rivaroxaban) or Warfarin for at least **3 months**\n• Consider **IVC Filter** only if absolute contraindications to anticoagulation exist",
+        "id": "• Untuk EP masif (instabilitas hemodinamik): Berikan **terapi trombolitik (IV Alteplase 100 mg selama 2 jam)** jika tidak ada kontraindikasi\n• Untuk EP submasif (TD stabil tetapi ada regangan jantung kanan): Pantau ketat; pertimbangkan trombolisis jika terjadi perburukan klinis\n• Untuk pasien stabil: Antikoagulasi jangka panjang dengan **DOAC** (Apixaban, Rivaroxaban) atau Warfarin selama minimal **3 bulan**\n• Pertimbangkan **Filter IVC** hanya jika terdapat kontraindikasi absolut terhadap antikoagulasi"
+      },
+      "rehab": {
+        "en": "• Gradual resumption of physical activity; monitor for post-PE syndrome (chronic thromboembolic pulmonary hypertension / CTEPH)",
+        "id": "• Pemulihan aktivitas fisik secara bertahap; pantau sindrom pasca-EP (hipertensi pulmonal tromboemboli kronis / CTEPH)"
+      },
+      "referral": {
+        "en": "• Admit massive and submassive PE to the **ICU**. Consult Interventional Radiology or Cardiothoracic Surgery for mechanical thrombectomy or surgical embolectomy if thrombolysis is contraindicated",
+        "id": "• Rawat EP masif dan submasif di **ICU**. Konsultasikan ke Radiologi Intervensi atau Bedah Toraks Kardiovaskular untuk trombektomi mekanik atau embolektomi bedah jika trombolisis merupakan kontraindikasi"
+      },
+      "workup": {
+        "en": "• Wells Score, D-Dimer, CTPA, bedside transthoracic echocardiogram to assess right heart strain, lower extremity venous duplex ultrasound",
+        "id": "• Wells Score, D-Dimer, CTPA, ekokardiografi transtorakal bedside untuk menilai regangan jantung kanan, USG duplex vena ekstremitas bawah"
+      }
+    },
+    "followUp": {
+      "en": "• Review in anticoagulation clinic regularly; monitor for bleeding complications. Re-evaluate at **3 months** to decide on duration of therapy",
+      "id": "• Tinjau di klinik antikoagulasi secara berkala; pantau komplikasi perdarahan. Evaluasi ulang pada **3 bulan** untuk memutuskan durasi terapi"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Prophylactic anticoagulation (**Enoxaparin 40 mg SC daily**) for hospitalized medical/surgical patients with high VTE risk",
+        "id": "• Antikoagulasi profilaksis (**Enoksaparin 40 mg SC sehari**) untuk pasien rawat inap medis/bedah dengan risiko tinggi VTE"
+      },
+      "nonPharmacological": {
+        "en": "• Early post-operative mobilization, use of sequential compression devices (SCDs) or compression stockings",
+        "id": "• Mobilisasi pasca-operasi dini, penggunaan sequential compression devices (SCD) atau stoking kompresi"
+      }
+    },
+    "caseExample": {
+      "en": "A 62-year-old female presents with sudden onset severe shortness of breath and right-sided pleuritic chest pain. She underwent total knee replacement surgery 2 weeks ago. On exam: HR 118 bpm, RR 26 breaths/min, BP 115/72 mmHg, SpO2 88% on room air. Her right calf is swollen and tender. Wells score is high (7 points). She is started on high-flow oxygen and IV Heparin. A CTPA reveals a large saddle pulmonary embolus. Bedside echocardiogram shows right ventricular dilation but stable blood pressure (submassive PE). She is transferred to the ICU for close monitoring and continuous Heparin infusion, showing gradual improvement over 4 days.",
+      "id": "Seorang wanita 62 tahun datang dengan sesak napas berat mendadak dan nyeri dada pleuritik sisi kanan. Ia menjalani operasi penggantian sendi lutut total 2 minggu lalu. Pemeriksaan: HR 118 x/menit, RR 26 x/menit, TD 115/72 mmHg, SpO2 88% pada udara ruangan. Betis kanannya bengkak dan nyeri tekan. Skor Wells tinggi (7 poin). Ia mulai diberikan oksigen aliran tinggi dan Heparin IV. CTPA menunjukkan emboli paru pelana (saddle) yang besar. Ekokardiografi menunjukkan pelebaran ventrikel kanan tetapi tekanan darah stabil (EP submasif). Ia dipindahkan ke ICU untuk pemantauan ketat dan infus Heparin kontinu, menunjukkan perbaikan bertahap selama 4 hari."
+    },
+    "references": {
+      "en": "• 2019 ESC Guidelines for the Diagnosis and Management of Acute Pulmonary Embolism (European Heart Journal 2020)\n• Konstantinides SV, et al. Eur Heart J. 2020;41(4):543-603",
+      "id": "• Pedoman ESC 2019 untuk Diagnosis dan Penatalaksanaan Emboli Paru Akut (European Heart Journal 2020)\n• Konstantinides SV, et al. Eur Heart J. 2020;41(4):543-603"
+    }
+  },
+  {
+    "title": { "en": "Tension Pneumothorax Emergency Guideline", "id": "Pedoman Darurat Tension Pneumotoraks" },
+    "category": "Emergency Medicine",
+    "isStructured": true,
+    "definition": {
+      "en": "Tension Pneumothorax is a life-threatening, progressive accumulation of air in the pleural space under positive pressure, resulting in lung collapse, mediastinal shift, compression of the contralateral lung, and compromised venous return leading to cardiovascular collapse.",
+      "id": "Tension Pneumotoraks adalah akumulasi udara progresif yang mengancam jiwa di rongga pleura di bawah tekanan positif, yang mengakibatkan kolaps paru, pergeseran mediastinum, kompresi paru kontralateral, dan terganggunya aliran balik vena yang menyebabkan kolaps kardiovaskular."
+    },
+    "symptoms": {
+      "en": "• **Sudden onset of severe dyspnea** and pleuritic chest pain\n• Extreme agitation, apprehension, and air hunger\n• Dizziness, near-syncope, or loss of consciousness",
+      "id": "• **Onset sesak napas berat mendadak** dan nyeri dada pleuritik\n• Kegelisahan ekstrem, ketakutan, dan rasa lapar udara\n• Pusing, hampir pingsan, atau hilangnya kesadaran"
+    },
+    "physicalExamination": {
+      "en": "• Severe tachypnea, hypoxia, hypotension **(shock)**, and tachycardia\n• **Absence of breath sounds** on the affected side\n• **Hyperresonance** on percussion on the affected side\n• **Tracheal deviation** to the contralateral (opposite) side (late sign)\n• Distended neck veins (JVD due to impaired venous return)\n• Asymmetric chest wall expansion",
+      "id": "• Takipnea berat, hipoksia, hipotensi **(syok)**, dan takikardia\n• **Suara napas menghilang** pada sisi yang sakit\n• **Hiperresonan** pada perkusi di sisi yang sakit\n• **Deviasi trakea** ke sisi kontralateral (berlawanan) (tanda lanjut)\n• Distensi vena leher (JVD akibat hambatan aliran balik vena)\n• Ekspansi dinding dada asimetris"
+    },
+    "labFindings": {
+      "en": "• Tension pneumothorax is a **purely clinical diagnosis**; do *not* wait for chest X-ray or labs before treating\n• Bedside **thoracic ultrasound** showing absence of lung sliding\n• Arterial blood gas showing severe hypoxemia and respiratory acidosis",
+      "id": "• Tension pneumotoraks adalah **diagnosis murni klinis**; jangan *pernah* menunggu rontgen dada atau lab sebelum mengobati\n• **USG toraks** bedside menunjukkan hilangnya tanda lung sliding\n• Analisis gas darah menunjukkan hipoksemia berat dan asidosis respiratorik"
+    },
+    "differentialDiagnosis": {
+      "en": "• Cardiac Tamponade\n• Massive Hemothorax\n• Acute Myocardial Infarction\n• Massive Pulmonary Embolism",
+      "id": "• Tamponade Jantung\n• Hemotoraks Masif\n• Infark Miokard Akut\n• Emboli Paru Masif"
+    },
+    "dangerSigns": {
+      "en": "• Severe hypotension and bradycardia (impending cardiac arrest)\n• Loss of consciousness or severe agitation\n• Rapidly dropping oxygen saturation **(<80%)**\n• Asymmetry of pupils or signs of profound shock",
+      "id": "• Hipotensi berat dan bradikardia (ancaman henti jantung)\n• Hilang kesadaran atau kegelisahan ekstrem\n• Saturasi oksigen turun cepat **(<80%)**\n• Asimetri pupil atau tanda-tanda syok yang mendalam"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Administer high-flow oxygen immediately\n• Perform **Needle Decompression** immediately: Insert a large-bore needle (14-16 G) in the **2nd intercostal space, midclavicular line** OR **5th intercostal space, anterior/mid-axillary line** on the affected side\n• Confirm rush of air and conversion of tension to simple pneumothorax",
+        "id": "• Berikan oksigen aliran tinggi segera\n• Segera lakukan **Dekompresi Jarum**: Masukkan jarum ukuran besar (14-16 G) di **sela iga ke-2, garis midklavikula** ATAU **sela iga ke-5, garis anterior/mid-aksila** pada sisi yang sakit\n• Konfirmasi adanya hembusan udara keluar dan perubahan tension menjadi pneumotoraks sederhana"
+      },
+      "definitiveTreatment": {
+        "en": "• Immediately follow needle decompression with **Chest Tube insertion (Tube Thoracostomy)** (usually 28-32 Fr placed in the 5th intercostal space, mid-axillary line)\n• Connect the chest tube to a **water-seal drainage system (WSD)**\n• Confirm lung re-expansion with a chest radiograph post-procedure",
+        "id": "• Segera ikuti dekompresi jarum dengan **pemasangan selang dada (Torakostomi Selang)** (biasanya ukuran 28-32 Fr dipasang di sela iga ke-5, garis mid-aksila)\n• Hubungkan selang dada ke **sistem drainase segel air (WSD)**\n• Konfirmasi re-ekspansi paru dengan rontgen dada pasca-prosedur"
+      },
+      "rehab": {
+        "en": "• Chest physiotherapy, incentive spirometry, and deep breathing exercises to promote lung re-expansion",
+        "id": "• Fisioterapi dada, spirometri insentif, dan latihan napas dalam untuk mendorong re-ekspansi paru"
+      },
+      "referral": {
+        "en": "• Consult a **Thoracic Surgeon** immediately. Admit to surgical ICU or high-dependency unit",
+        "id": "• Konsultasi segera dengan **Spesialis Bedah Toraks**. Rawat di ICU bedah atau unit high-dependency"
+      },
+      "workup": {
+        "en": "• Post-chest tube X-ray, continuous pulse oximetry, and clinical monitoring of chest tube air leak and fluid drainage",
+        "id": "• Rontgen dada pasca-selang dada, oksimetri nadi kontinu, dan pemantauan klinis adanya kebocoran udara serta cairan drainase selang dada"
+      }
+    },
+    "followUp": {
+      "en": "• Monitor chest tube WSD until air leak ceases and lung is fully expanded. Remove tube after 24 hours of no leak and trial of clamping",
+      "id": "• Pantau WSD selang dada hingga kebocoran udara berhenti dan paru mengembang penuh. Lepas selang dada setelah 24 jam tanpa kebocoran dan uji coba klem"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Standard pain management (oral/IV NSAIDs or opioids) to facilitate deep breathing and prevent splinting",
+        "id": "• Manajemen nyeri standar (NSAID oral/IV atau opioid) untuk memfasilitasi pernapasan dalam dan mencegah nyeri saat bernapas"
+      },
+      "nonPharmacological": {
+        "en": "• Advise patient to avoid scuba diving or flying in unpressurized aircraft until complete resolution and clearance by a pulmonologist/surgeon",
+        "id": "• Sarankan pasien menghindari penyelaman atau terbang dengan pesawat tanpa tekanan udara hingga resolusi lengkap dan dinyatakan aman oleh spesialis paru/bedah"
+      }
+    },
+    "caseExample": {
+      "en": "A 24-year-old male is brought to the ER following a motor vehicle collision. He is extremely dyspneic, agitated, and cyanotic. His BP is **74/38 mmHg**, HR 132 bpm, SpO2 76% on high-flow oxygen. Physical exam reveals absent breath sounds and hyperresonance on the left hemithorax, with marked tracheal deviation to the right. The physician immediately performs **needle decompression** by inserting a 14 G angiocatheter into the left 2nd intercostal space at the midclavicular line. A loud hiss of air is heard, and his BP immediately rises to **112/68 mmHg** and SpO2 to 94%. A **chest tube** is then placed and connected to WSD.",
+      "id": "Seorang pemuda 24 tahun dibawa ke UGD setelah tabrakan kendaraan bermotor. Ia sesak napas berat, gelisah, dan sianosis. TD-nya **74/38 mmHg**, HR 132 x/menit, SpO2 76% pada oksigen aliran tinggi. Pemeriksaan fisik menunjukkan suara napas menghilang dan hiperresonan pada hemitoraks kiri, disertai deviasi trakea yang jelas ke kanan. Dokter segera melakukan **dekompresi jarum** dengan memasukkan angiokateter 14 G ke sela iga ke-2 kiri di garis midklavikula. Suara hembusan udara terdengar keras, dan TD segera naik menjadi **112/68 mmHg** dan SpO2 94%. **Selang dada** kemudian dipasang dan dihubungkan ke WSD."
+    },
+    "references": {
+      "en": "• Advanced Trauma Life Support (ATLS) Student Course Manual, 10th Edition (American College of Surgeons 2018)\n• American College of Surgeons Committee on Trauma, 2018",
+      "id": "• Buku Manual Kursus Siswa Advanced Trauma Life Support (ATLS), Edisi ke-10 (American College of Surgeons 2018)\n• American College of Surgeons Committee on Trauma, 2018"
+    }
+  },
+  {
+    "title": { "en": "Status Epilepticus Management Protocol", "id": "Protokol Penatalaksanaan Status Epileptikus" },
+    "category": "Neurology",
+    "isStructured": true,
+    "definition": {
+      "en": "Status Epilepticus is defined as a continuous seizure lasting **>=5 minutes**, or recurrent seizures without full recovery of consciousness between episodes, representing a critical neurological emergency.",
+      "id": "Status Epileptikus didefinisikan sebagai kejang terus-menerus selama **>=5 menit**, atau kejang berulang tanpa pemulihan kesadaran penuh di antara episode-episode kejang, yang merupakan kedaruratan neurologis kritis."
+    },
+    "symptoms": {
+      "en": "• Continuous, generalized tonic-clonic convulsions\n• Alternatively: non-convulsive status (altered mental status, blank staring, subtle motor twitches)\n• Inability to arouse the patient",
+      "id": "• Kejang tonik-klonik umum yang terus-menerus\n• Alternatif: status non-konvulsif (penurunan kesadaran, tatapan kosong, kedutan motorik halus)\n• Ketidakmampuan untuk menyadarkan pasien"
+    },
+    "physicalExamination": {
+      "en": "• Active tonic-clonic movements, jaw clenching, tongue biting\n• Tachycardia, hypertension, hyperthermia, and diaphoresis\n• Post-ictal flaccidity, extensor plantar responses (Babinski sign)\n• Assess pupil size and reactivity (to rule out herniation/structural lesions)",
+      "id": "• Gerakan tonik-klonik aktif, rahang terkatup rapat, lidah tergigit\n• Takikardia, hipertensi, hipertermia, dan diaforesis\n• Flaksiditas pasca-kejang, respons ekstensor plantar (tanda Babinski)\n• Nilai ukuran dan reaktivitas pupil (untuk menyingkirkan herniasi/lesi struktural)"
+    },
+    "labFindings": {
+      "en": "• Diagnosis is clinical; do not delay treatment. Urgent fingerstick glucose (must rule out hypoglycemia)\n• Acid-fast lactic acidosis on blood gas\n• Abnormal serum anticonvulsant levels (subtherapeutic in known epileptics)\n• EEG showing continuous epileptiform discharges (essential for non-convulsive status)",
+      "id": "• Diagnosis bersifat klinis; jangan menunda pengobatan. Cek glukosa stik jari segera (wajib menyingkirkan hipoglikemia)\n• Asidosis laktat berat pada analisis gas darah\n• Kadar obat antikonvulsan serum abnormal (subterapeutik pada pasien epilepsi)\n• EKG/EEG menunjukkan lepas muatan listrik epileptiform kontinu (penting untuk status non-konvulsif)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Psychogenic Non-Epileptic Seizures (PNES)\n• Severe Syncope with myoclonic jerks\n• Decerebrate posturing (intracranial hemorrhage/herniation)\n• Severe Rigidity / Serotonin Syndrome",
+      "id": "• Kejang Non-Epileptik Psikogenik (PNES)\n• Sinkop Berat dengan sentakan mioklonik\n• Postur deserebrasi (perdarahan/herniasi intrakranial)\n• Rigiditas Berat / Sindrom Serotonin"
+    },
+    "dangerSigns": {
+      "en": "• Seizure duration **>30 minutes** (increased risk of irreversible neuronal injury)\n• Airway compromise, hypoxia, or active aspiration\n• Hyperthermia **(temp >40.0°C)**\n• Cardiac arrhythmias or cardiovascular collapse",
+      "id": "• Durasi kejang **>30 menit** (meningkatkan risiko kerusakan neuron ireversibel)\n• Gangguan jalan napas, hipoksia, atau aspirasi aktif\n• Hipertermia **(suhu >40,0°C)**\n• Aritmia jantung atau kolaps kardiovaskular"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Secure airway, provide **100% oxygen**, and obtain IV access immediately\n• Test fingerstick glucose; administer **50 mL of D50W IV** immediately if hypoglycemic\n• **First Line (0-10 mins)**: Administer **IV Diazepam 10 mg** over 2 mins (or **IV Lorazepam 4 mg**); repeat once if seizure continues after 5 mins. If no IV access, give **IM Midazolam 10 mg** or **rectal Diazepam**",
+        "id": "• Amankan jalan napas, berikan **oksigen 100%**, dan pasang jalur IV segera\n• Cek glukosa stik jari; berikan **50 mL D50W IV** segera jika hipoglikemia\n• **Lini Pertama (0-10 menit)**: Berikan **IV Diazepam 10 mg** selama 2 menit (atau **IV Lorazepam 4 mg**); ulangi sekali jika kejang berlanjut setelah 5 menit. Jika tidak ada jalur IV, berikan **IM Midazolam 10 mg** atau **Diazepam rektal**"
+      },
+      "definitiveTreatment": {
+        "en": "• **Second Line (10-30 mins)**: If seizure persists after benzodiazepines, administer IV antiepileptic loading dose: **IV Levetiracetam 60 mg/kg (max 4500 mg)** over 10 mins OR **IV Phenytoin/Fos phenytoin 20 mg PE/kg** OR **IV Sodium Valproate 40 mg/kg**\n• **Third Line (>30 mins - Refractory)**: If kejang persists: Initiate continuous infusion of anesthetic dose: **Propofol (loading 1-2 mg/kg, then 2-10 mg/kg/h)** OR **Midazolam** or **Ketamine**. Requires endotracheal intubation, mechanical ventilation, and continuous EEG monitoring",
+        "id": "• **Lini Kedua (10-30 menit)**: Jika kejang berlanjut setelah benzodiazepin, berikan dosis muatan antiepilepsi IV: **IV Levetiracetam 60 mg/kg (maks 4500 mg)** selama 10 menit ATAU **IV Fenitoin/Fosfenitoin 20 mg PE/kg** ATAU **IV Natrium Valproat 40 mg/kg**\n• **Lini Ketiga (>30 menit - Refrakter)**: Jika kejang menetap: Mulai infus kontinu dosis anestesi: **Propofol (loading 1-2 mg/kg, lalu 2-10 mg/kg/jam)** ATAU **Midazolam** atau **Ketamin**. Memerlukan intubasi endotrakeal, ventilasi mekanik, dan pemantauan EEG kontinu"
+      },
+      "rehab": {
+        "en": "• Prevent aspiration pneumonia post-seizure; support mobilization once patient is fully awake and oriented",
+        "id": "• Cegah pneumonia aspirasi pasca-kejang; dukung mobilisasi setelah pasien sadar penuh dan orientasi baik"
+      },
+      "referral": {
+        "en": "• Admit to **ICU** for refractory status epilepticus requiring anesthetic infusions and intubation. Consult Neurologist immediately",
+        "id": "• Rawat di **ICU** untuk status epileptikus refrakter yang membutuhkan infus anestesi dan intubasi. Konsultasi segera dengan Spesialis Saraf"
+      },
+      "workup": {
+        "en": "• CBC, electrolytes, calcium, magnesium, renal and liver function, toxicology screen, anticonvulsant drug levels, brain CT after stabilization",
+        "id": "• Darah Lengkap, elektrolit, kalsium, magnesium, fungsi ginjal dan hati, skrining toksikologi, kadar obat antikonvulsan, CT scan otak setelah stabil"
+      }
+    },
+    "followUp": {
+      "en": "• Follow up with Neurologist in **1-2 weeks**; optimize long-term oral antiepileptic drug maintenance, check drug levels and monitor for side effects",
+      "id": "• Kontrol dengan spesialis saraf dalam **1-2 minggu**; optimalkan pemeliharaan obat antiepilepsi oral jangka panjang, periksa kadar obat, dan pantau efek samping"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Strict adherence to daily oral antiepileptic drugs (e.g. Levetiracetam, Valproate). Avoid abrupt drug cessation",
+        "id": "• Kepatuhan ketat terhadap obat antiepilepsi oral harian (misal: Levetiracetam, Valproat). Hindari penghentian obat mendadak"
+      },
+      "nonPharmacological": {
+        "en": "• Avoid sleep deprivation, limit alcohol, manage stress, and avoid seizure triggers (flashing lights if photosensitive)",
+        "id": "• Hindari kurang tidur, batasi alkohol, kelola stres, dan hindari pemicu kejang (stimulasi cahaya jika fotosensitif)"
+      }
+    },
+    "caseExample": {
+      "en": "A 30-year-old male with a history of epilepsy is brought to the ER by EMS, actively seizing with generalized tonic-clonic convulsions. The seizure started 15 minutes ago and has been continuous. His airway is secured with a nasopharyngeal airway, and 100% oxygen is started. An IV line is established, and he is given IV Diazepam 10 mg, which fails to stop the seizure. A second dose of 10 mg is given 5 minutes later, but the convulsions persist. He is then given a loading dose of IV Levetiracetam (3000 mg over 10 minutes), after which the seizure terminates.",
+      "id": "Seorang pria 30 tahun dengan riwayat epilepsi dibawa ke UGD oleh ambulans dalam keadaan kejang tonik-klonik umum aktif. Kejang dimulai 15 menit yang lalu dan terus-menerus. Jalan napas diamankan dengan pipa nasofaring, dan oksigen 100% dimulai. Jalur IV dipasang dan diberikan Diazepam IV 10 mg, tetapi kejang tidak berhenti. Dosis kedua 10 mg diberikan 5 menit kemudian, namun kejang berlanjut. Ia kemudian diberikan dosis muatan Levetiracetam IV (3000 mg selama 10 menit), setelah itu kejang berhenti."
+    },
+    "references": {
+      "en": "• Guidelines for the Treatment of Convulsive Status Epilepticus in Children and Adults: American Epilepsy Society (Epilepsy Currents 2016)\n• Glauser T, et al. Epilepsy Curr. 2016;16(1):48-61",
+      "id": "• Pedoman untuk Pengobatan Status Epileptikus Konvulsif pada Anak-anak dan Dewasa: American Epilepsy Society (Epilepsy Currents 2016)\n• Glauser T, et al. Epilepsy Curr. 2016;16(1):48-61"
+    }
+  },
+  {
+    "title": { "en": "Acute Upper GI Bleeding Guideline", "id": "Pedoman Perdarahan SCBA Akut" },
+    "category": "Gastroenterology",
+    "isStructured": true,
+    "definition": {
+      "en": "Acute Upper Gastrointestinal Bleeding (UGIB) is defined as bleeding originating proximal to the ligament of Treitz, presenting as hematemesis, melena, or hematochezia, classified into non-variceal (typically peptic ulcer disease) or variceal (due to portal hypertension) bleeding.",
+      "id": "Perdarahan Saluran Cerna Bagian Atas (SCBA) Akut didefinisikan sebagai perdarahan yang berasal dari bagian proksimal ligamentum Treitz, muncul sebagai hematemesis (muntah darah), melena (BAB hitam), atau hematokezia, diklasifikasikan menjadi perdarahan non-variseal (biasanya penyakit ulkus peptikum) atau variseal (akibat hipertensi porta)."
+    },
+    "symptoms": {
+      "en": "• Hematemesis (bright red blood or 'coffee-ground' emesis)\n• **Melena** (black, tarry, foul-smelling stools)\n• Hematochezia (bright red rectal bleeding, in massive fast bleeding)\n• Epigastric pain or dyspepsia\n• Dizziness, lightheadedness, or syncope",
+      "id": "• Hematemesis (muntah darah merah segar atau seperti ampas kopi)\n• **Melena** (BAB hitam beraspal dan berbau busuk)\n• Hematokezia (perdarahan merah segar per rektum pada perdarahan masif cepat)\n• Nyeri epigastrium atau dispepsia\n• Pusing, kliyengan, atau sinkop"
+    },
+    "physicalExamination": {
+      "en": "• Tachycardia, hypotension, or orthostatic vital sign changes\n• Pallor, cold extremities, and dry mucous membranes\n• Stigmata of liver cirrhosis: spider angiomas, palmar erythema, ascites, splenomegaly\n• Epigastric tenderness\n• DRE positive for melena",
+      "id": "• Takikardia, hipotensi, atau perubahan tanda vital ortostatik\n• Pucat, ekstremitas dingin, dan membran mukosa kering\n• Stigmata sirosis hati: spider angioma, eritema palmaris, asites, splenomegali\n• Nyeri tekan epigastrium\n• Colok dubur (DRE) positif melena"
+    },
+    "labFindings": {
+      "en": "• Decreased hemoglobin and hematocrit (may lag in acute bleeding)\n• Elevated BUN-to-creatinine ratio **(>30:1)**\n• Coagulation abnormalities (elevated PT/INR)\n• Thrombocytopenia, metabolic acidosis",
+      "id": "• Penurunan hemoglobin dan hematokrit (dapat terlambat pada perdarahan akut)\n• Peningkatan rasio BUN terhadap kreatinin **(>30:1)**\n• Kelainan koagulasi (PT/INR meningkat)\n• Trombositopenia, asidosis metabolik"
+    },
+    "differentialDiagnosis": {
+      "en": "• Peptic Ulcer Disease (gastric/duodenal)\n• Esophageal or Gastric Varices\n• Mallory-Weiss Tear\n• Erosive Gastritis\n• Gastric Malignancy",
+      "id": "• Penyakit Ulkus Peptikum (lambung/duodenum)\n• Varises Esofagus atau Lambung\n• Robekan Mallory-Weiss\n• Gastritis Erosif\n• Keganasan Lambung"
+    },
+    "dangerSigns": {
+      "en": "• **Hemodynamic shock** (SBP <90 mmHg, HR >120 bpm, cold sweats, confusion)\n• Recurrent vomiting of fresh blood\n• Failure of endoscopic therapy\n• Severe hepatic encephalopathy, anuria",
+      "id": "• **Syok hemodinamik** (TDS <90 mmHg, HR >120 x/menit, keringat dingin, kebingungan)\n• Muntah darah segar berulang\n• Kegagalan terapi endoskopi\n• Ensefalopati hepatikum berat, anuria"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Obtain two large-bore IV lines. Start aggressive fluid infusion to maintain SBP >90 mmHg\n• Transfuse Packed Red Blood Cells (PRBCs) if **Hb <7 g/dL** (target 7-8 g/dL; target 9 g/dL in cardiovascular disease)\n• Start high-dose IV Proton Pump Inhibitor: **Esomeprazole 80 mg IV bolus**, followed by **8 mg/hour continuous infusion**",
+        "id": "• Pasang dua jalur IV ukuran besar. Mulai infus cairan agresif untuk mempertahankan TDS >90 mmHg\n• Transfusikan PRBC jika **Hb <7 g/dL** (target 7-8 g/dL; target 9 g/dL pada penyakit kardiovaskular)\n• Mulai Proton Pump Inhibitor IV dosis tinggi: **Esomeprazole 80 mg IV bolus**, diikuti **infus kontinu 8 mg/jam**"
+      },
+      "definitiveTreatment": {
+        "en": "• For suspected variceal bleeding: Add **IV Octreotide (50 mcg bolus, then 50 mcg/h)** and prophylactic **IV Ceftriaxone 1g daily**\n• Perform **Urgent Upper Endoscopy (EGD)** within **24 hours** (within 12 hours for variceal bleeding)\n• Perform endoscopic band ligation (EBL) for varices, or thermal/mechanical coagulation for ulcers\n• Arrange for TIPS or surgery if refractory",
+        "id": "• Untuk dugaan perdarahan variseal: Tambahkan **IV Oktreotid (bolus 50 mcg, lalu 50 mcg/jam)** dan profilaksis **IV Ceftriaxone 1g sehari**\n• Lakukan **Endoskopi SCBA (EGD) Segera** dalam **24 jam** (dalam 12 jam untuk perdarahan variseal)\n• Lakukan ligasi band endoskopik (EBL) untuk varises, atau koagulasi termal/mekanis untuk ulkus\n• Rencanakan TIPS atau pembedahan jika refrakter"
+      },
+      "rehab": {
+        "en": "• Nutritional assessment, oral iron supplementation for anemia recovery",
+        "id": "• Penilaian gizi, suplementasi zat besi oral untuk pemulihan anemia"
+      },
+      "referral": {
+        "en": "• Admit high-risk patients to **ICU**. Consult Gastroenterologist immediately. Consult Surgery and Interventional Radiology for refractory bleeding",
+        "id": "• Rawat pasien risiko tinggi di **ICU**. Konsultasi segera dengan Spesialis Gastroenterologi. Konsultasikan ke Bedah dan Radiologi Intervensi jika perdarahan refrakter"
+      },
+      "workup": {
+        "en": "• Upper Endoscopy (EGD), serial hemoglobin checks every 4-6 hours, Glasgow-Blatchford Score (GBS) at presentation",
+        "id": "• Endoskopi SCBA (EGD), pemeriksaan hemoglobin serial setiap 4-6 jam, Glasgow-Blatchford Score (GBS) pada saat datang"
+      }
+    },
+    "followUp": {
+      "en": "• Follow up in clinic in **2-4 weeks**; test for and treat **H. pylori** if positive. Continue oral PPI for 4-8 weeks",
+      "id": "• Kontrol di klinik dalam **2-4 minggu**; uji dan obati **H. pylori** jika positif. Lanjutkan PPI oral selama 4-8 minggu"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Co-prescription of PPI with NSAIDs in high-risk patients\n• Non-selective beta-blockers (**Carvedilol, Propranolol**) for primary/secondary variceal prophylaxis",
+        "id": "• Peresepan PPI bersama NSAID pada pasien risiko tinggi\n• Penyekat beta non-selektif (**Karvedilol, Propranolol**) untuk profilaksis varises primer/sekunder"
+      },
+      "nonPharmacological": {
+        "en": "• Avoid NSAIDs, limit alcohol, smoking cessation. Regular screening endoscopy in cirrhotic patients",
+        "id": "• Hindari NSAID, batasi alkohol, berhenti merokok. Endoskopi skrining rutin pada pasien sirosis"
+      }
+    },
+    "caseExample": {
+      "en": "A 58-year-old male with a history of osteoarthritis on daily Ibuprofen presents with vomiting coffee-ground blood and passing black tarry stools since yesterday. On exam: HR 112 bpm, BP 98/60 mmHg, pale conjunctiva. Glasgow-Blatchford score is 11 (high risk). He is started on IV Normal Saline, given Pantoprazole 80 mg bolus, and transfused 1 unit of PRBC. Urgent EGD reveals a 1.5 cm bleeding duodenal ulcer (Forrest Class Ib), which is successfully treated with epinephrine injection and hemoclip placement. He is discharged on oral PPI.",
+      "id": "Seorang pria 58 tahun dengan riwayat osteoartritis yang mengonsumsi Ibuprofen harian datang dengan muntah hitam seperti kopi dan melena sejak kemarin. Pemeriksaan: HR 112 x/menit, BP 98/60 mmHg, konjungtiva pucat. Skor Glasgow-Blatchford 11 (risiko tinggi). Ia mulai diberikan Normal Salin IV, Pantoprazole 80 mg bolus, dan transfusi 1 unit PRBC. EGD darurat menunjukkan ulkus duodenum berukuran 1,5 cm yang berdarah (Kelas Forrest Ib), berhasil ditangani dengan injeksi epinefrin dan pemasangan hemoclip. Ia dipulangkan dengan PPI oral."
+    },
+    "references": {
+      "en": "• Management of Patients with Acute Lower Gastrointestinal Bleeding: An ACG Clinical Guideline (American Journal of Gastroenterology 2016)\n• Laine L, et al. Am J Gastroenterol. 2016;111(5):659-674",
+      "id": "• Penatalaksanaan Pasien dengan Perdarahan Saluran Cerna Bagian Bawah Akut: Pedoman Klinis ACG (American Journal of Gastroenterology 2016)\n• Laine L, et al. Am J Gastroenterol. 2016;111(5):659-674"
+    }
+  }
+]

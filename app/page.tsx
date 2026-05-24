@@ -76,11 +76,11 @@ export default function Home() {
       title: t.clinical_guidelines_title,
       icon: BookOpen,
       href: '/guidelines',
-      description: language === 'en' ? 'Evidence-based clinical practice guidelines' : 'Pedoman praktik klinis berbasis bukti',
+      description: t.clinical_guidelines_desc,
       iconBg: 'linear-gradient(135deg, #0f766e, #14b8a6)',
       iconGlow: 'rgba(20,184,166,0.35)',
       accentColor: '#2dd4bf',
-      tags: ['offline'] as ('offline' | 'ai')[],
+      tags: ['offline', 'ai'] as ('offline' | 'ai')[],
     },
   ];
 

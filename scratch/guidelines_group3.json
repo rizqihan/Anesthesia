@@ -1,0 +1,367 @@
+[
+  {
+    "title": { "en": "Sepsis & Septic Shock", "id": "Sepsis & Syok Septik" },
+    "category": "Critical Care",
+    "isStructured": true,
+    "definition": {
+      "en": "Sepsis is defined as life-threatening organ dysfunction caused by a dysregulated host response to infection. Septic Shock is a subset of sepsis in which particularly profound circulatory, cellular, and metabolic abnormalities are associated with a greater risk of mortality, characterized by persistent hypotension requiring vasopressors to maintain **MAP >= 65 mmHg** and serum lactate **>2 mmol/L** despite adequate fluid resuscitation.",
+      "id": "Sepsis didefinisikan sebagai disfungsi organ yang mengancam jiwa akibat disregulasi respons imun tubuh terhadap infeksi. Syok Septik adalah subset dari sepsis di mana kelainan sirkulasi, seluler, dan metabolik yang mendalam dikaitkan dengan risiko kematian yang lebih tinggi, ditandai dengan hipotensi persisten yang memerlukan vasopresor untuk mempertahankan **MAP >= 65 mmHg** dan laktat serum **>2 mmol/L** meskipun resusitasi cairan telah adekuat."
+    },
+    "symptoms": {
+      "en": "• Fever (>38.0°C) or hypothermia (<36.0°C)\n• Severe chills or rigors\n• **Altered mental status**, acute confusion, or lethargy\n• Tachypnea and profound weakness\n• Extreme pain or discomfort\n• Oliguria (decreased urine output)",
+      "id": "• Demam (>38,0°C) atau hipotermia (<36,0°C)\n• Menggigil hebat\n• **Penurunan kesadaran**, kebingungan akut, atau letargi\n• Takipnea dan kelemahan fisik yang mendalam\n• Nyeri atau rasa tidak nyaman yang hebat\n• Oliguria (penurunan produksi urin)"
+    },
+    "physicalExamination": {
+      "en": "• Hypotension (systolic blood pressure **<100 mmHg**)\n• Tachycardia (heart rate **>100 bpm**)\n• Tachypnea (respiratory rate **>22 breaths/min**)\n• Altered consciousness (Glasgow Coma Scale **<15**)\n• Cold, clammy, mottled skin (poor peripheral perfusion) or warm, flushed skin in early distributive shock\n• Delayed capillary refill time **(>2 seconds)**",
+      "id": "• Hipotensi (tekanan darah sistolik **<100 mmHg**)\n• Takikardia (denyut jantung **>100 x/menit**)\n• Takipnea (frekuensi napas **>22 x/menit**)\n• Penurunan kesadaran (Glasgow Coma Scale **<15**)\n• Kulit dingin, basah, pucat (perfusi perifer buruk) atau kulit hangat kemerahan pada awal syok distributif\n• Capillary refill time memanjang **(>2 detik)**"
+    },
+    "labFindings": {
+      "en": "• Elevated **serum lactate >2.0 mmol/L** (indicating tissue hypoperfusion)\n• Leukocytosis (>12,000/uL) or leukopenia (<4,000/uL)\n• Thrombocytopenia (platelets <100,000/uL)\n• Elevated serum creatinine or acute oliguria\n• Elevated inflammatory biomarkers: **CRP** or **Procalcitonin**\n• Metabolic acidosis with bicarbonate depletion",
+      "id": "• Peningkatan **laktat serum >2.0 mmol/L** (menunjukkan hipoperfusi jaringan)\n• Leukositosis (>12.000/uL) atau leukopenia (<4.000/uL)\n• Trombositopenia (trombosit <100.000/uL)\n• Kreatinin serum meningkat atau oliguria akut\n• Penanda inflamasi meningkat: **CRP** atau **Prokalsitonin**\n• Asidosis metabolik dengan penurunan bikarbonat"
+    },
+    "differentialDiagnosis": {
+      "en": "• Hypovolemic Shock\n• Cardiogenic Shock\n• Anaphylactic Shock\n• Acute Adrenal Crisis\n• Severe Acute Pancreatitis",
+      "id": "• Syok Hipovolemik\n• Syok Kardiogenik\n• Syok Anafilaktik\n• Krisis Adrenal Akut\n• Pankreatitis Akut Berat"
+    },
+    "dangerSigns": {
+      "en": "• Persistent hypotension refractory to initial **30 mL/kg** fluid challenge\n• Severe lactic acidosis **(lactate >4.0 mmol/L)**\n• Respiratory failure requiring mechanical ventilation\n• Obtundation or coma\n• Anuria or severe acute kidney injury",
+      "id": "• Hipotensi persisten yang refrakter terhadap loading cairan awal **30 mL/kg**\n• Asidosis laktat berat **(laktat >4,0 mmol/L)**\n• Gagal napas yang memerlukan ventilasi mekanik\n• Obtundasi atau koma\n• Anuria atau gangguan ginjal akut berat"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Measure **serum lactate** immediately; repeat every 2-4 hours if elevated (>2 mmol/L)\n• Obtain **blood cultures** (at least 2 sets) before administering antibiotics\n• Administer broad-spectrum **IV antibiotics** (e.g. Piperacillin-Tazobactam or Meropenem) within **1 hour** of recognition\n• Rapidly infuse **30 mL/kg** of IV crystalloid fluid (Normal Saline or Ringer's Lactate) within the first 3 hours",
+        "id": "• Ukur **laktat serum** segera; ulangi setiap 2-4 jam jika tinggi (>2 mmol/L)\n• Ambil sampel **kultur darah** (minimal 2 set) sebelum memberikan antibiotik\n• Berikan **antibiotik IV** spektrum luas (misal: Piperasilin-Tazobaktam atau Meropenem) dalam **1 jam** pertama sejak dikenali\n• Infuskan secara cepat **30 mL/kg** cairan kristaloid IV (Normal Salin atau Ringer Laktat) dalam 3 jam pertama"
+      },
+      "definitiveTreatment": {
+        "en": "• If hypotension persists during or after fluid resuscitation: Start **Norepinephrine** immediately (first-choice vasopressor) titrated to maintain **MAP >= 65 mmHg**\n• Add **Vasopressin** (up to 0.03 units/min) if MAP remains below target\n• For septic shock refractory to fluids and vasopressors: Initiate **IV Hydrocortisone 200 mg/day** (either 50 mg IV q6h or continuous infusion)\n• Identify and control the source of infection (abscess drainage, debridement, line removal) within **12 hours**",
+        "id": "• Jika hipotensi menetap selama atau setelah resusitasi cairan: Segera mulai **Norepinefrin** (vasopresor pilihan utama) dititrasi untuk mempertahankan **MAP >= 65 mmHg**\n• Tambahkan **Vasopresin** (hingga 0,03 unit/menit) jika MAP tetap di bawah target\n• Untuk syok septik yang refrakter terhadap cairan dan vasopresor: Mulai **IV Hidrokortison 200 mg/hari** (baik 50 mg IV tiap 6 jam atau infus kontinu)\n• Identifikasi dan kendalikan sumber infeksi (drainase abses, debridemen, pelepasan kateter) dalam **12 jam**"
+      },
+      "rehab": {
+        "en": "• Prevention of Post-Intensive Care Syndrome (PICS): early mobilization, physical therapy in the ICU, and structured nutritional support",
+        "id": "• Pencegahan Post-Intensive Care Syndrome (PICS): mobilisasi dini, terapi fisik di ICU, dan dukungan nutrisi terstruktur"
+      },
+      "referral": {
+        "en": "• Admit immediately to the **Intensive Care Unit (ICU)**. Consult Infectious Diseases, General Surgery, or Interventional Radiology for urgent source control",
+        "id": "• Segera rawat di **Unit Perawatan Intensif (ICU)**. Konsultasikan ke Spesialis Penyakit Dalam, Bedah Umum, atau Radiologi Intervensi untuk pengendalian sumber infeksi darurat"
+      },
+      "workup": {
+        "en": "• Continuous invasive arterial blood pressure monitoring\n• Serial electrolytes, renal panel, coagulation parameters, arterial blood gas, and lactate clearance tracking",
+        "id": "• Pemantauan tekanan darah arterial invasif kontinu\n• Pemantauan serial elektrolit, fungsi ginjal, parameter koagulasi, gas darah arteri, dan klirens laktat"
+      }
+    },
+    "followUp": {
+      "en": "• Long-term clinic review to assess cognitive decline, muscular weakness, renal function recovery, and psychological health (PTSD screening)",
+      "id": "• Evaluasi jangka panjang di klinik untuk menilai penurunan kognitif, kelemahan otot, pemulihan fungsi ginjal, dan kesehatan psikologis (skrining PTSD)"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Timely and appropriate prophylactic antibiotics for high-risk surgical procedures\n• Maintain up-to-date vaccinations (Influenza, Pneumococcal, COVID-19)",
+        "id": "• Pemberian antibiotik profilaksis yang tepat waktu untuk prosedur bedah berisiko tinggi\n• Pastikan vaksinasi lengkap (Influenza, Pneumokokus, COVID-19)"
+      },
+      "nonPharmacological": {
+        "en": "• Strict **hand hygiene** protocols and aseptic techniques for all invasive lines/procedures\n• Rapid recognition and treatment of localized infections (UTI, cellulitis, pneumonia)",
+        "id": "• Protokol **kebersihan tangan** yang ketat dan teknik aseptik untuk semua pemasangan kateter/prosedur invasif\n• Pengenalan dan penanganan cepat infeksi lokal (ISK, selulitis, pneumonia)"
+      }
+    },
+    "caseExample": {
+      "en": "A 71-year-old male presents with acute confusion, fever of **39.2°C**, and hypotension (**82/44 mmHg**). His heart rate is 114 bpm, respiratory rate 26 breaths/min. Urinalysis reveals massive pyuria. Blood and urine cultures are drawn, and **IV Meropenem 1g** is started. He receives **3 L of Ringer's Lactate** IV. Despite fluid resuscitation, his BP remains **84/42 mmHg** and lactate is **3.8 mmol/L**. Norepinephrine infusion is initiated via a central line and titrated to maintain MAP > 65 mmHg, and he is transferred to the ICU for invasive monitoring.",
+      "id": "Seorang pria 71 tahun datang dengan kebingungan akut, demam **39,2°C**, dan hipotensi (**82/44 mmHg**). Denyut jantungnya 114 x/menit, frekuensi napas 26 x/menit. Urinalisis menunjukkan piuria masif. Kultur darah dan urin diambil, dan **IV Meropenem 1g** dimulai. Ia menerima **3 L Ringer Laktat** IV. Meskipun resusitasi cairan telah diberikan, TD-nya tetap **84/42 mmHg** dan laktat **3,8 mmol/L**. Infus Norepinefrin dimulai melalui kateter vena sentral dan dititrasi untuk mempertahankan MAP > 65 mmHg, lalu ia dipindahkan ke ICU untuk pemantauan invasif."
+    },
+    "references": {
+      "en": "• Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock (Intensive Care Medicine 2021)\n• Evans L, et al. Intensive Care Med. 2021;47(11):1181-1247",
+      "id": "• Kampanye Surviving Sepsis: Pedoman Internasional untuk Manajemen Sepsis dan Syok Septik (Intensive Care Medicine 2021)\n• Evans L, et al. Intensive Care Med. 2021;47(11):1181-1247"
+    }
+  },
+  {
+    "title": { "en": "Pulmonary Tuberculosis (TB)", "id": "Tuberkulosis Paru (TB)" },
+    "category": "Infectious Disease",
+    "isStructured": true,
+    "definition": {
+      "en": "Pulmonary Tuberculosis (TB) is a chronic, communicable bacterial infection of the lungs caused by **Mycobacterium tuberculosis**. It is characterized by granulomatous inflammation, caseous necrosis, and is transmitted via airborne droplets.",
+      "id": "Tuberkulosis Paru (TB) adalah infeksi bakteri paru kronis yang menular, disebabkan oleh **Mycobacterium tuberculosis**. Kondisi ini ditandai oleh inflamasi granulomatosa, nekrosis kaseosa, dan ditularkan melalui droplet udara."
+    },
+    "symptoms": {
+      "en": "• Chronic cough lasting **>=2 weeks** (often productive, occasionally hemoptysis)\n• **B-symptoms**: unexplained weight loss, night sweats, low-grade fever\n• Fatigue, malaise, and anorexia\n• Pleuritic chest pain\n• Dyspnea in advanced parenchymal destruction",
+      "id": "• Batuk kronis yang berlangsung **>=2 minggu** (sering kali produktif, kadang hemoptisis)\n• **Gejala B**: penurunan berat badan tanpa sebab, keringat malam, demam subfebris\n• Kelelahan, lemas, dan anoreksia\n• Nyeri dada pleuritik\n• Sesak napas pada kerusakan parenkim paru tingkat lanjut"
+    },
+    "physicalExamination": {
+      "en": "• Chronically ill-looking, muscle wasting (cachexia)\n• Fever, tachycardia, or tachypnea\n• Auscultation: localized bronchial breath sounds, crackles (especially in upper zones)\n• Diminished chest expansion (fibrosis or pleural effusion)",
+      "id": "• Tampak sakit kronis, penyusutan otot (kakeksia)\n• Demam, takikardia, atau takipnea\n• Auskultasi: suara napas bronkial terlokalisir, ronkhi basah (terutama di lobus atas)\n• Ekspansi dada menurun (fibrosis atau efusi pleura)"
+    },
+    "labFindings": {
+      "en": "• **GeneXpert MTB/RIF (Rapid Molecular Test)**: High sensitivity, detects Rifampicin resistance (preferred diagnostic tool)\n• Sputum Acid-Fast Bacilli (AFB) smear microscopy (3 specimens)\n• Positive mycobacterial culture (Gold Standard, takes 2-6 weeks)\n• Chest radiograph showing **upper lobe infiltrates, cavitation**, or miliary pattern",
+      "id": "• **GeneXpert MTB/RIF (Tes Cepat Molekuler)**: Sensitivitas tinggi, mendeteksi resistensi Rifampisin (alat diagnosis pilihan utama)\n• Mikroskopi sediaan apus BTA sputum (3 spesimen)\n• Kultur mikobakteri positif (Gold Standard, membutuhkan waktu 2-6 minggu)\n• Rontgen dada menunjukkan **infiltrat lobus atas, kavitasi**, atau pola milier"
+    },
+    "differentialDiagnosis": {
+      "en": "• Community-Acquired Pneumonia\n• Lung Abscess\n• Bronchiectasis\n• Lung Malignancy\n• Fungal Lung Infections (e.g. Aspergilloma)",
+      "id": "• Pneumonia Komunitas\n• Abses Paru\n• Bronkiektasis\n• Keganasan Paru\n• Infeksi Jamur Paru (misal: Aspergilloma)"
+    },
+    "dangerSigns": {
+      "en": "• Massive **hemoptysis** (>200 mL blood in 24 hours, danger of asphyxiation)\n• Severe dyspnea, hypoxia, or respiratory failure\n• Signs of disseminated (Miliary) TB: severe headache/stiff neck (TB meningitis)\n• Severe drug-induced hepatitis (ALT/AST **>3-5 times** normal with symptoms)",
+      "id": "• **Hemoptisis** masif (>200 mL darah dalam 24 jam, bahaya asfiksia)\n• Sesak napas berat, hipoksia, atau gagal napas\n• Tanda TB diseminata (Milier): sakit kepala hebat/kaku kuduk (meningitis TB)\n• Hepatitis imbas obat yang berat (ALT/AST **>3-5 kali** normal disertai gejala)"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• For active TB, initiate standard **4-drug regimen (HRZE)** immediately\n• Direct Observation Therapy (DOTS) to secure adherence\n• Provide nutritional support and patient education regarding therapy duration\n• Isolate patient in a well-ventilated room or negative pressure isolation room",
+        "id": "• Untuk TB aktif, segera mulai **rejimen 4-obat standar (HRZE)**\n• Terapkan Pengawasan Menelan Obat (PMO/DOTS) untuk menjamin kepatuhan\n• Berikan dukungan nutrisi dan edukasi pasien mengenai durasi terapi\n• Isolasi pasien di ruangan berventilasi baik atau ruang isolasi tekanan negatif"
+      },
+      "definitiveTreatment": {
+        "en": "• **Intensive Phase (2 months)**: Daily **Rifampicin (R), Isoniazid (H), Pyrazinamide (Z), and Ethambutol (E)** based on weight bands\n• **Continuation Phase (4 months)**: Daily **Rifampicin (R) and Isoniazid (H)** for a total of **6 months** of treatment\n• Standard fixed-dose combinations (FDC) are highly preferred\n• Adjust therapy if GeneXpert reveals Rifampicin resistance (MDR-TB protocol)\n• Supplement with **Pyridoxine (Vitamin B6) 10-25 mg daily** to prevent isoniazid-induced peripheral neuropathy",
+        "id": "• **Fase Intensif (2 bulan)**: **Rifampisin (R), Isoniazid (H), Pirazinamid (Z), dan Etambutol (E)** harian sesuai berat badan\n• **Fase Lanjutan (4 bulan)**: **Rifampisin (R) dan Isoniazid (H)** harian untuk total pengobatan **6 bulan**\n• Kombinasi dosis tetap (KDT/FDC) sangat dipilih utama\n• Sesuaikan terapi jika GeneXpert menunjukkan resistensi Rifampisin (protokol TB-MDR)\n• Tambahkan **Piridoksin (Vitamin B6) 10-25 mg sehari** untuk mencegah neuropati perifer imbas isoniazid"
+      },
+      "rehab": {
+        "en": "• Pulmonary rehabilitation for patients with significant residual lung damage or fibrosis post-treatment",
+        "id": "• Rehabilitasi paru untuk pasien dengan kerusakan paru sisa atau fibrosis yang signifikan pasca-pengobatan"
+      },
+      "referral": {
+        "en": "• Refer to **Pulmonology / Clinical Tropical Medicine** if multidrug-resistant TB (MDR-TB) is suspected, for severe drug-induced hepatitis, or for extra-pulmonary TB (meningitis, osteoarticular)",
+        "id": "• Rujuk ke **Spesialis Paru / Penyakit Dalam** jika dicurigai TB resistan obat (TB-MDR), terjadi hepatitis imbas obat berat, atau TB ekstra-paru (meningitis, osteoartikular)"
+      },
+      "workup": {
+        "en": "• Sputum smear at baseline, end of 2 months, and end of treatment (month 6)\n• Monitor liver function tests (AST, ALT, bilirubin) monthly, especially in high-risk patients",
+        "id": "• Apusan sputum pada awal, akhir bulan ke-2, dan akhir pengobatan (bulan ke-6)\n• Pantau fungsi hati (AST, ALT, bilirubin) setiap bulan, terutama pada pasien risiko tinggi"
+      }
+    },
+    "followUp": {
+      "en": "• Monthly clinical review to assess weight gain, resolution of symptoms, medication adherence, and screen for side effects (visual changes with ethambutol, joint pain with pyrazinamide)",
+      "id": "• Evaluasi klinis bulanan untuk menilai kenaikan berat badan, resolusi gejala, kepatuhan obat, dan skrining efek samping (gangguan visual akibat etambutol, nyeri sendi akibat pirazinamid)"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• **BCG vaccination** at birth for infants\n• **Tuberculosis Preventive Treatment (TPT)**: **Isoniazid daily for 6 months (6H)** or **Rifapentine plus Isoniazid weekly for 3 months (3HP)** for close contacts of active TB cases after ruling out active disease",
+        "id": "• **Vaksinasi BCG** pada bayi saat lahir\n• **Terapi Pencegahan Tuberkulosis (TPT)**: **Isoniazid harian selama 6 bulan (6H)** atau **Rifapentin plus Isoniazid mingguan selama 3 bulan (3HP)** untuk kontak erat kasus TB aktif setelah menyingkirkan penyakit aktif"
+      },
+      "nonPharmacological": {
+        "en": "• Ensure adequate residential ventilation and sunlight exposure (UV light kills TB bacilli)\n• Use particulate respirators (**N95 masks**) for healthcare workers managing active TB cases",
+        "id": "• Pastikan ventilasi rumah memadai dan paparan sinar matahari cukup (sinar UV membunuh basil TB)\n• Gunakan respirator partikulat (**masker N95**) bagi petugas kesehatan yang menangani kasus TB aktif"
+      }
+    },
+    "caseExample": {
+      "en": "A 32-year-old male presents with a 3-week history of a productive cough, low-grade afternoon fever, and unintended **5 kg weight loss**. He reports experiencing profuse night sweats. A chest radiograph reveals bilateral upper lobe patchy infiltrates and a small cavity in the right apex. Sputum GeneXpert is positive for **M. tuberculosis** and shows no rifampicin resistance. The patient is placed on weight-banded **HRZE fixed-dose combination** daily under DOTS supervision, along with **Pyridoxine 10 mg daily**. At his 2-month follow-up, his cough has resolved, sputum smear is negative, and he has gained **3 kg**.",
+      "id": "Seorang pria 32 tahun datang dengan riwayat batuk produktif selama 3 minggu, demam subfebris pada sore hari, dan penurunan **berat badan 5 kg** yang tidak disengaja. Ia melaporkan mengalami keringat malam yang banyak. Rontgen dada menunjukkan infiltrat bercak bilateral pada lobus atas dan kavitasi kecil di apeks kanan. GeneXpert sputum positif untuk **M. tuberculosis** dan menunjukkan tidak ada resistensi rifampisin. Pasien diberikan **kombinasi dosis tetap (KDT) HRZE** harian sesuai berat badan di bawah pengawasan PMO, bersama dengan **Piridoksin 10 mg sehari**. Pada kontrol 2 bulan, batuknya mereda, apusan sputum negatif BTA, dan berat badannya naik **3 kg**."
+    },
+    "references": {
+      "en": "• WHO Consolidated Guidelines on Tuberculosis: Treatment of Drug-Susceptible Tuberculosis (World Health Organization 2022)\n• World Health Organization. WHO Guidelines Approved by the Guidelines Review Committee, 2022",
+      "id": "• Pedoman Konsolidasi WHO tentang Tuberkulosis: Pengobatan Tuberkulosis Sensitif Obat (Organisasi Kesehatan Dunia 2022)\n• World Health Organization. WHO Guidelines Approved by the Guidelines Review Committee, 2022"
+    }
+  },
+  {
+    "title": { "en": "Liver Cirrhosis", "id": "Sirosis Hati" },
+    "category": "Hepatology",
+    "isStructured": true,
+    "definition": {
+      "en": "Liver Cirrhosis is the late stage of progressive hepatic fibrosis characterized by distortion of the normal hepatic architecture, formation of regenerative nodules, and vascular reorganization, leading to **portal hypertension** and hepatic insufficiency.",
+      "id": "Sirosis Hati adalah stadium akhir dari fibrosis hati progresif yang ditandai oleh distorsi arsitektur hati normal, pembentukan nodul regeneratif, dan reorganisasi vaskular, yang menyebabkan **hipertensi porta** dan insufisiensi fungsi hati."
+    },
+    "symptoms": {
+      "en": "• Often asymptomatic in compensated phase\n• **Fatigue**, muscle weakness, and anorexia\n• Abdominal distension and swelling (ascites)\n• Jaundice (yellowing of skin and eyes)\n• Easy bruising or mucosal bleeding\n• Altered sleep patterns or confusion (encephalopathy)",
+      "id": "• Sering kali tanpa gejala pada fase kompensasi\n• **Kelelahan**, kelemahan otot, dan anoreksia\n• Perut membesar dan bengkak (asites)\n• Ikterus (kuning pada kulit dan mata)\n• Mudah memar atau perdarahan mukosa\n• Gangguan pola tidur atau kebingungan (ensefalopati)"
+    },
+    "physicalExamination": {
+      "en": "• Jaundice, icteric sclera\n• **Stigmata of chronic liver disease**: spider angiomas (on chest/neck), palmar erythema, gynecomastia, testicular atrophy, Dupuytren's contracture\n• **Ascites**: abdominal distension, shifting dullness, fluid wave\n• Splenomegaly (portal hypertension sign)\n• Asterixis ('flapping tremor') indicating hepatic encephalopathy",
+      "id": "• Ikterus, sklera ikterik\n• **Stigmata penyakit hati kronis**: spider angioma (pada dada/leher), eritema palmaris, ginekomastia, atrofi testis, kontraktur Dupuytren\n• **Asites**: distensi abdomen, pekak beralih (shifting dullness), undulasi (fluid wave)\n• Splenomegali (tanda hipertensi porta)\n• Asteriksis ('flapping tremor') menunjukkan ensefalopati hepatikum"
+    },
+    "labFindings": {
+      "en": "• Thrombocytopenia (platelets **<150,000/uL** due to hypersplenism - highly sensitive marker)\n• Prolonged prothrombin time **(elevated PT/INR)**\n• Hypoalbuminemia (serum albumin **<3.5 g/dL**)\n• Hyperbilirubinemia\n• Elevated transaminases (AST often > ALT in cirrhotic stage)\n• Macrocytic anemia",
+      "id": "• Trombositopenia (trombosit **<150.000/uL** akibat hipersplenisme - penanda sangat sensitif)\n• Waktu protrombin memanjang **(PT/INR meningkat)**\n• Hipoalbuminemia (albumin serum **<3,5 g/dL**)\n• Hiperbilirubinemia\n• Transaminase meningkat (AST sering kali > ALT pada stadium sirosis)\n• Anemia makrositik"
+    },
+    "differentialDiagnosis": {
+      "en": "• Congestive Heart Failure (Cardiac Cirrhosis)\n• Budd-Chiari Syndrome\n• Portal Vein Thrombosis\n• Schistosomiasis\n• Constrictive Pericarditis",
+      "id": "• Gagal Jantung Kongestif (Sirosis Kardiak)\n• Sindrom Budd-Chiari\n• Trombosis Vena Porta\n• Skistosomiasis\n• Perikarditis Konstriktif"
+    },
+    "dangerSigns": {
+      "en": "• **Variceal Hemorrhage**: hematemesis or massive melena (emergency)\n• **Hepatic Encephalopathy Stage III/IV**: somnolence, stupor, or coma\n• **Spontaneous Bacterial Peritonitis (SBP)**: high fever, severe abdominal pain, rebound tenderness\n• Acute Kidney Injury (**Hepatorenal Syndrome**): rapid rise in creatinine, severe oliguria",
+      "id": "• **Perdarahan Varises**: hematemesis (muntah darah) atau melena masif (darurat)\n• **Ensefalopati Hepatikum Stadium III/IV**: somnolen, stupor, atau koma\n• **Peritonitis Bakteri Spontan (SBP)**: demam tinggi, nyeri perut hebat, nyeri lepas\n• Gangguan Ginjal Akut (**Sindrom Hepatorenal**): peningkatan kreatinin yang cepat, oliguria berat"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• For acute variceal bleed: Secure airway, start **IV Octreotide 50 mcg bolus** followed by **50 mcg/hour continuous infusion**, administer prophylactic **Ceftriaxone 1g IV daily**\n• For tense ascites: Perform therapeutic paracentesis; administer **6-8 g of Albumin IV** per liter of ascites fluid removed if >5 liters extracted\n• Restrict sodium (<2g/day) and restrict free water if hyponatremic",
+        "id": "• Untuk perdarahan varises akut: Amankan jalan napas, mulai **IV Oktreotid bolus 50 mcg** diikuti **infus kontinu 50 mcg/jam**, berikan profilaksis **Ceftriaxone 1g IV sehari**\n• Untuk asites tegang: Lakukan parasentesis terapeutik; berikan **IV Albumin 6-8 g** per liter cairan asites yang dikeluarkan jika >5 liter diekstraksi\n• Batasi natrium (<2g/hari) dan batasi air bebas jika terjadi hiponatremia"
+      },
+      "definitiveTreatment": {
+        "en": "• Manage portal hypertension: **Carvedilol (6.25-12.5 mg daily)** or **Propranolol** as primary/secondary prophylaxis for varices\n• Manage ascites: Dual diuretic therapy: **Spironolactone 100 mg** combined with **Furosemide 40 mg orally daily** (ratio 100:40, titrate up to max 400:160)\n• Manage hepatic encephalopathy: **Lactulose (15-30 mL orally tid)** to achieve 2-3 soft stools/day, plus **Rifaximin 550 mg bid**\n• Evaluate for **Liver Transplantation** (only definitive cure; calculated via **MELD Score**)",
+        "id": "• Kelola hipertensi porta: **Karvedilol (6,25-12,5 mg sehari)** atau **Propranolol** sebagai profilaksis primer/sekunder untuk varises\n• Kelola asites: Terapi diuretik ganda: **Spironolakton 100 mg** dikombinasikan dengan **Furosemid 40 mg oral sehari** (rasio 100:40, dititrasi hingga maksimal 400:160)\n• Kelola ensefalopati: **Laktulosa (15-30 mL oral 3x sehari)** untuk mencapai 2-3 kali BAB lembek/hari, ditambah **Rifaksimin 550 mg 2x sehari**\n• Evaluasi untuk **Transplantasi Hati** (satu-satunya penyembuhan definitif; dihitung via **Skor MELD**)"
+      },
+      "rehab": {
+        "en": "• Specialized nutritional support: high protein (1.2-1.5 g/kg/day), high calorie, and a late-night carbohydrate snack to prevent muscle catabolism",
+        "id": "• Dukungan nutrisi khusus: tinggi protein (1,2-1,5 g/kg/hari), tinggi kalori, dan camilan karbohidrat malam hari untuk mencegah katabolisme otot"
+      },
+      "referral": {
+        "en": "• Refer to **Gastroenterology / Hepatology** for baseline screening endoscopy for varices, and refer to a transplant center if Child-Pugh Score Class B/C or MELD Score >= 15",
+        "id": "• Rujuk ke **Spesialis Gastroenterologi-Hepatologi** untuk endoskopi skrining awal varises, dan rujuk ke pusat transplantasi jika Skor Child-Pugh Kelas B/C atau Skor MELD >= 15"
+      },
+      "workup": {
+        "en": "• Screening **Upper Endoscopy (EGD)** to detect varices\n• Abdominal ultrasound and **Alpha-Fetoprotein (AFP) every 6 months** for hepatocellular carcinoma (HCC) surveillance\n• Calculate Child-Pugh and MELD scores regularly",
+        "id": "• Skrining **Endoskopi SCBA (EGD)** untuk mendeteksi varises\n• USG abdomen dan **Alpha-Fetoprotein (AFP) setiap 6 bulan** untuk surveilans karsinoma hepatoseluler (HCC)\n• Hitung skor Child-Pugh dan MELD secara berkala"
+      }
+    },
+    "followUp": {
+      "en": "• Routine follow-up every **3-6 months** to monitor complications, fluid balance, renal function, and screen for HCC",
+      "id": "• Kontrol rutin setiap **3-6 bulan** untuk memantau komplikasi, keseimbangan cairan, fungsi ginjal, dan skrining HCC"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• **Hepatitis B vaccination** for all susceptible patients\n• Antiviral therapy (e.g. Tenofovir) for patients with chronic HBV to halt cirrhosis progression\n• Daily oral **Norfloxacin or Co-trimoxazole** for secondary SBP prophylaxis in survivors",
+        "id": "• **Vaksinasi Hepatitis B** untuk semua pasien yang rentan\n• Terapi antivirus (misal: Tenofovir) untuk pasien dengan HBV kronis untuk menghentikan progresi sirosis\n• Oral **Norfloksasin atau Ko-trimoksazol** harian untuk profilaksis sekunder SBP pada penyintas"
+      },
+      "nonPharmacological": {
+        "en": "• Absolute **avoidance of alcohol**\n• Discontinue hepatotoxic drugs and avoid raw shellfish\n• Weight reduction and metabolic control in non-alcoholic fatty liver disease (MASLD)",
+        "id": "• **Penghindaran total terhadap alkohol**\n• Hentikan obat hepatotoksik dan hindari kerang mentah\n• Penurunan berat badan dan kontrol metabolik pada penyakit perlemakan hati non-alkoholik (MASLD)"
+      }
+    },
+    "caseExample": {
+      "en": "A 56-year-old male with a history of chronic Hepatitis C presents with progressive abdominal swelling and yellow eyes. Physical exam reveals a distended abdomen with positive shifting dullness, spider angiomas on his chest, and scleral icterus. Lab results: platelets **78,000/uL**, albumin **2.8 g/dL**, bilirubin **3.1 mg/dL**, and PT/INR **1.6**. Diagnosed with **decompensated liver cirrhosis (Child-Pugh Class B)**. He is placed on **Spironolactone 100 mg and Furosemide 40 mg daily**, restricted to <2g sodium daily, and scheduled for a screening EGD which subsequently reveals small non-bleeding esophageal varices, managed with **Carvedilol 6.25 mg daily**.",
+      "id": "Seorang pria 56 tahun dengan riwayat Hepatitis C kronis datang dengan perut yang membesar secara progresif dan mata kuning. Pemeriksaan fisik menunjukkan perut buncit dengan pekak beralih positif, spider angioma pada dada, dan sklera ikterik. Hasil lab: trombosit **78.000/uL**, albumin **2,8 g/dL**, bilirubin **3,1 mg/dL**, dan PT/INR **1,6**. Terdiagnosis **sirosis hati dekompensasi (Child-Pugh Kelas B)**. Ia diberikan **Spironolakton 100 mg dan Furosemid 40 mg sehari**, dibatasi natrium <2g harian, dan dijadwalkan untuk EGD skrining yang kemudian menunjukkan varises esofagus kecil tanpa perdarahan, yang dikelola dengan **Karvedilol 6,25 mg sehari**."
+    },
+    "references": {
+      "en": "• AASLD Practice Guidance on the Management of Ascites, Spontaneous Bacterial Peritonitis, and Hepatorenal Syndrome in Patients with Cirrhosis (Hepatology 2021)\n• Biggins SW, et al. Hepatology. 2021;74(2):1014-1048",
+      "id": "• Panduan Praktik AASLD tentang Manajemen Asites, Peritonitis Bakteri Spontan, dan Sindrom Hepatorenal pada Pasien dengan Sirosis (Hepatology 2021)\n• Biggins SW, et al. Hepatology. 2021;74(2):1014-1048"
+    }
+  },
+  {
+    "title": { "en": "Rheumatoid Arthritis", "id": "Artritis Reumatoid" },
+    "category": "Rheumatology",
+    "isStructured": true,
+    "definition": {
+      "en": "Rheumatoid Arthritis (RA) is a chronic, systemic autoimmune inflammatory disease characterized by symmetric polyarthritis, primarily affecting small joints of the hands and feet, leading to progressive joint destruction, deformity, and systemic extra-articular manifestations.",
+      "id": "Artritis Reumatoid (RA) adalah penyakit inflamasi autoimun sistemik kronis yang ditandai oleh poliartritis simetris, terutama mengenai sendi-sendi kecil pada tangan dan kaki, yang menyebabkan kerusakan sendi progresif, deformitas, dan manifestasi ekstra-artikular sistemik."
+    },
+    "symptoms": {
+      "en": "• Symmetric joint pain and swelling (especially MCP, PIP, MTP joints)\n• **Morning stiffness lasting >1 hour** (improves with physical activity)\n• Fatigue, low-grade fever, and unintended weight loss\n• Joint deformities in late stages (swan-neck, boutonniere, ulnar deviation)\n• Decreased grip strength",
+      "id": "• Nyeri dan bengkak sendi simetris (terutama sendi MCP, PIP, MTP)\n• **Kaku pagi hari berlangsung >1 jam** (membaik dengan aktivitas fisik)\n• Kelelahan, demam subfebris, dan penurunan berat badan tanpa sebab\n• Deformitas sendi pada stadium lanjut (swan-neck, boutonniere, deviasi ulnar)\n• Kekuatan genggaman tangan menurun"
+    },
+    "physicalExamination": {
+      "en": "• Symmetric joint swelling, tenderness, and warmth on palpation ('boggy' swelling indicative of synovitis)\n• Limited range of motion in affected joints\n• Rheumatoid nodules (subcutaneous, firm, painless over pressure points)\n• Ulnar deviation of fingers, boutonniere deformity (PIP flexion, DIP hyperextension), swan-neck deformity (PIP hyperextension, DIP flexion)",
+      "id": "• Bengkak sendi simetris, nyeri tekan, dan hangat pada palpasi (bengkak 'boggy' yang menunjukkan sinovitis)\n• Keterbatasan rentang gerak pada sendi yang terkena\n• Nodul reumatoid (subkutan, padat, tidak nyeri pada titik-titik tekanan)\n• Deviasi ulnar jari-jari tangan, deformitas boutonniere (fleksi PIP, hiperekstensi DIP), deformitas swan-neck (hiperekstensi PIP, fleksi DIP)"
+    },
+    "labFindings": {
+      "en": "• Positive Rheumatoid Factor **(RF)** (sensitivity ~70%)\n• Positive Anti-Cyclic Citrullinated Peptide **(anti-CCP)** antibodies (specificity **>95%** - highly specific)\n• Elevated inflammatory markers: **ESR** and **CRP**\n• Normocytic, normochromic anemia (anemia of chronic disease)\n• Synovial fluid analysis: inflammatory pattern (leukocytes 5,000-50,000/uL)",
+      "id": "• Faktor Reumatoid **(RF)** positif (sensitivitas ~70%)\n• Antibodi Anti-Cyclic Citrullinated Peptide **(anti-CCP)** positif (spesifisitas **>95%** - sangat spesifik)\n• Peningkatan penanda inflamasi: **LED** dan **CRP**\n• Anemia normositik normokromik (anemia penyakit kronis)\n• Analisis cairan sendi: pola inflamasi (leukosit 5.000-50.000/uL)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Osteoarthritis (non-inflammatory, asymmetric, no morning stiffness)\n• Psoriatic Arthritis\n• Systemic Lupus Erythematosus (SLE)\n• Gouty Arthritis\n• Reactive Arthritis",
+      "id": "• Osteoartritis (non-inflamasi, asimetris, tanpa kaku pagi hari)\n• Artritis Psoriatik\n• Lupus Eritematosus Sistemik (SLE)\n• Artritis Gout\n• Artritis Reaktif"
+    },
+    "dangerSigns": {
+      "en": "• **Atlantoaxial subluxation**: neck pain radiating to occiput, paresthesias, or signs of cervical myelopathy (emergency)\n• Rheumatoid vasculitis (cutaneous ulcers, digital gangrene, mononeuritis multiplex)\n• Scleritis (severe eye pain, redness, photophobia - threatens vision)\n• Severe cytopenias or systemic infections secondary to immunosuppressive therapy",
+      "id": "• **Subluksasi atlantoaksial**: nyeri leher menjalar ke oksiput, parestesia, atau tanda mielopati servikal (darurat)\n• Vaskulitis reumatoid (ulkus kulit, gangren digital, mononeuritis multipleks)\n• Skleritis (nyeri mata hebat, kemerahan, fotofobia - mengancam penglihatan)\n• Sitopenia berat atau infeksi sistemik akibat terapi imunosupresif"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Control acute pain and inflammation: scheduled **NSAIDs** (e.g. Meloxicam 7.5-15 mg daily) or low-dose **oral Glucocorticoids (Prednisone <=10 mg daily)** as 'bridge therapy'\n• Initiate first-line Disease-Modifying Antirheumatic Drugs (DMARDs) as early as possible",
+        "id": "• Kontrol nyeri akut dan inflamasi: **NSAID** rutin (misal: Meloksikam 7,5-15 mg sehari) atau **Glukokortikoid oral dosis rendah (Prednison <=10 mg sehari)** sebagai 'terapi jembatan'\n• Mulai Disease-Modifying Antirheumatic Drugs (DMARDs) lini pertama secepat mungkin"
+      },
+      "definitiveTreatment": {
+        "en": "• **Methotrexate (10-15 mg orally once weekly)** is the anchor first-line DMARD (always co-prescribe **Folic Acid 5 mg weekly** to reduce side effects)\n• Alternative or adjunctive DMARDs: **Leflunomide (10-20 mg daily)**, **Sulfasalazine**, or **Hydroxychloroquine**\n• For refractory cases (moderate-to-high disease activity despite optimal DMARDs): Add biological DMARDs (TNF inhibitors: **Adalimumab** or **Etanercept**) or JAK inhibitors (Tofacitinib)\n• Strict 'Treat-to-Target' strategy aiming for clinical remission or low disease activity",
+        "id": "• **Metotreksat (10-15 mg oral seminggu sekali)** adalah DMARD lini pertama utama (selalu resepkan bersama **Asam Folat 5 mg seminggu** untuk mengurangi efek samping)\n• DMARD alternatif atau tambahan: **Leflunomid (10-20 mg sehari)**, **Sulfasalasin**, atau **Hidroksiklorokuin**\n• Untuk kasus refrakter (aktivitas penyakit sedang-berat meskipun DMARD optimal): Tambahkan DMARD biologis (penghambat TNF: **Adalimumab** atau **Etanersept**) atau penghambat JAK (Tofasitinib)\n• Terapkan strategi 'Treat-to-Target' yang ketat dengan target remisi klinis atau aktivitas penyakit rendah"
+      },
+      "rehab": {
+        "en": "• Physical therapy to preserve joint mobility, improve muscle strength, and occupational therapy for joint protection techniques and assistive devices",
+        "id": "• Terapi fisik untuk menjaga mobilitas sendi, meningkatkan kekuatan otot, dan terapi okupasi untuk teknik perlindungan sendi serta alat bantu"
+      },
+      "referral": {
+        "en": "• Refer to **Rheumatology** immediately upon diagnosis (ideally within 6 weeks of symptom onset) to establish DMARD therapy and prevent irreversible erosive joint damage",
+        "id": "• Rujuk ke **Spesialis Reumatologi** segera setelah terdiagnosis (ideally dalam 6 minggu dari onset gejala) untuk memulai terapi DMARD dan mencegah kerusakan sendi erosif ireversibel"
+      },
+      "workup": {
+        "en": "• X-rays of hands, wrists, and feet at baseline (evaluate for joint space narrowing and marginal erosions)\n• Baseline screening for latent TB (QuantiFERON or TST) and Hepatitis B/C prior to initiating DMARDs\n• Monthly CBC, AST/ALT, and creatinine monitoring when starting Methotrexate",
+        "id": "• Rontgen tangan, pergelangan tangan, dan kaki pada awal (evaluasi penyempitan celah sendi dan erosi marginal)\n• Skrining awal untuk TB laten (QuantiFERON atau TST) dan Hepatitis B/C sebelum memulai DMARD\n• Pemantauan bulanan Darah Lengkap, AST/ALT, dan kreatinin saat memulai Metotreksat"
+      }
+    },
+    "followUp": {
+      "en": "• Review every **1-3 months** when disease is active, then every **6 months** once stable clinical remission is achieved\n• Assess disease activity using validated scores (DAS28 or CDAI)",
+      "id": "• Tinjau setiap **1-3 bulan** saat penyakit aktif, kemudian setiap **6 bulan** setelah remisi klinis yang stabil tercapai\n• Nilai aktivitas penyakit menggunakan skor tervalidasi (DAS28 atau CDAI)"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• There are no pharmacological measures to prevent the onset of RA; primary focus is early DMARD intervention to prevent joint destruction",
+        "id": "• Tidak ada tindakan farmakologis untuk mencegah onset RA; fokus utama adalah intervensi DMARD dini untuk mencegah kerusakan sendi"
+      },
+      "nonPharmacological": {
+        "en": "• Smoking cessation (highly critical as smoking increases RA risk and severity and reduces DMARD response)\n• Balanced anti-inflammatory diet (rich in omega-3 fatty acids)",
+        "id": "• Berhenti merokok (sangat kritis karena merokok meningkatkan risiko/keparahan RA dan mengurangi respons DMARD)\n• Diet anti-inflamasi seimbang (kaya asam lemak omega-3)"
+      }
+    },
+    "caseExample": {
+      "en": "A 36-year-old female presents with a 6-week history of pain, swelling, and stiffness in her bilateral wrists, MCP, and PIP joints. She reports experiencing severe **morning stiffness lasting 2 hours**. Physical exam reveals symmetric swelling and tenderness of 10 small joints. Laboratory workup reveals positive **anti-CCP (>100 U/mL)**, positive RF, and elevated **CRP (24 mg/L)**. X-rays show early periarticular osteopenia. The patient is diagnosed with **Rheumatoid Arthritis** and immediately started on oral **Methotrexate 15 mg once weekly** combined with **Folic Acid 5 mg weekly**, and low-dose **Prednisone 5 mg daily** as a bridge. At her 3-month review, her morning stiffness has reduced to 10 minutes, joint swelling has resolved, and CRP is normal.",
+      "id": "Seorang wanita 36 tahun datang dengan riwayat nyeri, bengkak, dan kaku pada kedua pergelangan tangan, sendi MCP, dan PIP selama 6 minggu. Ia mengeluhkan **kaku pagi hari yang parah selama 2 jam**. Pemeriksaan fisik menunjukkan bengkak simetris dan nyeri tekan pada 10 sendi kecil. Pemeriksaan lab menunjukkan **anti-CCP positif (>100 U/mL)**, RF positif, dan peningkatan **CRP (24 mg/L)**. Rontgen menunjukkan osteopenia periartikular awal. Pasien terdiagnosis **Artritis Reumatoid** dan segera dimulai terapi oral **Metotreksat 15 mg seminggu sekali** dikombinasikan dengan **Asam Folat 5 mg seminggu**, serta **Prednison 5 mg sehari** dosis rendah sebagai jembatan. Pada evaluasi 3 bulan, kaku paginya berkurang menjadi 10 menit, bengkak sendi mereda, dan CRP normal."
+    },
+    "references": {
+      "en": "• 2021 American College of Rheumatology Guideline for the Treatment of Rheumatoid Arthritis (Arthritis & Rheumatology 2021)\n• Fraenkel L, et al. Arthritis Rheumatol. 2021;73(7):1108-1123",
+      "id": "• Pedoman American College of Rheumatology 2021 untuk Pengobatan Artritis Reumatoid (Arthritis & Rheumatology 2021)\n• Fraenkel L, et al. Arthritis Rheumatol. 2021;73(7):1108-1123"
+    }
+  },
+  {
+    "title": { "en": "Migraine", "id": "Migrain" },
+    "category": "Neurology",
+    "isStructured": true,
+    "definition": {
+      "en": "Migraine is a common, chronic neurovascular disorder characterized by recurrent episodes of severe headache, often unilateral, throbbing, and associated with sensory hypersensitivity (photophobia, phonophobia) and autonomic dysfunction. It can present with aura (sensory or visual disturbances preceding pain) or without aura.",
+      "id": "Migrain adalah gangguan neurovaskular kronis yang umum ditandai oleh episode sakit kepala hebat yang berulang, sering kali unilateral, berdenyut, dan dikaitkan dengan hipersensitivitas sensorik (fotofobia, fonofobia) serta disfungsi otonom. Dapat muncul dengan aura (gangguan sensorik/visual sebelum nyeri) atau tanpa aura."
+    },
+    "symptoms": {
+      "en": "• Moderate-to-severe headache, typically **unilateral** and **throbbing/pulsating**\n• Aggravated by **routine physical activity** (walking or climbing stairs)\n• Accompanied by **nausea** and/or vomiting\n• High sensitivity to light (**photophobia**) and sound (**phonophobia**)\n• Aura symptoms (visual scotomas, zigzag lines, paresthesias) lasting **5-60 minutes** prior to headache onset in 20-30% of patients",
+      "id": "• Sakit kepala sedang-berat, biasanya **unilateral** (satu sisi) dan **berdenyut**\n• Diperberat oleh **aktivitas fisik rutin** (berjalan atau naik tangga)\n• Disertai **mual** dan/atau muntah\n• Sensitivitas tinggi terhadap cahaya (**fotofobia**) dan suara (**fonofobia**)\n• Gejala aura (skotoma visual, garis zigzag, parestesia) berlangsung **5-60 menit** sebelum onset sakit kepala pada 20-30% pasien"
+    },
+    "physicalExamination": {
+      "en": "• Neurological exam is entirely normal in primary migraine (highly critical to rule out secondary causes)\n• Cranial/cervical muscle tenderness during an acute attack\n• Autonomic signs (nasal congestion, rhinorrhea, or mild ptosis) may occur occasionally",
+      "id": "• Pemeriksaan neurologis sepenuhnya normal pada migrain primer (sangat kritis untuk menyingkirkan penyebab sekunder)\n• Nyeri tekan otot kranial/servikal selama serangan akut\n• Tanda otonom (kongesti hidung, rinorea, atau ptosis ringan) dapat terjadi kadang-kadang"
+    },
+    "labFindings": {
+      "en": "• Diagnosis is entirely clinical; standard labs are normal\n• Brain MRI or CT is normal (indicated only to rule out structural lesions when red flags are present)",
+      "id": "• Diagnosis sepenuhnya klinis; pemeriksaan lab standar normal\n• MRI atau CT scan otak normal (hanya diindikasikan untuk menyingkirkan lesi struktural jika terdapat tanda bahaya)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Tension-Type Headache\n• Cluster Headache\n• Medication Overuse Headache (rebound headache)\n• Temporal Arteritis (Giant Cell Arteritis in elderly)\n• Idiopathic Intracranial Hypertension",
+      "id": "• Sakit Kepala Tipe Tegang (Tension-Type)\n• Sakit Kepala Kluster\n• Sakit Kepala Akibat Overuse Obat (nyeri kepala rebound)\n• Arteritis Temporal (Giant Cell Arteritis pada lansia)\n• Hipertensi Intrakranial Idiopatik"
+    },
+    "dangerSigns": {
+      "en": "• **'SNOOP' Red Flags**: Sudden onset ('thunderclap' headache), New-onset in patient **>50 years old**, Onset with fever/stiff neck, Systemic signs (cancer, HIV), or Progressive headache worsening over weeks\n• Focal neurological deficits (weakness, sensory loss) during headache that are not typical of patient's established aura\n• New-onset headache in pregnant or postpartum patients",
+      "id": "• **Tanda Bahaya 'SNOOP'**: Onset mendadak ('sakit kepala thunderclap'), Onset baru pada pasien **usia >50 tahun**, Onset disertai demam/kaku kuduk, Tanda sistemik (kanker, HIV), atau Sakit kepala progresif memburuk berminggu-minggu\n• Defisit neurologis fokal (kelemahan, mati rasa) selama sakit kepala yang tidak khas untuk aura pasien yang sudah biasa terjadi\n• Sakit kepala onset baru pada pasien hamil atau pasca-persalinan"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Advise rest in a quiet, dark room\n• For mild-to-moderate attacks: Administer **Acetaminophen 1,000 mg** OR simple NSAIDs (**Ibuprofen 400-800 mg** or **Ketoprofen**)\n• Co-administer an antiemetic (**Metoclopramide 10 mg IV/PO**) to treat nausea and accelerate gastric absorption",
+        "id": "• Sarankan istirahat di ruangan yang tenang dan gelap\n• Untuk serangan ringan-sedang: Berikan **Asetaminofen 1.000 mg** ATAU NSAID sederhana (**Ibuprofen 400-800 mg** atau **Ketoprofen**)\n• Berikan bersama antiemetik (**Metoklopramid 10 mg IV/PO**) untuk mengatasi mual dan mempercepat absorpsi lambung"
+      },
+      "definitiveTreatment": {
+        "en": "• For moderate-to-severe attacks (or when NSAIDs fail): Administer migraine-specific **Triptans** (e.g. **Sumatriptan 50-100 mg orally** or **Zolmitriptan**; repeat once after 2 hours if needed; avoid in ischemic heart disease or uncontrolled hypertension)\n• **Preventive therapy** (indicated if >=4 attacks/month or severe disability):\n  - First-line oral agents: **Propranolol (40-160 mg daily)**, **Amitriptyline (10-50 mg nightly)**, **Topiramate (50-100 mg daily)**, or **Sodium Valproate**\n  - Select preventive agent based on patient's comorbidities (e.g. Amitriptyline if insomnia/depression, Propranolol if hypertension)\n• Avoid acute medication use **>=10 days/month** (triptans) or **>=15 days/month** (NSAIDs) to prevent **Medication Overuse Headache**",
+        "id": "• Untuk serangan sedang-berat (atau ketika NSAID gagal): Berikan **Triptan** spesifik migrain (misal: **Sumatriptan 50-100 mg oral** atau **Zolmitriptan**; ulangi sekali setelah 2 jam jika perlu; hindari pada penyakit jantung iskemik atau hipertensi tidak terkontrol)\n• **Terapi Pencegahan** (diindikasikan jika >=4 serangan/bulan atau disabilitas berat):\n  - Agen oral lini pertama: **Propranolol (40-160 mg sehari)**, **Amitriptilin (10-50 mg malam hari)**, **Topiramat (50-100 mg sehari)**, atau **Natrium Valproat**\n  - Pilih agen pencegahan berdasarkan komorbiditas pasien (misal: Amitriptilin jika insomnia/depresi, Propranolol jika hipertensi)\n• Hindari penggunaan obat akut **>=10 hari/bulan** (triptan) atau **>=15 hari/bulan** (NSAID) untuk mencegah **Sakit Kepala Akibat Overuse Obat**"
+      },
+      "rehab": {
+        "en": "• Cognitive Behavioral Therapy (CBT) for stress management, relaxation training, and biofeedback",
+        "id": "• Terapi Perilaku Kognitif (CBT) untuk manajemen stres, latihan relaksasi, dan biofeedback"
+      },
+      "referral": {
+        "en": "• Refer to **Neurology** for chronic migraine (>=15 days/month), failure of >=2 oral preventive agents, diagnostic uncertainty, or suspected secondary headache",
+        "id": "• Rujuk ke **Spesialis Saraf** untuk migrain kronis (>=15 hari/bulan), kegagalan >=2 agen pencegah oral, keraguan diagnosis, atau dicurigai sakit kepala sekunder"
+      },
+      "workup": {
+        "en": "• Clinical headache diary to track frequency, triggers, and acute medication use\n• Brain neuroimaging (MRI preferred) if red flags are present",
+        "id": "• Buku catatan harian sakit kepala klinis untuk memantau frekuensi, pemicu, dan penggunaan obat akut\n• Pencitraan otak (MRI lebih dipilih) jika terdapat tanda bahaya"
+      }
+    },
+    "followUp": {
+      "en": "• Follow up in **4-8 weeks** after starting acute or preventive treatment to assess efficacy (target **50% reduction in headache frequency**) and tolerability",
+      "id": "• Tindak lanjut dalam **4-8 minggu** setelah memulai terapi akut atau pencegahan untuk menilai efikasi (target **penurunan frekuensi sakit kepala sebesar 50%**) dan tolerabilitas"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Adherence to daily **preventive medications** (e.g. Amitriptyline, Propranolol, or Topiramate)\n• Calcitonin gene-related peptide (CGRP) monoclonal antibodies (e.g. Erenumab) for refractory chronic cases",
+        "id": "• Kepatuhan terhadap **obat pencegah harian** (misal: Amitriptilin, Propranolol, atau Topiramat)\n• Antibodi monoklonal CGRP (misal: Erenumab) untuk kasus kronis yang refrakter"
+      },
+      "nonPharmacological": {
+        "en": "• Maintain consistent sleep-wake cycles and regular meal times\n• Adequate hydration (at least **2 L water/day**)\n• Identify and avoid specific triggers (e.g. monosodium glutamate, red wine, aged cheese, stress, skipped meals)\n• Regular moderate physical exercise",
+        "id": "• Jaga siklus tidur-bangun yang konsisten dan waktu makan yang teratur\n• Hidrasi yang adekuat (minimal **2 L air/hari**)\n• Identifikasi dan hindari pemicu spesifik (misal: MSG, anggur merah, keju lama, stres, melewatkan waktu makan)\n• Olahraga fisik sedang secara teratur"
+      }
+    },
+    "caseExample": {
+      "en": "A 28-year-old female presents with recurrent throbbing headaches on the right side of her head, occurring **5-6 times per month** for the past year. The headache is severe, lasts **12-24 hours**, is accompanied by **nausea** and extreme vomiting, and requires her to lie down in a dark room. She reports seeing flashing zigzag lines in her vision for **20 minutes** before the headache starts. Neurological exam is normal. The diagnosis is **Migraine with aura**. She is prescribed **Sumatriptan 50 mg orally** at the onset of headache, along with **Metoclopramide 10 mg**. For prevention, she is started on **Propranolol 40 mg daily**. At her 2-month follow-up, she reports only 2 mild headache attacks, successfully managed with Sumatriptan.",
+      "id": "Seorang wanita 28 tahun datang dengan keluhan sakit kepala berdenyut berulang pada sisi kanan kepalanya, terjadi **5-6 kali per bulan** selama setahun terakhir. Sakit kepala dirasakan berat, berlangsung **12-24 jam**, disertai **mual** dan muntah hebat, serta mengharuskan ia berbaring di ruangan gelap. Ia melaporkan melihat garis-garis zigzag berkilau pada penglihatannya selama **20 menit** sebelum sakit kepala dimulai. Pemeriksaan neurologis normal. Diagnosisnya adalah **Migrain dengan aura**. Ia diresepkan **Sumatriptan 50 mg oral** pada saat onset sakit kepala, bersama dengan **Metoklopramid 10 mg**. Untuk pencegahan, ia diberikan **Propranolol 40 mg sehari**. Pada kontrol 2 bulan, ia melaporkan hanya mengalami 2 serangan sakit kepala ringan, yang berhasil diatasi dengan Sumatriptan."
+    },
+    "references": {
+      "en": "• American Headache Society Consensus Statement on the Treatment of Migraine (Headache 2021)\n• Ailani J, et al. Headache. 2021;61(7):1021-1039",
+      "id": "• Pernyataan Konsensus American Headache Society tentang Pengobatan Migrain (Headache 2021)\n• Ailani J, et al. Headache. 2021;61(7):1021-1039"
+    }
+  }
+]

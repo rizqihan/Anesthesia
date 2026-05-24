@@ -160,13 +160,16 @@ export default function SyncReviewPanel({
     </>
   );
 
-  const renderGuideline = (e: { title: { en: string; id: string }; category: string; content: { en: string; id: string } }) => (
+  const renderGuideline = (e: any) => (
     <>
       <span className="font-[700] text-[13px]" style={{ color }}>{language === 'en' ? e.title?.en : e.title?.id}</span>
-      <div className="mt-0.5">
+      <div className="mt-0.5 flex items-center gap-2">
         <span className="text-[11px] font-[600] px-1.5 py-0.5 rounded" style={{ background: `${color}18`, color }}>{e.category}</span>
+        {e.isStructured && (
+          <span className="text-[9px] font-[700] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">CPG</span>
+        )}
       </div>
-      <p className="text-[11px] mt-1 line-clamp-2" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? e.content?.en : e.content?.id}</p>
+      <p className="text-[11px] mt-1 line-clamp-2" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? (e.definition?.en || e.content?.en) : (e.definition?.id || e.content?.id)}</p>
     </>
   );
 
@@ -203,10 +206,7 @@ export default function SyncReviewPanel({
     </div>
   );
 
-  const renderGuidelineDiff = (
-    o: { title: { en: string; id: string }; category: string; content: { en: string; id: string } },
-    n: { title: { en: string; id: string }; category: string; content: { en: string; id: string } }
-  ) => (
+  const renderGuidelineDiff = (o: any, n: any) => (
     <div>
       <div className="flex items-center gap-2">
         <span className="font-[700] text-[13px]" style={{ color }}>{language === 'en' ? n.title?.en : n.title?.id}</span>
@@ -215,7 +215,7 @@ export default function SyncReviewPanel({
           <RefreshCw className="w-2.5 h-2.5" /> UPDATE
         </span>
       </div>
-      <DiffText label={language === 'en' ? 'Content' : 'Konten'} oldVal={language === 'en' ? o.content?.en : o.content?.id} newVal={language === 'en' ? n.content?.en : n.content?.id} />
+      <DiffText label={language === 'en' ? 'Definition / Content' : 'Definisi / Konten'} oldVal={language === 'en' ? (o.definition?.en || o.content?.en) : (o.definition?.id || o.content?.id)} newVal={language === 'en' ? (n.definition?.en || n.content?.en) : (n.definition?.id || n.content?.id)} />
     </div>
   );
 

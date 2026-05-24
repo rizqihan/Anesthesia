@@ -1,0 +1,441 @@
+[
+  {
+    "title": { "en": "Chronic Obstructive Pulmonary Disease (COPD)", "id": "Penyakit Paru Obstruktif Kronis (PPOK)" },
+    "category": "Pulmonology",
+    "isStructured": true,
+    "definition": {
+      "en": "Chronic Obstructive Pulmonary Disease (COPD) is a common, preventable, and treatable lung condition characterized by persistent respiratory symptoms and **airflow limitation** due to airway and/or alveolar abnormalities, usually caused by significant exposure to noxious particles or gases (predominantly **tobacco smoke**).",
+      "id": "Penyakit Paru Obstruktif Kronis (PPOK) adalah kondisi paru yang umum, dapat dicegah, dan dapat diobati yang ditandai oleh gejala pernapasan persisten dan **keterbatasan aliran udara** akibat kelainan saluran napas dan/atau alveolus, biasanya disebabkan oleh paparan signifikan terhadap partikel atau gas berbahaya (terutama **asap rokok**)."
+    },
+    "symptoms": {
+      "en": "• **Chronic and progressive dyspnea** (the most characteristic symptom)\n• Chronic cough (often productive with sputum)\n• Chronic sputum production\n• Wheezing and chest tightness\n• Fatigue, weight loss, and muscle wasting in advanced stages",
+      "id": "• **Sesak napas kronis dan progresif** (gejala yang paling khas)\n• Batuk kronis (sering kali produktif dengan dahak)\n• Produksi dahak kronis\n• Mengi dan dada terasa sesak\n• Kelelahan, penurunan berat badan, dan penyusutan otot pada stadium lanjut"
+    },
+    "physicalExamination": {
+      "en": "• Tachypnea and prolonged expiration phase\n• Accessory muscle use and pursed-lip breathing\n• **Barrel chest** (increased anteroposterior chest diameter)\n• Auscultation: decreased breath sounds, wheezing, and coarse crackles\n• Cyanosis or peripheral edema (signs of **cor pulmonale** / right-sided heart failure)",
+      "id": "• Takipnea dan fase ekspirasi yang memanjang\n• Penggunaan otot bantu napas dan pernapasan pursed-lip\n• **Barrel chest** (peningkatan diameter dada anteroposterior)\n• Auskultasi: suara napas menurun, mengi, dan ronkhi basah kasar\n• Sianosis atau edema perifer (tanda-tanda **kor pulmonale** / gagal jantung kanan)"
+    },
+    "labFindings": {
+      "en": "• Spirometry (Gold Standard): post-bronchodilator **FEV1/FVC < 0.70** confirming persistent airflow limitation\n• Elevated blood eosinophils (used to predict **ICS** response; high if **>=300 cells/uL**)\n• Hypoxemia or hypercapnia on arterial blood gas (ABG) in severe cases\n• Polycythemia (elevated hematocrit due to chronic hypoxia)",
+      "id": "• Spirometri (Gold Standard): **FEV1/FVC < 0,70** pasca-bronkodilator mengonfirmasi keterbatasan aliran udara persisten\n• Peningkatan eosinofil darah (digunakan meramalkan respons **ICS**; tinggi jika **>=300 sel/uL**)\n• Hipoksemia atau hiperkapnia pada analisis gas darah (AGD) pada kasus berat\n• Polisitemia (peningkatan hematokrit akibat hipoksia kronis)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Bronchial Asthma\n• Congestive Heart Failure\n• Bronchiectasis\n• Pulmonary Tuberculosis\n• Obliterative Bronchiolitis",
+      "id": "• Asma Bronkial\n• Gagal Jantung Kongestif\n• Bronkiektasis\n• Tuberkulosis Paru\n• Bronkiolitis Obliteratif"
+    },
+    "dangerSigns": {
+      "en": "• Severe dyspnea at rest, chest pain, or cyanosis\n• Altered mental status, confusion, or somnolence (suggestive of **CO₂ narcosis**)\n• Accessory muscle fatigue or paradoxical chest wall movements\n• SpO2 **<88%** or acute worsening of peripheral edema",
+      "id": "• Sesak napas berat saat istirahat, nyeri dada, atau sianosis\n• Penurunan kesadaran, kebingungan, atau somnolen (menunjukkan **narkosis CO₂**)\n• Kelelahan otot bantu napas atau gerakan dinding dada paradoks\n• SpO2 **<88%** atau pemburukan akut edema perifer"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Optimize supplemental oxygen therapy (target **88-92%** to avoid hypercapnic respiratory failure)\n• Administer short-acting bronchodilators (**SABA plus SAMA**; Salbutamol + Ipratropium)\n• Initiate oral corticosteroids (**Prednisolone 40 mg daily** for **5 days**) for acute exacerbations",
+        "id": "• Optimalkan terapi oksigen tambahan (target **88-92%** untuk menghindari gagal napas hiperkapnia)\n• Berikan bronkodilator kerja singkat (**SABA ditambah SAMA**; Salbutamol + Ipratropium)\n• Mulai kortikosteroid oral (**Prednisolon 40 mg sehari** selama **5 hari**) untuk eksaserbasi akut"
+      },
+      "definitiveTreatment": {
+        "en": "• Classify patients into **GOLD A, B, or E** groups\n• Group A: A bronchodilator (SABA or LABA)\n• Group B: **LABA plus LAMA** (e.g. Indacaterol/Glycopyrronium)\n• Group E (>=2 moderate exacerbations or >=1 leading to hospitalization): **LABA + LAMA**; add **ICS** (Fluticasone) if blood eosinophils **>=300 cells/uL**\n• Long-term oxygen therapy (LTOT) for stable patients with severe resting hypoxemia (PaO2 <=55 mmHg)",
+        "id": "• Klasifikasikan pasien ke dalam grup **GOLD A, B, atau E**\n• Grup A: Bronkodilator (SABA atau LABA)\n• Grup B: **LABA ditambah LAMA** (misal: Indakaterol/Glikopironium)\n• Grup E (>=2 eksaserbasi sedang atau >=1 yang memicu rawat inap): **LABA + LAMA**; tambahkan **ICS** (Flutikason) jika eosinofil darah **>=300 sel/uL**\n• Terapi oksigen jangka panjang (LTOT) untuk pasien stabil dengan hipoksemia istirahat berat (PaO2 <=55 mmHg)"
+      },
+      "rehab": {
+        "en": "• **Pulmonary rehabilitation** (highly recommended for GOLD B and E) to improve exercise capacity and quality of life\n• Controlled breathing exercises (diaphragmatic breathing)",
+        "id": "• **Rehabilitasi paru** (sangat direkomendasikan untuk GOLD B dan E) untuk meningkatkan kapasitas olahraga dan kualitas hidup\n• Latihan pernapasan terkontrol (pernapasan diafragma)"
+      },
+      "referral": {
+        "en": "• Refer to **Pulmonology** for diagnostic uncertainty, early-onset COPD (<40 years), frequent exacerbations (>=3/year), severe/very severe airflow limitation (FEV1 <50% predicted), or evaluation for lung volume reduction surgery",
+        "id": "• Rujuk ke **Spesialis Paru** jika ada keraguan diagnosis, onset PPOK usia muda (<40 tahun), eksaserbasi sering (>=3/tahun), keterbatasan aliran udara berat/sangat berat (FEV1 <50% prediksi), atau evaluasi bedah reduksi volume paru"
+      },
+      "workup": {
+        "en": "• Spirometry with bronchodilator test\n• Chest X-ray or high-resolution chest CT (HRCT) to assess emphysema\n• Screening for **Alpha-1 antitrypsin deficiency** in younger patients",
+        "id": "• Spirometri dengan uji bronkodilator\n• Rontgen dada atau CT scan dada resolusi tinggi (HRCT) untuk menilai emfisema\n• Skrining untuk **defisiensi antitripsin Alpha-1** pada pasien muda"
+      }
+    },
+    "followUp": {
+      "en": "• Regular follow-up every **3-6 months** to monitor symptom control, exacerbation frequency, inhaler technique, and spirometric decline",
+      "id": "• Kontrol rutin setiap **3-6 bulan** untuk memantau kontrol gejala, frekuensi eksaserbasi, teknik penggunaan inhaler, dan penurunan fungsi spirometri"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Adherence to **LABA/LAMA/ICS** maintenance regimens\n• Mandatory annual **influenza vaccine**\n• **Pneumococcal vaccines** (PCV20 or PCV15/PPSV23)\n• COVID-19 and pertussis (Tdap) vaccinations",
+        "id": "• Kepatuhan terhadap rejimen pemeliharaan **LABA/LAMA/ICS**\n• Wajib vaksinasi **influenza tahunan**\n• **Vaksinasi pneumokokus** (PCV20 atau PCV15/PPSV23)\n• Vaksinasi COVID-19 dan pertusis (Tdap)"
+      },
+      "nonPharmacological": {
+        "en": "• Complete **smoking cessation** (the single most effective intervention to slow GFR/lung decline)\n• Avoidance of occupational or environmental air pollution",
+        "id": "• Berhenti **merokok secara total** (satu-satunya intervensi paling efektif untuk memperlambat penurunan fungsi paru)\n• Penghindaran polusi udara akibat kerja atau lingkungan sekitar"
+      }
+    },
+    "caseExample": {
+      "en": "A 66-year-old male former smoker presents with worsening shortness of breath during daily walks and a chronic productive morning cough. Spirometry demonstrates a post-bronchodilator **FEV1/FVC of 54%** and FEV1 of **46%** predicted (GOLD Stage 3, Severe). He reports having 2 moderate exacerbations requiring oral steroids in the past year. Blood eosinophils are **320 cells/uL**. The patient is classified as **GOLD Group E** and started on triple therapy: **Budesonide/Glycopyrronium/Formoterol (ICS/LAMA/LABA)**. He is enrolled in pulmonary rehabilitation and reports significant improvement in exercise tolerance after 8 weeks.",
+      "id": "Seorang pria 66 tahun mantan perokok datang dengan sesak napas yang memburuk saat jalan kaki harian dan batuk pagi produktif kronis. Spirometri menunjukkan **FEV1/FVC 54%** pasca-bronkodilator dan FEV1 **46%** nilai prediksi (GOLD Stadium 3, Berat). Ia melaporkan mengalami 2 kali eksaserbasi sedang yang membutuhkan steroid oral dalam setahun terakhir. Eosinofil darahnya **320 sel/uL**. Pasien diklasifikasikan sebagai **GOLD Grup E** dan dimulai terapi kombinasi tiga: **Budesonid/Glikopironium/Formoterol (ICS/LAMA/LABA)**. Ia didaftarkan untuk rehabilitasi paru dan melaporkan perbaikan signifikan pada toleransi latihan fisik setelah 8 minggu."
+    },
+    "references": {
+      "en": "• Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease (GOLD 2024)\n• Agusti A, et al. Global Initiative for Chronic Obstructive Lung Disease, 2024",
+      "id": "• Strategi Global untuk Diagnosis, Tata Laksana, dan Pencegahan Penyakit Paru Obstruktif Kronis (GOLD 2024)\n• Agusti A, et al. Global Initiative for Chronic Obstructive Lung Disease, 2024"
+    }
+  },
+  {
+    "title": { "en": "Essential Hypertension", "id": "Hipertensi Esensial" },
+    "category": "Cardiology",
+    "isStructured": true,
+    "definition": {
+      "en": "Essential Hypertension is defined as persistent elevation of systemic arterial blood pressure **(systolic >=140 mmHg and/or diastolic >=90 mmHg)**, occurring without an identifiable secondary medical cause, resulting in progressive cardiovascular and renal target-organ damage.",
+      "id": "Hipertensi Esensial didefinisikan sebagai peningkatan persisten tekanan darah arteri sistemik **(sistolik >=140 mmHg dan/atau diastolik >=90 mmHg)**, terjadi tanpa adanya penyebab medis sekunder yang teridentifikasi, yang mengakibatkan kerusakan organ sasaran kardiovaskular dan ginjal secara progresif."
+    },
+    "symptoms": {
+      "en": "• Sering kali tanpa gejala ('The Silent Killer')\n• Occasional occipital headache (worse in the morning)\n• Dizziness, lightheadedness, or tinnitus\n• Dyspnea or chest discomfort (suggesting early cardiac involvement)",
+      "id": "• Sering kali tanpa gejala ('Pembunuh Senyap')\n• Kadang sakit kepala oksipital (memburuk di pagi hari)\n• Pusing, kliyengan, atau tinnitus (telinga berdenging)\n• Sesak napas atau rasa tidak nyaman di dada (menunjukkan keterlibatan jantung awal)"
+    },
+    "physicalExamination": {
+      "en": "• Accurately measured blood pressure **>=140/90 mmHg** on **>=2 separate occasions**\n• High body mass index (BMI) or abdominal obesity\n• S4 heart sound or displaced apex beat (left ventricular hypertrophy)\n• Diminished or delayed femoral pulses (to screen for coarctation)\n• Hypertensive retinopathy on fundoscopy",
+      "id": "• Tekanan darah terukur akurat **>=140/90 mmHg** pada **>=2 kesempatan terpisah**\n• Indeks massa tubuh (IMT) tinggi atau obesitas abdominal\n• Suara jantung S4 atau iktus kordis bergeser (hipertrofi ventrikel kiri)\n• Denyut nadi femoralis melemah atau terlambat (skrining koarktasi)\n• Retinopati hipertensif pada pemeriksaan funduskopi"
+    },
+    "labFindings": {
+      "en": "• Elevated fasting plasma glucose and lipid panel (risk stratification)\n• Normal or elevated serum creatinine (assess renal function)\n• **Microalbuminuria** (UACR 30-300 mg/g) indicating early target organ damage\n• Hypokalemia (if secondary aldosteronism is present)",
+      "id": "• Peningkatan glukosa plasma puasa dan profil lipid (stratifikasi risiko)\n• Kreatinin serum normal atau meningkat (menilai fungsi ginjal)\n• **Mikroalbuminuria** (UACR 30-300 mg/g) menunjukkan kerusakan organ sasaran dini\n• Hipokalemia (jika terdapat aldosteronisme sekunder)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Secondary Hypertension: Renovascular disease, Primary Aldosteronism, Pheochromocytoma, Obstructive Sleep Apnea, Cushing's syndrome",
+      "id": "• Hipertensi Sekunder: Penyakit renovaskular, Aldosteronisme Primer, Feokromositoma, Obstructive Sleep Apnea, sindrom Cushing"
+    },
+    "dangerSigns": {
+      "en": "• **Hypertensive Emergency**: blood pressure **>180/120 mmHg** with acute target organ damage\n• Acute chest pain (angina, MI, or aortic dissection)\n• Dyspnea, crackles, and orthopnea (acute pulmonary edema)\n• Severe headache, confusion, seizures, or focal neurological deficits (encephalopathy or stroke)\n• Papilledema on fundoscopy",
+      "id": "• **Kedaruratan Hipertensi**: tekanan darah **>180/120 mmHg** dengan kerusakan organ sasaran akut\n• Nyeri dada akut (angina, MI, atau diseksi aorta)\n• Sesak napas, ronkhi, dan ortopnea (edema paru akut)\n• Sakit kepala hebat, kebingungan, kejang, atau defisit neurologis fokal (ensefalopati atau stroke)\n• Papiledema pada pemeriksaan funduskopi"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• For Hypertensive Emergencies: Lower MAP by **no more than 20-25%** within the first hour using IV titratable agents (**Nicardipine** or **Labetalol IV**)\n• For stable Stage 1: Implement lifestyle modifications immediately; initiate drug therapy if high cardiovascular risk exists",
+        "id": "• Untuk Kedaruratan Hipertensi: Turunkan MAP **tidak lebih dari 20-25%** dalam jam pertama menggunakan agen IV tertitrasi (**Nikardipin** atau **Labetalol IV**)\n• Untuk Stadium 1 stabil: Terapkan modifikasi gaya hidup segera; mulai terapi obat jika terdapat risiko kardiovaskular tinggi"
+      },
+      "definitiveTreatment": {
+        "en": "• Target Blood Pressure: **<130/80 mmHg** in most patients if tolerated\n• First-line monotherapy or dual combination (Preferred): **ACEi (Lisinopril) or ARB (Valsartan)** combined with a **Calcium Channel Blocker (Amlodipine)** OR a **Thiazide diuretic**\n• Triple combination: ACEi/ARB + CCB + Diuretic for uncontrolled blood pressure\n• Add **Spironolactone (25-50 mg daily)** for resistant hypertension (failing triple therapy)",
+        "id": "• Target Tekanan Darah: **<130/80 mmHg** pada sebagian besar pasien jika ditoleransi\n• Monoterapi lini pertama atau kombinasi ganda (Pilihan Utama): **ACEi (Lisinopril) atau ARB (Valsartan)** dikombinasikan dengan **Calcium Channel Blocker (Amlodipin)** ATAU **diuretik Tiazid**\n• Kombinasi tiga: ACEi/ARB + CCB + Diuretik untuk tekanan darah yang tidak terkontrol\n• Tambahkan **Spironolakton (25-50 mg sehari)** untuk hipertensi resistan (gagal terapi kombinasi tiga)"
+      },
+      "rehab": {
+        "en": "• Participation in regular aerobic physical activities\n• Stress reduction techniques (mindfulness, meditation)",
+        "id": "• Partisipasi dalam aktivitas fisik aerobik secara teratur\n• Teknik reduksi stres (mindfulness, meditasi)"
+      },
+      "referral": {
+        "en": "• Refer to **Cardiology / Nephrology** if secondary hypertension is suspected, for resistant hypertension, or for young-onset hypertension (<30 years)",
+        "id": "• Rujuk ke **Spesialis Jantung / Ginjal-Hipertensi** jika dicurigai hipertensi sekunder, untuk hipertensi resistan, atau onset hipertensi usia muda (<30 tahun)"
+      },
+      "workup": {
+        "en": "• Baseline 12-lead ECG (screen for left ventricular hypertrophy or ischemia)\n• Renal panel, electrolytes, fasting lipids, HbA1c, and UACR screening",
+        "id": "• EKG 12-sadapan awal (skrining hipertrofi ventrikel kiri atau iskemia)\n• Panel ginjal, elektrolit, lipid puasa, HbA1c, dan skrining UACR"
+      }
+    },
+    "followUp": {
+      "en": "• Review in **1 month** after starting or adjusting medication, then every **3-6 months** once blood pressure is stable",
+      "id": "• Tinjau dalam **1 bulan** setelah memulai atau menyesuaikan obat, kemudian setiap **3-6 bulan** setelah tekanan darah stabil"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Prophylactic drug therapy is not recommended for prehypertension; focus solely on lifestyle modification",
+        "id": "• Terapi obat profilaksis tidak direkomendasikan untuk prehipertensi; fokus sepenuhnya pada modifikasi gaya hidup"
+      },
+      "nonPharmacological": {
+        "en": "• Strict **Sodium restriction <2,000 mg/day** (equivalent to <5 g salt/day)\n• DASH diet rich in vegetables, fruits, and whole grains\n• Limit alcohol intake and achieve **smoking cessation**\n• Regular dynamic aerobic exercise (**150 mins/week**)",
+        "id": "• Batasi **asupan Natrium <2.000 mg/hari** (setara <5 g garam/hari)\n• Diet DASH kaya sayuran, buah-buahan, dan biji-bijian utuh\n• Batasi asupan alkohol dan lakukan **berhenti merokok**\n• Olahraga aerobik dinamis teratur (**150 menit/minggu**)"
+      }
+    },
+    "caseExample": {
+      "en": "A 49-year-old male presents for a routine check-up. His blood pressure is **152/94 mmHg**, and it remains elevated at **148/96 mmHg** on a repeat check 2 weeks later. He is moderately overweight and reports a diet high in processed foods. Workup shows normal electrolytes, creatinine, and ECG. UACR is slightly elevated at **45 mg/g**. The patient is started on a single pill combination of **Valsartan 80 mg and Amlodipine 5 mg daily**, and is counseled on salt restriction. At his 1-month follow-up, his blood pressure is well-controlled at **126/78 mmHg**.",
+      "id": "Seorang pria 49 tahun datang untuk pemeriksaan rutin. Tekanan darahnya **152/94 mmHg**, dan tetap tinggi pada **148/96 mmHg** pada pemeriksaan ulang 2 minggu kemudian. Ia kelebihan berat badan tingkat sedang dan melaporkan diet tinggi makanan olahan. Pemeriksaan menunjukkan elektrolit, kreatinin, dan EKG normal. UACR sedikit meningkat pada **45 mg/g**. Pasien mulai diberikan kombinasi satu tablet **Valsartan 80 mg dan Amlodipin 5 mg sehari**, serta diedukasi tentang pembatasan garam. Pada kontrol 1 bulan, tekanan darahnya terkontrol dengan baik pada **126/78 mmHg**."
+    },
+    "references": {
+      "en": "• 2024 ESC Guidelines for the Management of Elevated Blood Pressure and Hypertension (European Heart Journal 2024)\n• McEvoy JW, et al. Eur Heart J. 2024;45(36):3347-3453",
+      "id": "• Pedoman ESC 2024 untuk Manajemen Tekanan Darah Tinggi dan Hipertensi (European Heart Journal 2024)\n• McEvoy JW, et al. Eur Heart J. 2024;45(36):3347-3453"
+    }
+  },
+  {
+    "title": { "en": "Gestational Hypertension & Preeclampsia", "id": "Hipertensi Gestasional & Preeklamsia" },
+    "category": "Obstetrics",
+    "isStructured": true,
+    "definition": {
+      "en": "Gestational Hypertension is new-onset blood pressure **>=140/90 mmHg** after **20 weeks of gestation** in a previously normotensive patient, without proteinuria. Preeclampsia is defined as gestational hypertension accompanied by **proteinuria** or new-onset systemic end-organ dysfunction (renal, hepatic, hematologic, or neurological).",
+      "id": "Hipertensi Gestasional adalah tekanan darah tinggi onset baru **>=140/90 mmHg** setelah **kehamilan 20 minggu** pada pasien yang sebelumnya normotensif, tanpa proteinuria. Preeklamsia didefinisikan sebagai hipertensi gestasional disertai dengan **proteinuria** atau disfungsi organ sasaran sistemik onset baru (ginjal, hati, hematologi, atau saraf)."
+    },
+    "symptoms": {
+      "en": "• Often asymptomatic initially\n• **Severe, persistent headache** (refractory to acetaminophen)\n• **Visual disturbances** (scotomas, blurry vision, double vision)\n• Epigastric or right upper quadrant pain (hepatic swelling)\n• Rapidly worsening peripheral edema or sudden facial/hand swelling\n• Dyspnea due to pulmonary edema",
+      "id": "• Sering kali tanpa gejala pada awalnya\n• **Sakit kepala hebat dan menetap** (refrakter terhadap asetaminofen)\n• **Gangguan penglihatan** (skotoma, pandangan kabur, pandangan ganda)\n• Nyeri epigastrium atau kuadran kanan atas perut (pembengkakan hati)\n• Edema perifer yang memburuk dengan cepat atau bengkak mendadak pada wajah/tangan\n• Sesak napas akibat edema paru"
+    },
+    "physicalExamination": {
+      "en": "• Blood pressure **>=140/90 mmHg** (severe range if **>=160/110 mmHg**)\n• Hyperreflexia or **clonus** (neurological excitability)\n• Right upper quadrant tenderness on palpation\n• Generalized edema (facial/hand/sacral pitting edema)",
+      "id": "• Tekanan darah **>=140/90 mmHg** (derajat berat jika **>=160/110 mmHg**)\n• Hiperrefleksia atau **klonus** (eksitabilitas sistem saraf)\n• Nyeri tekan kuadran kanan atas perut pada palpasi\n• Edema umum (edema pitting pada wajah/tangan/sakral)"
+    },
+    "labFindings": {
+      "en": "• Proteinuria: **>=300 mg** in a 24-hour urine collection, or protein-to-creatinine ratio **>=0.3**, or urine dipstick **>=2+**\n• Thrombocytopenia (platelets **<100,000/uL**)\n• Elevated serum creatinine **>1.1 mg/dL**\n• Elevated transaminases (AST/ALT) to twice normal values\n• Hemolysis (schistocytes on smear, elevated LDH, low haptoglobin in **HELLP syndrome**)",
+      "id": "• Proteinuria: **>=300 mg** pada penampungan urin 24 jam, atau rasio protein-kreatinin **>=0,3**, atau dipstick urin **>=2+**\n• Trombositopenia (trombosit **<100.000/uL**)\n• Kreatinin serum meningkat **>1,1 mg/dL**\n• Transaminase (AST/ALT) meningkat hingga dua kali nilai normal\n• Hemolisis (skistosit pada sediaan apus, peningkatan LDH, haptoglobin rendah pada **sindrom HELLP**)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Chronic Essential Hypertension\n• Gestational Trophoblastic Disease\n• Acute Fatty Liver of Pregnancy\n• Thrombotic Thrombocytopenic Purpura (TTP) / HUS",
+      "id": "• Hipertensi Esensial Kronis\n• Penyakit Trofoblas Gestasional\n• Perlemakan Hati Akut pada Kehamilan\n• Purpura Trombositopenik Trombotik (TTP) / HUS"
+    },
+    "dangerSigns": {
+      "en": "• Blood pressure **>=160/110 mmHg** (severe preeclampsia)\n• **Eclampsia**: generalized tonic-clonic seizures in a preeclamptic patient\n• Severe persistent RUQ pain, thrombocytopenia, or active bleeding\n• Pulmonary edema (rales, hypoxia, severe dyspnea)\n• Altered mental status or cortical blindness",
+      "id": "• Tekanan darah **>=160/110 mmHg** (preeklamsia berat)\n• **Eklamsia**: kejang tonik-klonik umum pada pasien preeklamsia\n• Nyeri hebat menetap kuadran kanan atas perut, trombositopenia, atau perdarahan aktif\n• Edema paru (ronkhi, hipoksia, sesak napas berat)\n• Penurunan kesadaran atau kebutaan kortikal"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Supplement oxygen for hypoxemia or seizure activity\n• For severe range BP: Administer fast-acting antihypertensives: **IV Labetalol 20 mg** (repeat 40-80 mg) or **Hydralazine 5-10 mg IV**, or **oral Nifedipine 10-20 mg**\n• For seizure prevention in severe preeclampsia/eclampsia: Administer **Magnesium Sulfate 4-6 g IV bolus** over 20 mins, followed by **1-2 g/hour continuous infusion**",
+        "id": "• Berikan tambahan oksigen untuk hipoksia atau aktivitas kejang\n• Untuk TD derajat berat: Berikan antihipertensi kerja cepat: **IV Labetalol 20 mg** (ulangi 40-80 mg) atau **Hidralasin 5-10 mg IV**, atau **Nifedipin oral 10-20 mg**\n• Pencegahan kejang pada preeklamsia berat/eklamsia: Berikan **Magnesium Sulfat bolus IV 4-6 g** selama 20 menit, diikuti **infus kontinu 1-2 g/jam**"
+      },
+      "definitiveTreatment": {
+        "en": "• **Delivery is the only definitive cure**\n• Gestational Hypertension or Preeclampsia without severe features: Plan delivery at **37 weeks 0 days** gestation\n• Preeclampsia with severe features: Deliver at **34 weeks 0 days** gestation, or immediately if maternal or fetal deterioration occurs\n• Antihypertensive therapy for chronic maintenance: **Methyldopa (250-500 mg tid)** or oral **Nifedipine ER (30-60 mg daily)**",
+        "id": "• **Persalinan adalah satu-satunya penyembuhan definitif**\n• Hipertensi Gestasional atau Preeklamsia tanpa gejala berat: Rencanakan persalinan pada kehamilan **37 minggu 0 hari**\n• Preeklamsia dengan gejala berat: Lahirkan pada kehamilan **34 minggu 0 hari**, atau segera melahirkan jika terjadi perburukan kondisi ibu atau janin\n• Terapi antihipertensi pemeliharaan kronis: **Metildopa (250-500 mg 3x sehari)** atau oral **Nifedipin ER (30-60 mg sehari)**"
+      },
+      "rehab": {
+        "en": "• Adequate bed rest in lateral decubitus position to improve placental perfusion\n• Close monitoring post-partum (eclampsia can occur up to 4-6 weeks post-delivery)",
+        "id": "• Istirahat baring (bed rest) yang cukup dalam posisi lateral dekubitus untuk meningkatkan perfusi plasenta\n• Pemantauan ketat pasca-persalinan (eklamsia dapat terjadi hingga 4-6 minggu pasca-salin)"
+      },
+      "referral": {
+        "en": "• Refer immediately to **Maternal-Fetal Medicine (High-Risk Obstetrics)** or admit to a tertiary care facility with neonatal intensive care (NICU) capabilities for preeclampsia with severe features",
+        "id": "• Segera rujuk ke **Spesialis Kedokteran Fetomaternal (Obstetri Risiko Tinggi)** atau rawat di fasilitas perawatan tersier dengan fasilitas NICU untuk preeklamsia dengan gejala berat"
+      },
+      "workup": {
+        "en": "• Urinalysis, 24-hour urine protein or protein-creatinine ratio\n• CBC (platelets), AST/ALT, serum creatinine, LDH, coagulation studies\n• Fetal assessment: Non-Stress Test (NST), biophysical profile, and umbilical artery Doppler ultrasound",
+        "id": "• Urinalisis, protein urin 24 jam atau rasio protein-kreatinin\n• Darah Lengkap (trombosit), AST/ALT, kreatinin serum, LDH, studi koagulasi\n• Pemantauan janin: Non-Stress Test (NST), profil biofisik, dan USG Doppler arteri umbilikalis"
+      }
+    },
+    "followUp": {
+      "en": "• Monitor BP twice weekly post-discharge; check within **3-7 days** post-partum\n• Re-evaluate renal function and proteinuria at **6-12 weeks** post-partum",
+      "id": "• Pantau TD dua kali seminggu setelah pulang; periksa dalam **3-7 hari** pasca-salin\n• Evaluasi ulang fungsi ginjal dan proteinuria pada **6-12 minggu** pasca-salin"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• **Low-dose Aspirin (81-150 mg daily)** starting between **12-16 weeks** of gestation until delivery for patients at high risk of preeclampsia",
+        "id": "• **Aspirin dosis rendah (81-150 mg sehari)** dimulai antara **12-16 minggu** kehamilan hingga persalinan untuk pasien dengan risiko tinggi preeklamsia"
+      },
+      "nonPharmacological": {
+        "en": "• Ensure adequate calcium intake (especially in calcium-deficient populations)\n• Avoid excessive weight gain during pregnancy",
+        "id": "• Pastikan asupan kalsium yang adekuat (terutama pada populasi defisiensi kalsium)\n• Hindari kenaikan berat badan berlebih selama kehamilan"
+      }
+    },
+    "caseExample": {
+      "en": "A 29-year-old G1P0 female at **32 weeks** gestation presents with a 2-day history of a persistent dull headache and mild blurry vision. Her blood pressure is **164/114 mmHg**. Reflexes are **3+** with 2 beats of ankle clonus. Lab results show platelets of **112,000/uL**, creatinine **1.2 mg/dL**, and a urine dipstick showing **3+ protein**. The diagnosis is **Preeclampsia with severe features**. She is started on a **Magnesium Sulfate IV infusion (4 g bolus, then 2 g/h)** for seizure prophylaxis, and receives **IV Labetalol 20 mg** which lowers her BP to 142/90. She is given **Betamethasone 12 mg IM** for fetal lung maturity and is transferred to a tertiary facility for delivery planning.",
+      "id": "Seorang wanita G1P0 berusia 29 tahun pada usia kehamilan **32 minggu** datang dengan riwayat sakit kepala tumpul menetap selama 2 hari dan pandangan sedikit kabur. Tekanan darahnya **164/114 mmHg**. Refleksnya **3+** dengan klonus pergelangan kaki 2 ketukan. Hasil lab menunjukkan trombosit **112.000/uL**, kreatinin **1,2 mg/dL**, dan dipstick urin menunjukkan **protein 3+**. Diagnosisnya adalah **Preeklamsia dengan gejala berat**. Ia mulai diberikan **infus IV Magnesium Sulfat (bolus 4 g, kemudian 2 g/jam)** untuk profilaksis kejang, dan menerima **IV Labetalol 20 mg** yang menurunkan TD-nya menjadi 142/90. Ia diberikan **Betametason 12 mg IM** untuk pematangan paru janin dan ditransfer ke fasilitas tersier untuk rencana melahirkan."
+    },
+    "references": {
+      "en": "• Gestational Hypertension and Preeclampsia: ACOG Practice Bulletin, Number 222 (Obstetrics & Gynecology 2020)\n• American College of Obstetricians and Gynecologists. Obstet Gynecol. 2020;135(6):e237-e260",
+      "id": "• Hipertensi Gestasional dan Preeklamsia: Buletin Praktik ACOG, Nomor 222 (Obstetrics & Gynecology 2020)\n• American College of Obstetricians and Gynecologists. Obstet Gynecol. 2020;135(6):e237-e260"
+    }
+  },
+  {
+    "title": { "en": "Difficult Airway Management", "id": "Manajemen Jalan Napas Sulit" },
+    "category": "Anesthesiology",
+    "isStructured": true,
+    "pdfUrl": "https://pubs.asahq.org/anesthesiology/article/136/1/31/135246/2022-American-Society-of-Anesthesiologists",
+    "definition": {
+      "en": "A Difficult Airway is defined as a clinical situation in which a conventionally trained anesthesiologist experiences difficulty with facemask ventilation, upper airway obstruction, laryngoscopy, tracheal intubation, or surgical airway placement.",
+      "id": "Jalan Napas Sulit (Difficult Airway) didefinisikan sebagai situasi klinis di mana spesialis anestesi yang terlatih secara konvensional mengalami kesulitan dalam ventilasi sungkup wajah, obstruksi jalan napas atas, laringoskopi, intubasi trakea, atau pemasangan jalan napas bedah."
+    },
+    "symptoms": {
+      "en": "• Preoperative or emergency presentation: history of difficult intubation or sleep apnea\n• Snoring, gasping, or daytime somnolence\n• Hoarseness, stridor, or wheezing indicating partial airway compromise\n• Dyspnea or orthopnea",
+      "id": "• Presentasi pra-bedah atau darurat: riwayat kesulitan intubasi atau sleep apnea\n• Mendengkur, terengah-engah, atau somnolen siang hari\n• Suara serak, stridor, atau mengi menunjukkan gangguan jalan napas parsial\n• Sesak napas atau ortopnea"
+    },
+    "physicalExamination": {
+      "en": "• **Mallampati Score Class III or IV** (poor visualization of pharyngeal structures)\n• Short thyromental distance **(<6 cm)**\n• Limited neck extension or cervical spine mobility\n• High, arched palate or prominent upper incisors\n• Large neck circumference **(>40 cm)** or micrognathia (receding chin)",
+      "id": "• **Skor Mallampati Kelas III atau IV** (visualisasi struktur faring buruk)\n• Jarak tiroid-mental yang pendek **(<6 cm)**\n• Ekstensi leher atau mobilitas tulang belakang servikal terbatas\n• Palatum tinggi melengkung atau insisivus atas menonjol\n• Lingkar leher yang besar **(>40 cm)** atau mikrognatia (dagu mundur)"
+    },
+    "labFindings": {
+      "en": "• Chest or neck radiographs showing tracheal stenosis, masses, or cervical spine osteophytes\n• CT or MRI of the neck demonstrating anatomical airway compression\n• Desaturation on pulse oximetry during assessment",
+      "id": "• Rontgen dada atau leher menunjukkan stenosis trakea, massa, atau osteofit servikal\n• CT atau MRI leher menunjukkan kompresi anatomis jalan napas\n• Desaturasi pada oksimetri nadi selama penilaian"
+    },
+    "differentialDiagnosis": {
+      "en": "• Epiglottitis / Peritonsillar abscess\n• Laryngeal Stenosis or web\n• Large Mediastinal or Thyroid Mass\n• Cervical Spine Ankylosis (Ankylosing Spondylitis)",
+      "id": "• Epiglotitis / Abses peritonsilar\n• Stenosis atau anyaman laring\n• Massa Mediastinum Besar atau Massa Tiroid\n• Ankilosis Tulang Belakang Servikal (Ankylosing Spondylitis)"
+    },
+    "dangerSigns": {
+      "en": "• **Cannot Ventilate, Cannot Intubate (CVCI)**: life-threatening inability to maintain oxygenation via mask/SAD and failure of tracheal intubation\n• Rapidly dropping oxygen saturation **(SpO2 <80%)**\n• Cyanosis, bradycardia (late sign of severe hypoxia)\n• Severe upper airway trauma or swelling from repeated intubation attempts",
+      "id": "• **Cannot Ventilate, Cannot Intubate (CVCI)**: ketidakmampuan mengancam jiwa untuk mempertahankan oksigenasi melalui sungkup/SAD dan kegagalan intubasi trakea\n• Saturasi oksigen turun dengan cepat **(SpO2 <80%)**\n• Sianosis, bradikardia (tanda lanjut hipoksia berat)\n• Trauma jalan napas atas berat atau bengkak akibat upaya intubasi yang berulang"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Call for **additional assistance** immediately\n• Pre-oxygenate with **100% O₂** via high-flow nasal cannula or non-rebreather mask\n• Maximize facemask ventilation using **two-handed technique** and oral/nasopharyngeal airways",
+        "id": "• Segera panggil **bantuan tambahan**\n• Lakukan pre-oksigenasi dengan **O₂ 100%** melalui kanula hidung aliran tinggi atau sungkup non-rebreather\n• Maksimalkan ventilasi sungkup wajah menggunakan **teknik dua tangan** dan pipa jalan napas oral/nasofaring"
+      },
+      "definitiveTreatment": {
+        "en": "• If difficult intubation is anticipated: Perform **Awake Fiberoptic Intubation** under local anesthesia (lidocaine) as the safest approach\n• Unanticipated difficult intubation: Limit intubation attempts **(maximum 3 attempts)** to avoid airway trauma\n• Insert a **Supraglottic Airway Device (SAD/LMA)** as a rescue device if mask ventilation fails\n• If CVCI scenario occurs: Immediately perform an emergency **Surgical Cricothyroidotomy** (scalpel-bougie technique)",
+        "id": "• Jika jalan napas sulit sudah diantisipasi: Lakukan **Intubasi Serat Optik Sadar (Awake Fiberoptic Intubation)** di bawah anestesi lokal (lidokain) sebagai pendekatan teraman\n• Intubasi sulit tidak diantisipasi: Batasi upaya intubasi **(maksimal 3 kali upaya)** untuk menghindari trauma jalan napas\n• Pasang **Alat Jalan Napas Supraglotis (SAD/LMA)** sebagai alat penyelamat jika ventilasi sungkup gagal\n• Jika skenario CVCI terjadi: Segera lakukan **Krikotiroidotomi Bedah** darurat (teknik scalpel-bougie)"
+      },
+      "rehab": {
+        "en": "• Close monitoring in the PACU or ICU for signs of airway edema or hematoma\n• Post-operative counseling and providing the patient with a difficult airway letter/card",
+        "id": "• Pemantauan ketat di PACU atau ICU untuk mendeteksi tanda-tanda edema jalan napas atau hematoma\n• Konseling pasca-operasi dan membekali pasien dengan surat/kartu jalan napas sulit"
+      },
+      "referral": {
+        "en": "• Consult a senior anesthesiologist or ENT surgeon preoperatively if a severely distorted airway anatomy is identified",
+        "id": "• Konsultasikan dengan spesialis anestesi senior atau dokter spesialis THT sebelum operasi jika teridentifikasi anatomi jalan napas yang sangat menyimpang"
+      },
+      "workup": {
+        "en": "• Clinical assessment of airway features (Mallampati, thyromental distance, neck mobility)\n• Fiberoptic nasendoscopy or virtual CT bronchoscopy if indicated",
+        "id": "• Penilaian klinis karakteristik jalan napas (Mallampati, jarak tiroid-mental, mobilitas leher)\n• Nasendoskopi serat optik atau CT bronkoskopi virtual jika diindikasikan"
+      }
+    },
+    "followUp": {
+      "en": "• Re-evaluate the patient's airway post-operatively for signs of trauma (dental, laryngeal damage)\n• Ensure the difficult airway event is documented in the national registry if applicable",
+      "id": "• Evaluasi kembali jalan napas pasien pasca-operasi untuk mendeteksi tanda trauma (gigi, kerusakan laring)\n• Pastikan kejadian jalan napas sulit didokumentasikan dalam rekam medis secara jelas"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Anti-sialagogues (Glycopyrrolate 0.2 mg IV) to dry secretions before fiberoptic intubation\n• Topical vasoconstrictors (e.g. Oxymetazoline) for nasal fiberoptic pathways",
+        "id": "• Anti-sialagoga (Glikopirolat 0,2 mg IV) untuk mengeringkan sekret sebelum intubasi serat optik\n• Vasokonstriktor topikal (misal: Oksimetazolin) untuk jalur serat optik hidung"
+      },
+      "nonPharmacological": {
+        "en": "• Proper patient positioning: **'Sniffing position'** for normal patients, or **ramped position** for obese patients to align oral, pharyngeal, and laryngeal axes\n• Ensure all difficult airway equipment (videolaryngoscope, fiberoptic scope, bougie, LMAs) is checked and immediately available",
+        "id": "• Posisi pasien yang tepat: **'Posisi menghirup (sniffing)'** untuk pasien normal, atau **posisi menanjak (ramped)** pada pasien obesitas untuk menyejajarkan sumbu oral, faring, dan laring\n• Pastikan semua peralatan jalan napas sulit (videolaringoskop, teropong serat optik, bougie, LMA) telah diperiksa dan tersedia segera"
+      }
+    },
+    "caseExample": {
+      "en": "A 52-year-old morbidly obese male (BMI **44 kg/m²**) presents for elective hernia repair. Airway assessment reveals a **Mallampati Class IV** airway, short neck, and limited extension. A difficult airway is anticipated. The anesthesia team decides on an **Awake Fiberoptic Intubation**. The airway is topicalized with nebulized and atomized 4% Lidocaine. Using a flexible fiberoptic bronchoscope, the vocal cords are visualized, and a size 7.5 endotracheal tube is advanced smoothly over the scope into the trachea. Correct placement is confirmed via capnography, and general anesthesia is then induced safely.",
+      "id": "Seorang pria 52 tahun dengan obesitas morbid (IMT **44 kg/m²**) datang untuk operasi elektif perbaikan hernia. Penilaian jalan napas menunjukkan jalan napas **Mallampati Kelas IV**, leher pendek, dan ekstensi terbatas. Jalan napas sulit diantisipasi. Tim anestesi memutuskan untuk melakukan **Intubasi Serat Optik Sadar**. Jalan napas diberikan anestesi topikal dengan nebulisasi Lidokain 4%. Menggunakan bronkoskop serat optik fleksibel, pita suara divisualisasikan, dan pipa endotrakeal ukuran 7,5 didorong secara mulus melalui teropong ke dalam trakea. Penempatan yang benar dikonfirmasi melalui kapnografi, dan anestesi umum kemudian diinduksi dengan aman."
+    },
+    "references": {
+      "en": "• 2022 American Society of Anesthesiologists Practice Guidelines for Management of the Difficult Airway (Anesthesiology 2022)\n• Apfelbaum JL, et al. Anesthesiology. 2022;136(1):31-53",
+      "id": "• Pedoman Praktik American Society of Anesthesiologists 2022 untuk Manajemen Jalan Napas Sulit (Anesthesiology 2022)\n• Apfelbaum JL, et al. Anesthesiology. 2022;136(1):31-53"
+    }
+  },
+  {
+    "title": { "en": "Preoperative Fasting (NPO)", "id": "Puasa Prabedah (NPO)" },
+    "category": "Anesthesiology",
+    "isStructured": true,
+    "definition": {
+      "en": "Preoperative Fasting (NPO, Nil Per Os) guidelines define the minimum duration of fasting prior to elective procedures requiring general anesthesia, regional anesthesia, or procedural sedation. Its main purpose is to reduce the volume and acidity of gastric contents, minimizing the risk of **pulmonary aspiration**.",
+      "id": "Panduan Puasa Prabedah (NPO, Nil Per Os) menetapkan durasi minimum puasa sebelum prosedur elektif yang memerlukan anestesi umum, anestesi regional, atau sedasi prosedural. Tujuan utamanya adalah untuk mengurangi volume dan keasaman lambung, meminimalkan risiko **aspirasi paru**."
+    },
+    "symptoms": {
+      "en": "• Clinical assessment of fasting status: verify time of last intake\n• Nausea, vomiting, or epigastric discomfort if fasting was inadequate\n• Heartburn or symptoms of gastroesophageal reflux disease (GERD)",
+      "id": "• Penilaian klinis status puasa: verifikasi waktu makan/minum terakhir\n• Mual, muntah, atau rasa tidak nyaman di epigastrium jika puasa tidak adekuat\n• Heartburn atau gejala penyakit refluks gastroesofageal (GERD)"
+    },
+    "physicalExamination": {
+      "en": "• Assess for factors delaying gastric emptying: pregnancy, diabetes (gastroparesis), obesity, bowel obstruction, or severe pain/anxiety\n• Gastric ultrasound (point-of-care) to objectively assess gastric volume in borderline/doubtful fasting cases",
+      "id": "• Nilai faktor-faktor yang menunda pengosongan lambung: kehamilan, diabetes (gastroparesis), obesitas, obstruksi usus, atau nyeri/kecemasan hebat\n• USG lambung (point-of-care) untuk menilai volume lambung secara objektif pada kasus puasa yang meragukan"
+    },
+    "labFindings": {
+      "en": "• Standard pre-operative labs do not assess fasting status\n• High gastric volume **(>1.5 mL/kg)** or low pH (<2.5) on aspirate if gastric tube is placed",
+      "id": "• Laboratorium pra-operasi standar tidak menilai status puasa\n• Volume lambung yang tinggi **(>1,5 mL/kg)** atau pH rendah (<2,5) pada cairan aspirasi jika pipa lambung dipasang"
+    },
+    "differentialDiagnosis": {
+      "en": "• Full stomach due to gastroparesis, bowel obstruction, or emergency trauma status despite adequate NPO hours",
+      "id": "• Lambung penuh akibat gastroparesis, obstruksi usus, atau status trauma darurat meskipun jam NPO telah adekuat"
+    },
+    "dangerSigns": {
+      "en": "• **Active vomiting** or silent regurgitation during induction of anesthesia\n• Coughing, bronchospasm, or severe hypoxemia during induction (suggestive of active aspiration)\n• Respiratory failure or severe chemical pneumonitis (**Mendelson's syndrome**)",
+      "id": "• **Muntah aktif** atau regurgitasi senyap saat induksi anestesi\n• Batuk, bronkospasme, atau hipoksia berat saat induksi (mencurigakan adanya aspirasi aktif)\n• Gagal napas atau pneumonitis kimia berat (**sindrom Mendelson**)"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Verify NPO compliance prior to transferring patient to the operating room\n• If aspiration occurs during induction: Tilt head down/lateral, suction the oropharynx immediately, intubate tracheal, and suction down the endotracheal tube *before* initiating positive pressure ventilation",
+        "id": "• Verifikasi kepatuhan NPO sebelum memindahkan pasien ke kamar operasi\n• Jika terjadi aspirasi saat induksi: Miringkan kepala ke bawah/lateral, lakukan penyedotan (suction) orofaring segera, lakukan intubasi trakea, dan sedot cairan dari pipa endotrakeal *sebelum* memulai ventilasi tekanan positif"
+      },
+      "definitiveTreatment": {
+        "en": "• Standard Elective NPO Guidelines (ASA):\n  - **Clear liquids**: Minimum **2 hours** fasting (water, pulp-free juice, clear tea, black coffee)\n  - **Breast milk**: Minimum **4 hours**\n  - **Infant formula**: Minimum **6 hours**\n  - **Light meal** (toast and clear liquid): Minimum **6 hours**\n  - **Heavy meal** (fatty, fried, or meat foods): Minimum **8 hours**\n• For emergency procedures with a full stomach: Perform **Rapid Sequence Induction (RSI)** with **cricoid pressure (Sellick maneuver)** and avoidance of manual bag-mask ventilation",
+        "id": "• Panduan NPO Elektif Standar (ASA):\n  - **Cairan jernih**: Minimal **2 jam** puasa (air putih, jus tanpa ampas, teh bening, kopi hitam)\n  - **ASI**: Minimal **4 jam**\n  - **Susu formula**: Minimal **6 jam**\n  - **Makanan ringan** (roti panggang & cairan jernih): Minimal **6 jam**\n  - **Makanan berat** (berlemak, digoreng, atau daging): Minimal **8 jam**\n• Untuk prosedur darurat dengan lambung penuh: Lakukan **Rapid Sequence Induction (RSI)** dengan **tekanan krikoid (maneuver Sellick)** dan hindari ventilasi sungkup manual"
+      },
+      "rehab": {
+        "en": "• Post-operative diet resumption as soon as the patient is fully awake, oriented, and airway reflexes are restored",
+        "id": "• Pemulihan diet pasca-operasi segera setelah pasien sadar penuh, orientasi baik, dan refleks jalan napas telah pulih"
+      },
+      "referral": {
+        "en": "• Consult a senior anesthesiologist if there is diagnostic doubt regarding gastric emptying in a high-risk patient",
+        "id": "• Konsultasikan dengan spesialis anestesi senior jika ada keraguan mengenai pengosongan lambung pada pasien risiko tinggi"
+      },
+      "workup": {
+        "en": "• Clinical interview regarding exact timing and contents of last meal\n• Point-of-Care Gastric Ultrasound (POCUS) if available to assess gastric fluid/solid state",
+        "id": "• Wawancara klinis mengenai waktu tepat dan isi makanan terakhir\n• USG Lambung Point-of-Care (POCUS) jika tersedia untuk menilai cairan/makanan padat lambung"
+      }
+    },
+    "followUp": {
+      "en": "• Monitor for 24-48 hours for signs of aspiration pneumonia (fever, hypoxemia, new infiltrates) if a micro-aspiration was suspected",
+      "id": "• Pantau selama 24-48 jam terhadap tanda-tanda pneumonia aspirasi (demam, hipoksemia, infiltrat baru) jika dicurigai terjadi mikro-aspirasi"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• **Prokinetics** (Metoclopramide 10 mg IV) to accelerate gastric emptying in patients with gastroparesis\n• **H2-blockers** (Ranitidine 50 mg IV) or **PPIs** (Omeprazole 40 mg IV) to reduce gastric acid secretion\n• **Antacids** (non-particulate sodium citrate 30 mL orally) to neutralize existing gastric acid before RSI",
+        "id": "• **Prokinetik** (Metoklopramid 10 mg IV) untuk mempercepat pengosongan lambung pada pasien gastroparesis\n• **Penghambat H2** (Ranitidin 50 mg IV) atau **PPI** (Omeprazole 40 mg IV) untuk mengurangi sekresi asam lambung\n• **Antasida** (natrium sitrat non-partikulat 30 mL oral) untuk menetralkan asam lambung sebelum RSI"
+      },
+      "nonPharmacological": {
+        "en": "• Rigid patient and family preoperative education regarding fasting guidelines\n• Scheduling high-risk patients (diabetics, pregnant patients) as the first case of the day to avoid prolonged NPO times",
+        "id": "• Edukasi prabedah yang ketat kepada pasien dan keluarga mengenai panduan puasa\n• Menjadwalkan pasien risiko tinggi (diabetes, hamil) sebagai urutan pertama operasi hari itu untuk menghindari waktu NPO yang terlalu lama"
+      }
+    },
+    "caseExample": {
+      "en": "A 45-year-old female with poorly controlled Type 2 Diabetes is scheduled for elective cholecystectomy. She complied with the **8-hour fasting** for solids. However, due to diabetic gastroparesis, she reports feeling unusually full. A point-of-care gastric ultrasound reveals significant liquid volume in the gastric antrum. To prevent aspiration, she is given **Metoclopramide 10 mg IV** and **Ranitidine 50 mg IV** 1 hour prior to surgery. Anesthesia is induced safely using a **Rapid Sequence Induction (RSI)** with cricoid pressure, and a cuffed endotracheal tube is placed successfully.",
+      "id": "Seorang wanita 45 tahun dengan Diabetes Tipe 2 terkontrol buruk dijadwalkan untuk kolesistektomi elektif. Ia telah mematuhi **puasa 8 jam** untuk makanan padat. Namun, karena gastroparesis diabetik, ia merasa perutnya masih terasa penuh. USG lambung point-of-care menunjukkan volume cairan signifikan di antrum lambung. Untuk mencegah aspirasi, ia diberikan **Metoklopramid 10 mg IV** dan **Ranitidin 50 mg IV** 1 jam sebelum operasi. Anestesi diinduksi dengan aman menggunakan **Rapid Sequence Induction (RSI)** dengan tekanan krikoid, dan pipa endotrakeal dengan cuff berhasil dipasang."
+    },
+    "references": {
+      "en": "• Practice Guidelines for Preoperative Fasting: An Updated Report by the American Society of Anesthesiologists (Anesthesiology 2017)\n• American Society of Anesthesiologists Committee. Anesthesiology. 2017;126(3):376-393",
+      "id": "• Pedoman Praktik Puasa Prabedah: Laporan Diperbarui oleh American Society of Anesthesiologists (Anesthesiology 2017)\n• American Society of Anesthesiologists Committee. Anesthesiology. 2017;126(3):376-393"
+    }
+  },
+  {
+    "title": { "en": "Enhanced Recovery After Surgery (ERAS)", "id": "Pemulihan Cepat Pasca Operasi (ERAS)" },
+    "category": "Surgery/Anesthesiology",
+    "isStructured": true,
+    "definition": {
+      "en": "Enhanced Recovery After Surgery (ERAS) is a multimodal, multidisciplinary perioperative care pathway designed to achieve early recovery for patients undergoing major surgery by reducing the body's stress response to surgical trauma.",
+      "id": "Pemulihan Cepat Pasca Operasi (ERAS) adalah jalur perawatan perioperatif multimodal dan multidisiplin yang dirancang untuk mempercepat pemulihan pasien yang menjalani operasi besar dengan mengurangi respons stres tubuh terhadap trauma bedah."
+    },
+    "symptoms": {
+      "en": "• Postoperative evaluation: check for **pain** level, nausea, vomiting, return of bowel function, and mobility\n• Dizziness or fatigue limiting mobilization",
+      "id": "• Evaluasi pasca-operasi: cek tingkat **nyeri**, mual, muntah, kembalinya fungsi usus (flatus/defekasi), dan mobilitas\n• Pusing atau lemas yang membatasi mobilisasi"
+    },
+    "physicalExamination": {
+      "en": "• Assess surgical wound for hematoma, active bleeding, or infection\n• Evaluation of abdominal distension, bowel sounds (ileus screening)\n• Hemodynamic evaluation (BP, HR, fluid balance)\n• Respiratory effort and oxygen saturation",
+      "id": "• Nilai luka operasi terhadap hematoma, perdarahan aktif, atau infeksi\n• Evaluasi distensi abdomen, bising usus (skrining ileus)\n• Evaluasi hemodinamik (TD, HR, keseimbangan cairan)\n• Usaha napas dan saturasi oksigen"
+    },
+    "labFindings": {
+      "en": "• Normal postoperative hemoglobin and electrolytes\n• Controlled inflammatory response (decrease in CRP over postoperative days)\n• Balanced lactate levels indicating adequate systemic tissue perfusion",
+      "id": "• Hemoglobin dan elektrolit pasca-operasi normal\n• Respons inflamasi terkontrol (penurunan CRP seiring hari pasca-operasi)\n• Kadar laktat seimbang menunjukkan perfusi jaringan sistemik adekuat"
+    },
+    "differentialDiagnosis": {
+      "en": "• Postoperative ileus, deep vein thrombosis (DVT), postoperative wound infection, severe postoperative pain, or anastomotic leak",
+      "id": "• Ileus pasca-operasi, trombosis vena dalam (DVT), infeksi luka operasi, nyeri hebat pasca-operasi, atau kebocoran anastomosis"
+    },
+    "dangerSigns": {
+      "en": "• Refractory postoperative pain, severe abdominal distension, or persistent vomiting\n• Tachycardia and hypotension (suggestive of internal bleeding or sepsis)\n• High fever or purulent discharge from surgical wound\n• New-onset dyspnea or calf swelling (pulmonary embolism or DVT)",
+      "id": "• Nyeri pasca-operasi refrakter, distensi abdomen berat, atau muntah persisten\n• Takikardia dan hipotensi (mencurigakan perdarahan internal atau sepsis)\n• Demam tinggi atau cairan purulen dari luka operasi\n• Sesak napas onset baru atau bengkak pada betis (emboli paru atau DVT)"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Optimize multimodal analgesia immediately: **Paracetamol 1g IV** and **Ketorolac 30 mg IV** to minimize opioid requirements\n• Initiate active warming in the operating room to maintain **normothermia (core temp >36°C)**\n• Minimize postoperative IV fluids; shift to oral intake as soon as possible",
+        "id": "• Optimalkan analgesia multimodal segera: **Parasetamol 1g IV** dan **Ketorolak 30 mg IV** untuk meminimalkan kebutuhan opioid\n• Mulai penghangatan aktif di kamar operasi untuk mempertahankan **normotermia (suhu inti >36°C)**\n• Minimalkan cairan IV pasca-operasi; alihkan ke asupan oral secepat mungkin"
+      },
+      "definitiveTreatment": {
+        "en": "• **Preoperative phase**:\n  - No prolonged fasting (NPO clear liquids until **2 hours** before)\n  - **Carbohydrate loading**: Drink 400 mL of 12.5% carbohydrate drink 2 hours prior to induction\n• **Intraoperative phase**:\n  - Goal-Directed Fluid Therapy (GDFT)\n  - Multimodal PONV prophylaxis (Dexamethasone + Ondansetron)\n• **Postoperative phase**:\n  - Multimodal opioid-sparing analgesia (scheduled paracetamol, NSAIDs, regional blocks)\n  - Early feeding (solid food within 4 hours)\n  - **Early mobilization** (out of bed within 2-4 hours of surgery)\n  - Early removal of urinary catheters and surgical drains",
+        "id": "• **Fase prabedah**:\n  - Tidak ada puasa berkepanjangan (puasa cairan jernih hingga **2 jam** sebelumnya)\n  - **Carbohydrate loading**: Minum 400 mL minuman karbohidrat 12,5% pada 2 jam sebelum induksi\n• **Fase intraoperatif**:\n  - Goal-Directed Fluid Therapy (GDFT)\n  - Profilaksis PONV multimodal (Deksametason + Ondansetron)\n• **Fase pasca-operasi**:\n  - Analgesia bebas opioid multimodal (jadwal rutin parasetamol, NSAID, blok regional)\n  - Nutrisi dini (makanan padat dalam 4 jam)\n  - **Mobilisasi dini** (turun dari tempat tidur dalam 2-4 jam pasca-operasi)\n  - Pelepasan dini kateter urin dan drainase bedah"
+      },
+      "rehab": {
+        "en": "• Active chest physiotherapy, breathing exercises, and daily progressive walking goals post-discharge",
+        "id": "• Fisioterapi dada aktif, latihan pernapasan, dan target jalan kaki progresif harian setelah pulang"
+      },
+      "referral": {
+        "en": "• Consult General Surgery or Gynecology immediately if surgical complications (bleeding, leak, bowel obstruction) are suspected postoperatively",
+        "id": "• Konsultasikan segera dengan Bedah Umum atau Ginekologi jika dicurigai komplikasi bedah (perdarahan, kebocoran, obstruksi usus) pasca-operasi"
+      },
+      "workup": {
+        "en": "• Daily assessment of pain score (VAS), mobilization hours, and oral intake volume\n• Monitoring fluid balance and electrolytes postoperatively",
+        "id": "• Penilaian harian skor nyeri (VAS), durasi mobilisasi, dan volume asupan oral\n• Pemantauan keseimbangan cairan dan elektrolit pasca-operasi"
+      }
+    },
+    "followUp": {
+      "en": "• Follow up in **1 week** (clinic visit or telephone call) to review wound healing, bowel function, and pain control",
+      "id": "• Tindak lanjut dalam **1 minggu** (kontrol klinik atau telepon) untuk memantau penyembuhan luka, fungsi usus, dan kontrol nyeri"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Prophylactic low-molecular-weight heparin (**Enoxaparin 40 mg SC daily**) for DVT prevention in high-risk pelvic/oncology surgeries\n• Preoperative carbohydrate drink to prevent insulin resistance",
+        "id": "• Profilaksis low-molecular-weight heparin (**Enoksaparin 40 mg SC sehari**) untuk pencegahan DVT pada operasi panggul/onkologi risiko tinggi\n• Minuman karbohidrat prabedah untuk mencegah resistensi insulin"
+      },
+      "nonPharmacological": {
+        "en": "• Intermittent pneumatic compression devices on legs\n• Comprehensive patient and family preoperative counseling to align expectations regarding early mobilization and nutrition",
+        "id": "• Penggunaan alat kompresi pneumatik intermiten pada kaki\n• Konseling prabedah komprehensif kepada pasien dan keluarga untuk menyamakan ekspektasi tentang mobilisasi dini dan nutrisi"
+      }
+    },
+    "caseExample": {
+      "en": "A 62-year-old female undergoes an elective major colorectal resection. The **ERAS protocol** is implemented. She drinks a carbohydrate loading drink 2 hours before induction. Intraoperatively, she receives a thoracic epidural block, goal-directed IV fluids, and active heating. She is fully awake in the recovery room, normothermic, and pain-free. Within 4 hours, she is eating a light solid meal and **mobilizing out of bed** to a chair. Epidural is removed on Day 2, transitioned to oral Paracetamol and Celecoxib. She is discharged home safely on Day 3 with complete return of bowel function.",
+      "id": "Seorang wanita 62 tahun menjalani reseksi kolorektal mayor elektif. **Protokol ERAS** diterapkan. Ia meminum minuman karbohidrat 2 jam sebelum induksi. Secara intraoperatif, ia menerima blok epidural torakal, cairan IV goal-directed, dan penghangatan aktif. Ia sadar penuh di ruang pemulihan, normotermia, dan bebas nyeri. Dalam waktu 4 jam, ia mengonsumsi makanan padat ringan dan **mobilisasi turun dari tempat tidur** ke kursi. Kateter epidural dilepas pada Hari ke-2, dialihkan ke Parasetamol oral dan Selecoxib. Ia pulang ke rumah dengan aman pada Hari ke-3 dengan pemulihan fungsi usus yang lengkap."
+    },
+    "references": {
+      "en": "• Guidelines for Perioperative Care in Elective Colorectal Surgery: Enhanced Recovery After Surgery (ERAS) Society Recommendations (World Journal of Surgery 2023)\n• Gustafsson UO, et al. World J Surg. 2023;47(1):1-28",
+      "id": "• Pedoman Perawatan Perioperatif pada Bedah Kolorektal Elektif: Rekomendasi ERAS Society (World Journal of Surgery 2023)\n• Gustafsson UO, et al. World J Surg. 2023;47(1):1-28"
+    }
+  }
+]

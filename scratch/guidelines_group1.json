@@ -1,0 +1,441 @@
+[
+  {
+    "title": { "en": "Chronic Kidney Disease (CKD)", "id": "Penyakit Ginjal Kronis (PGK)" },
+    "category": "Nephrology",
+    "isStructured": true,
+    "pdfUrl": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+    "definition": {
+      "en": "Chronic Kidney Disease (CKD) is defined as abnormalities of kidney structure or function, present for **>3 months**, with implications for health. It is classified based on cause, **GFR category (G1-G5)**, and **Albuminuria category (A1-A3)**.",
+      "id": "Penyakit Ginjal Kronis (PGK) didefinisikan sebagai kelainan struktur atau fungsi ginjal yang berlangsung selama **>3 bulan**, yang berdampak pada kesehatan. Klasifikasinya didasarkan pada penyebab, **kategori GFR (G1-G5)**, dan **kategori Albuminuria (A1-A3)**."
+    },
+    "symptoms": {
+      "en": "• Often asymptomatic in early stages (G1-G3)\n• **Fatigue** and generalized weakness due to anemia\n• **Pruritus** (itching) from uremic toxins\n• **Edema** (peripheral and periorbital) from fluid retention\n• Dyspnea due to fluid overload\n• Nausea, vomiting, and anorexia (in advanced uremia)",
+      "id": "• Sering kali tanpa gejala pada stadium awal (G1-G3)\n• **Kelelahan** dan kelemahan umum akibat anemia\n• **Pruritus** (gatal) akibat toksin uremik\n• **Edema** (perifer dan periorbital) akibat retensi cairan\n• Sesak napas karena kelebihan cairan\n• Mual, muntah, dan anoreksia (pada uremia lanjut)"
+    },
+    "physicalExamination": {
+      "en": "• Hypertension (often poorly controlled)\n• Peripheral pitting **edema**\n• Pallor of conjunctiva and skin (anemia)\n• Pleural effusion or pulmonary rales (fluid overload)\n• Uremic frost (late-stage uremia)",
+      "id": "• Hipertensi (sering kali sulit dikontrol)\n• **Edema** perifer pitting\n• Pucat pada konjungtiva dan kulit (anemia)\n• Efusi pleura atau ronkhi paru (kelebihan cairan)\n• Uremic frost (uremia stadium akhir)"
+    },
+    "labFindings": {
+      "en": "• Decreased **eGFR <60 mL/min/1.73m²**\n• Urine Albumin-to-Creatinine Ratio **(UACR) >30 mg/g**\n• Anemia (normocytic, normochromic)\n• **Hyperkalemia** (potassium >5.0 mEq/L) and acidosis\n• Hyperphosphatemia and hypocalcemia",
+      "id": "• Penurunan **eGFR <60 mL/min/1.73m²**\n• Rasio Albumin-Kreatinin Urin **(UACR) >30 mg/g**\n• Anemia (normositik, normokromik)\n• **Hiperkalemia** (kalium >5,0 mEq/L) dan asidosis\n• Hiperfosfatemia dan hipokalsemia"
+    },
+    "differentialDiagnosis": {
+      "en": "• Acute Kidney Injury (AKI)\n• Nephrotic Syndrome\n• Congestive Heart Failure\n• Hepatic Cirrhosis",
+      "id": "• Gangguan Ginjal Akut (AKI)\n• Sindrom Nefrotik\n• Gagal Jantung Kongestif\n• Sirosis Hati"
+    },
+    "dangerSigns": {
+      "en": "• **Hyperkalemia (K+ >6.5 mEq/L)** with ECG changes (peaked T waves)\n• Severe **fluid overload** refractory to diuretics (pulmonary edema)\n• Uremic pericarditis or encephalopathy (altered mental status)\n• Severe metabolic acidosis **(pH <7.1)**",
+      "id": "• **Hiperkalemia (K+ >6,5 mEq/L)** dengan perubahan EKG (gelombang T lancip)\n• **Kelebihan cairan** berat yang refrakter terhadap diuretik (edema paru)\n• Perikarditis uremik atau ensefalopati uremik (penurunan kesadaran)\n• Asidosis metabolik berat **(pH <7,1)**"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Administer **Furosemide 40-80 mg IV** for hypervolemia\n• Treat hyperkalemia: **Calcium Gluconate 10% 10 mL IV** if ECG changes exist, plus **Insulin 10 units in D50W 50 mL IV**\n• Restrict sodium (<2g/day) and potassium intake",
+        "id": "• Berikan **Furosemid 40-80 mg IV** untuk hipervolemia\n• Atasi hiperkalemia: **Kalsium Glukonat 10% 10 mL IV** jika ada perubahan EKG, ditambah **Insulin 10 unit dalam D50W 50 mL IV**\n• Batasi asupan natrium (<2g/hari) dan kalium"
+      },
+      "definitiveTreatment": {
+        "en": "• Initiate **SGLT2 inhibitors** (Dapagliflozin/Empagliflozin) for CKD with UACR >200 mg/g\n• Optimize blood pressure using **ACE inhibitors or ARBs** (titrate to maximum tolerated dose)\n• Prepare for **Renal Replacement Therapy** (Hemodialysis, Peritoneal Dialysis, or Transplant) for G5 CKD",
+        "id": "• Mulai **penghambat SGLT2** (Dapagliflozin/Empagliflozin) untuk PGK dengan UACR >200 mg/g\n• Optimalkan tekanan darah menggunakan **ACE inhibitor atau ARB** (titrasi ke dosis maksimal)\n• Persiapkan **Terapi Pengganti Ginjal** (Hemodialisis, Dialisis Peritoneal, atau Transplantasi) pada PGK stadium G5"
+      },
+      "rehab": {
+        "en": "• Regular low-intensity aerobic exercise to combat muscle wasting\n• Comprehensive dietary counseling (low protein for pre-dialysis, high protein for dialysis)",
+        "id": "• Olahraga aerobik intensitas rendah secara teratur untuk mencegah penyusutan otot\n• Konseling diet komprehensif (rendah protein untuk pra-dialisis, tinggi protein untuk dialisis)"
+      },
+      "referral": {
+        "en": "• Refer to **Nephrology** if **eGFR <30 mL/min/1.73m² (G4)**, rapid eGFR decline (>5 mL/min/year), or high albuminuria (UACR >300 mg/g)",
+        "id": "• Rujuk ke **Spesialis Nefrologi** jika **eGFR <30 mL/min/1.73m² (G4)**, penurunan eGFR cepat (>5 mL/min/tahun), atau albuminuria tinggi (UACR >300 mg/g)"
+      },
+      "workup": {
+        "en": "• Renal ultrasound to assess size and rule out obstruction\n• Monthly serum creatinine, electrolytes (potassium, bicarbonate), and calcium/phosphorus monitoring",
+        "id": "• USG ginjal untuk menilai ukuran dan menyingkirkan obstruksi\n• Pemantauan bulanan kreatinin serum, elektrolit (kalium, bikarbonat), dan kalsium/fosfor"
+      }
+    },
+    "followUp": {
+      "en": "• Stage G3: Follow-up every **6 months**\n• Stage G4: Follow-up every **3 months**\n• Monitor medication doses and adjust for renal clearance",
+      "id": "• Stadium G3: Kontrol setiap **6 bulan**\n• Stadium G4: Kontrol setiap **3 bulan**\n• Pantau dosis obat dan sesuaikan dengan klirens ginjal"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• **ACEi/ARB** for renal protection in patients with diabetes and albuminuria\n• Tight glycemic control **(HbA1c <7.0%)**",
+        "id": "• **ACEi/ARB** untuk proteksi ginjal pada pasien diabetes dengan albuminuria\n• Kontrol glikemik yang ketat **(HbA1c <7,0%)**"
+      },
+      "nonPharmacological": {
+        "en": "• Maintain low sodium diet (<2,000 mg/day)\n• Avoid nephrotoxic agents (especially **NSAIDs**)\n• Smoking cessation and weight optimization",
+        "id": "• Pertahankan diet rendah natrium (<2.000 mg/hari)\n• Hindari agen nefrotoksik (terutama **NSAID**)\n• Berhenti merokok dan optimalkan berat badan"
+      }
+    },
+    "caseExample": {
+      "en": "A 62-year-old male with a 15-year history of Type 2 Diabetes presents with persistent peripheral edema. Lab investigations reveal serum creatinine of **2.1 mg/dL**, eGFR of **34 mL/min/1.73m²** (G4 category), and a UACR of **420 mg/g** (A3 category). An ultrasound shows bilaterally shrunken kidneys. The patient is placed on **Dapagliflozin 10 mg daily** and **Losartan 50 mg daily**, and is referred to a nephrologist for pre-dialysis counseling.",
+      "id": "Seorang pria 62 tahun dengan riwayat Diabetes Tipe 2 selama 15 tahun datang dengan edema perifer persisten. Pemeriksaan laboratorium menunjukkan kreatinin serum **2,1 mg/dL**, eGFR **34 mL/min/1.73m²** (kategori G4), dan UACR **420 mg/g** (kategori A3). USG menunjukkan ginjal mengecil secara bilateral. Pasien diberikan **Dapagliflozin 10 mg sehari** dan **Losartan 50 mg sehari**, serta dirujuk ke nefrolog untuk konseling pra-dialisis."
+    },
+    "references": {
+      "en": "• KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease (Kidney International 2024)\n• KDIGO CKD Work Group. Kidney Int Suppl. 2024;105(4):S1-S218",
+      "id": "• Pedoman Praktik Klinis KDIGO 2024 untuk Evaluasi dan Manajemen Penyakit Ginjal Kronis (Kidney International 2024)\n• KDIGO CKD Work Group. Kidney Int Suppl. 2024;105(4):S1-S218"
+    }
+  },
+  {
+    "title": { "en": "Chronic Coronary Artery Disease", "id": "Penyakit Arteri Koroner Kronis" },
+    "category": "Cardiology",
+    "isStructured": true,
+    "definition": {
+      "en": "Chronic Coronary Artery Disease (CAD) is a stable, chronic state of coronary artery disease resulting from atherosclerotic plaque accumulation in epicardial arteries. It is characterized by stable anginal symptoms or history of acute coronary syndrome (ACS).",
+      "id": "Penyakit Arteri Koroner Kronis (CAD) adalah kondisi kronis yang stabil dari penyakit arteri koroner akibat penumpukan plak aterosklerotik pada arteri epikardial. Ditandai dengan gejala angina stabil atau riwayat sindrom koroner akut (SKA)."
+    },
+    "symptoms": {
+      "en": "• **Stable angina**: substernal chest discomfort or pressure\n• Precipitated by **exertion** or emotional stress\n• Relieved by **rest** or sublingual nitroglycerin within **5 minutes**\n• Radiation to neck, jaw, left arm, or epigastrium\n• 'Anginal equivalents' (dyspnea, fatigue) especially in diabetics and elderly",
+      "id": "• **Angina stabil**: rasa tidak nyaman atau tekanan di dada substernal\n• Dipicu oleh **aktivitas** atau stres emosional\n• Mereda dengan **istirahat** atau nitrogliserin sublingual dalam **5 menit**\n• Penjalarang ke leher, rahang, lengan kiri, atau epigastrium\n• 'Ekuivalen angina' (sesak napas, kelelahan) terutama pada penderita diabetes dan lansia"
+    },
+    "physicalExamination": {
+      "en": "• Often normal in stable resting state\n• Hypertension or signs of peripheral arterial disease (bruits, decreased pulses)\n• Heart sounds: S4 gallop during an episode of ischemia\n• Signs of hyperlipidemia (xanthomas, xanthelasma)",
+      "id": "• Sering kali normal dalam keadaan istirahat stabil\n• Hipertensi atau tanda penyakit arteri perifer (bruit, denyut nadi menurun)\n• Bunyi jantung: S4 gallop selama episode iskemia\n• Tanda hiperlipidemia (xantoma, xantelasma)"
+    },
+    "labFindings": {
+      "en": "• Normal cardiac enzymes (negative Troponin)\n• Elevated LDL cholesterol (>70 mg/dL without therapy)\n• Impaired fasting glucose or elevated HbA1c\n• Microalbuminuria (risk factor for cardiovascular events)",
+      "id": "• Enzim jantung normal (Troponin negatif)\n• Kadar kolesterol LDL tinggi (>70 mg/dL tanpa terapi)\n• Gangguan glukosa puasa atau peningkatan HbA1c\n• Mikroalbuminuria (faktor risiko kejadian kardiovaskular)"
+    },
+    "differentialDiagnosis": {
+      "en": "• GERD / Esophageal spasm\n• Costochondritis\n• Aortic Stenosis\n• Hypertrophic Cardiomyopathy\n• Anxiety / Panic attacks",
+      "id": "• GERD / Spasme esofagus\n• Kostokondritis\n• Stenosis Aorta\n• Kardiomiopati Hipertrofik\n• Kecemasan / Serangan panik"
+    },
+    "dangerSigns": {
+      "en": "• **Unstable Angina**: chest pain at rest, or of increasing frequency/intensity\n• Prolonged chest pain **>20 minutes** (suspected MI)\n• Acute dyspnea, syncope, or diaphoresis accompanying pain",
+      "id": "• **Angina Tidak Stabil**: nyeri dada saat istirahat, atau dengan frekuensi/intensitas meningkat\n• Nyeri dada berlangsung lama **>20 menit** (kecurigaan infark miokard)\n• Sesak napas akut, sinkop, atau diaforesis yang menyertai nyeri"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Administer **Sublingual Nitroglycerin 0.4 mg** during acute chest pain\n• Provide **Aspirin 81-162 mg daily** for antiplatelet therapy\n• Start short-acting **beta-blockers** (e.g. Metoprolol tartrate) for symptomatic relief",
+        "id": "• Berikan **Nitrogliserin Sublingual 0,4 mg** saat nyeri dada akut\n• Berikan **Aspirin 81-162 mg sehari** sebagai terapi antiplatelet\n• Mulai **penyekat beta** kerja singkat (misal: Metoprolol tartrat) untuk meredakan gejala"
+      },
+      "definitiveTreatment": {
+        "en": "• Optimize **lipid therapy**: High-intensity statin (**Atorvastatin 40-80 mg daily** or **Rosuvastatin 20-40 mg daily**) to target **LDL <55 mg/dL**\n• Antianginal therapy: Long-acting beta-blockers, Calcium Channel Blockers (Amlodipine), or **Ranolazine**\n• Revascularization via **PCI or CABG** for refractory symptoms or high-risk anatomy",
+        "id": "• Optimalkan **terapi lipid**: Statin intensitas tinggi (**Atorvastatin 40-80 mg sehari** atau **Rosuvastatin 20-40 mg sehari**) dengan target **LDL <55 mg/dL**\n• Terapi antiangina: Penyekat beta kerja panjang, Calcium Channel Blocker (Amlodipin), atau **Ranolazin**\n• Revaskularisasi melalui **PCI atau CABG** untuk gejala refrakter atau anatomi risiko tinggi"
+      },
+      "rehab": {
+        "en": "• Enrollment in structured cardiovascular rehabilitation programs\n• Graduated aerobic exercise training (at least **150 mins/week**)",
+        "id": "• Pendaftaran dalam program rehabilitasi kardiovaskular terstruktur\n• Latihan olahraga aerobik bertahap (setidaknya **150 menit/minggu**)"
+      },
+      "referral": {
+        "en": "• Refer to **Cardiology** for diagnostic coronary angiography or non-invasive stress testing if symptoms persist despite optimal medical therapy",
+        "id": "• Rujuk ke **Spesialis Jantung** untuk angiografi koroner diagnostik atau uji latih beban non-invasif jika gejala menetap meskipun terapi medis optimal"
+      },
+      "workup": {
+        "en": "• 12-lead ECG, transthoracic echocardiogram to assess ejection fraction\n• Cardiac stress testing (exercise treadmill or pharmacologic stress imaging)\n• Coronary Computed Tomography Angiography (CCTA)",
+        "id": "• EKG 12-sadapan, ekokardiografi transtorakal untuk menilai fraksi ejeksi\n• Uji latih beban jantung (treadmill atau pencitraan beban farmakologis)\n• Coronary Computed Tomography Angiography (CCTA)"
+      }
+    },
+    "followUp": {
+      "en": "• Review every **6-12 months** when stable\n• Monitor lipid panel, HbA1c, renal function, and medication adherence at each visit",
+      "id": "• Tinjau setiap **6-12 bulan** jika kondisi stabil\n• Pantau profil lipid, HbA1c, fungsi ginjal, dan kepatuhan pengobatan pada setiap kunjungan"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• **Aspirin 81 mg daily** for secondary prevention\n• **Statin therapy** for plaque stabilization\n• ACE inhibitor/ARB for patients with co-existing hypertension, diabetes, or HFrEF",
+        "id": "• **Aspirin 81 mg sehari** untuk pencegahan sekunder\n• **Terapi statin** untuk stabilisasi plak\n• ACE inhibitor/ARB untuk pasien dengan hipertensi penyerta, diabetes, atau HFrEF"
+      },
+      "nonPharmacological": {
+        "en": "• Mediterranean-style diet low in saturated fats\n• Smoking cessation (highly critical)\n• Weight optimization (BMI **18.5-24.9 kg/m²**)",
+        "id": "• Diet gaya Mediterania rendah lemak jenuh\n• Berhenti merokok (sangat kritis)\n• Optimalisasi berat badan (IMT **18,5-24,9 kg/m²**)"
+      }
+    },
+    "caseExample": {
+      "en": "A 58-year-old male presents with a 3-month history of chest tightness when walking up steep hills, resolving within 3 minutes of resting. He has a history of smoking and hypertension. Vital signs are stable. ECG at rest is normal. Troponin is negative. An exercise stress test is positive for reversible ischemia in the anterior wall. The patient is placed on **Atorvastatin 80 mg daily**, **Aspirin 81 mg daily**, and **Metoprolol Succinate 50 mg daily**. He is referred for a coronary angiogram which reveals 75% occlusion of the mid-LAD, managed successfully with a drug-eluting stent.",
+      "id": "Seorang pria 58 tahun datang dengan riwayat dada terasa terikat sejak 3 bulan ketika berjalan di bukit yang curam, mereda dalam waktu 3 menit setelah beristirahat. Ia memiliki riwayat merokok dan hipertensi. Tanda-tanda vital stabil. EKG istirahat normal. Troponin negatif. Uji latih beban treadmill positif untuk iskemia reversibel di dinding anterior. Pasien diberikan **Atorvastatin 80 mg sehari**, **Aspirin 81 mg sehari**, dan **Metoprolol Suksinat 50 mg sehari**. Ia dirujuk untuk angiografi koroner yang menunjukkan oklusi 75% pada LAD tengah, yang berhasil ditangani dengan stent eluting obat."
+    },
+    "references": {
+      "en": "• AHA/ACC 2023 Guideline for the Management of Patients With Chronic Coronary Disease (JACC 2023)\n• Virani SS, et al. J Am Coll Cardiol. 2023;82(9):839-928",
+      "id": "• Pedoman AHA/ACC 2023 untuk Manajemen Pasien dengan Penyakit Koroner Kronis (JACC 2023)\n• Virani SS, et al. J Am Coll Cardiol. 2023;82(9):839-928"
+    }
+  },
+  {
+    "title": { "en": "Community-Acquired Pneumonia (CAP)", "id": "Pneumonia Komunitas (CAP)" },
+    "category": "Pulmonology",
+    "isStructured": true,
+    "definition": {
+      "en": "Community-Acquired Pneumonia (CAP) is an acute infection of the lung parenchyma acquired outside of a healthcare setting. The most common bacterial pathogen is **Streptococcus pneumoniae**, though viral and atypical pathogens are also prevalent.",
+      "id": "Pneumonia Komunitas (CAP) adalah infeksi akut pada parenkim paru yang didapat di luar fasilitas pelayanan kesehatan. Patogen bakteri yang paling umum adalah **Streptococcus pneumoniae**, meskipun patogen virus dan atipikal juga prevalen."
+    },
+    "symptoms": {
+      "en": "• Acute onset of **cough** (dry or productive with purulent sputum)\n• **Fever** (>38.0°C) with shaking chills or rigors\n• Pleuritic chest pain\n• **Dyspnea** (shortness of breath)\n• Constitutional symptoms: fatigue, headache, myalgia, anorexia",
+      "id": "• Onset akut dari **batuk** (kering atau produktif dengan sputum purulen)\n• **Demam** (>38,0°C) dengan menggigil\n• Nyeri dada pleuritik\n• **Dyspnea** (sesak napas)\n• Gejala konstitusional: kelelahan, sakit kepala, mialgia, anoreksia"
+    },
+    "physicalExamination": {
+      "en": "• Tachypnea (>20 breaths/min), tachycardia, fever\n• Decreased oxygen saturation (SpO2)\n• Auscultation: localized **crackles (crepitations)**, bronchial breath sounds, increased vocal fremitus\n• Dullness to percussion (suggesting lobar consolidation or parapneumonic effusion)",
+      "id": "• Takipnea (>20 x/menit), takikardia, demam\n• Penurunan saturasi oksigen (SpO2)\n• Auskultasi: **ronkhi basah kasar (krepitasi)** terlokalisir, suara napas bronkial, fremitus vokal meningkat\n• Pekak pada perkusi (menunjukkan konsolidasi lobar atau efusi parapneumonik)"
+    },
+    "labFindings": {
+      "en": "• Leukocytosis with left shift (or leukopenia in severe cases)\n• Elevated inflammatory markers: **CRP** or **Procalcitonin**\n• Chest Radiograph showing **infiltrate or consolidation** (required for diagnosis)\n• Sputum and blood cultures (in severe cases or prior antibiotic failures)",
+      "id": "• Leukositosis dengan left shift (atau leukopenia pada kasus berat)\n• Peningkatan penanda inflamasi: **CRP** atau **Prokalsitonin**\n• Rontgen dada menunjukkan **infiltrat atau konsolidasi** (wajib untuk diagnosis)\n• Kultur sputum dan darah (pada kasus berat atau kegagalan antibiotik sebelumnya)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Acute Bronchitis\n• Pulmonary Embolism\n• Congestive Heart Failure\n• Pulmonary Tuberculosis\n• Lung Malignancy",
+      "id": "• Bronkhitis Akut\n• Emboli Paru\n• Gagal Jantung Kongestif\n• Tuberkulosis Paru\n• Keganasan Paru"
+    },
+    "dangerSigns": {
+      "en": "• Altered mental status / confusion\n• Hypotension (SBP <90 mmHg)\n• Tachypnea **>30 breaths/min**\n• Severe hypoxemia (SpO2 <90% on room air)\n• Uremia (BUN **>19 mg/dL**)",
+      "id": "• Penurunan kesadaran / kebingungan\n• Hipotensi (TDS <90 mmHg)\n• Takipnea **>30 x/menit**\n• Hipoksemia berat (SpO2 <90% pada udara ruangan)\n• Uremia (BUN **>19 mg/dL**)"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Supplement oxygen if SpO2 <92%\n• Risk stratify using **CURB-65** or **PSI (Pneumonia Severity Index)**\n• Initiate empiric antibiotic therapy within **4 hours** of diagnosis\n• Ensure adequate hydration and antipyretics for fever",
+        "id": "• Berikan tambahan oksigen jika SpO2 <92%\n• Stratifikasi risiko menggunakan **CURB-65** atau **PSI (Pneumonia Severity Index)**\n• Mulai terapi antibiotik empiris dalam **4 jam** sejak diagnosis\n• Pastikan hidrasi yang memadai dan berikan antipiretik untuk demam"
+      },
+      "definitiveTreatment": {
+        "en": "• Outpatient (no comorbidities): **Amoxicillin 1g tid** OR **Doxycycline 100mg bid** OR a Macrolide\n• Outpatient (with comorbidities): **Co-amoxiclav** plus a **Macrolide** OR respiratory Monotherapy (Levofloxacin 750mg daily)\n• Inpatient (non-severe): IV **Ceftriaxone 1-2g daily** plus **Azithromycin 500mg IV/PO daily**\n• Inpatient (severe): IV Beta-lactam plus respiratory Fluoroquinolone OR Beta-lactam plus Azithromycin. Duration: **5-7 days**",
+        "id": "• Rawat Jalan (tanpa komorbid): **Amoksisilin 1g 3x sehari** ATAU **Doksisiklin 100mg 2x sehari** ATAU Makrolida\n• Rawat Jalan (dengan komorbid): **Ko-amoksiklav** ditambah **Makrolida** ATAU Monoterapi respiratorik (Levofloksasin 750mg sehari)\n• Rawat Inap (non-berat): IV **Ceftriaxone 1-2g sehari** ditambah **Azitromisin 500mg IV/PO sehari**\n• Rawat Inap (berat): Beta-laktam IV ditambah Fluoroquinolon respiratorik ATAU Beta-laktam ditambah Azitromisin. Durasi: **5-7 hari**"
+      },
+      "rehab": {
+        "en": "• Deep breathing exercises (incentive spirometry)\n• Gradual mobilization and chest physiotherapy if productive secretions are copious",
+        "id": "• Latihan pernapasan dalam (incentive spirometry)\n• Mobilisasi bertahap dan fisioterapi dada jika sekret produktif sangat banyak"
+      },
+      "referral": {
+        "en": "• Transfer to **ICU** if patient meets **1 major** (mechanical ventilation, vasopressor support) or **>=3 minor** criteria of the ATS/IDSA severe CAP guidelines",
+        "id": "• Transfer ke **ICU** jika pasien memenuhi **1 kriteria mayor** (ventilasi mekanik, dukungan vasopresor) atau **>=3 kriteria minor** dari pedoman CAP berat ATS/IDSA"
+      },
+      "workup": {
+        "en": "• Chest X-ray at baseline\n• Complete Blood Count (CBC), renal panel, and CRP/Procalcitonin",
+        "id": "• Rontgen dada pada awal pemeriksaan\n• Darah Lengkap, panel ginjal, dan CRP/Prokalsitonin"
+      }
+    },
+    "followUp": {
+      "en": "• Follow up in **48-72 hours** to assess clinical response\n• Repeat chest X-ray in **6-8 weeks** in patients >50 or smokers to document resolution and rule out malignancy",
+      "id": "• Tindak lanjut dalam **48-72 jam** untuk menilai respons klinis\n• Ulangi rontgen dada dalam **6-8 minggu** pada pasien >50 tahun atau perokok untuk dokumentasi resolusi dan menyingkirkan keganasan"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• **Pneumococcal vaccination** (PCV15/PCV20 followed by PPSV23 based on age/risk factors)\n• Annual **influenza vaccine**",
+        "id": "• **Vaksinasi pneumokokus** (PCV15/PCV20 diikuti oleh PPSV23 berdasarkan usia/faktor risiko)\n• Vaksinasi **influenza tahunan**"
+      },
+      "nonPharmacological": {
+        "en": "• Smoking cessation (reduces pneumococcal risk significantly)\n• Strict hand hygiene and respiratory etiquette",
+        "id": "• Berhenti merokok (mengurangi risiko pneumokokus secara signifikan)\n• Kebersihan tangan yang ketat dan etika batuk"
+      }
+    },
+    "caseExample": {
+      "en": "A 69-year-old female presents with fever, chills, and a productive cough with rusty sputum. Vital signs: SBP 105/65 mmHg, HR 102 bpm, RR 26 breaths/min, temp 38.6°C, SpO2 93% on room air. Lab results show BUN of **24 mg/dL** and leukocytosis. Chest X-ray shows right lower lobar consolidation. Her **CURB-65 score is 2** (age >= 65, BUN > 19), prompting admission. She is successfully treated with IV **Ceftriaxone 2g daily** and oral **Azithromycin 500mg daily** for 5 days, showing rapid clinical improvement.",
+      "id": "Seorang wanita 69 tahun datang dengan demam, menggigil, dan batuk produktif dengan dahak berwarna karat. Tanda vital: TDS 105/65 mmHg, HR 102 x/menit, RR 26 x/menit, suhu 38,6°C, SpO2 93% pada udara ruangan. Hasil lab menunjukkan BUN **24 mg/dL** dan leukositosis. Rontgen dada menunjukkan konsolidasi lobus kanan bawah. Skor **CURB-65 adalah 2** (usia >= 65, BUN > 19), sehingga diputuskan untuk rawat inap. Ia berhasil diobati dengan IV **Ceftriaxone 2g sehari** dan oral **Azitromisin 500mg sehari** selama 5 hari, menunjukkan perbaikan klinis yang cepat."
+    },
+    "references": {
+      "en": "• Diagnosis and Treatment of Adults with Community-acquired Pneumonia: An Official Clinical Practice Guideline of the IDSA and ATS (AJRCCM 2019)\n• Metlay JP, et al. Am J Respir Crit Care Med. 2019;200(7):e45-e67",
+      "id": "• Diagnosis dan Pengobatan Orang Dewasa dengan Pneumonia Komunitas: Pedoman Praktik Klinis Resmi IDSA dan ATS (AJRCCM 2019)\n• Metlay JP, et al. Am J Respir Crit Care Med. 2019;200(7):e45-e67"
+    }
+  },
+  {
+    "title": { "en": "Gastrointestinal Dysbiosis & Probiotic Therapy", "id": "Disbiosis Gastrointestinal & Terapi Probiotik" },
+    "category": "Gastroenterology",
+    "isStructured": true,
+    "definition": {
+      "en": "Gastrointestinal Dysbiosis is an imbalance in the composition and function of the gut microbiota, which can contribute to various gastrointestinal disorders (e.g. IBS, antibiotic-associated diarrhea). Probiotic therapy involves the administration of live microorganisms that confer a health benefit on the host.",
+      "id": "Disbiosis Gastrointestinal adalah ketidakseimbangan komposisi dan fungsi mikrobiota usus, yang dapat berkontribusi pada berbagai gangguan pencernaan (misal: IBS, diare terkait antibiotik). Terapi probiotik melibatkan pemberian mikroorganisme hidup yang memberikan manfaat kesehatan bagi inangnya."
+    },
+    "symptoms": {
+      "en": "• Abdominal bloating and distension\n• Excessive **flatulence** (gas)\n• Altered bowel habits: diarrhea, constipation, or alternating patterns (IBS-like)\n• Epigastric fullness and dyspepsia\n• Abdominal cramping",
+      "id": "• Perut kembung dan begah\n• **Flatulensi** (buang angin) berlebihan\n• Perubahan kebiasaan buang air besar: diare, konstipasi, atau pola bergantian (seperti IBS)\n• Rasa penuh di epigastrium dan dispepsia\n• Kram perut"
+    },
+    "physicalExamination": {
+      "en": "• Abdominal distension (tympanic on percussion)\n• Diffuse mild abdominal tenderness without guarding or rigidity\n• Hyperactive or normal bowel sounds",
+      "id": "• Distensi abdomen (timpani pada perkusi)\n• Nyeri tekan abdomen difus derajat ringan tanpa defens muskular atau rigiditas\n• Bising usus hiperaktif atau normal"
+    },
+    "labFindings": {
+      "en": "• Diagnosis is primarily clinical; no routine lab assays are diagnostic for dysbiosis\n• Negative stool cultures for pathogens (to rule out infectious gastroenteritis)\n• High-pressure hydrogen/methane on **breath tests** in cases of Small Intestinal Bacterial Overgrowth (SIBO)",
+      "id": "• Diagnosis utamanya bersifat klinis; tidak ada pemeriksaan lab rutin yang diagnostik untuk disbiosis\n• Kultur feses negatif untuk patogen (untuk menyingkirkan gastroenteritis infeksius)\n• Hidrogen/metana tekanan tinggi pada **breath test** pada kasus Pertumbuhan Bakteri Berlebih di Usus Halus (SIBO)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Celiac Disease\n• Inflammatory Bowel Disease (IBD)\n• Small Intestinal Bacterial Overgrowth (SIBO)\n• Lactose Intolerance\n• Infectious Gastroenteritis",
+      "id": "• Penyakit Celiac\n• Penyakit Radang Usus (IBD)\n• Pertumbuhan Bakteri Berlebih di Usus Halus (SIBO)\n• Intoleransi Laktosa\n• Gastroenteritis Infeksius"
+    },
+    "dangerSigns": {
+      "en": "• Unexplained **weight loss**\n• Hematochezia (blood in stool) or melena\n• Nocturnal diarrhea waking the patient\n• Fever, persistent severe abdominal pain\n• Persistent anemia (iron deficiency)",
+      "id": "• Penurunan **berat badan** yang tidak dapat dijelaskan\n• Hematokezia (darah pada feses) atau melena\n• Diare nokturnal yang membangunkan pasien\n• Demam, nyeri perut hebat yang menetap\n• Anemia persisten (defisiensi besi)"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Avoid empirical antibiotics unless SIBO is confirmed\n• Recommend dietary adjustment: decrease simple sugars, increase fiber\n• Start **Probiotic therapy** matching the clinical indication",
+        "id": "• Hindari penggunaan antibiotik empiris kecuali SIBO terkonfirmasi\n• Rekomendasikan penyesuaian diet: kurangi gula sederhana, tingkatkan serat\n• Mulai **Terapi probiotik** yang sesuai dengan indikasi klinis"
+      },
+      "definitiveTreatment": {
+        "en": "• For prevention of Antibiotic-Associated Diarrhea (AAD): **Saccharomyces boulardii** OR **Lactobacillus rhamnosus GG** co-administered with antibiotics\n• For Irritable Bowel Syndrome (IBS): Multi-strain probiotics (e.g. Bifidobacterium, Lactobacillus) for at least **1 month**\n• For acute gastroenteritis: Short course of S. boulardii or L. rhamnosus GG to reduce duration",
+        "id": "• Untuk pencegahan Diare Terkait Antibiotik (AAD): **Saccharomyces boulardii** ATAU **Lactobacillus rhamnosus GG** yang diberikan bersama antibiotik\n• Untuk Sindrom Iritasi Usus (IBS): Probiotik multi-strain (misal: Bifidobacterium, Lactobacillus) selama minimal **1 bulan**\n• Untuk gastroenteritis akut: Siklus singkat S. boulardii atau L. rhamnosus GG untuk mengurangi durasi"
+      },
+      "rehab": {
+        "en": "• Slow, progressive introduction of prebiotics (fermentable fibers) to support probiotic colonization",
+        "id": "• Pengenalan prebiotik (serat fermentasi) secara lambat dan bertahap untuk mendukung kolonisasi probiotik"
+      },
+      "referral": {
+        "en": "• Refer to **Gastroenterology** if warning signs are present, or symptoms are refractory to 4 weeks of dietary and probiotic therapy",
+        "id": "• Rujuk ke **Spesialis Gastroenterologi** jika ada tanda bahaya, atau gejala refrakter terhadap 4 minggu terapi diet dan probiotik"
+      },
+      "workup": {
+        "en": "• Stool testing (fecal calprotectin to rule out IBD if clinically suspicious)\n• Serological screen for Celiac disease (tTG-IgA)",
+        "id": "• Pemeriksaan feses (kalprotektin fekal untuk menyingkirkan IBD jika dicurigai secara klinis)\n• Skrining serologi untuk penyakit Celiac (tTG-IgA)"
+      }
+    },
+    "followUp": {
+      "en": "• Follow up in **2-4 weeks** to evaluate symptomatic improvement and compliance\n• Adjust probiotic strains or dietary protocols if no response",
+      "id": "• Tindak lanjut dalam **2-4 minggu** untuk mengevaluasi perbaikan gejala dan kepatuhan\n• Sesuaikan strain probiotik atau protokol diet jika tidak ada respons"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Targeted use of **S. boulardii** during broad-spectrum antibiotic treatment courses",
+        "id": "• Penggunaan terarget **S. boulardii** selama siklus pengobatan antibiotik spektrum luas"
+      },
+      "nonPharmacological": {
+        "en": "• High fiber diet rich in diverse plant foods\n• Regular intake of naturally fermented foods (yogurt, kefir, tempeh)\n• Avoidance of unnecessary antibiotic use",
+        "id": "• Diet tinggi serat yang kaya akan beragam makanan nabati\n• Konsumsi makanan terfermentasi alami secara rutin (yoghurt, kefir, tempe)\n• Menghindari penggunaan antibiotik yang tidak perlu"
+      }
+    },
+    "caseExample": {
+      "en": "A 34-year-old female presents with persistent abdominal bloating and loose stools after completing a 10-day course of Amoxicillin-Clavulanate for sinusitis. She reports **flatulence** and passing 3-4 soft stools daily. Stool cultures are negative. The patient is prescribed **Lactobacillus rhamnosus GG (10 billion CFU daily)** for 14 days and advised to increase intake of soluble fibers. Her bowel movements return to baseline within 5 days, and abdominal bloating resolves completely.",
+      "id": "Seorang wanita 34 tahun datang dengan perut kembung persisten dan feses lembek setelah menyelesaikan 10 hari terapi Amoksisilin-Klavulanat untuk sinusitis. Ia melaporkan **flatulensi** dan buang air besar 3-4 kali sehari dengan konsistensi lembek. Kultur feses negatif. Pasien diresepkan **Lactobacillus rhamnosus GG (10 miliar CFU sehari)** selama 14 hari dan disarankan meningkatkan asupan serat larut. Pola buang air besarnya kembali normal dalam 5 hari, dan perut kembung mereda sepenuhnya."
+    },
+    "references": {
+      "en": "• World Gastroenterology Organisation Global Guidelines: Probiotics and Prebiotics (WGO 2023)\n• Guarner F, et al. World Gastroenterology Organisation, 2023",
+      "id": "• Pedoman Global Organisasi Gastroenterologi Dunia: Probiotik dan Prebiotik (WGO 2023)\n• Guarner F, et al. World Gastroenterology Organisation, 2023"
+    }
+  },
+  {
+    "title": { "en": "Type 2 Diabetes Mellitus (T2DM)", "id": "Diabetes Melitus Tipe 2 (DMT2)" },
+    "category": "Endocrinology",
+    "isStructured": true,
+    "definition": {
+      "en": "Type 2 Diabetes Mellitus (T2DM) is a chronic metabolic disorder characterized by **insulin resistance** and progressive pancreatic beta-cell dysfunction, leading to chronic **hyperglycemia**. It is associated with significant microvascular and macrovascular complications.",
+      "id": "Diabetes Melitus Tipe 2 (DMT2) adalah gangguan metabolik kronis yang ditandai oleh **resistensi insulin** dan disfungsi progresif sel beta pankreas, yang menyebabkan **hiperglikemia** kronis. Kondisi ini dikaitkan dengan komplikasi mikrovaskular dan makrovaskular yang signifikan."
+    },
+    "symptoms": {
+      "en": "• Polyuria (increased urination)\n• Polydipsia (increased thirst)\n• Polyphagia (increased hunger)\n• Unexplained weight loss\n• Blurry vision, frequent infections, or slow-healing wounds\n• Often asymptomatic in early years (diagnosed during screening)",
+      "id": "• Poliuria (sering buang air besar)\n• Polidipsia (sering haus)\n• Polifagia (sering lapar)\n• Penurunan berat badan yang tidak dapat dijelaskan\n• Pandangan kabur, infeksi sering, atau luka yang lambat sembuh\n• Sering kali tanpa gejala pada tahun-tahun awal (terdiagnosis saat skrining)"
+    },
+    "physicalExamination": {
+      "en": "• Obesity or high waist circumference\n• Acanthosis nigricans (hyperpigmented velvety patches indicating **insulin resistance**)\n• Decreased peripheral sensation (monofilament test for neuropathy)\n• Diminished peripheral pulses (PAD)\n• Fundoscopy: microaneurysms or cotton wool spots (diabetic retinopathy)",
+      "id": "• Obesitas atau lingkar pinggang tinggi\n• Akantosis nigrikans (bercak hiperpigmentasi seperti beludru yang menunjukkan **resistensi insulin**)\n• Penurunan sensasi perifer (tes monofilamen untuk neuropati)\n• Denyut nadi perifer melemah (PAD)\n• Funduskopi: mikroaneurisma atau cotton wool spot (retinopati diabetik)"
+    },
+    "labFindings": {
+      "en": "• Fasting Plasma Glucose **>=126 mg/dL**\n• 2-hour Post-load Glucose **>=200 mg/dL**\n• HbA1c **>=6.5%**\n• Random Plasma Glucose **>=200 mg/dL** with classic symptoms\n• Microalbuminuria (UACR **30-300 mg/g**)",
+      "id": "• Glukosa Plasma Puasa **>=126 mg/dL**\n• Glukosa 2 Jam Post-load **>=200 mg/dL**\n• HbA1c **>=6,5%**\n• Glukosa Plasma Acak **>=200 mg/dL** dengan gejala klasik\n• Mikroalbuminuria (UACR **30-300 mg/g**)"
+    },
+    "differentialDiagnosis": {
+      "en": "• Type 1 Diabetes Mellitus\n• LADA (Latent Autoimmune Diabetes in Adults)\n• MODY (Maturity-Onset Diabetes of the Young)\n• Secondary Diabetes (e.g. Cushing's disease, pancreatitis)",
+      "id": "• Diabetes Melitus Tipe 1\n• LADA (Latent Autoimmune Diabetes in Adults)\n• MODY (Maturity-Onset Diabetes of the Young)\n• Diabetes Sekunder (misal: penyakit Cushing, pankreatitis)"
+    },
+    "dangerSigns": {
+      "en": "• Diabetic Ketoacidosis (DKA) or Hyperosmolar Hyperglycemic State (HHS) symptoms\n• Altered mental status or lethargy\n• Deep, rapid breathing (**Kussmaul breathing**)\n• Severe dehydration, hypotension\n• Acute hypoglycemic symptoms: sweating, tremor, confusion, seizures **(glucose <70 mg/dL)**",
+      "id": "• Gejala Ketoasidosis Diabetik (KAD) atau Status Hiperosmolar Hiperglikemik (SHH)\n• Penurunan kesadaran atau letargi\n• Pernapasan cepat dan dalam (**pernapasan Kussmaul**)\n• Dehidrasi berat, hipotensi\n• Gejala hipoglikemia akut: berkeringat, gemetar, kebingungan, kejang **(glukosa <70 mg/dL)**"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Implement therapeutic lifestyle changes (diet and exercise)\n• Initiate **Metformin 500 mg once or twice daily** as first-line pharmacotherapy if no contraindications exist (eGFR >30)\n• If acute symptomatic hyperglycemia is present, start temporary **Insulin therapy**",
+        "id": "• Terapkan perubahan gaya hidup terapeutik (diet dan olahraga)\n• Mulai **Metformin 500 mg satu atau dua kali sehari** sebagai farmakoterapi lini pertama jika tidak ada kontraindikasi (eGFR >30)\n• Jika ada hiperglikemia simptomatik akut, mulai **terapi insulin** sementara"
+      },
+      "definitiveTreatment": {
+        "en": "• Personalize glycemic target (generally **HbA1c <7.0%**)\n• If ASCVD, Heart Failure, or CKD is present: Add **SGLT2 inhibitors** (Dapagliflozin) or **GLP-1 receptor agonists** (Semaglutide) regardless of Metformin use\n• If HbA1c remains above target, add secondary agents (DPP-4 inhibitors, Sulfonylureas, Pioglitazone, or basal Insulin)\n• Tight blood pressure control (<130/80 mmHg) and lipid control (Statin therapy)",
+        "id": "• Personalisasikan target glikemik (umumnya **HbA1c <7,0%**)\n• Jika ada penyakit ASCVD, Gagal Jantung, atau PGK: Tambahkan **penghambat SGLT2** (Dapagliflozin) atau **agonis reseptor GLP-1** (Semaglutide) tanpa memandang penggunaan Metformin\n• Jika HbA1c tetap di atas target, tambahkan agen sekunder (penghambat DPP-4, Sulfonilurea, Pioglitazon, atau Insulin basal)\n• Kontrol tekanan darah yang ketat (<130/80 mmHg) dan kontrol lipid (terapi Statin)"
+      },
+      "rehab": {
+        "en": "• Structured diabetic education program\n• Podiatry care and regular foot checks to prevent diabetic ulcers",
+        "id": "• Program edukasi diabetes terstruktur\n• Perawatan podiatri dan pemeriksaan kaki rutin untuk mencegah ulkus diabetikum"
+      },
+      "referral": {
+        "en": "• Refer to **Endocrinology** if glycemic control is refractory to triple therapy, recurrent severe hypoglycemia occurs, or for advanced complications (retinopathy, severe neuropathy)",
+        "id": "• Rujuk ke **Spesialis Endokrinologi** jika kontrol glikemik refrakter terhadap terapi rangkap tiga, terjadi hipoglikemia berat berulang, atau komplikasi lanjut (retinopati, neuropati berat)"
+      },
+      "workup": {
+        "en": "• HbA1c every **3-6 months**\n• Annual lipid panel, serum creatinine, eGFR, and **UACR**\n• Annual comprehensive foot exam and dilated eye exam",
+        "id": "• Pemeriksaan HbA1c setiap **3-6 bulan**\n• Pemantauan profil lipid, kreatinin serum, eGFR, dan **UACR** tahunan\n• Pemeriksaan kaki komprehensif dan pemeriksaan mata tahunan"
+      }
+    },
+    "followUp": {
+      "en": "• Check patient every **3 months** until glycemic target is achieved, then every **6 months**",
+      "id": "• Periksa pasien setiap **3 bulan** hingga target glikemik tercapai, kemudian setiap **6 bulan**"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• **Metformin** may be considered for prevention of T2DM in patients with prediabetes (especially if BMI >35, age <60, or prior gestational diabetes)",
+        "id": "• **Metformin** dapat dipertimbangkan untuk pencegahan DMT2 pada pasien prediabetes (terutama jika IMT >35, usia <60 tahun, atau riwayat diabetes gestasional)"
+      },
+      "nonPharmacological": {
+        "en": "• Intensive lifestyle modification: **150 mins/week** of moderate aerobic activity\n• Hypocaloric diet aiming for **>7% weight loss**\n• Smoking cessation",
+        "id": "• Modifikasi gaya hidup intensif: **150 menit/minggu** aktivitas aerobik sedang\n• Diet hipokalori dengan target **penurunan berat badan >7%**\n• Berhenti merokok"
+      }
+    },
+    "caseExample": {
+      "en": "A 52-year-old overweight female is diagnosed with T2DM during a routine screening. Her fasting blood glucose is **142 mg/dL** and **HbA1c is 7.6%**. She has mild hypertension but no kidney disease or cardiovascular history. The patient is prescribed **Metformin 500 mg twice daily** and receives structured dietary counseling focusing on low-glycemic foods. After 3 months, her HbA1c decreases to **6.8%**, and she reports successfully losing **4 kg** of body weight.",
+      "id": "Seorang wanita 52 tahun dengan kelebihan berat badan terdiagnosis DMT2 saat skrining rutin. Gula darah puasanya **142 mg/dL** dan **HbA1c 7,6%**. Ia memiliki hipertensi ringan tetapi tidak ada penyakit ginjal atau riwayat penyakit kardiovaskular. Pasien diresepkan **Metformin 500 mg dua kali sehari** dan menerima konseling diet terstruktur yang berfokus pada makanan rendah glikemik. Setelah 3 bulan, HbA1c-nya turun menjadi **6,8%**, dan ia melaporkan berhasil menurunkan berat badan sebanyak **4 kg**."
+    },
+    "references": {
+      "en": "• ADA/EASD Consensus Report: Management of Hyperglycemia in Type 2 Diabetes (Diabetes Care 2022)\n• AACE Clinical Practice Guideline: Developing a Diabetes Mellitus Comprehensive Care Plan (Endocr Pract 2023)\n• Davies MJ, et al. Diabetes Care. 2022;45(11):2753-2786\n• Samson SL, et al. Endocr Pract. 2023;29(5):305-340",
+      "id": "• Laporan Konsensus ADA/EASD: Manajemen Hiperglycemia pada Diabetes Tipe 2 (Diabetes Care 2022)\n• Pedoman Praktik Klinis AACE: Menyusun Rencana Perawatan Komprehensif Diabetes Melitus (Endocr Pract 2023)\n• Davies MJ, et al. Diabetes Care. 2022;45(11):2753-2786\n• Samson SL, et al. Endocr Pract. 2023;29(5):305-340"
+    }
+  },
+  {
+    "title": { "en": "Bronchial Asthma", "id": "Asma Bronkial" },
+    "category": "Pulmonology",
+    "isStructured": true,
+    "definition": {
+      "en": "Bronchial Asthma is a heterogeneous chronic inflammatory disease of the airways, characterized by history of respiratory symptoms such as wheezing, shortness of breath, chest tightness, and cough, along with variable expiratory airflow limitation.",
+      "id": "Asma Bronkial adalah penyakit inflamasi kronis heterogen pada saluran napas, ditandai oleh riwayat gejala respirasi seperti mengi, sesak napas, dada terasa terikat, dan batuk, serta hambatan aliran udara ekspirasi yang bervariasi."
+    },
+    "symptoms": {
+      "en": "• Wheezing (high-pitched whistling sound on exhalation)\n• **Dyspnea** (shortness of breath)\n• Chest tightness or pressure\n• Cough (often worse at night or early morning)\n• Symptoms triggered by exercise, cold air, allergens, or viral infections",
+      "id": "• Mengi (suara bersiul bernada tinggi saat mengembuskan napas)\n• **Dyspnea** (sesak napas)\n• Rasa terikat atau tertekan di dada\n• Batuk (sering kali memburuk pada malam hari atau pagi-pagi sekali)\n• Gejala dipicu oleh aktivitas fisik, udara dingin, alergen, atau infeksi virus"
+    },
+    "physicalExamination": {
+      "en": "• Auscultation: widespread **expiratory wheezing** (may be absent during mild remission)\n• Dry cough during examination\n• Signs of atopy (allergic rhinitis, nasal polyps, or atopic dermatitis)\n• Accessory muscle use during acute exacerbations",
+      "id": "• Auskultasi: **mengi ekspirasi** luas (dapat menghilang saat remisi ringan)\n• Batuk kering selama pemeriksaan\n• Tanda atopi (rhinitis alergi, polip hidung, atau dermatitis atopik)\n• Penggunaan otot bantu napas selama eksaserbasi akut"
+    },
+    "labFindings": {
+      "en": "• Spirometry: demonstrating **reversible airway obstruction** (increase in FEV1 by **>12%** and **>200 mL** post-bronchodilator)\n• Diurnal PEF variability **>10%**\n• Elevated blood eosinophils or high serum IgE (allergic phenotype)\n• Sputum eosinophilia",
+      "id": "• Spirometri: menunjukkan **obstruksi saluran napas reversibel** (peningkatan FEV1 sebesar **>12%** dan **>200 mL** pasca-bronkodilator)\n• Variabilitas PEF harian **>10%**\n• Peningkatan eosinofil darah atau kadar IgE serum yang tinggi (fenotip alergi)\n• Eosinofilia sputum"
+    },
+    "differentialDiagnosis": {
+      "en": "• COPD\n• Vocal Cord Dysfunction\n• Congestive Heart Failure\n• Foreign Body Aspiration\n• Gastroesophageal Reflux Disease (GERD)",
+      "id": "• PPOK\n• Disfungsi Pita Suara\n• Gagal Jantung Kongestif\n• Aspirasi Benda Asing\n• Gastroesophageal Reflux Disease (GERD)"
+    },
+    "dangerSigns": {
+      "en": "• Silent chest (complete absence of wheezing due to minimal airflow)\n• Inability to speak full sentences due to breathlessness\n• Cyanosis or SpO2 **<90%** on room air\n• Bradycardia, confusion, or somnolence",
+      "id": "• Silent chest (mengi menghilang sepenuhnya karena aliran udara minimal)\n• Ketidakmampuan berbicara kalimat utuh karena sesak napas\n• Sianosis atau SpO2 **<90%** pada udara ruangan\n• Bradikardia, kebingungan, atau somnolen"
+    },
+    "management": {
+      "initialTreatment": {
+        "en": "• Administer short-acting beta-agonists (**SABA, e.g. Salbutamol**) via MDI/nebulizer for quick symptom relief\n• Initiate systemic corticosteroids for moderate-to-severe exacerbations\n• Maintain oxygen saturation **93-95%**",
+        "id": "• Berikan beta-agonis kerja singkat (**SABA, misal: Salbutamol**) melalui MDI/nebulisasi untuk pelegaan gejala secara cepat\n• Mulai kortikosteroid sistemik untuk eksaserbasi derajat sedang-berat\n• Pertahankan saturasi oksigen **93-95%**"
+      },
+      "definitiveTreatment": {
+        "en": "• **GINA Track 1 (Preferred)**: Low-dose **ICS-Formoterol** (Budesonide/Formoterol) as needed for reliever in Steps 1-2, and as maintenance and reliever (SMART) in Steps 3-5\n• GINA Track 2: SABA as reliever with daily maintenance **ICS** (Fluticasone or Budesonide)\n• Titrate therapy up or down in a step-wise approach based on symptom control",
+        "id": "• **GINA Jalur 1 (Pilihan Utama)**: **ICS-Formoterol** dosis rendah (Budesonid/Formoterol) bila perlu sebagai pelega pada Tahap 1-2, serta sebagai pemeliharaan dan pelega (SMART) pada Tahap 3-5\n• GINA Jalur 2: SABA sebagai pelega dengan **ICS** pemeliharaan harian (Flutikason atau Budesonid)\n• Titrasi terapi naik atau turun dalam pendekatan bertahap berdasarkan kontrol gejala"
+      },
+      "rehab": {
+        "en": "• Breathing control techniques (Buteyko breathing method)\n• Physical conditioning to improve exercise tolerance",
+        "id": "• Teknik kontrol pernapasan (metode pernapasan Buteyko)\n• Pengondisian fisik untuk meningkatkan toleransi aktivitas fisik"
+      },
+      "referral": {
+        "en": "• Refer to **Pulmonology** for severe asthma (Step 4-5) uncontrolled despite high-dose ICS-LABA, history of life-threatening exacerbation, or diagnostic uncertainty",
+        "id": "• Rujuk ke **Spesialis Paru** untuk asma berat (Tahap 4-5) yang tidak terkontrol meskipun menggunakan ICS-LABA dosis tinggi, riwayat eksaserbasi yang mengancam jiwa, atau keraguan diagnosis"
+      },
+      "workup": {
+        "en": "• Spirometry or Peak Flow monitoring\n• Inhaler technique check at every single visit (highly critical)\n• Assessment of comorbidities (rhinosinusitis, GERD, obesity)",
+        "id": "• Spirometri atau pemantauan Peak Flow\n• Pemeriksaan teknik penggunaan inhaler pada setiap kunjungan (sangat kritis)\n• Penilaian komorbiditas (rinosinusitis, GERD, obesitas)"
+      }
+    },
+    "followUp": {
+      "en": "• Review **1-3 months** after starting treatment, then every **3-12 months**\n• Within **1 week** following any acute asthma exacerbation",
+      "id": "• Tinjau **1-3 bulan** setelah memulai pengobatan, kemudian setiap **3-12 bulan**\n• Dalam **1 minggu** setelah terjadinya eksaserbasi asma akut"
+    },
+    "prevention": {
+      "pharmacological": {
+        "en": "• Consistent use of daily **controller inhalers** (ICS/LABA)\n• Annual **influenza vaccine**\n• Pneumococcal vaccination for high-risk patients",
+        "id": "• Penggunaan konsisten **inhaler pengontrol** harian (ICS/LABA)\n• Vaksinasi **influenza tahunan**\n• Vaksinasi pneumokokus untuk pasien berisiko tinggi"
+      },
+      "nonPharmacological": {
+        "en": "• Avoidance of known triggers (dust mites, pet dander, tobacco smoke, air pollution)\n• Maintaining indoor humidity levels <50%\n• Wearing a mask or avoiding outdoor exercise in cold air",
+        "id": "• Penghindaran pemicu yang diketahui (tungau debu, bulu hewan peliharaan, asap rokok, polusi udara)\n• Menjaga tingkat kelembapan ruangan <50%\n• Mengenakan masker atau menghindari olahraga di luar ruangan dalam udara dingin"
+      }
+    },
+    "caseExample": {
+      "en": "A 24-year-old male presents with wheezing and dry cough, worse at night and during early morning workouts. Spirometry demonstrates FEV1/FVC of **68%**, which increases to **82%** (a 14% and 240 mL improvement) after Salbutamol inhalation. The patient is placed on **Budesonide/Formoterol 160/4.5 mcg as-needed** (GINA Track 1, Steps 1-2). His inhaler technique is verified in office. At his 1-month follow-up, he reports complete symptom resolution and no night-time awakenings.",
+      "id": "Seorang pria 24 tahun datang dengan mengi dan batuk kering, memburuk pada malam hari dan selama latihan pagi. Spirometri menunjukkan FEV1/FVC **68%**, yang meningkat menjadi **82%** (peningkatan 14% dan 240 mL) setelah inhalasi Salbutamol. Pasien diberikan **Budesonid/Formoterol 160/4.5 mcg bila perlu** (GINA Jalur 1, Tahap 1-2). Teknik penggunaan inhalernya diverifikasi di klinik. Pada kontrol 1 bulan, ia melaporkan resolusi gejala lengkap dan tidak ada terbangun di malam hari."
+    },
+    "references": {
+      "en": "• Global Strategy for Asthma Management and Prevention (GINA 2023)\n• Reddel HK, et al. Global Initiative for Asthma, 2023",
+      "id": "• Strategi Global untuk Manajemen dan Pencegahan Asma (GINA 2023)\n• Reddel HK, et al. Global Initiative for Asthma, 2023"
+    }
+  }
+]

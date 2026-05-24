@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Home, Settings, ChevronLeft, Wifi, WifiOff, AlertTriangle, Activity, Database, RefreshCw, X } from 'lucide-react';
+import { Home, Settings, ChevronLeft, Wifi, WifiOff, AlertTriangle, Activity, Database, RefreshCw, X, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -81,6 +81,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { name: t.home, href: '/', icon: Home },
+    { name: t.tutorial, href: '/tutorial', icon: BookOpen },
     { name: t.settings, href: '/settings', icon: Settings },
   ];
 

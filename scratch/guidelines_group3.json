@@ -74,7 +74,7 @@
   },
   {
     "title": { "en": "Pulmonary Tuberculosis (TB)", "id": "Tuberkulosis Paru (TB)" },
-    "category": "Infectious Disease",
+    "category": "Infectious",
     "isStructured": true,
     "definition": {
       "en": "Pulmonary Tuberculosis (TB) is a chronic, communicable bacterial infection of the lungs caused by **Mycobacterium tuberculosis**. It is characterized by granulomatous inflammation, caseous necrosis, and is transmitted via airborne droplets.",

@@ -367,7 +367,7 @@
   },
   {
     "title": { "en": "Enhanced Recovery After Surgery (ERAS)", "id": "Pemulihan Cepat Pasca Operasi (ERAS)" },
-    "category": "Surgery/Anesthesiology",
+    "category": "Surgery",
     "isStructured": true,
     "definition": {
       "en": "Enhanced Recovery After Surgery (ERAS) is a multimodal, multidisciplinary perioperative care pathway designed to achieve early recovery for patients undergoing major surgery by reducing the body's stress response to surgical trauma.",

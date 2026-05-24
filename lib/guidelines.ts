@@ -899,7 +899,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "Enhanced Recovery After Surgery (ERAS)",
       "id": "Pemulihan Cepat Pasca Operasi (ERAS)"
     },
-    "category": "Surgery/Anesthesiology",
+    "category": "Surgery",
     "isStructured": true,
     "definition": {
       "en": "Enhanced Recovery After Surgery (ERAS) is a multimodal, multidisciplinary perioperative care pathway designed to achieve early recovery for patients undergoing major surgery by reducing the body's stress response to surgical trauma.",
@@ -1061,7 +1061,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "Pulmonary Tuberculosis (TB)",
       "id": "Tuberkulosis Paru (TB)"
     },
-    "category": "Infectious Disease",
+    "category": "Infectious",
     "isStructured": true,
     "definition": {
       "en": "Pulmonary Tuberculosis (TB) is a chronic, communicable bacterial infection of the lungs caused by **Mycobacterium tuberculosis**. It is characterized by granulomatous inflammation, caseous necrosis, and is transmitted via airborne droplets.",
@@ -1385,7 +1385,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "Anaphylaxis Emergency Management",
       "id": "Penatalaksanaan Darurat Anafilaksis"
     },
-    "category": "Emergency Medicine",
+    "category": "Emergency",
     "isStructured": true,
     "definition": {
       "en": "Anaphylaxis is a severe, life-threatening systemic hypersensitivity reaction characterized by rapid onset of airway, breathing, or circulatory problems, usually associated with skin and mucosal changes.",
@@ -1952,7 +1952,7 @@ export const GUIDELINES_DB: GuidelineRecord[] = [
       "en": "Tension Pneumothorax Emergency Guideline",
       "id": "Pedoman Darurat Tension Pneumotoraks"
     },
-    "category": "Emergency Medicine",
+    "category": "Emergency",
     "isStructured": true,
     "definition": {
       "en": "Tension Pneumothorax is a life-threatening, progressive accumulation of air in the pleural space under positive pressure, resulting in lung collapse, mediastinal shift, compression of the contralateral lung, and compromised venous return leading to cardiovascular collapse.",

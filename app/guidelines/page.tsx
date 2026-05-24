@@ -9,25 +9,37 @@ import { generateSingleCPG } from '@/lib/syncAgent';
 import { 
   BookOpen, Search, WifiOff, FileText, HeartPulse, Stethoscope, Wind, Baby, Pill, 
   Activity, FlaskConical, GitBranch, ShieldCheck, GraduationCap, ClipboardCheck, 
-  AlertTriangle, Sparkles, ChevronDown, ChevronUp, RefreshCw, X, Plus
+  AlertTriangle, Sparkles, ChevronDown, ChevronUp, RefreshCw, X, Plus, Brain, Syringe
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase();
   if (cat.includes('cardio')) return <HeartPulse className="w-5 h-5" style={{ color: '#fb7185' }} />;
-  if (cat.includes('pulmonology') || cat.includes('respiratory')) return <Wind className="w-5 h-5" style={{ color: '#60a5fa' }} />;
+  if (cat.includes('pulmonology') || cat.includes('respiratory')) return <Wind className="w-5 h-5" style={{ color: '#38bdf8' }} />;
   if (cat.includes('obste') || cat.includes('pediat') || cat.includes('matern')) return <Baby className="w-5 h-5" style={{ color: '#f472b6' }} />;
-  if (cat.includes('endocrin') || cat.includes('gastro')) return <Pill className="w-5 h-5" style={{ color: '#fbbf24' }} />;
+  if (cat.includes('endocrin')) return <Pill className="w-5 h-5" style={{ color: '#fbbf24' }} />;
+  if (cat.includes('nephro') || cat.includes('renal')) return <FlaskConical className="w-5 h-5" style={{ color: '#2dd4bf' }} />;
+  if (cat.includes('gastro') || cat.includes('hepato')) return <Activity className="w-5 h-5" style={{ color: '#34d399' }} />;
+  if (cat.includes('neuro')) return <Brain className="w-5 h-5" style={{ color: '#a78bfa' }} />;
+  if (cat.includes('anesthes') || cat.includes('surgery') || cat.includes('surgical')) return <Syringe className="w-5 h-5" style={{ color: '#818cf8' }} />;
+  if (cat.includes('emergency') || cat.includes('critical') || cat.includes('icu')) return <AlertTriangle className="w-5 h-5" style={{ color: '#f97316' }} />;
+  if (cat.includes('infectious')) return <ShieldCheck className="w-5 h-5" style={{ color: '#10b981' }} />;
   return <Stethoscope className="w-5 h-5" style={{ color: '#a78bfa' }} />;
 };
 
 const getCategoryStyle = (category: string): { bg: string; border: string; color: string } => {
   const cat = category.toLowerCase();
   if (cat.includes('cardio')) return { bg: 'rgba(244,63,94,0.1)', border: 'rgba(244,63,94,0.25)', color: '#fb7185' };
-  if (cat.includes('pulmonology')) return { bg: 'rgba(59,130,246,0.1)', border: 'rgba(59,130,246,0.25)', color: '#60a5fa' };
+  if (cat.includes('pulmonology') || cat.includes('respiratory')) return { bg: 'rgba(56,189,248,0.1)', border: 'rgba(56,189,248,0.25)', color: '#38bdf8' };
   if (cat.includes('obste')) return { bg: 'rgba(236,72,153,0.1)', border: 'rgba(236,72,153,0.25)', color: '#f472b6' };
-  if (cat.includes('endocrin') || cat.includes('gastro')) return { bg: 'rgba(245,158,11,0.1)', border: 'rgba(245,158,11,0.25)', color: '#fbbf24' };
+  if (cat.includes('endocrin')) return { bg: 'rgba(245,158,11,0.1)', border: 'rgba(245,158,11,0.25)', color: '#fbbf24' };
+  if (cat.includes('nephro') || cat.includes('renal')) return { bg: 'rgba(45,212,191,0.1)', border: 'rgba(45,212,191,0.25)', color: '#2dd4bf' };
+  if (cat.includes('gastro') || cat.includes('hepato')) return { bg: 'rgba(52,211,153,0.1)', border: 'rgba(52,211,153,0.25)', color: '#34d399' };
+  if (cat.includes('neuro')) return { bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.25)', color: '#a78bfa' };
+  if (cat.includes('anesthes') || cat.includes('surgery') || cat.includes('surgical')) return { bg: 'rgba(129,140,248,0.1)', border: 'rgba(129,140,248,0.25)', color: '#818cf8' };
+  if (cat.includes('emergency') || cat.includes('critical')) return { bg: 'rgba(249,115,22,0.1)', border: 'rgba(249,115,22,0.25)', color: '#f97316' };
+  if (cat.includes('infectious')) return { bg: 'rgba(16,185,129,0.1)', border: 'rgba(16,185,129,0.25)', color: '#10b981' };
   return { bg: 'rgba(139,92,246,0.1)', border: 'rgba(139,92,246,0.25)', color: '#a78bfa' };
 };
 
@@ -46,6 +58,14 @@ export default function GuidelinesPage() {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     definition: true,
   });
+
+  // Modal scroll reset ref and effect
+  const modalBodyRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    if (selectedGuideline && modalBodyRef.current) {
+      modalBodyRef.current.scrollTop = 0;
+    }
+  }, [selectedGuideline?.id]);
 
   const toggleSection = (section: string) => {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
@@ -335,7 +355,10 @@ export default function GuidelinesPage() {
               </div>
 
               {/* Modal Scrollable Body */}
-              <div className="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar">
+              <div 
+                ref={modalBodyRef}
+                className="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar"
+              >
                 
                 {/* AI Enhancing loader */}
                 {isGenerating && (

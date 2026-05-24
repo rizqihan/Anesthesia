@@ -1,7 +1,7 @@
 [
   {
     "title": { "en": "Anaphylaxis Emergency Management", "id": "Penatalaksanaan Darurat Anafilaksis" },
-    "category": "Emergency Medicine",
+    "category": "Emergency",
     "isStructured": true,
     "definition": {
       "en": "Anaphylaxis is a severe, life-threatening systemic hypersensitivity reaction characterized by rapid onset of airway, breathing, or circulatory problems, usually associated with skin and mucosal changes.",
@@ -512,7 +512,7 @@
   },
   {
     "title": { "en": "Tension Pneumothorax Emergency Guideline", "id": "Pedoman Darurat Tension Pneumotoraks" },
-    "category": "Emergency Medicine",
+    "category": "Emergency",
     "isStructured": true,
     "definition": {
       "en": "Tension Pneumothorax is a life-threatening, progressive accumulation of air in the pleural space under positive pressure, resulting in lung collapse, mediastinal shift, compression of the contralateral lung, and compromised venous return leading to cardiovascular collapse.",

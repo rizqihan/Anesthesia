@@ -93,15 +93,27 @@ export default function GuidelinesPage() {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  const guidelines = useLiveQuery(() => {
+  const guidelines = useLiveQuery(async () => {
     if (typeof window === 'undefined') return [];
-    if (!search.trim()) return db.guidelines.limit(30).toArray();
-    return db.guidelines.filter(g =>
-      g.title.en.toLowerCase().includes(search.toLowerCase()) ||
-      g.title.id.toLowerCase().includes(search.toLowerCase()) ||
-      g.category.toLowerCase().includes(search.toLowerCase())
-    ).limit(30).toArray();
-  }, [search]);
+    let list: GuidelineRecord[] = [];
+    if (!search.trim()) {
+      list = await db.guidelines.toArray();
+    } else {
+      const lowerSearch = search.toLowerCase();
+      list = await db.guidelines.filter(g =>
+        g.title.en.toLowerCase().includes(lowerSearch) ||
+        g.title.id.toLowerCase().includes(lowerSearch) ||
+        g.category.toLowerCase().includes(lowerSearch)
+      ).toArray();
+    }
+    
+    // Sort alphabetically based on the current language selection
+    return list.sort((a, b) => {
+      const titleA = language === 'en' ? a.title.en : a.title.id;
+      const titleB = language === 'en' ? b.title.en : b.title.id;
+      return titleA.localeCompare(titleB, language);
+    });
+  }, [search, language]);
 
   // Handle generating a new CPG from scratch
   const handleGenerateCPG = async (conditionName: string) => {

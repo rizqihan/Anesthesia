@@ -165,9 +165,6 @@ export default function SyncReviewPanel({
       <span className="font-[700] text-[13px]" style={{ color }}>{language === 'en' ? e.title?.en : e.title?.id}</span>
       <div className="mt-0.5 flex items-center gap-2">
         <span className="text-[11px] font-[600] px-1.5 py-0.5 rounded" style={{ background: `${color}18`, color }}>{e.category}</span>
-        {e.isStructured && (
-          <span className="text-[9px] font-[700] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">CPG</span>
-        )}
       </div>
       <p className="text-[11px] mt-1 line-clamp-2" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? (e.definition?.en || e.content?.en) : (e.definition?.id || e.content?.id)}</p>
     </>

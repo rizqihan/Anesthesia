@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import db, { type GuidelineRecord } from '@/lib/db';
 import { useAppStore } from '@/store/appStore';
@@ -52,6 +53,13 @@ export default function GuidelinesPage() {
   const [newCondition, setNewCondition] = useState('');
   const [selectedGuideline, setSelectedGuideline] = useState<GuidelineRecord | null>(null);
   
+  // Client mount status for React Portal
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
   // AI generation state
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
@@ -67,7 +75,19 @@ export default function GuidelinesPage() {
     if (selectedGuideline && modalBodyRef.current) {
       modalBodyRef.current.scrollTop = 0;
     }
-  }, [selectedGuideline?.id]);
+  }, [selectedGuideline, isGenerating]);
+
+  // Prevent background scroll when modal is open
+  useEffect(() => {
+    if (selectedGuideline) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedGuideline]);
 
   const toggleSection = (section: string) => {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
@@ -266,22 +286,17 @@ export default function GuidelinesPage() {
                     className="glass-card flex flex-col h-full group cursor-pointer overflow-hidden transition-all hover:border-teal-500/30 hover:shadow-lg"
                   >
                     <div className="p-5 flex-1 flex flex-col">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="p-2.5 rounded-xl transition-all group-hover:scale-105"
+                      <div className="flex items-start justify-between mb-4 gap-2">
+                        {/* Left Group: Icon */}
+                        <div className="p-2.5 rounded-xl transition-all group-hover:scale-105 shrink-0"
                           style={{ background: catStyle.bg, border: `1px solid ${catStyle.border}` }}>
                           {getCategoryIcon(g.category)}
                         </div>
-                        <div className="flex items-center gap-1.5">
-                          {g.isStructured && (
-                            <span className="text-[9px] px-2 py-0.5 rounded font-[800] bg-teal-500/10 text-teal-400 border border-teal-500/20">
-                              CPG
-                            </span>
-                          )}
-                          <span className="text-[10px] px-2.5 py-1 rounded-full font-[700] uppercase tracking-wider"
-                            style={{ background: catStyle.bg, border: `1px solid ${catStyle.border}`, color: catStyle.color }}>
-                            {g.category}
-                          </span>
-                        </div>
+                        {/* Right Group: Category Tag (e.g. Interventional Radiology) */}
+                        <span className="text-[10px] px-2.5 py-1 rounded-full font-[700] uppercase tracking-wider truncate max-w-[170px] sm:max-w-none shrink-0"
+                          style={{ background: catStyle.bg, border: `1px solid ${catStyle.border}`, color: catStyle.color }}>
+                          {g.category}
+                        </span>
                       </div>
                       <h3 className="font-[700] text-[14px] leading-snug mb-2 group-hover:text-teal-400 transition-colors" style={{ color: 'var(--text-primary)' }}>
                         {language === 'en' ? g.title.en : g.title.id}
@@ -307,11 +322,12 @@ export default function GuidelinesPage() {
       </div>
 
       {/* CPG Detail Modal Overlay */}
-      <AnimatePresence>
-        {selectedGuideline && (
-          <div 
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          >
+      {mounted && typeof window !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {selectedGuideline && (
+            <div 
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            >
             {/* Backdrop */}
             <motion.div 
               initial={{ opacity: 0 }}
@@ -711,7 +727,9 @@ export default function GuidelinesPage() {
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+    )}
 
     </div>
   );

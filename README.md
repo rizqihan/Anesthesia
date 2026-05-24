@@ -13,7 +13,7 @@ Anesthesia is a state-of-the-art web application built with Next.js 16, featurin
 
 ## Key Features
 
-- 🧠 **AI-Powered Clinical Tools:** Leverages Google Gemini for advanced symptom analysis, drug interaction checking, and clinical decision support, with responses beautifully rendered in rich markdown.
+- 🧠 **AI-Powered Clinical Tools:** Leverages Google Gemini, GROQ, and OpenAI compatible endpoints for advanced symptom analysis, drug interaction checking, and clinical decision support, with responses beautifully rendered in rich markdown.
 - 📄 **PDF Report Export:** Download dynamically generated clinical reports (such as symptom checker results or drug interaction charts) directly as formatted PDFs for patient documentation or clinical sharing.
 - 🧍 **Interactive Physical Exam Guidelines:** Locate physical exam procedures and guidelines using an interactive, clickable 2D body selector map coupled with AI-driven documentation sync.
 - 📋 **Structured Clinical Practice Guidelines (CPGs):** Offline access to comprehensive guidelines structured by specialties (including Psychiatry, Orthopedics, Interventional Radiology). Features direct hyperlinking to clinical PDFs or a smart Google Search query builder fallback.
@@ -31,7 +31,7 @@ Anesthesia is a state-of-the-art web application built with Next.js 16, featurin
 - **PDF Generation:** pdfmake, html-to-pdfmake (dynamically imported to optimize bundle sizes)
 - **State Management:** Zustand
 - **Offline Storage:** Dexie, localForage, idb-keyval
-- **AI Integration:** Google Gemini API (`@google/genai`)
+- **AI Integration:** Google Gemini API, GROQ, and OpenAI compatible endpoints
 
 ## Getting Started
 
@@ -39,7 +39,7 @@ Anesthesia is a state-of-the-art web application built with Next.js 16, featurin
 
 - Node.js (v20+)
 - npm or yarn
-- Google Gemini API Key (required for AI features like the Symptom Checker and Data Sync)
+- GROQ API Key (required for built-in default AI features)
 
 ### Installation
 
@@ -55,9 +55,9 @@ Anesthesia is a state-of-the-art web application built with Next.js 16, featurin
    ```
 
 3. **Environment Setup:**
-   Create a `.env.local` file in the root directory and add your Gemini API key:
+   Create a `.env.local` file in the root directory and add your GROQ API key:
    ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
+   GROQ_API_KEY=your_groq_api_key_here
    ```
 
 4. **Run the development server:**

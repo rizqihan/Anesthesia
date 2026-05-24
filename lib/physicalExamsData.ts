@@ -292,5 +292,120 @@ export const PHYSICAL_EXAMS_DB: PhysicalExamRecord[] = [
         }
       }
     ]
+  },
+  {
+    id: 3,
+    title: {
+      en: "Low Back Pain Physical Exam",
+      id: "Pemeriksaan Fisik Nyeri Punggung Bawah"
+    },
+    category: "Orthopedics",
+    definition: {
+      en: "A systematic clinical assessment of the lumbar spine, neurological pathways, and musculature to diagnose the etiology of low back pain and rule out red flags.",
+      id: "Penilaian klinis sistematis dari tulang belakang lumbal, jalur saraf, dan otot untuk mendiagnosis etiologi nyeri punggung bawah dan menyingkirkan tanda bahaya (red flags)."
+    },
+    preparation: {
+      en: "Explain the procedure. Expose the back and lower limbs. Prepare a reflex hammer and examination table. Patient starts in standing position.",
+      id: "Jelaskan prosedur. Buka area punggung dan kaki. Siapkan palu refleks dan meja pemeriksaan. Pasien memulai pemeriksaan dalam posisi berdiri."
+    },
+    steps: [
+      {
+        stepNumber: 1,
+        instruction: {
+          en: "Inspection: Observe the patient's gait, posture, lumbar curvature (lordosis, scoliosis), pelvic symmetry, and skin markings while standing.",
+          id: "Inspeksi: Amati cara berjalan (gait), postur tubuh, kelengkungan lumbar (lordosis, skoliosis), kesimetrisan panggul, dan tanda kulit saat pasien berdiri."
+        },
+        bodyPartId: "abdomen",
+        normalFindings: {
+          en: "Symmetric erect posture, normal lumbar lordosis, straight spine, and smooth symmetric gait.",
+          id: "Postur tegak simetris, lordosis lumbar normal, tulang belakang lurus, dan cara berjalan mulus simetris."
+        },
+        abnormalFindings: {
+          en: "Antalgic gait, scoliosis, flattening of lumbar lordosis, pelvic tilt, or muscle wasting.",
+          id: "Gait antalgik (pincang menahan nyeri), skoliosis, lordosis lumbar mendatar, panggul miring, atau atrofi otot."
+        }
+      },
+      {
+        stepNumber: 2,
+        instruction: {
+          en: "Palpation: Palpate the lumbar spinous processes, paraspinous muscles, sacroiliac (SI) joints, and sciatic notch to localize tenderness or muscle spasms.",
+          id: "Palpasi: Palpasi prosesus spinosus lumbar, otot paraspinous, sendi sakroiliaka (SI), dan celah skiatik untuk melokalisasi nyeri tekan atau spasme otot."
+        },
+        bodyPartId: "abdomen",
+        normalFindings: {
+          en: "No localized bone or joint tenderness. Paraspinal muscles are soft and non-tender without spasms.",
+          id: "Tidak ada nyeri tekan tulang atau sendi lokal. Otot paraspinal lembut dan tidak nyeri tanpa adanya spasme."
+        },
+        abnormalFindings: {
+          en: "Step-off defect (spondylolisthesis), localized spinous process tenderness (fracture/infection), sacroiliac joint tenderness, or severe paraspinal spasm.",
+          id: "Defek pergeseran tulang/step-off (spondilolistesis), nyeri tekan lokal prosesus spinosus (fraktur/infeksi), nyeri tekan sendi sakroiliaka, atau spasme paraspinal berat."
+        }
+      },
+      {
+        stepNumber: 3,
+        instruction: {
+          en: "Range of Motion (ROM): Evaluate active flexion (bending forward), extension (bending backward), and lateral bending to check for pain or restriction.",
+          id: "Range of Motion (ROM): Evaluasi fleksi aktif (membungkuk ke depan), ekstensi (melenting ke belakang), dan tekukan lateral untuk memeriksa rasa nyeri atau keterbatasan gerak."
+        },
+        bodyPartId: "abdomen",
+        normalFindings: {
+          en: "Flexion (90°), Extension (30°), Lateral bending (35°). Movements are fluid and pain-free.",
+          id: "Fleksi (90°), Ekstensi (30°), Tekukan lateral (35°). Gerakan lancar dan bebas nyeri."
+        },
+        abnormalFindings: {
+          en: "Restricted ROM. Flexion pain indicates discogenic etiology, while extension pain suggests facet joint arthropathy or spinal stenosis.",
+          id: "ROM terbatas. Nyeri saat fleksi menunjukkan etiologi diskogenik (bantalan tulang), sedangkan nyeri saat ekstensi menunjukkan artropati sendi faset atau stenosis spinal."
+        }
+      },
+      {
+        stepNumber: 4,
+        instruction: {
+          en: "Straight Leg Raise (SLR) Test (Lasègue's Sign): With patient supine, passively lift the symptomatic leg with knee straight. Note angle at which pain occurs. Perform consensual crossed SLR.",
+          id: "Tes Straight Leg Raise (SLR) / Tanda Lasègue: Dengan pasien terlentang, angkat kaki yang sakit secara pasif dengan lutut lurus. Catat sudut timbulnya nyeri. Lakukan juga tes SLR silang (crossed SLR)."
+        },
+        bodyPartId: "legs",
+        normalFindings: {
+          en: "Able to lift leg to 80-90° without radiating radicular pain down the leg (tight hamstrings do not constitute positive SLR).",
+          id: "Mampu mengangkat kaki hingga 80-90° tanpa nyeri radikuler yang menjalar ke kaki (otot hamstring yang kaku tidak dianggap sebagai SLR positif)."
+        },
+        abnormalFindings: {
+          en: "Positive SLR: Sharp radicular pain radiating below the knee between 30° and 70°, suggesting **L4-S1 nerve root compression** (herniated disc). Crossed SLR is highly specific.",
+          id: "SLR Positif: Nyeri radikuler tajam menjalar di bawah lutut antara sudut 30° dan 70°, menunjukkan **kompresi akar saraf L4-S1** (hernia nukleus pulposus). Crossed SLR memiliki spesifisitas tinggi."
+        }
+      },
+      {
+        stepNumber: 5,
+        instruction: {
+          en: "Femoral Nerve Stretch Test (Reverse SLR): Place the patient in prone position. Passively flex the knee to 90° and extend the hip. Note if pain radiates down anterior thigh.",
+          id: "Femoral Nerve Stretch Test: Posisikan pasien dalam kondisi tengkurap. Fleksikan lutut secara pasif hingga 90° lalu ekstensikan panggul. Catat jika ada nyeri yang menjalar ke paha depan."
+        },
+        bodyPartId: "legs",
+        normalFindings: {
+          en: "No radiating pain in the anterior thigh.",
+          id: "Tidak ada nyeri menjalar di paha depan."
+        },
+        abnormalFindings: {
+          en: "Positive test: Radicular pain radiating down the anterior thigh, indicating **L2-L4 nerve root pathology**.",
+          id: "Tes Positif: Nyeri radikuler menjalar ke paha bagian depan, menunjukkan **patologi akar saraf L2-L4**."
+        }
+      },
+      {
+        stepNumber: 6,
+        instruction: {
+          en: "Neurological Assessment: Test motor strength, sensation, and reflexes of L4 (patellar reflex, ankle dorsiflexion), L5 (great toe extension), and S1 (Achilles reflex, ankle plantarflexion).",
+          id: "Asesmen Neurologis: Uji kekuatan motorik, sensasi, dan refleks L4 (refleks patela, dorsofleksi pergelangan kaki), L5 (ekstensi jempol kaki), dan S1 (refleks Achilles, plantarfleksi pergelangan kaki)."
+        },
+        bodyPartId: "legs",
+        normalFindings: {
+          en: "Bilateral motor strength 5/5, symmetric intact dermatomal sensation, symmetric reflexes (2+).",
+          id: "Kekuatan motorik bilateral 5/5, sensasi dermatom utuh simetris, refleks simetris (2+)."
+        },
+        abnormalFindings: {
+          en: "Foot drop (L5 weakness), weak plantarflexion (S1 weakness), sensory loss in L4/L5/S1 dermatomes, or asymmetric/absent deep tendon reflexes.",
+          id: "Foot drop (kelemahan L5), plantarfleksi lemah (kelemahan S1), hilangnya sensasi dermatom L4/L5/S1, atau refleks tendon dalam asimetris/hilang."
+        }
+      }
+    ]
   }
 ];
+

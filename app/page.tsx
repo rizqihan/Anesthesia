@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Calculator, Pill, Activity, Syringe, BookOpen, Cpu, WifiOff, Book, ArrowRight } from 'lucide-react';
+import { Calculator, Pill, Activity, Syringe, BookOpen, Cpu, WifiOff, Book, ArrowRight, Stethoscope } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function Home() {
@@ -80,6 +80,16 @@ export default function Home() {
       iconBg: 'linear-gradient(135deg, #0f766e, #14b8a6)',
       iconGlow: 'rgba(20,184,166,0.35)',
       accentColor: '#2dd4bf',
+      tags: ['offline', 'ai'] as ('offline' | 'ai')[],
+    },
+    {
+      title: t.physical_exam_title,
+      icon: Stethoscope,
+      href: '/physical-exam',
+      description: t.physical_exam_desc,
+      iconBg: 'linear-gradient(135deg, #4f46e5, #6366f1)',
+      iconGlow: 'rgba(99,102,241,0.35)',
+      accentColor: '#818cf8',
       tags: ['offline', 'ai'] as ('offline' | 'ai')[],
     },
   ];

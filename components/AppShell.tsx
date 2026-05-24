@@ -18,9 +18,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [hasIgnoredSync, setHasIgnoredSync] = useState(false);
 
   const isNotSynced = !store.lastSyncDate && 
-    !store.syncMeta.icd10.lastSynced && 
-    !store.syncMeta.drugs.lastSynced && 
-    !store.syncMeta.guidelines.lastSynced;
+    !store.syncMeta?.icd10?.lastSynced && 
+    !store.syncMeta?.drugs?.lastSynced && 
+    !store.syncMeta?.guidelines?.lastSynced &&
+    !store.syncMeta?.physicalExams?.lastSynced;
 
   const handleInitialSync = async () => {
     setIsInitialSyncing(true);
@@ -29,15 +30,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       const { ICD10_DB } = await import('@/lib/icd10');
       const { DRUG_DB } = await import('@/lib/drugs');
       const { GUIDELINES_DB } = await import('@/lib/guidelines');
+      const { PHYSICAL_EXAMS_DB } = await import('@/lib/physicalExamsData');
       
       await db.icd10.bulkPut(ICD10_DB as any);
       await db.drugs.bulkPut(DRUG_DB as any);
       await db.guidelines.bulkPut(GUIDELINES_DB as any);
+      await db.physicalExams.bulkPut(PHYSICAL_EXAMS_DB as any);
       
       const now = new Date().toISOString();
       store.updateSyncMeta('icd10', { lastSynced: now, count: ICD10_DB.length });
       store.updateSyncMeta('drugs', { lastSynced: now, count: DRUG_DB.length });
       store.updateSyncMeta('guidelines', { lastSynced: now, count: GUIDELINES_DB.length });
+      store.updateSyncMeta('physicalExams', { lastSynced: now, count: PHYSICAL_EXAMS_DB.length });
     } catch (e) {
       console.error('Initial sync error:', e);
     } finally {

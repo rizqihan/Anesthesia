@@ -300,3 +300,154 @@ CRITICAL FORMATTING RULES (follow exactly):
     throw err;
   }
 }
+
+export async function generatePhysicalExamGuideline(examName: string): Promise<any> {
+  const prompt = `You are a clinical physical examination expert and educator. Create a complete, detailed, evidence-based physical exam guideline for: "${examName}".
+  
+You must output a single JSON object (no markdown, no explanations) containing exactly this structure:
+{
+  "title": { "en": "${examName} Physical Exam Guideline", "id": "Pedoman Pemeriksaan Fisik ${examName}" },
+  "category": "Medical Specialty (e.g., Neurology, Cardiology, Pulmonology, Gastroenterology, General, etc.)",
+  "definition": { "en": "Clinical purpose, importance, and basic anatomy/physiology summary of this exam in English", "id": "Tujuan klinis, pentingnya, dan ringkasan anatomi/fisiologi dasar pemeriksaan ini dalam Bahasa Indonesia" },
+  "preparation": { "en": "Patient position, necessary instruments (e.g., stethoscope, penlight), sanitization, and consent instructions in English", "id": "Posisi pasien, instrumen yang diperlukan (misal: stetoskop, penlight), sanitasi, dan instruksi persetujuan dalam Bahasa Indonesia" },
+  "steps": [
+    {
+      "stepNumber": 1,
+      "instruction": { "en": "Clear step-by-step instruction on how to perform this specific step of the exam in English", "id": "Instruksi langkah-demi-langkah yang jelas tentang cara melakukan langkah pemeriksaan khusus ini dalam Bahasa Indonesia" },
+      "bodyPartId": "One of these exact body part IDs corresponding to the region examined: head | neck | chest | abdomen | arms | legs",
+      "normalFindings": { "en": "What a normal, healthy finding looks like for this step in English", "id": "Seperti apa temuan normal dan sehat untuk langkah ini dalam Bahasa Indonesia" },
+      "abnormalFindings": { "en": "What abnormal, pathological findings look like, including specific signs or names of positive tests in English", "id": "Seperti apa temuan abnormal dan patologis, termasuk tanda-tanda spesifik atau nama tes positif dalam Bahasa Indonesia" }
+    }
+  ]
+}
+
+CRITICAL RULES (follow exactly):
+1. The "bodyPartId" for each step MUST be exactly one of: "head", "neck", "chest", "abdomen", "arms", "legs". No other values are allowed.
+2. In instruction, normalFindings, and abnormalFindings:
+   - Use "**text**" (double asterisks) to highlight key physical signs, anatomical landmarks, medical terms, or named tests (e.g., "**Murphy sign**", "**McBurney's point**", "**vesicular breath sounds**").
+   - Do NOT use markdown headers (e.g. #, ##, ###), dashes (-), bullet asterisks (*), or numbered lists.
+3. Ensure all fields are highly detailed, comprehensive, professionally written, and scientifically accurate. Avoid placeholders. Do not wrap in backticks or markdown formatting outside the raw JSON.`;
+
+  const response = await generateAISearchResponse(prompt);
+  try {
+    const data = JSON.parse(extractJSON(response.text));
+    
+    if (!data.title?.en || !data.title?.id || !data.category || !Array.isArray(data.steps)) {
+      throw new Error("Invalid Physical Exam JSON response from AI");
+    }
+
+    // Sanitize bodyPartId for all steps to ensure they are valid SVG ids
+    const validParts = ["head", "neck", "chest", "abdomen", "arms", "legs"];
+    const sanitizedSteps = data.steps.map((step: any) => {
+      let part = (step.bodyPartId || "head").toLowerCase();
+      if (!validParts.includes(part)) {
+        if (part.includes("brain") || part.includes("face") || part.includes("eye") || part.includes("ear") || part.includes("nose") || part.includes("mouth")) {
+          part = "head";
+        } else if (part.includes("lung") || part.includes("heart") || part.includes("breast") || part.includes("thorax")) {
+          part = "chest";
+        } else if (part.includes("stomach") || part.includes("flank") || part.includes("pelvis")) {
+          part = "abdomen";
+        } else if (part.includes("shoulder") || part.includes("hand") || part.includes("finger") || part.includes("elbow")) {
+          part = "arms";
+        } else if (part.includes("hip") || part.includes("foot") || part.includes("toe") || part.includes("knee")) {
+          part = "legs";
+        } else if (part.includes("throat")) {
+          part = "neck";
+        } else {
+          part = "head"; // fallback
+        }
+      }
+      return {
+        ...step,
+        bodyPartId: part
+      };
+    });
+
+    const record = {
+      title: data.title,
+      category: data.category,
+      definition: data.definition,
+      preparation: data.preparation,
+      steps: sanitizedSteps,
+      lastGenerated: new Date().toISOString()
+    };
+
+    return record;
+  } catch (err) {
+    console.error("AI Physical Exam parsing error:", err, "\nResponse text:", response.text);
+    throw err;
+  }
+}
+
+export async function syncPhysicalExams(): Promise<SyncResult<any>> {
+  const existing = await db.physicalExams.toArray();
+  const existingMap = new Map(existing.map(e => [e.title.en.toLowerCase(), e]));
+
+  const prompt = `You are a clinical physical examination expert. Search for the most common and essential physical examination guides used in primary care, anesthesiology, or general medical practice.
+
+Current physical exam guides already in the database:
+${[...existingMap.keys()].join('; ')}
+
+Find 2-3 physical exam guides. You MAY include guides from the list above if you have UPDATED or MORE ACCURATE information, and you SHOULD also include NEW guides not in the list. Focus on:
+- Assessment steps, anatomical focus, normal vs abnormal findings.
+- Common exams like: cardiovascular exam, respiratory exam, abdominal exam, neurological checks.
+
+Return ONLY a JSON object in this exact format (no markdown, no explanation):
+{
+  "entries": [
+    {
+      "title": { "en": "Exam Name", "id": "Nama Pemeriksaan" },
+      "category": "Medical Specialty",
+      "definition": { "en": "Clinical purpose", "id": "Tujuan klinis" },
+      "preparation": { "en": "Preparation and setup", "id": "Persiapan" },
+      "steps": [
+        {
+          "stepNumber": 1,
+          "instruction": { "en": "Step instruction", "id": "Instruksi langkah" },
+          "bodyPartId": "head | neck | chest | abdomen | arms | legs",
+          "normalFindings": { "en": "Normal details", "id": "Temuan normal" },
+          "abnormalFindings": { "en": "Abnormal details", "id": "Temuan abnormal" }
+        }
+      ]
+    }
+  ]
+}`;
+
+  const response = await generateAISearchResponse(prompt);
+  const entries = parseEntries<any>(response.text);
+
+  const newEntries: any[] = [];
+  const updatedEntries: UpdatedEntry<any>[] = [];
+
+  const validParts = ["head", "neck", "chest", "abdomen", "arms", "legs"];
+
+  for (const entry of entries) {
+    if (!entry.steps || !Array.isArray(entry.steps)) continue;
+
+    // Sanitize steps bodyPartId
+    entry.steps = entry.steps.map((step: any) => {
+      let part = (step.bodyPartId || "head").toLowerCase();
+      if (!validParts.includes(part)) {
+        part = "head";
+      }
+      return { ...step, bodyPartId: part };
+    });
+
+    entry.lastGenerated = new Date().toISOString();
+
+    const old = existingMap.get(entry.title?.en?.toLowerCase());
+    if (!old) {
+      newEntries.push(entry);
+    } else if (
+      JSON.stringify(old.steps) !== JSON.stringify(entry.steps) ||
+      old.definition?.en !== entry.definition?.en
+    ) {
+      entry.id = old.id;
+      updatedEntries.push({ old, new: entry });
+    }
+  }
+
+  return { newEntries, updatedEntries, sources: response.sources, hasGrounding: response.hasGrounding };
+}
+
+

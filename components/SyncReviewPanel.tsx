@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import type { AISearchSource } from '@/lib/ai';
 import type { UpdatedEntry } from '@/lib/syncAgent';
 
-type DatasetType = 'icd10' | 'drugs' | 'guidelines';
+type DatasetType = 'icd10' | 'drugs' | 'guidelines' | 'physicalExams';
 
 interface SyncReviewPanelProps {
   datasetType: DatasetType;
@@ -24,6 +24,7 @@ const datasetColors: Record<DatasetType, string> = {
   icd10: '#fbbf24',
   drugs: '#a78bfa',
   guidelines: '#34d399',
+  physicalExams: '#818cf8',
 };
 
 export default function SyncReviewPanel({
@@ -105,6 +106,7 @@ export default function SyncReviewPanel({
           {datasetType === 'icd10' && renderICD10(entry as { code: string; name: string; indonesian: string })}
           {datasetType === 'drugs' && renderDrug(entry as { genericName: string; drugClass: string; brandNames: string[] })}
           {datasetType === 'guidelines' && renderGuideline(entry as { title: { en: string; id: string }; category: string; content: { en: string; id: string } })}
+          {datasetType === 'physicalExams' && renderPhysicalExam(entry as any)}
         </div>
       </div>
     );
@@ -133,6 +135,7 @@ export default function SyncReviewPanel({
               update.old as { title: { en: string; id: string }; category: string; content: { en: string; id: string } },
               update.new as { title: { en: string; id: string }; category: string; content: { en: string; id: string } },
             )}
+            {datasetType === 'physicalExams' && renderPhysicalExamDiff(update.old as any, update.new as any)}
           </div>
         </div>
       </div>
@@ -216,7 +219,32 @@ export default function SyncReviewPanel({
     </div>
   );
 
-  const datasetLabel = datasetType === 'icd10' ? t.icd10_dictionary : datasetType === 'drugs' ? t.drug_formulary : t.clinical_guidelines;
+  const renderPhysicalExam = (e: any) => (
+    <>
+      <span className="font-[700] text-[13px]" style={{ color }}>{language === 'en' ? e.title?.en : e.title?.id}</span>
+      <div className="mt-0.5 flex items-center gap-2">
+        <span className="text-[11px] font-[600] px-1.5 py-0.5 rounded" style={{ background: `${color}18`, color }}>{e.category}</span>
+        <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>{e.steps?.length} {language === 'en' ? 'Steps' : 'Langkah'}</span>
+      </div>
+      <p className="text-[11px] mt-1 line-clamp-2" style={{ color: 'var(--text-muted)' }}>{language === 'en' ? e.definition?.en : e.definition?.id}</p>
+    </>
+  );
+
+  const renderPhysicalExamDiff = (o: any, n: any) => (
+    <div>
+      <div className="flex items-center gap-2">
+        <span className="font-[700] text-[13px]" style={{ color }}>{language === 'en' ? n.title?.en : n.title?.id}</span>
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-[700]"
+          style={{ background: 'rgba(59,130,246,0.1)', color: '#60a5fa' }}>
+          <RefreshCw className="w-2.5 h-2.5" /> UPDATE
+        </span>
+      </div>
+      <DiffText label={language === 'en' ? 'Definition' : 'Definisi'} oldVal={language === 'en' ? o.definition?.en : o.definition?.id} newVal={language === 'en' ? n.definition?.en : n.definition?.id} />
+      <DiffText label={language === 'en' ? 'Steps Count' : 'Jumlah Langkah'} oldVal={o.steps?.length?.toString()} newVal={n.steps?.length?.toString()} />
+    </div>
+  );
+
+  const datasetLabel = datasetType === 'icd10' ? t.icd10_dictionary : datasetType === 'drugs' ? t.drug_formulary : datasetType === 'guidelines' ? t.clinical_guidelines : t.physical_exam_title;
 
   return (
     <motion.div

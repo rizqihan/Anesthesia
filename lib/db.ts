@@ -42,10 +42,29 @@ export interface GuidelineRecord {
   pdfUrl?: string;
 }
 
+export interface PhysicalExamStep {
+  stepNumber: number;
+  instruction: { en: string; id: string };
+  bodyPartId: string; // e.g. 'head', 'neck', 'chest', 'abdomen', 'arms', 'legs'
+  normalFindings: { en: string; id: string };
+  abnormalFindings: { en: string; id: string };
+}
+
+export interface PhysicalExamRecord {
+  id?: number;
+  title: { en: string; id: string };
+  category: string; // e.g. "Cranial Nerves", "General"
+  definition: { en: string; id: string };
+  preparation?: { en: string; id: string };
+  steps: PhysicalExamStep[];
+  lastGenerated?: string;
+}
+
 const db = new Dexie('ClinicalAppDB') as Dexie & {
   drugs: EntityTable<Drug, 'id'>;
   icd10: EntityTable<ICD10Record, 'code'>;
   guidelines: EntityTable<GuidelineRecord, 'id'>;
+  physicalExams: EntityTable<PhysicalExamRecord, 'id'>;
 };
 
 // Schema declaration
@@ -70,4 +89,12 @@ db.version(2).stores({
   });
 });
 
+db.version(3).stores({
+  drugs: 'id, genericName, drugClass, *brandNames',
+  icd10: 'code, name, indonesian',
+  guidelines: '++id, title.en, title.id, category, isStructured',
+  physicalExams: '++id, title.en, title.id, category'
+});
+
 export default db;
+

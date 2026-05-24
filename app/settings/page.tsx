@@ -3,17 +3,18 @@
 import React, { useState, useCallback } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2 } from 'lucide-react';
+import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope } from 'lucide-react';
 import db from '@/lib/db';
 import { ICD10_DB } from '@/lib/icd10';
 import { DRUG_DB } from '@/lib/drugs';
 import { GUIDELINES_DB } from '@/lib/guidelines';
+import { PHYSICAL_EXAMS_DB } from '@/lib/physicalExamsData';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { AnimatePresence } from 'motion/react';
-import { syncICD10, syncDrugs, syncGuidelines, type SyncResult } from '@/lib/syncAgent';
+import { syncICD10, syncDrugs, syncGuidelines, syncPhysicalExams, type SyncResult } from '@/lib/syncAgent';
 import SyncReviewPanel from '@/components/SyncReviewPanel';
 
-type DatasetType = 'icd10' | 'drugs' | 'guidelines';
+type DatasetType = 'icd10' | 'drugs' | 'guidelines' | 'physicalExams';
 
 export default function SettingsPage() {
   const store = useAppStore();
@@ -32,6 +33,7 @@ export default function SettingsPage() {
   const icd10Count = useLiveQuery(() => db.icd10.count(), []) ?? 0;
   const drugCount = useLiveQuery(() => db.drugs.count(), []) ?? 0;
   const guidelineCount = useLiveQuery(() => db.guidelines.count(), []) ?? 0;
+  const physicalExamCount = useLiveQuery(() => db.physicalExams.count(), []) ?? 0;
 
   // Sync state
   const [syncingDataset, setSyncingDataset] = useState<DatasetType | null>(null);
@@ -78,10 +80,12 @@ export default function SettingsPage() {
       await db.icd10.bulkPut(ICD10_DB);
       await db.drugs.bulkPut(DRUG_DB);
       await db.guidelines.bulkPut(GUIDELINES_DB);
+      await db.physicalExams.bulkPut(PHYSICAL_EXAMS_DB);
       const now = new Date().toISOString();
       store.updateSyncMeta('icd10', { lastSynced: now, count: ICD10_DB.length });
       store.updateSyncMeta('drugs', { lastSynced: now, count: DRUG_DB.length });
       store.updateSyncMeta('guidelines', { lastSynced: now, count: GUIDELINES_DB.length });
+      store.updateSyncMeta('physicalExams', { lastSynced: now, count: PHYSICAL_EXAMS_DB.length });
     } catch (e) {
       console.error('Seed error:', e);
     }
@@ -93,6 +97,7 @@ export default function SettingsPage() {
       await db.icd10.clear();
       await db.drugs.clear();
       await db.guidelines.clear();
+      await db.physicalExams.clear();
       await seedDatabase();
     } catch (e) {
       console.error('Reset error:', e);
@@ -108,18 +113,20 @@ export default function SettingsPage() {
 
     try {
       // If the DB is empty, seed first
-      const counts = { icd10: icd10Count, drugs: drugCount, guidelines: guidelineCount };
+      const counts = { icd10: icd10Count, drugs: drugCount, guidelines: guidelineCount, physicalExams: physicalExamCount };
       if (counts[dataset] === 0) {
         if (dataset === 'icd10') await db.icd10.bulkPut(ICD10_DB);
         if (dataset === 'drugs') await db.drugs.bulkPut(DRUG_DB);
         if (dataset === 'guidelines') await db.guidelines.bulkPut(GUIDELINES_DB);
+        if (dataset === 'physicalExams') await db.physicalExams.bulkPut(PHYSICAL_EXAMS_DB);
       }
 
       // Call AI sync agent
       let result;
       if (dataset === 'icd10') result = await syncICD10();
       else if (dataset === 'drugs') result = await syncDrugs();
-      else result = await syncGuidelines();
+      else if (dataset === 'guidelines') result = await syncGuidelines();
+      else result = await syncPhysicalExams();
 
       if (result.newEntries.length > 0 || result.updatedEntries.length > 0) {
         setReviewData({ type: dataset, result });
@@ -133,7 +140,7 @@ export default function SettingsPage() {
     } finally {
       setSyncingDataset(null);
     }
-  }, [syncingDataset, icd10Count, drugCount, guidelineCount, t]);
+  }, [syncingDataset, icd10Count, drugCount, guidelineCount, physicalExamCount, t]);
 
   const handleApprove = useCallback(async (newSelected: Record<string, any>[], updateSelected: Record<string, any>[]) => {
     if (!reviewData) return;
@@ -143,9 +150,10 @@ export default function SettingsPage() {
     try {
       if (type === 'icd10') await db.icd10.bulkPut(allEntries as unknown as import('@/lib/db').ICD10Record[]);
       else if (type === 'drugs') await db.drugs.bulkPut(allEntries as unknown as import('@/lib/drugs').Drug[]);
-      else await db.guidelines.bulkPut(allEntries as unknown as import('@/lib/db').GuidelineRecord[]);
+      else if (type === 'guidelines') await db.guidelines.bulkPut(allEntries as unknown as import('@/lib/db').GuidelineRecord[]);
+      else await db.physicalExams.bulkPut(allEntries as unknown as import('@/lib/db').PhysicalExamRecord[]);
 
-      const count = type === 'icd10' ? await db.icd10.count() : type === 'drugs' ? await db.drugs.count() : await db.guidelines.count();
+      const count = type === 'icd10' ? await db.icd10.count() : type === 'drugs' ? await db.drugs.count() : type === 'guidelines' ? await db.guidelines.count() : await db.physicalExams.count();
       store.updateSyncMeta(type, { lastSynced: new Date().toISOString(), count });
     } catch (e) {
       console.error('Approve error:', e);
@@ -161,6 +169,7 @@ export default function SettingsPage() {
     { key: 'icd10', label: t.icd10_dictionary, icon: <Book className="w-3.5 h-3.5" />, count: icd10Count, color: '#fbbf24', gradient: 'rgba(251,191,36,0.1)' },
     { key: 'drugs', label: t.drug_formulary, icon: <Pill className="w-3.5 h-3.5" />, count: drugCount, color: '#a78bfa', gradient: 'rgba(167,139,250,0.1)' },
     { key: 'guidelines', label: t.clinical_guidelines, icon: <FileText className="w-3.5 h-3.5" />, count: guidelineCount, color: '#34d399', gradient: 'rgba(52,211,153,0.1)' },
+    { key: 'physicalExams', label: t.physical_exam_title, icon: <Stethoscope className="w-3.5 h-3.5" />, count: physicalExamCount, color: '#818cf8', gradient: 'rgba(129,140,248,0.1)' },
   ];
 
   return (
@@ -307,7 +316,7 @@ export default function SettingsPage() {
             {/* Per-dataset rows */}
             <div className="rounded-xl overflow-hidden divide-y divide-white/[0.06]" style={{ border: '1px solid var(--border-card)' }}>
               {datasets.map(({ key, label, icon, count, color, gradient }) => {
-                const meta = store.syncMeta[key];
+                const meta = store.syncMeta[key] || { lastSynced: null, count: 0 };
                 const isSyncing = syncingDataset === key;
 
                 return (
@@ -348,7 +357,7 @@ export default function SettingsPage() {
             )}
 
             {/* Seed button for first-time setup or Reset button */}
-            {(icd10Count === 0 && drugCount === 0 && guidelineCount === 0) ? (
+            {(icd10Count === 0 && drugCount === 0 && guidelineCount === 0 && physicalExamCount === 0) ? (
               <button
                 type="button"
                 onClick={seedDatabase}

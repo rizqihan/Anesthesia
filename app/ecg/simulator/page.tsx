@@ -392,9 +392,9 @@ export default function ECGSimulatorPage() {
                             onClick={() => handleSelectOption(idx)}
                             animate={isWrong ? { x: [-6, 6, -6, 6, 0] } : {}}
                             transition={{ duration: 0.35 }}
-                            className={`w-full p-3.5 rounded-xl border flex items-center gap-3.5 text-left text-[12.5px] font-bold transition-all hover:scale-[1.005] select-none ${btnStyle}`}
+                            className={`w-full p-3.5 rounded-xl border flex items-center gap-5 text-left text-[12.5px] font-bold transition-all hover:scale-[1.005] select-none ${btnStyle}`}
                           >
-                            <span className={`w-6 h-6 shrink-0 rounded-lg border flex items-center justify-center text-[11px] font-extrabold font-mono ${letterStyle}`}>
+                            <span className={`w-8 h-8 shrink-0 rounded-xl border flex items-center justify-center text-[11.5px] font-extrabold font-mono ${letterStyle}`}>
                               {letter}
                             </span>
                             <span className="leading-tight">{option}</span>

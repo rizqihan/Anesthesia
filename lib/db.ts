@@ -1,5 +1,6 @@
 import Dexie, { type EntityTable } from 'dexie';
 import type { Drug } from './drugs';
+import type { ECGDiagnosisRecord } from './ecgData';
 
 export interface ICD10Record {
   code: string;
@@ -65,6 +66,7 @@ const db = new Dexie('ClinicalAppDB') as Dexie & {
   icd10: EntityTable<ICD10Record, 'code'>;
   guidelines: EntityTable<GuidelineRecord, 'id'>;
   physicalExams: EntityTable<PhysicalExamRecord, 'id'>;
+  ecgDiagnoses: EntityTable<ECGDiagnosisRecord, 'id'>;
 };
 
 // Schema declaration
@@ -94,6 +96,14 @@ db.version(3).stores({
   icd10: 'code, name, indonesian',
   guidelines: '++id, title.en, title.id, category, isStructured',
   physicalExams: '++id, title.en, title.id, category'
+});
+
+db.version(4).stores({
+  drugs: 'id, genericName, drugClass, *brandNames',
+  icd10: 'code, name, indonesian',
+  guidelines: '++id, title.en, title.id, category, isStructured',
+  physicalExams: '++id, title.en, title.id, category',
+  ecgDiagnoses: 'id, title.en, title.id, category'
 });
 
 export default db;

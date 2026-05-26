@@ -49,8 +49,9 @@ interface AppState {
     drugs: DatasetSyncMeta;
     guidelines: DatasetSyncMeta;
     physicalExams: DatasetSyncMeta;
+    ecgDiagnoses: DatasetSyncMeta;
   };
-  updateSyncMeta: (dataset: 'icd10' | 'drugs' | 'guidelines' | 'physicalExams', meta: Partial<DatasetSyncMeta>) => void;
+  updateSyncMeta: (dataset: 'icd10' | 'drugs' | 'guidelines' | 'physicalExams' | 'ecgDiagnoses', meta: Partial<DatasetSyncMeta>) => void;
 
   // Legacy — kept for migration
   lastSyncDate: string | null;
@@ -95,6 +96,7 @@ export const useAppStore = create<AppState>()(
         drugs: { lastSynced: null, count: 0 },
         guidelines: { lastSynced: null, count: 0 },
         physicalExams: { lastSynced: null, count: 0 },
+        ecgDiagnoses: { lastSynced: null, count: 0 },
       },
       updateSyncMeta: (dataset, meta) =>
         set((state) => ({

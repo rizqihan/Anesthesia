@@ -92,6 +92,16 @@ export default function Home() {
       accentColor: '#818cf8',
       tags: ['offline', 'ai'] as ('offline' | 'ai')[],
     },
+    {
+      title: t.ecg_learning_title,
+      icon: Activity,
+      href: '/ecg',
+      description: t.ecg_learning_desc,
+      iconBg: 'linear-gradient(135deg, #059669, #10b981)',
+      iconGlow: 'rgba(16,185,129,0.35)',
+      accentColor: '#34d399',
+      tags: ['offline'] as ('offline' | 'ai')[],
+    },
   ];
 
   const container = {
@@ -119,8 +129,8 @@ export default function Home() {
           </h1>
           <p className="text-[13px]" style={{ color: 'var(--text-secondary)' }}>
             {language === 'en'
-              ? '7 tools · AI-powered & offline-capable'
-              : '7 alat · Didukung AI & dapat digunakan offline'}
+              ? '9 tools · AI-powered & offline-capable'
+              : '9 alat · Didukung AI & dapat digunakan offline'}
           </p>
         </div>
         <div

@@ -1,5 +1,5 @@
 // 12-Lead ECG Simulation Cases & Path Generator
-// Highly realistic clinical data and waveform configurations for 15 cardiac cases.
+// Highly realistic clinical data and waveform configurations for 15 cardiac cases with MCQ options.
 
 export interface LeadConfig {
   pAmp?: number;          // Normal: -2 to -4 (negative is upward in SVG where y increases downward)
@@ -27,6 +27,11 @@ export interface ECGSimCase {
   rhythm: { en: string; id: string };
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   category: 'acs' | 'arrhythmia' | 'conduction' | 'emergency' | 'structural';
+  options: {
+    en: string[]; // 3 MCQ options in English
+    id: string[]; // 3 MCQ options in Indonesian
+  };
+  correctOptionIndex: number; // 0, 1, or 2
   leadConfigs: { [leadName: string]: LeadConfig };
 }
 
@@ -66,7 +71,6 @@ export function generateECGPath(
   // 1. Generate PQRST cycle centers
   let qrsPositions: number[] = [];
   const startX = 55; // Leave space for calibration pulse
-  const usableWidth = width - startX;
 
   if (caseItem.id === 'atrial_fibrillation') {
     // Irregular spacing for AFib
@@ -269,6 +273,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 55-year-old male with history of hypertension and heavy smoking presents to the ED with 45 minutes of acute, crushing sub-sternal chest pain radiating to his left shoulder and jaw. He is diaphoretic, anxious, and holds his fist to his chest (Levine\'s sign). Vitals: BP 142/90 mmHg, RR 20 bpm, SpO2 94% on room air.',
       id: 'Pria 55 tahun dengan riwayat hipertensi dan perokok berat datang ke UGD dengan nyeri dada sub-sternal akut yang menjalar ke bahu kiri dan rahang sejak 45 menit lalu. Dia tampak berkeringat dingin, cemas, dan mengepalkan tangan di dada (tanda Levine). Tanda vital: TD 142/90 mmHg, RR 20x/menit, SpO2 94% udara bebas.'
     },
+    options: {
+      en: ['Acute Anterior STEMI', 'Acute Pericarditis', 'Brugada Syndrome'],
+      id: ['STEMI Anterior Akut', 'Perikarditis Akut', 'Sindrom Brugada']
+    },
+    correctOptionIndex: 0,
     diagnosis: {
       en: 'Acute Anterior STEMI (LAD Occlusion)',
       id: 'STEMI Anterior Akut (Oklusi LAD)'
@@ -288,18 +297,15 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Precordial leads show STEMI ST elevation
       V1: { stElevation: -8, tAmp: -12 },
       V2: { stElevation: -24, tAmp: -20, rAmp: -20, sDepth: 18 },
       V3: { stElevation: -22, tAmp: -18, rAmp: -22, sDepth: 16 },
       V4: { stElevation: -12, tAmp: -14 },
       V5: { stElevation: -2, tAmp: -8 },
       V6: { stElevation: 0, tAmp: -6 },
-      // Inferior leads show reciprocal depression
       II: { stElevation: 6, tAmp: 4 },
       III: { stElevation: 12, tAmp: 6, rAmp: -15, sDepth: 12 },
       aVF: { stElevation: 8, tAmp: 4, rAmp: -18, sDepth: 10 },
-      // Lateral leads
       I: { stElevation: 0, tAmp: -5 },
       aVL: { stElevation: -2, tAmp: -6 },
       aVR: { stElevation: 3, tAmp: 3 }
@@ -319,6 +325,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 68-year-old female presents with acute epigastric burning pain, severe nausea, and vomiting starting 2 hours ago. She initially mistook it for "indigestion" and took antacids, which did not help. She appears pale and cold. Vitals: BP 90/58 mmHg, HR 58 bpm, RR 16 bpm, SpO2 96%.',
       id: 'Wanita 68 tahun datang dengan nyeri ulu hati terbakar akut, mual hebat, dan muntah sejak 2 jam lalu. Dia mengira itu "salah cerna" dan meminum antasida yang tidak meredakan keluhan. Dia tampak pucat dan dingin. Tanda vital: TD 90/58 mmHg, Nadi 58x/menit, RR 16x/menit, SpO2 96%.'
     },
+    options: {
+      en: ['Acute Posterior STEMI', 'Acute Inferior STEMI', 'GERD / Epigastritis'],
+      id: ['STEMI Posterior Akut', 'STEMI Inferior Akut', 'GERD / Epigastritis']
+    },
+    correctOptionIndex: 1,
     diagnosis: {
       en: 'Acute Inferior STEMI (RCA Occlusion) with Right Ventricular Involvement',
       id: 'STEMI Inferior Akut (Oklusi RCA) dengan Keterlibatan Ventrikel Kanan'
@@ -338,15 +349,12 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Inferior leads show STEMI ST elevation
       II: { stElevation: -10, tAmp: -12, rAmp: -30 },
       III: { stElevation: -18, tAmp: -14, rAmp: -20 },
       aVF: { stElevation: -14, tAmp: -13, rAmp: -25 },
-      // Lateral leads show reciprocal depression
       I: { stElevation: 8, tAmp: 6, rAmp: -40 },
       aVL: { stElevation: 12, tAmp: 8, rAmp: -25 },
-      // Precordial leads
-      V1: { stElevation: -2, tAmp: -4 }, // Can indicate RV infarction
+      V1: { stElevation: -2, tAmp: -4 },
       V2: { stElevation: 4, tAmp: 4 },
       V3: { stElevation: 3, tAmp: 3 },
       V4: { stElevation: 0, tAmp: -6 },
@@ -369,6 +377,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 62-year-old male diabetic patient describes recurring episodes of retrosternal chest tightness over the past 3 days, precipitated by walking up stairs and relieved by rest. However, today the pressure has persisted for over an hour even while resting. Vitals: BP 155/95 mmHg, HR 92 bpm, RR 18 bpm, SpO2 95%.',
       id: 'Pria diabetisi 62 tahun mengeluhkan dada terasa tertekan di belakang tulang dada yang berulang sejak 3 hari lalu, dipicu saat naik tangga dan membaik dengan istirahat. Namun hari ini dada tertekan menetap >1 jam meski sedang istirahat. Tanda vital: TD 155/95 mmHg, Nadi 92x/menit, RR 18x/menit, SpO2 95%.'
     },
+    options: {
+      en: ['Left Ventricular Hypertrophy', 'Unstable Angina', 'Acute Lateral NSTEMI'],
+      id: ['Hipertrofi Ventrikel Kiri', 'Angina Tidak Stabil', 'NSTEMI Lateral Akut']
+    },
+    correctOptionIndex: 2,
     diagnosis: {
       en: 'Acute Lateral NSTEMI (Circumflex or Diagonal branch ischemia)',
       id: 'NSTEMI Lateral Akut (Iskemia cabang Sirkumfleksa atau Diagonal)'
@@ -388,13 +401,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Lateral depression
       I: { stElevation: 5, tAmp: 4 },
       aVL: { stElevation: 6, tAmp: 5 },
       V5: { stElevation: 8, tAmp: 6 },
       V6: { stElevation: 7, tAmp: 5 },
       V4: { stElevation: 3, tAmp: 4 },
-      // Reciprocal or normal elsewhere
       II: { stElevation: 0, tAmp: -6 },
       III: { stElevation: -2, tAmp: -4 },
       aVF: { stElevation: 0, tAmp: -5 },
@@ -418,6 +429,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 59-year-old male presents with sudden onset of severe dull chest pressure radiating straight to his back, accompanied by acute shortness of breath and diaphoresis. Standard 12-lead ECG is initially read by the triage nurse as "non-specific ST changes". Vitals: BP 118/72 mmHg, HR 78 bpm, SpO2 93% on room air.',
       id: 'Pria 59 tahun datang dengan rasa tertekan dada tumpul hebat yang menjalar langsung ke punggung, disertai sesak napas akut dan keringat dingin. EKG 12-sadapan standar awalnya dinilai oleh perawat triase sebagai "perubahan ST non-spesifik". Tanda vital: TD 118/72 mmHg, Nadi 78x/menit, SpO2 93%.'
     },
+    options: {
+      en: ['Isolated Posterior STEMI', 'Acute Anterior STEMI', 'Right Ventricular Hypertrophy'],
+      id: ['STEMI Posterior Terisolasi', 'STEMI Anterior Akut', 'Hipertrofi Ventrikel Kanan']
+    },
+    correctOptionIndex: 0,
     diagnosis: {
       en: 'Acute Isolated Posterior STEMI (LCx occlusion)',
       id: 'STEMI Posterior Terisolasi Akut (Oklusi LCx)'
@@ -437,11 +453,9 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Anterior leads show horizontal ST depression + tall R + upright T (Mirror of posterior STEMI)
       V1: { stElevation: 8, tAmp: -14, rAmp: -20, sDepth: 18 },
       V2: { stElevation: 12, tAmp: -16, rAmp: -45, sDepth: 15 },
       V3: { stElevation: 10, tAmp: -14, rAmp: -40, sDepth: 18 },
-      // Other leads normal or mild changes
       V4: { stElevation: 3, tAmp: -8 },
       V5: { stElevation: 0, tAmp: -6 },
       V6: { stElevation: 0, tAmp: -5 },
@@ -467,6 +481,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 74-year-old female presents with sudden onset of "fluttering in the chest" and moderate fatigue starting 4 hours ago. She feels slightly lightheaded when standing. History of mitral valve disease. Vitals: BP 115/70 mmHg, irregular pulse at 135 bpm, RR 18 bpm, SpO2 96%.',
       id: 'Wanita 74 tahun datang dengan keluhan "dada berdebar-debar" mendadak dan lemas sejak 4 jam lalu. Dia merasa agak kliyengan saat berdiri. Riwayat penyakit katup mitral. Tanda vital: TD 115/70 mmHg, nadi tidak teratur ~135x/menit, RR 18x/menit, SpO2 96%.'
     },
+    options: {
+      en: ['Atrial Flutter with 2:1 Block', 'Atrial Fibrillation with RVR', 'Sinus Tachycardia'],
+      id: ['Flutter Atrium dengan Blok 2:1', 'Fibrilasi Atrium dengan RVR', 'Takikardia Sinus']
+    },
+    correctOptionIndex: 1,
     diagnosis: {
       en: 'Atrial Fibrillation (AFib) with Rapid Ventricular Response (RVR)',
       id: 'Fibrilasi Atrium (AFib) dengan Respons Ventrikel Cepat (RVR)'
@@ -492,7 +511,7 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       aVR: { rAmp: 20, sDepth: 4, tAmp: 4 },
       aVL: { rAmp: -25, sDepth: 5, tAmp: -5 },
       aVF: { rAmp: -28, sDepth: 8, tAmp: -6 },
-      V1: { rAmp: -10, sDepth: 20, tAmp: -3 }, // Fibrillation waves highly visible here
+      V1: { rAmp: -10, sDepth: 20, tAmp: -3 },
       V2: { rAmp: -22, sDepth: 25, tAmp: -6 },
       V3: { rAmp: -35, sDepth: 18, tAmp: -8 },
       V4: { rAmp: -45, sDepth: 10, tAmp: -9 },
@@ -514,6 +533,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 71-year-old male with COPD describes palpitations and mild shortness of breath during his morning walk. He denies chest pain. Pulse is regular at 75 bpm. Vitals: BP 130/80 mmHg, RR 18 bpm, SpO2 92% on room air (normal baseline for him).',
       id: 'Pria 71 tahun dengan PPOK mengeluhkan berdebar-debar dan sesak napas ringan saat jalan pagi. Nyeri dada disangkal. Nadi teratur 75x/menit. Tanda vital: TD 130/80 mmHg, RR 18x/menit, SpO2 92% (baseline normal untuk pasien).'
     },
+    options: {
+      en: ['Atrial Fibrillation', 'Complete Heart Block', 'Atrial Flutter with 4:1 Block'],
+      id: ['Fibrilasi Atrium', 'Blok Jantung Total', 'Flutter Atrium dengan Blok 4:1']
+    },
+    correctOptionIndex: 2,
     diagnosis: {
       en: 'Atrial Flutter with 4:1 AV Block',
       id: 'Flutter Atrium dengan Blok AV 4:1'
@@ -533,10 +557,10 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      II: { rAmp: -35, sDepth: 8, tAmp: 0 }, // Sawtooth baseline will dominate
+      II: { rAmp: -35, sDepth: 8, tAmp: 0 },
       III: { rAmp: -18, sDepth: 10, tAmp: 0 },
       aVF: { rAmp: -28, sDepth: 8, tAmp: 0 },
-      I: { rAmp: -30, sDepth: 5, tAmp: -6 }, // Flat baseline on I
+      I: { rAmp: -30, sDepth: 5, tAmp: -6 },
       aVL: { rAmp: -20, sDepth: 6, tAmp: -5 },
       aVR: { rAmp: 22, sDepth: 4, tAmp: 4 },
       V1: { rAmp: -8, sDepth: 18, tAmp: 0 },
@@ -561,6 +585,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 65-year-old male with a history of prior myocardial infarction collapsed in his kitchen. He regained consciousness after 20 seconds but is extremely dizzy, pale, and diaphoretic. Vitals: BP 85/50 mmHg (hemodynamically unstable), HR 160 bpm, RR 24 bpm, SpO2 91%. Emergency defibrillator is brought to the bedside.',
       id: 'Pria 65 tahun dengan riwayat infark miokard sebelumnya mendadak kolaps di dapur. Dia sadar kembali setelah 20 detik tetapi merasa sangat pusing, pucat, dan berkeringat dingin. Tanda vital: TD 85/50 mmHg (hemodinamik tidak stabil), Nadi 160x/menit, RR 24x/menit, SpO2 91%. Defibrilator darurat disiapkan di samping tempat tidur.'
     },
+    options: {
+      en: ['Monomorphic Ventricular Tachycardia', 'SVT with Aberrant Conduction', 'Ventricular Fibrillation'],
+      id: ['Takikardia Ventrikel Monomorfik', 'SVT dengan Konduksi Aberan', 'Fibrilasi Ventrikel']
+    },
+    correctOptionIndex: 0,
     diagnosis: {
       en: 'Monomorphic Ventricular Tachycardia (VT)',
       id: 'Takikardia Ventrikel Monomorfik (VT)'
@@ -582,14 +611,13 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Wide QRS, large discordant T waves, no P waves
       I: { rAmp: -40, qrsWidthMultiplier: 2.2, tAmp: 16, tWidth: 20 },
       II: { rAmp: -45, qrsWidthMultiplier: 2.2, tAmp: 18, tWidth: 20 },
       III: { rAmp: -15, qrsWidthMultiplier: 2.2, tAmp: 10, tWidth: 20 },
       aVR: { rAmp: 40, qrsWidthMultiplier: 2.2, tAmp: -15, tWidth: 20 },
       aVL: { rAmp: -30, qrsWidthMultiplier: 2.2, tAmp: 12, tWidth: 20 },
       aVF: { rAmp: -35, qrsWidthMultiplier: 2.2, tAmp: 14, tWidth: 20 },
-      V1: { rAmp: 35, sDepth: 0, qrsWidthMultiplier: 2.2, tAmp: -15, tWidth: 20 }, // Positive concordance in V1-V6
+      V1: { rAmp: 35, sDepth: 0, qrsWidthMultiplier: 2.2, tAmp: -15, tWidth: 20 },
       V2: { rAmp: 45, sDepth: 0, qrsWidthMultiplier: 2.2, tAmp: -18, tWidth: 20 },
       V3: { rAmp: 50, sDepth: 0, qrsWidthMultiplier: 2.2, tAmp: -20, tWidth: 20 },
       V4: { rAmp: 45, sDepth: 0, qrsWidthMultiplier: 2.2, tAmp: -18, tWidth: 20 },
@@ -611,6 +639,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A healthy 28-year-old female presents with sudden onset of severe heart racing that started while she was sitting at her desk. She feels anxious and has mild shortness of breath, but denies chest pain or syncope. Vitals: BP 120/75 mmHg, HR 180 bpm (regular), RR 18 bpm, SpO2 98%.',
       id: 'Wanita sehat 28 tahun datang dengan keluhan jantung berdetak sangat cepat mendadak yang dimulai saat sedang duduk di mejanya. Dia merasa cemas dan sesak napas ringan, tetapi menyangkal nyeri dada atau pingsan. Tanda vital: TD 120/75 mmHg, Nadi 180x/menit (reguler), RR 18x/menit, SpO2 98%.'
     },
+    options: {
+      en: ['Sinus Tachycardia', 'Supraventricular Tachycardia (AVNRT)', 'Atrial Fibrillation with RVR'],
+      id: ['Takikardia Sinus', 'Takikardia Supraventrikular (AVNRT)', 'Fibrilasi Atrium dengan RVR']
+    },
+    correctOptionIndex: 1,
     diagnosis: {
       en: 'Supraventricular Tachycardia (SVT) - AVNRT',
       id: 'Takikardia Supraventrikular (SVT) - AVNRT'
@@ -630,14 +663,13 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Fast, regular, narrow QRS, pseudo-waves
       I: { rAmp: -35, sDepth: 6, tAmp: -8 },
-      II: { rAmp: -38, sDepth: 12, tAmp: -9, prLength: 0 }, // Pseudo-S in inferior leads
+      II: { rAmp: -38, sDepth: 12, tAmp: -9, prLength: 0 },
       III: { rAmp: -16, sDepth: 14, tAmp: -5 },
       aVR: { rAmp: 20, sDepth: 4, tAmp: 4 },
       aVL: { rAmp: -25, sDepth: 5, tAmp: -6 },
       aVF: { rAmp: -30, sDepth: 12, tAmp: -7 },
-      V1: { rAmp: -8, sDepth: 18, rSRPrime: true, tAmp: -3 }, // Pseudo-R' wave
+      V1: { rAmp: -8, sDepth: 18, rSRPrime: true, tAmp: -3 },
       V2: { rAmp: -22, sDepth: 24, tAmp: -7 },
       V3: { rAmp: -36, sDepth: 16, tAmp: -8 },
       V4: { rAmp: -40, sDepth: 8, tAmp: -8 },
@@ -659,6 +691,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'An 82-year-old male is brought by family due to worsening weakness, confusion, and three episodes of near-syncope (feeling "about to pass out") over the past 24 hours. He is currently resting in bed. Vitals: BP 96/50 mmHg (hypotensive), HR 38 bpm, RR 14 bpm, SpO2 95% on room air.',
       id: 'Pria 82 tahun dibawa keluarga karena makin lemas, bingung, dan 3 kali hampir pingsan dalam 24 jam terakhir. Saat ini pasien berbaring di tempat tidur. Tanda vital: TD 96/50 mmHg (hipotensi), Nadi 38x/menit, RR 14x/menit, SpO2 95%.'
     },
+    options: {
+      en: ['Mobitz Type II Second-Degree AV Block', 'Junctional Escape Rhythm', 'Third-Degree (Complete) AV Block'],
+      id: ['Blok AV Derajat Dua Mobitz Tipe II', 'Irama Lolos Junctional', 'Blok AV Derajat Tiga (Lengkap)']
+    },
+    correctOptionIndex: 2,
     diagnosis: {
       en: 'Third-Degree (Complete) AV Block with Ventricular Escape Rhythm',
       id: 'Blok AV Derajat Tiga (Lengkap) dengan Irama Lolos Ventrikel'
@@ -678,7 +715,6 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Escape rhythm: slow rate, wide QRS, independent P waves
       I: { rAmp: -25, sDepth: 14, qrsWidthMultiplier: 1.6, tAmp: -10, tWidth: 16 },
       II: { rAmp: -28, sDepth: 16, qrsWidthMultiplier: 1.6, tAmp: -12, tWidth: 16 },
       III: { rAmp: 12, sDepth: 2, qrsWidthMultiplier: 1.6, tAmp: 8, tWidth: 16 },
@@ -707,6 +743,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 24-year-old male college athlete presents with recurring episodes of palpitations associated with mild chest pressure and shortness of breath during heavy training. Today, his symptoms persisted longer than usual. Vitals: BP 122/78 mmHg, HR 82 bpm, RR 16 bpm, SpO2 99%.',
       id: 'Pria atlet mahasiswa 24 tahun datang dengan keluhan berdebar-debar berulang disertai rasa tertekan dada ringan dan sesak napas saat latihan berat. Hari ini, gejalanya menetap lebih lama dari biasanya. Tanda vital: TD 122/78 mmHg, Nadi 82x/menit, RR 16x/menit, SpO2 99%.'
     },
+    options: {
+      en: ['Wolff-Parkinson-White (WPW) Syndrome', 'Left Bundle Branch Block (LBBB)', 'Left Ventricular Hypertrophy'],
+      id: ['Sindrom Wolff-Parkinson-White (WPW)', 'Left Bundle Branch Block (LBBB)', 'Hipertrofi Ventrikel Kiri']
+    },
+    correctOptionIndex: 0,
     diagnosis: {
       en: 'Wolff-Parkinson-White (WPW) Syndrome (Pre-excitation)',
       id: 'Sindrom Wolff-Parkinson-White (WPW) (Pre-eksitasi)'
@@ -726,14 +767,13 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Short PR, Delta waves, slightly wide QRS
       I: { rAmp: -38, deltaWave: true, prLength: 10, tAmp: 8 },
       II: { rAmp: -40, deltaWave: true, prLength: 10, tAmp: 9 },
-      III: { rAmp: 18, deltaWave: true, prLength: 10, tAmp: -6 }, // Negative delta wave mimics Q wave (Pseudo-infarction pattern)
+      III: { rAmp: 18, deltaWave: true, prLength: 10, tAmp: -6 },
       aVR: { rAmp: 25, deltaWave: true, prLength: 10, tAmp: -6 },
       aVL: { rAmp: -25, deltaWave: true, prLength: 10, tAmp: 6 },
       aVF: { rAmp: -30, deltaWave: true, prLength: 10, tAmp: 7 },
-      V1: { rAmp: 28, deltaWave: true, prLength: 10, tAmp: -8 }, // Tall R in V1 (Type A WPW)
+      V1: { rAmp: 28, deltaWave: true, prLength: 10, tAmp: -8 },
       V2: { rAmp: 38, deltaWave: true, prLength: 10, tAmp: -10 },
       V3: { rAmp: 42, deltaWave: true, prLength: 10, tAmp: -11 },
       V4: { rAmp: -38, deltaWave: true, prLength: 10, tAmp: 10 },
@@ -755,6 +795,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 73-year-old female with long-standing poorly controlled hypertension presents to the clinic complaining of new, progressive shortness of breath when walking short distances. She denies chest pain or pressure. Vitals: BP 178/95 mmHg, HR 72 bpm, SpO2 94% on room air.',
       id: 'Wanita 73 tahun dengan riwayat hipertensi tidak terkontrol lama datang ke klinik mengeluhkan sesak napas baru yang makin berat saat berjalan jarak dekat. Nyeri dada disangkal. Tanda vital: TD 178/95 mmHg, Nadi 72x/menit, SpO2 94%.'
     },
+    options: {
+      en: ['Right Bundle Branch Block (RBBB)', 'Left Bundle Branch Block (LBBB)', 'Acute Anterior STEMI'],
+      id: ['Right Bundle Branch Block (RBBB)', 'Left Bundle Branch Block (LBBB)', 'STEMI Anterior Akut']
+    },
+    correctOptionIndex: 1,
     diagnosis: {
       en: 'Left Bundle Branch Block (LBBB)',
       id: 'Left Bundle Branch Block (LBBB)'
@@ -774,12 +819,10 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Wide QRS, notched lateral R, deep right precordial S
       I: { rAmp: -38, isNotchedR: true, qrsWidthMultiplier: 1.5, stElevation: 3, tAmp: 8 },
       aVL: { rAmp: -28, isNotchedR: true, qrsWidthMultiplier: 1.5, stElevation: 2, tAmp: 7 },
       V5: { rAmp: -40, isNotchedR: true, qrsWidthMultiplier: 1.5, stElevation: 3, tAmp: 8 },
       V6: { rAmp: -35, isNotchedR: true, qrsWidthMultiplier: 1.5, stElevation: 3, tAmp: 7 },
-      // Deep S + discordant elevation in V1-V3 (This STEMI mimic is normal in LBBB!)
       V1: { rAmp: 0, sDepth: 35, qrsWidthMultiplier: 1.5, stElevation: -6, tAmp: -12 },
       V2: { rAmp: 0, sDepth: 42, qrsWidthMultiplier: 1.5, stElevation: -8, tAmp: -14 },
       V3: { rAmp: 0, sDepth: 40, qrsWidthMultiplier: 1.5, stElevation: -7, tAmp: -13 },
@@ -804,6 +847,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 42-year-old female presents to the triage desk with sudden onset of sharp, pleuritic right-sided chest pain and intense dyspnea starting 30 minutes ago. She recently returned from a 14-hour trans-Pacific flight. Vitals: BP 100/60 mmHg, HR 115 bpm (tachycardia), RR 26 bpm, SpO2 89% on room air.',
       id: 'Wanita 42 tahun datang ke triase dengan keluhan nyeri dada kanan tajam pleuritik mendadak dan sesak napas hebat sejak 30 menit lalu. Baru kembali dari penerbangan trans-Pasifik 14 jam. Tanda vital: TD 100/60 mmHg, Nadi 115x/menit, RR 26x/menit, SpO2 89%.'
     },
+    options: {
+      en: ['Acute Inferior STEMI', 'Right Bundle Branch Block (RBBB)', 'Massive Pulmonary Embolism'],
+      id: ['STEMI Inferior Akut', 'Right Bundle Branch Block (RBBB)', 'Emboli Paru Masif']
+    },
+    correctOptionIndex: 2,
     diagnosis: {
       en: 'Massive Pulmonary Embolism (PE) causing Acute Cor Pulmonale',
       id: 'Emboli Paru (PE) Masif menyebabkan Kor Pulmonale Akut'
@@ -825,18 +873,16 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Sinus tach, S1Q3T3 pattern, V1-V4 T inversion
-      I: { rAmp: -30, sDepth: 18, s1q3t3: 'S1' }, // Deep S in I
+      I: { rAmp: -30, sDepth: 18, s1q3t3: 'S1' },
       II: { rAmp: -35, sDepth: 6, tAmp: -6 },
-      III: { rAmp: -10, qDepth: 8, tAmp: 8, s1q3t3: 'Q3' }, // Q wave and inverted T in III (T3)
+      III: { rAmp: -10, qDepth: 8, tAmp: 8, s1q3t3: 'Q3' },
       aVR: { rAmp: 25, tAmp: 4 },
       aVL: { rAmp: -15, sDepth: 12, tAmp: -4 },
       aVF: { rAmp: -20, sDepth: 8, tAmp: -5 },
-      // Right precordial strain (V1-V4 T inversion)
-      V1: { rAmp: -5, sDepth: 15, rSRPrime: true, tAmp: 8 }, // Incomplete RBBB
-      V2: { rAmp: -15, sDepth: 25, tAmp: 10 }, // Deep T inversion
-      V3: { rAmp: -28, sDepth: 18, tAmp: 8 },  // Deep T inversion
-      V4: { rAmp: -35, sDepth: 10, tAmp: 6 },  // T inversion
+      V1: { rAmp: -5, sDepth: 15, rSRPrime: true, tAmp: 8 },
+      V2: { rAmp: -15, sDepth: 25, tAmp: 10 },
+      V3: { rAmp: -28, sDepth: 18, tAmp: 8 },
+      V4: { rAmp: -35, sDepth: 10, tAmp: 6 },
       V5: { rAmp: -38, sDepth: 5, tAmp: -6 },
       V6: { rAmp: -30, sDepth: 4, tAmp: -7 }
     }
@@ -855,6 +901,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 58-year-old male with end-stage renal disease (ESRD) missed his last two hemodialysis sessions. He presents with severe generalized muscle weakness, difficulty raising his arms, and a "fluttering" sensation in his chest. Vitals: BP 105/58 mmHg, HR 54 bpm, RR 18 bpm, SpO2 96%.',
       id: 'Pria 58 tahun dengan penyakit ginjal stadium akhir (ESRD) melewatkan dua sesi hemodialisis terakhirnya. Datang dengan keluhan otot lemas berat di seluruh tubuh, kesulitan mengangkat lengan, dan dada terasa berdebar halus. Tanda vital: TD 105/58 mmHg, Nadi 54x/menit, RR 18x/menit, SpO2 96%.'
     },
+    options: {
+      en: ['Severe Hyperkalemia', 'Acute Myocardial Infarction', 'Severe Hypokalemia'],
+      id: ['Hiperkalemia Berat', 'Infark Miokard Akut', 'Hipokalemia Berat']
+    },
+    correctOptionIndex: 0,
     diagnosis: {
       en: 'Severe Hyperkalemia (Potassium K⁺ > 7.2 mEq/L) - Medical Emergency',
       id: 'Hiperkalemia Berat (Kalium K⁺ > 7.2 mEq/L) - Kedaruratan Medis'
@@ -874,7 +925,6 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Sinuventricular: flat P, wide QRS, massive peaked/narrow T waves
       I: { pAmp: 0, rAmp: -30, qrsWidthMultiplier: 1.6, tAmp: -16, tWidth: 8 },
       II: { pAmp: 0, rAmp: -35, qrsWidthMultiplier: 1.6, tAmp: -20, tWidth: 8 },
       III: { pAmp: 0, rAmp: -12, qrsWidthMultiplier: 1.6, tAmp: -14, tWidth: 8 },
@@ -903,6 +953,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 56-year-old male with a 15-year history of severe hypertension presents for his routine follow-up. He admits to poor medication compliance and describes occasional mild shortness of breath on exertion, but denies chest pain. Vitals: BP 168/102 mmHg, HR 68 bpm, SpO2 96%.',
       id: 'Pria 56 tahun dengan riwayat hipertensi berat selama 15 tahun datang untuk kontrol rutin. Dia mengaku tidak patuh minum obat dan mengeluhkan sesak napas ringan sesekali saat aktivitas, tetapi menyangkal nyeri dada. Tanda vital: TD 168/102 mmHg, Nadi 68x/menit, SpO2 96%.'
     },
+    options: {
+      en: ['Acute Lateral STEMI', 'Left Ventricular Hypertrophy (LVH)', 'Dilated Cardiomyopathy'],
+      id: ['STEMI Lateral Akut', 'Hipertrofi Ventrikel Kiri (LVH)', 'Kardiomiopati Dilatasi']
+    },
+    correctOptionIndex: 1,
     diagnosis: {
       en: 'Left Ventricular Hypertrophy (LVH) with Strain Pattern',
       id: 'Hipertrofi Ventrikel Kiri (LVH) dengan Pola Strain'
@@ -922,16 +977,15 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // LVH Sokolow Lyon: Deep S in V1/V2, extremely tall R in V5/V6, strain pattern in V5/V6
       V1: { rAmp: 0, sDepth: 32, tAmp: -4 },
       V2: { rAmp: 0, sDepth: 40, tAmp: -3 },
       V3: { rAmp: -15, sDepth: 35, tAmp: -5 },
       V4: { rAmp: -35, sDepth: 18, tAmp: -6 },
-      V5: { rAmp: -58, sDepth: 4, stElevation: 8, tAmp: 10, tWidth: 16 }, // Tall R + ST depression & T inversion (Strain)
+      V5: { rAmp: -58, sDepth: 4, stElevation: 8, tAmp: 10, tWidth: 16 },
       V6: { rAmp: -52, sDepth: 0, stElevation: 7, tAmp: 8, tWidth: 16 },
       I: { rAmp: -38, stElevation: 4, tAmp: 6 },
       aVL: { rAmp: -28, stElevation: 3, tAmp: 5 },
-      II: { pAmp: -5, rAmp: -30, sDepth: 8, tAmp: -6 }, // Prominent notched P wave
+      II: { pAmp: -5, rAmp: -30, sDepth: 8, tAmp: -6 },
       III: { rAmp: 12, sDepth: 18, tAmp: -4 },
       aVF: { rAmp: -12, sDepth: 14, tAmp: -5 },
       aVR: { rAmp: 25, tAmp: 4 }
@@ -951,6 +1005,11 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       en: 'A 34-year-old male presents with sharp, stabbing sub-sternal chest pain that began yesterday. The pain is severe, worsens when lying flat on his back or taking a deep breath, and is significantly relieved when he sits up and leans forward. He had a mild flu-like illness 10 days ago. Vitals: Temp 37.9°C, BP 120/75 mmHg, HR 96 bpm, SpO2 99%.',
       id: 'Pria 34 tahun datang dengan nyeri dada sub-sternal tajam seperti ditusuk yang dimulai kemarin. Nyeri dirasa berat, memburuk saat berbaring telentang atau menarik napas dalam, dan membaik signifikan saat duduk membungkuk ke depan. Pasien mengalami flu ringan 10 hari lalu. Tanda vital: Suhu 37.9°C, TD 120/75 mmHg, Nadi 96x/menit, SpO2 99%.'
     },
+    options: {
+      en: ['Acute Anterior STEMI', 'Benign Early Repolarization', 'Acute Pericarditis'],
+      id: ['STEMI Anterior Akut', 'Repolarisasi Dini Jinak', 'Perikarditis Akut']
+    },
+    correctOptionIndex: 2,
     diagnosis: {
       en: 'Acute Pericarditis',
       id: 'Perikarditis Akut'
@@ -972,16 +1031,13 @@ export const ECG_SIM_CASES: ECGSimCase[] = [
       ]
     },
     leadConfigs: {
-      // Diffuse concave ST elevation, PR depression
       I: { stElevation: -6, tAmp: -10, prLength: 30, pAmp: -3 },
-      II: { stElevation: -8, tAmp: -12, prLength: 30, pAmp: -3 }, // PR depression visible
+      II: { stElevation: -8, tAmp: -12, prLength: 30, pAmp: -3 },
       III: { stElevation: -5, tAmp: -8, prLength: 30 },
       aVF: { stElevation: -7, tAmp: -10, prLength: 30 },
       aVL: { stElevation: -4, tAmp: -8, prLength: 30 },
-      // aVR has reciprocal ST depression and PR elevation
-      aVR: { stElevation: 6, tAmp: 4, prLength: 30, pAmp: 3 }, // PR elevation
+      aVR: { stElevation: 6, tAmp: 4, prLength: 30, pAmp: 3 },
       V1: { stElevation: 2, tAmp: -4 },
-      // Precordial concave ST elevation
       V2: { stElevation: -10, tAmp: -14 },
       V3: { stElevation: -12, tAmp: -15 },
       V4: { stElevation: -10, tAmp: -14, prLength: 30 },

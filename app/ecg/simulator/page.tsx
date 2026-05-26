@@ -22,6 +22,8 @@ export default function ECGSimulatorPage() {
   const [selectedCaseId, setSelectedCaseId] = useState<string>(ECG_SIM_CASES[0].id);
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [solvedCases, setSolvedCases] = useState<{ [caseId: string]: boolean }>({});
+  const [selectedOptions, setSelectedOptions] = useState<{ [caseId: string]: number | null }>({});
+  const [wrongSelections, setWrongSelections] = useState<{ [caseId: string]: { [optionIdx: number]: boolean } }>({});
   const [viewDiagnosis, setViewDiagnosis] = useState<boolean>(false);
   const [scenarioExpanded, setScenarioExpanded] = useState<boolean>(true);
 
@@ -76,12 +78,34 @@ export default function ECGSimulatorPage() {
     setScenarioExpanded(true);
   };
 
-  const handleRevealDiagnosis = () => {
-    setSolvedCases(prev => ({
+  const handleSelectOption = (optionIdx: number) => {
+    if (solvedCases[activeCase.id]) return;
+
+    setSelectedOptions(prev => ({
       ...prev,
-      [activeCase.id]: true
+      [activeCase.id]: optionIdx
     }));
-    setViewDiagnosis(true);
+
+    if (optionIdx === activeCase.correctOptionIndex) {
+      // Correct!
+      setSolvedCases(prev => ({
+        ...prev,
+        [activeCase.id]: true
+      }));
+      setViewDiagnosis(true);
+    } else {
+      // Incorrect!
+      setWrongSelections(prev => {
+        const caseWrongs = prev[activeCase.id] || {};
+        return {
+          ...prev,
+          [activeCase.id]: {
+            ...caseWrongs,
+            [optionIdx]: true
+          }
+        };
+      });
+    }
   };
 
   const handleHideDiagnosis = () => {
@@ -91,10 +115,20 @@ export default function ECGSimulatorPage() {
       delete updated[activeCase.id];
       return updated;
     });
+    setSelectedOptions(prev => ({
+      ...prev,
+      [activeCase.id]: null
+    }));
+    setWrongSelections(prev => ({
+      ...prev,
+      [activeCase.id]: {}
+    }));
   };
 
   const handleResetProgress = () => {
     setSolvedCases({});
+    setSelectedOptions({});
+    setWrongSelections({});
     setViewDiagnosis(false);
     setSelectedCaseId(ECG_SIM_CASES[0].id);
     setActiveCategory('all');
@@ -318,21 +352,56 @@ export default function ECGSimulatorPage() {
                 className="overflow-hidden border-t border-white/[0.04]"
               >
                 <div className="p-4 sm:p-5 flex flex-col md:flex-row gap-5 items-start justify-between">
-                  {/* Scenario text */}
-                  <div className="flex-1">
+                  {/* Scenario text & MCQ Options */}
+                  <div className="flex-1 w-full">
                     <p className="text-gray-300 text-[13px] leading-relaxed font-medium">
                       {activeCase.clinicalScenario[language]}
                     </p>
                     
-                    {/* Prompt banner */}
-                    {!isRevealed && (
-                      <div className="mt-4 flex items-center gap-2.5 p-3 rounded-xl bg-amber-500/5 border border-amber-500/10 max-w-xl">
-                        <Info className="w-4 h-4 text-amber-400 shrink-0" />
-                        <p className="text-[11.5px] text-amber-300 font-[600]">
-                          {t.ecg_sim_your_diagnosis}
-                        </p>
-                      </div>
-                    )}
+                    {/* MCQ Options Stack */}
+                    <div className="mt-5 flex flex-col gap-2.5 max-w-xl w-full">
+                      <h4 className="text-[10px] font-extrabold text-gray-500 uppercase tracking-wider mb-0.5">
+                        {language === 'en' ? 'Select your diagnosis:' : 'Pilih diagnosis Anda:'}
+                      </h4>
+                      {activeCase.options[language].map((option, idx) => {
+                        const isCorrect = idx === activeCase.correctOptionIndex;
+                        const isSelected = selectedOptions[activeCase.id] === idx;
+                        const isWrong = wrongSelections[activeCase.id]?.[idx] || false;
+                        const isSolved = solvedCases[activeCase.id] || false;
+
+                        let btnStyle = "bg-[#0b1019]/40 border-white/[0.04] text-gray-300 hover:bg-[#0b1019]/70 hover:border-white/[0.08]";
+                        let letterStyle = "bg-white/[0.04] border-white/[0.06] text-gray-400";
+                        
+                        if (isSolved && isCorrect) {
+                          btnStyle = "bg-emerald-500/10 border-emerald-500/40 text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.05)]";
+                          letterStyle = "bg-emerald-500/20 border-emerald-500/30 text-emerald-400";
+                        } else if (isWrong) {
+                          btnStyle = "bg-rose-500/10 border-rose-500/30 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.05)]";
+                          letterStyle = "bg-rose-500/20 border-rose-500/20 text-rose-400";
+                        } else if (isSelected) {
+                          btnStyle = "bg-blue-500/10 border-blue-500/30 text-blue-300";
+                          letterStyle = "bg-blue-500/20 border-blue-500/20 text-blue-400";
+                        }
+
+                        const letter = String.fromCharCode(65 + idx); // 'A', 'B', 'C'
+
+                        return (
+                          <motion.button
+                            key={idx}
+                            disabled={isSolved}
+                            onClick={() => handleSelectOption(idx)}
+                            animate={isWrong ? { x: [-6, 6, -6, 6, 0] } : {}}
+                            transition={{ duration: 0.35 }}
+                            className={`w-full p-3.5 rounded-xl border flex items-center gap-3.5 text-left text-[12.5px] font-bold transition-all hover:scale-[1.005] select-none ${btnStyle}`}
+                          >
+                            <span className={`w-6 h-6 shrink-0 rounded-lg border flex items-center justify-center text-[11px] font-extrabold font-mono ${letterStyle}`}>
+                              {letter}
+                            </span>
+                            <span className="leading-tight">{option}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
                   </div>
 
                   {/* Splitter on MD screens */}
@@ -342,17 +411,27 @@ export default function ECGSimulatorPage() {
                   <div className="w-full md:w-[350px] shrink-0 flex flex-col gap-3">
                     <AnimatePresence mode="wait">
                       {!isRevealed ? (
-                        <motion.button
-                          key="reveal-btn"
+                        <motion.div
+                          key="unsolved-placeholder"
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.95 }}
-                          onClick={handleRevealDiagnosis}
-                          className="w-full p-4.5 py-4 flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-600 hover:to-cyan-700 text-white font-[800] text-[13px] rounded-2xl shadow-lg hover:shadow-emerald-500/10 hover:scale-[1.01] active:scale-100 transition-all select-none border border-emerald-400/20"
+                          className="w-full p-6 py-8 rounded-2xl bg-black/10 border border-white/[0.04] flex flex-col items-center justify-center text-center gap-3 relative"
                         >
-                          <Eye className="w-4 h-4" />
-                          <span>{t.ecg_sim_reveal_diagnosis}</span>
-                        </motion.button>
+                          <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+                            <Info className="w-4.5 h-4.5 text-amber-400 animate-pulse" />
+                          </div>
+                          <div>
+                            <h4 className="text-white font-extrabold text-[13px]">
+                              {language === 'en' ? 'Diagnosis Locked' : 'Diagnosis Terkunci'}
+                            </h4>
+                            <p className="text-gray-500 text-[11px] mt-1 leading-normal max-w-[220px] mx-auto">
+                              {language === 'en' 
+                                ? 'Select the correct diagnosis on the left to unlock clinical findings!' 
+                                : 'Pilih diagnosis yang benar di sebelah kiri untuk membuka temuan klinis!'}
+                            </p>
+                          </div>
+                        </motion.div>
                       ) : (
                         <motion.div
                           key="diagnosis-panel"

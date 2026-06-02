@@ -15,6 +15,7 @@ Anesthesia is a state-of-the-art web application built with Next.js 16, featurin
 
 - 🧠 **AI-Powered Clinical Tools:** Leverages Google Gemini, GROQ, and OpenAI compatible endpoints for advanced symptom analysis, drug interaction checking, and clinical decision support, with responses beautifully rendered in rich markdown.
 - 📄 **PDF Report Export:** Download dynamically generated clinical reports (such as symptom checker results or drug interaction charts) directly as formatted PDFs for patient documentation or clinical sharing.
+- 📈 **12-Lead ECG Simulator & Learning Module:** High-accuracy programmatically generated SVG waveforms (1mm/5mm pink grid paper) with interactive annotations for STEMI, NSTEMI, Wellens, Brugada, and 9+ clinical pathologies. Features an **interactive MCQ quiz** with clinical cases, heart-rate-linked blinking effects, and 5-second continuous rhythm strips.
 - 🧍 **Interactive Physical Exam Guidelines:** Locate physical exam procedures and guidelines using an interactive, clickable 2D body selector map coupled with AI-driven documentation sync.
 - 📋 **Structured Clinical Practice Guidelines (CPGs):** Offline access to comprehensive guidelines structured by specialties (including Psychiatry, Orthopedics, Interventional Radiology). Features direct hyperlinking to clinical PDFs or a smart Google Search query builder fallback.
 - 🔄 **Intelligent Clinical Data Sync:** Features an AI-driven pipeline that searches for updated clinical data and enforces strict human-in-the-loop review through side-by-side diffing, ensuring your offline medical reference stays accurate and current.
@@ -27,7 +28,7 @@ Anesthesia is a state-of-the-art web application built with Next.js 16, featurin
 ## Tech Stack
 
 - **Framework:** Next.js 16 (v16.2.6)
-- **UI & Styling:** React 19, Tailwind CSS, Framer Motion, Lucide React, Glassmorphism Aesthetics
+- **UI & Styling:** React 19, Tailwind CSS, Framer Motion, Lucide React, SVG Waveform Generator, Glassmorphism Aesthetics
 - **PDF Generation:** pdfmake, html-to-pdfmake (dynamically imported to optimize bundle sizes)
 - **State Management:** Zustand
 - **Offline Storage:** Dexie, localForage, idb-keyval

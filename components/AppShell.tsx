@@ -96,7 +96,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <>
       {/* ─── Top Bar ─── */}
       <header
-        className="h-[56px] shrink-0 flex items-center justify-between px-5 z-10 w-full fixed md:static top-0"
+        className="h-[56px] shrink-0 flex items-center justify-between px-4 md:px-0 z-10 w-full fixed md:static top-0"
         style={{
           background: 'rgba(8, 13, 23, 0.85)',
           backdropFilter: 'blur(20px)',
@@ -105,8 +105,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           boxShadow: '0 1px 0 rgba(255,255,255,0.03), 0 4px 24px rgba(0,0,0,0.4)',
         }}
       >
-        {/* Logo */}
-        <div className="flex items-center gap-3">
+        {/* Mobile Logo */}
+        <div className="flex items-center gap-3 md:hidden">
           <div
             className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
             style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)', boxShadow: '0 0 16px rgba(59,130,246,0.4)' }}
@@ -119,8 +119,43 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
+        {/* Desktop Logo */}
+        <motion.div
+          initial={false}
+          animate={{ 
+            width: isCollapsed ? 68 : 220,
+            paddingLeft: isCollapsed ? 18 : 24
+          }}
+          transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+          className="hidden md:flex items-center h-full"
+          style={{
+            borderRight: '1px solid rgba(255,255,255,0.06)',
+          }}
+        >
+          <div className={`flex items-center ${isCollapsed ? 'gap-0' : 'gap-3'}`}>
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+              style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)', boxShadow: '0 0 16px rgba(59,130,246,0.4)' }}
+            >
+              <Activity className="w-4 h-4 text-white" />
+            </div>
+            <motion.div
+              initial={false}
+              animate={{ 
+                opacity: isCollapsed ? 0 : 1, 
+                width: isCollapsed ? 0 : 'auto'
+              }}
+              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+              className="flex items-center whitespace-nowrap overflow-hidden"
+            >
+              <span className="font-[800] text-[17px] gradient-text tracking-tight">{t.app_name}</span>
+              <span className="ml-2 text-[12px] hidden lg:inline" style={{ color: 'var(--text-muted)' }}>Clinical Assistant</span>
+            </motion.div>
+          </div>
+        </motion.div>
+
         {/* Right controls */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 pr-4 md:pr-6">
           {/* Offline badge */}
           <AnimatePresence>
             {isOffline && (
@@ -194,7 +229,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </motion.span>
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="absolute right-3 p-1.5 rounded-lg transition-all"
+              className={`absolute p-1.5 rounded-lg transition-all ${
+                isCollapsed ? 'left-1/2 -translate-x-1/2' : 'right-3'
+              }`}
               style={{ color: 'var(--text-muted)' }}
             >
               <motion.div animate={{ rotate: isCollapsed ? 180 : 0 }} transition={{ duration: 0.25 }}>
@@ -212,7 +249,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   title={isCollapsed ? item.name : undefined}
-                  className={`nav-item flex items-center gap-3 px-4 py-3 mx-2 rounded-lg mb-1 text-[13px] font-[500] ${isActive ? 'nav-item-active' : ''}`}
+                  className={`nav-item flex items-center px-4 py-3 mx-2 rounded-lg mb-1 text-[13px] font-[500] ${
+                    isCollapsed ? 'px-0 justify-center gap-0' : 'px-4 justify-start gap-3'
+                  } ${isActive ? 'nav-item-active' : ''}`}
                   style={isActive ? {
                     background: 'rgba(59,130,246,0.1)',
                     color: '#93c5fd',
@@ -239,7 +278,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             className="p-4 border-t relative"
             style={{ borderColor: 'rgba(255,255,255,0.05)' }}
           >
-            <div className="flex items-center gap-2.5">
+            <div className={`flex items-center ${isCollapsed ? 'justify-center gap-0' : 'gap-2.5'}`}>
               <span className={statusDotClass} />
               <motion.div
                 initial={false}

@@ -16,7 +16,7 @@ export default function Home() {
       title: t.medical_calculators,
       icon: Calculator,
       href: '/calculators',
-      description: language === 'en' ? 'BMI, IBW/ABW, Creatinine Clearance, eGFR' : 'IMT, BBI/BBD, Klirens Kreatinin, eGFR',
+      description: language === 'en' ? 'BMI, IBW/ABW, CrCl, eGFR, MAP, ETT, ABL, P/F, PAO2, Fluid' : 'IMT, BBI/BBD, CrCl, eGFR, MAP, ETT, ABL, P/F, PAO2, Rumatan',
       iconBg: 'linear-gradient(135deg, #1d4ed8, #3b82f6)',
       iconGlow: 'rgba(59,130,246,0.35)',
       accentColor: '#60a5fa',

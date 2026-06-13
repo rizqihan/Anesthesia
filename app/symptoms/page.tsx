@@ -159,6 +159,9 @@ export default function SymptomCheckerPage() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={t.symptom_checker}
+        categoryTag={language === 'en' ? 'Symptom Checker' : 'Pengecekan Gejala'}
+        statusTag={language === 'en' ? 'AI Response' : 'Respon AI'}
+        agentName="Anesthesia Symptom Agent v1.2"
         queryLabel={language === 'en' ? 'Reported Symptoms:' : 'Gejala Dilaporkan:'}
         queryText={symptom}
         resultLabel={t.result}

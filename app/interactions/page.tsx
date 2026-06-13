@@ -138,6 +138,9 @@ export default function InteractionsPage() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={t.interaction_checker}
+        categoryTag={language === 'en' ? 'Drug Interaction Checker' : 'Pengecekan Interaksi'}
+        statusTag={language === 'en' ? 'AI Response' : 'Respon AI'}
+        agentName="Anesthesia Interaction Agent v1.2"
         queryLabel={language === 'en' ? 'Drugs Checked:' : 'Obat Diperiksa:'}
         queryText={drugs}
         resultLabel={t.result}

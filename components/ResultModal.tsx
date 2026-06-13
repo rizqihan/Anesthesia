@@ -12,6 +12,9 @@ interface ResultModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
+  categoryTag?: string;
+  statusTag?: string;
+  agentName?: string;
   queryLabel: string;
   queryText: string;
   resultLabel: string;
@@ -24,6 +27,9 @@ export default function ResultModal({
   isOpen,
   onClose,
   title,
+  categoryTag,
+  statusTag,
+  agentName,
   queryLabel,
   queryText,
   resultLabel,
@@ -78,28 +84,32 @@ export default function ResultModal({
             className="w-full max-w-4xl max-h-[85vh] flex flex-col rounded-2xl overflow-hidden z-10 glass-card-static border border-white/10 shadow-2xl"
           >
             {/* Header */}
-            <div className="p-5 border-b border-white/[0.06] flex items-center justify-between shrink-0 gap-4">
-              <h2 className="text-[16px] md:text-[18px] font-[800] text-white leading-tight">
-                {title}
-              </h2>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={onDownloadPDF}
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all text-neutral-300 hover:text-white flex items-center gap-1.5 text-[12px] font-[600]"
-                >
-                  <Download className="w-4 h-4 text-blue-400" />
-                  <span className="hidden sm:inline">{t.download_pdf}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all text-neutral-400 hover:text-white"
-                  title={t.close}
-                >
-                  <X className="w-4 h-4" />
-                </button>
+            <div className="p-5 border-b border-white/[0.06] flex items-start justify-between shrink-0 gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  {categoryTag && (
+                    <span className="text-[10px] px-2.5 py-0.5 rounded font-[800] uppercase tracking-wider bg-blue-500/10 text-blue-300 border border-blue-500/20">
+                      {categoryTag}
+                    </span>
+                  )}
+                  {statusTag && (
+                    <span className="text-[9px] px-1.5 py-0.5 rounded font-[800] tracking-wide bg-teal-500/10 text-teal-300 border border-teal-500/20">
+                      {statusTag}
+                    </span>
+                  )}
+                </div>
+                <h2 className="text-[16px] md:text-[18px] font-[800] text-white leading-tight">
+                  {title}
+                </h2>
               </div>
+              <button
+                type="button"
+                onClick={onClose}
+                className="p-1.5 rounded-lg hover:bg-white/5 transition-all text-neutral-400 hover:text-white"
+                title={t.close}
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
             {/* Scrollable Content */}
@@ -126,18 +136,35 @@ export default function ResultModal({
                   </ReactMarkdown>
                 </div>
               </div>
+
+              {/* Disclaimer inside content body */}
+              <div className="pt-4 border-t border-white/[0.05] text-[10.5px] text-gray-500 leading-relaxed font-[500]">
+                {t.disclaimer}
+              </div>
             </div>
 
             {/* Footer */}
-            <div className="p-4 bg-black/20 border-t border-white/[0.06] flex items-center justify-between shrink-0 text-[10px] text-gray-500">
-              <span>{t.disclaimer}</span>
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-4 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white transition-all text-[11px] font-[600]"
-              >
-                {t.close}
-              </button>
+            <div className="p-4 bg-black/20 border-t border-white/[0.06] flex items-center justify-between shrink-0">
+              <span className="text-[10px] text-gray-500">
+                {agentName || 'Anesthesia Agent v1.2'}
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={onDownloadPDF}
+                  className="px-4 py-2 rounded-xl text-[11.5px] font-[700] transition-all flex items-center gap-1.5 text-neutral-300 hover:text-white bg-white/5 hover:bg-white/10 cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5 text-blue-400" />
+                  <span>{t.download_pdf}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 rounded-xl text-[11.5px] font-[700] transition-all flex items-center gap-1.5 text-neutral-300 hover:text-white bg-white/5 hover:bg-white/10 cursor-pointer"
+                >
+                  {t.close}
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>

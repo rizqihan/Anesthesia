@@ -127,12 +127,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             paddingLeft: isCollapsed ? 18 : 24
           }}
           transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-          className="hidden md:flex items-center h-full"
+          className="hidden md:flex items-center h-full overflow-hidden"
           style={{
             borderRight: '1px solid rgba(255,255,255,0.06)',
           }}
         >
-          <div className={`flex items-center ${isCollapsed ? 'gap-0' : 'gap-3'}`}>
+          <motion.div 
+            className="flex items-center"
+            animate={{ gap: isCollapsed ? 0 : 12 }}
+            transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+          >
             <div
               className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
               style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)', boxShadow: '0 0 16px rgba(59,130,246,0.4)' }}
@@ -142,8 +146,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <motion.div
               initial={false}
               animate={{ 
-                opacity: isCollapsed ? 0 : 1, 
-                width: isCollapsed ? 0 : 'auto'
+                opacity: isCollapsed ? 0 : 1
               }}
               transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
               className="flex flex-col justify-center whitespace-nowrap overflow-hidden"
@@ -151,7 +154,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <span className="font-[800] text-[16px] leading-tight gradient-text tracking-tight">{t.app_name}</span>
               <span className="text-[10px] leading-tight mt-0.5" style={{ color: 'var(--text-muted)' }}>Clinical Assistant</span>
             </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Right controls */}
@@ -221,23 +224,27 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center px-4 h-[52px] border-b relative" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
             <motion.span
               initial={false}
-              animate={{ opacity: isCollapsed ? 0 : 1, width: isCollapsed ? 0 : 'auto' }}
+              animate={{ opacity: isCollapsed ? 0 : 1 }}
+              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
               className="text-[10px] uppercase tracking-[1.5px] font-[700] overflow-hidden whitespace-nowrap"
               style={{ color: 'var(--text-muted)' }}
             >
               Navigation
             </motion.span>
-            <button
+            <motion.button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className={`absolute p-1.5 rounded-lg transition-all ${
-                isCollapsed ? 'left-1/2 -translate-x-1/2' : 'right-3'
-              }`}
-              style={{ color: 'var(--text-muted)' }}
+              className="absolute p-1.5 rounded-lg"
+              animate={{ 
+                right: isCollapsed ? 20 : 12,
+                y: '-50%'
+              }}
+              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+              style={{ color: 'var(--text-muted)', top: '50%' }}
             >
-              <motion.div animate={{ rotate: isCollapsed ? 180 : 0 }} transition={{ duration: 0.25 }}>
+              <motion.div animate={{ rotate: isCollapsed ? 180 : 0 }} transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}>
                 <ChevronLeft className="w-4 h-4" />
               </motion.div>
-            </button>
+            </motion.button>
           </div>
 
           {/* Nav items */}
@@ -249,25 +256,34 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   title={isCollapsed ? item.name : undefined}
-                  className={`nav-item flex items-center px-4 py-3 mx-2 rounded-lg mb-1 text-[13px] font-[500] ${
-                    isCollapsed ? 'px-0 justify-center gap-0' : 'px-4 justify-start gap-3'
-                  } ${isActive ? 'nav-item-active' : ''}`}
-                  style={isActive ? {
-                    background: 'rgba(59,130,246,0.1)',
-                    color: '#93c5fd',
-                    boxShadow: '0 0 20px rgba(59,130,246,0.08)',
-                  } : {
-                    color: 'var(--text-secondary)',
-                  }}
+                  className="mx-2 mb-1 block"
                 >
-                  <item.icon className="w-4 h-4 shrink-0" />
-                  <motion.span
-                    initial={false}
-                    animate={{ opacity: isCollapsed ? 0 : 1, width: isCollapsed ? 0 : 'auto' }}
-                    className="overflow-hidden whitespace-nowrap truncate"
+                  <motion.div
+                    className={`nav-item flex items-center rounded-lg text-[13px] font-[500] ${isActive ? 'nav-item-active' : ''}`}
+                    animate={{
+                      paddingLeft: isCollapsed ? 18 : 16,
+                      paddingRight: isCollapsed ? 18 : 16,
+                      gap: isCollapsed ? 0 : 12,
+                    }}
+                    transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+                    style={{
+                      color: isActive ? '#93c5fd' : 'var(--text-secondary)',
+                      background: isActive ? 'rgba(59,130,246,0.1)' : 'transparent',
+                      boxShadow: isActive ? '0 0 20px rgba(59,130,246,0.08)' : 'none',
+                      height: '44px',
+                      transition: 'background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
+                    }}
                   >
-                    {item.name}
-                  </motion.span>
+                    <item.icon className="w-4 h-4 shrink-0" />
+                    <motion.span
+                      initial={false}
+                      animate={{ opacity: isCollapsed ? 0 : 1 }}
+                      transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+                      className="overflow-hidden whitespace-nowrap truncate"
+                    >
+                      {item.name}
+                    </motion.span>
+                  </motion.div>
                 </Link>
               );
             })}
@@ -278,11 +294,19 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             className="p-4 border-t relative"
             style={{ borderColor: 'rgba(255,255,255,0.05)' }}
           >
-            <div className={`flex items-center ${isCollapsed ? 'justify-center gap-0' : 'gap-2.5'}`}>
+            <motion.div 
+              className="flex items-center"
+              animate={{
+                gap: isCollapsed ? 0 : 10,
+                paddingLeft: isCollapsed ? 14 : 0,
+              }}
+              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+            >
               <span className={statusDotClass} />
               <motion.div
                 initial={false}
-                animate={{ opacity: isCollapsed ? 0 : 1, width: isCollapsed ? 0 : 'auto' }}
+                animate={{ opacity: isCollapsed ? 0 : 1 }}
+                transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
                 className="overflow-hidden"
               >
                 <div className="text-[10px] font-[600] whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
@@ -292,7 +316,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   {statusLabel}
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
           </div>
         </motion.nav>
 

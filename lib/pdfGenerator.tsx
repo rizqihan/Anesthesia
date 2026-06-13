@@ -110,8 +110,57 @@ export const printContentAsPDF = (
           }
 
           /* Hide anything not needed */
-          button, .no-print, .close-btn, .close, [role="button"] {
+          button:not(.accordion-trigger), .no-print, .close-btn, .close, [role="button"]:not(.accordion-trigger) {
             display: none !important;
+          }
+
+          /* Force all collapsed/expandable sections to show in print */
+          div[style*="height: 0"], 
+          div[style*="height:0"], 
+          div[style*="height: 0px"], 
+          div[style*="height:0px"] {
+            height: auto !important;
+            opacity: 1 !important;
+            overflow: visible !important;
+            display: block !important;
+          }
+
+          /* Style accordion headers for print */
+          button.accordion-trigger {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            width: 100% !important;
+            background: none !important;
+            border: none !important;
+            border-bottom: 1px solid #cbd5e1 !important;
+            padding: 8px 0 !important;
+            margin-top: 20px !important;
+            margin-bottom: 10px !important;
+            color: #0f172a !important;
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            box-shadow: none !important;
+            text-align: left !important;
+          }
+          button.accordion-trigger > svg {
+            display: none !important; /* Hide chevrons */
+          }
+          button.accordion-trigger div {
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            color: #0f172a !important;
+          }
+          button.accordion-trigger svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #0f172a !important;
+            stroke: #0f172a !important;
           }
 
           @media print {

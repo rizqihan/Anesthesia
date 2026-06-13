@@ -526,7 +526,7 @@ export default function GuidelinesPage() {
                       <div className="glass-card rounded-xl overflow-hidden border border-red-500/20" style={{ background: 'linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(0,0,0,0) 60%)' }}>
                         <button 
                           onClick={() => toggleSection('dangerSigns')}
-                          className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-red-500/5"
+                          className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-red-500/5 accordion-trigger"
                           style={{ borderBottom: expandedSections.dangerSigns ? '1px solid rgba(239,68,68,0.12)' : 'none' }}
                         >
                           <div className="flex items-center gap-2.5">
@@ -560,7 +560,7 @@ export default function GuidelinesPage() {
                     <div className="glass-card rounded-xl overflow-hidden border border-white/5">
                       <button 
                         onClick={() => toggleSection('management')}
-                        className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-white/5"
+                        className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-white/5 accordion-trigger"
                         style={{ borderBottom: expandedSections.management ? '1px solid rgba(255,255,255,0.05)' : 'none' }}
                       >
                         <div className="flex items-center gap-2.5">
@@ -631,7 +631,7 @@ export default function GuidelinesPage() {
                     <div className="glass-card rounded-xl overflow-hidden border border-white/5">
                       <button 
                         onClick={() => toggleSection('prevention')}
-                        className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-white/5"
+                        className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-white/5 accordion-trigger"
                         style={{ borderBottom: expandedSections.prevention ? '1px solid rgba(255,255,255,0.05)' : 'none' }}
                       >
                         <div className="flex items-center gap-2.5">
@@ -677,7 +677,7 @@ export default function GuidelinesPage() {
                     >
                       <button 
                         onClick={() => toggleSection('caseExample')}
-                        className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-purple-500/5"
+                        className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-purple-500/5 accordion-trigger"
                         style={{ borderBottom: expandedSections.caseExample ? '1px solid rgba(139,92,246,0.15)' : 'none' }}
                       >
                         <div className="flex items-center gap-2.5">
@@ -883,7 +883,7 @@ function AccordionCard({ id, title, icon, isExpanded, onToggle, content }: Accor
     <div className="glass-card rounded-xl overflow-hidden border border-white/5">
       <button 
         onClick={() => onToggle(id)}
-        className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-white/5"
+        className="w-full px-4 py-3.5 flex items-center justify-between transition-colors hover:bg-white/5 accordion-trigger"
         style={{ borderBottom: isExpanded ? '1px solid rgba(255,255,255,0.05)' : 'none' }}
       >
         <div className="flex items-center gap-2.5">

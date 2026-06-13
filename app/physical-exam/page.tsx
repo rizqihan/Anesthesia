@@ -21,6 +21,7 @@ export default function PhysicalExamPage() {
   const [newExamName, setNewExamName] = useState('');
   const [selectedExam, setSelectedExam] = useState<PhysicalExamRecord | null>(null);
   const [activePartId, setActivePartId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'steps' | 'map'>('steps');
   
   // Mounted status for portal
   const [mounted, setMounted] = useState(false);
@@ -237,6 +238,7 @@ export default function PhysicalExamPage() {
                     onClick={() => {
                       setSelectedExam(exam);
                       setActivePartId(exam.steps[0]?.bodyPartId || null);
+                      setActiveTab('steps');
                       setGenerationError(null);
                     }}
                     className="glass-card flex flex-col h-full group cursor-pointer overflow-hidden transition-all hover:border-indigo-500/30 hover:shadow-lg"
@@ -321,11 +323,35 @@ export default function PhysicalExamPage() {
                   </button>
                 </div>
 
+                {/* Mobile Tab Switcher */}
+                <div className="flex md:hidden p-3 bg-white/5 border-b border-white/5 gap-2 shrink-0">
+                  <button
+                    onClick={() => setActiveTab('steps')}
+                    className={`flex-1 py-2 rounded-xl text-[12px] font-[700] transition-all ${
+                      activeTab === 'steps'
+                        ? 'bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 shadow-md'
+                        : 'text-neutral-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    {language === 'en' ? 'Exam Steps' : 'Langkah Pemeriksaan'}
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('map')}
+                    className={`flex-1 py-2 rounded-xl text-[12px] font-[700] transition-all ${
+                      activeTab === 'map'
+                        ? 'bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 shadow-md'
+                        : 'text-neutral-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    {language === 'en' ? 'Interactive Map' : 'Peta Interaktif'}
+                  </button>
+                </div>
+
                 {/* Split Content: Steps (Left) + Body Illustration (Right) */}
                 <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
                   
                   {/* Left Column: Scrollable Steps */}
-                  <div className="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar border-r border-white/5">
+                  <div className={`flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar border-r border-white/5 ${activeTab === 'steps' ? 'block' : 'hidden'} md:block`}>
                     
                     {/* Definition */}
                     <div className="glass-card p-4 space-y-2 relative border border-white/5">
@@ -419,7 +445,7 @@ export default function PhysicalExamPage() {
                   </div>
 
                   {/* Right Column: Sticky Body Map (Desktop Only or shown on top) */}
-                  <div className="w-full md:w-[350px] shrink-0 p-5 flex flex-col justify-center bg-black/10 border-t md:border-t-0 md:border-l border-white/5">
+                  <div className={`w-full md:w-[350px] shrink-0 p-5 flex flex-col justify-center bg-black/10 border-t md:border-t-0 md:border-l border-white/5 ${activeTab === 'map' ? 'flex' : 'hidden'} md:flex`}>
                     <h3 className="text-[12px] font-[800] uppercase tracking-wider text-neutral-300 mb-4 text-center shrink-0">
                       {t.body_parts_title}
                     </h3>

@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   title: 'Anesthesia — Clinical Assistant',
   description: 'AI-powered clinical assistant, medical calculators, and offline reference suite tailored for MDs and healthcare professionals.',
   manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/icon-192.png',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',

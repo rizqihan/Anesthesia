@@ -113,9 +113,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           >
             <Activity className="w-4 h-4 text-white" />
           </div>
-          <div>
-            <span className="font-[800] text-[17px] gradient-text tracking-tight">{t.app_name}</span>
-            <span className="ml-2 text-[12px] hidden sm:inline" style={{ color: 'var(--text-muted)' }}>Clinical Assistant</span>
+          <div className="flex flex-col justify-center">
+            <span className="font-[800] text-[16px] leading-tight gradient-text tracking-tight">{t.app_name}</span>
+            <span className="text-[10px] leading-tight mt-0.5" style={{ color: 'var(--text-muted)' }}>Clinical Assistant</span>
           </div>
         </div>
 
@@ -146,10 +146,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 width: isCollapsed ? 0 : 'auto'
               }}
               transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-              className="flex items-center whitespace-nowrap overflow-hidden"
+              className="flex flex-col justify-center whitespace-nowrap overflow-hidden"
             >
-              <span className="font-[800] text-[17px] gradient-text tracking-tight">{t.app_name}</span>
-              <span className="ml-2 text-[12px] hidden lg:inline" style={{ color: 'var(--text-muted)' }}>Clinical Assistant</span>
+              <span className="font-[800] text-[16px] leading-tight gradient-text tracking-tight">{t.app_name}</span>
+              <span className="text-[10px] leading-tight mt-0.5" style={{ color: 'var(--text-muted)' }}>Clinical Assistant</span>
             </motion.div>
           </div>
         </motion.div>

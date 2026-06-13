@@ -3,13 +3,14 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Pill, Cpu, ShieldAlert, AlertCircle, Clock, Trash2, Download } from 'lucide-react';
+import { Pill, Cpu, ShieldAlert, AlertCircle, Clock, Trash2, Download, Maximize2 } from 'lucide-react';
 import { generateAIResponse } from '@/lib/ai';
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { downloadAIResponsePDF } from '@/lib/pdfGenerator';
+import ResultModal from '@/components/ResultModal';
 
 export default function InteractionsPage() {
   const { language, isOffline, interactionHistory, addInteractionHistory, clearInteractionHistory } = useAppStore();
@@ -18,6 +19,7 @@ export default function InteractionsPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCheck = async () => {
     if (!drugs.trim()) return;
@@ -65,21 +67,31 @@ export default function InteractionsPage() {
           </button>
           <AnimatePresence>
             {error && (<motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex items-start gap-3 p-4 rounded-xl" style={{ background: 'rgba(244,63,94,0.08)', border: '1px solid rgba(244,63,94,0.2)' }}><AlertCircle className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#fb7185' }} /><span className="text-[12px] leading-relaxed" style={{ color: '#fda4af' }}>{error}</span></motion.div>)}
-            {result && (<motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="result-box">
-              <div className="flex items-center justify-between mb-3 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                <div className="flex items-center gap-2">
-                  <span className="status-dot status-dot-green" />
-                  <span className="text-[11px] font-[700] uppercase tracking-[1px]" style={{ color: 'var(--text-secondary)' }}>{t.result}</span>
+            {result && (
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex flex-col min-h-0">
+                <div className="flex items-center justify-between mb-3 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div className="flex items-center gap-2">
+                    <span className="status-dot status-dot-green" />
+                    <span className="text-[11px] font-[700] uppercase tracking-[1px]" style={{ color: 'var(--text-secondary)' }}>{t.result}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button type="button" onClick={() => downloadAIResponsePDF('Drug Interaction Report', language === 'en' ? 'Drugs Checked:' : 'Obat Diperiksa:', drugs, t.result, result, 'interaction_report.pdf')} className="text-[11.5px] font-[600] flex items-center gap-1.5 transition-colors hover:text-white px-2 py-0.5 rounded bg-white/5 border border-white/10 cursor-pointer" style={{ color: 'var(--text-accent)' }}>
+                      <Download className="w-3 h-3" />
+                      <span>{t.download_pdf}</span>
+                    </button>
+                    <button type="button" onClick={() => setIsModalOpen(true)} className="text-[11.5px] font-[600] flex items-center gap-1.5 transition-colors hover:text-white px-2 py-0.5 rounded bg-white/5 border border-white/10 cursor-pointer" style={{ color: 'var(--text-accent)' }}>
+                      <Maximize2 className="w-3 h-3" />
+                      <span>{t.view_fullscreen}</span>
+                    </button>
+                  </div>
                 </div>
-                <button type="button" onClick={() => downloadAIResponsePDF('Drug Interaction Report', language === 'en' ? 'Drugs Checked:' : 'Obat Diperiksa:', drugs, t.result, result, 'interaction_report.pdf')} className="text-[11px] font-[600] flex items-center gap-1.5 transition-colors hover:text-white" style={{ color: 'var(--text-accent)' }}>
-                  <Download className="w-3.5 h-3.5" />
-                  {t.download_pdf}
-                </button>
-              </div>
-              <div className="text-[13px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)]">
-                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{result}</ReactMarkdown>
-              </div>
-            </motion.div>)}
+                <div className="result-box overflow-y-auto max-h-[300px] flex-1">
+                  <div className="text-[13px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)]">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{result}</ReactMarkdown>
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
       </div>
@@ -115,6 +127,18 @@ export default function InteractionsPage() {
       )}
 
       <div className="text-center text-[11px]" style={{ color: 'var(--text-muted)' }}>{t.disclaimer}</div>
+
+      <ResultModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={t.interaction_checker}
+        queryLabel={language === 'en' ? 'Drugs Checked:' : 'Obat Diperiksa:'}
+        queryText={drugs}
+        resultLabel={t.result}
+        markdownContent={result}
+        onDownloadPDF={() => downloadAIResponsePDF('Drug Interaction Report', language === 'en' ? 'Drugs Checked:' : 'Obat Diperiksa:', drugs, t.result, result, 'interaction_report.pdf')}
+        language={language}
+      />
     </div>
   );
 }

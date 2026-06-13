@@ -10,9 +10,11 @@ import { generateSingleCPG } from '@/lib/syncAgent';
 import { 
   BookOpen, Search, WifiOff, FileText, HeartPulse, Stethoscope, Wind, Baby, Pill, 
   Activity, FlaskConical, GitBranch, ShieldCheck, GraduationCap, ClipboardCheck, 
-  AlertTriangle, Sparkles, ChevronDown, ChevronUp, RefreshCw, X, Plus, Brain, Syringe, Scan
+  AlertTriangle, Sparkles, ChevronDown, ChevronUp, RefreshCw, X, Plus, Brain, Syringe, Scan,
+  Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { printContentAsPDF } from '@/lib/pdfGenerator';
 
 const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase();
@@ -91,6 +93,17 @@ export default function GuidelinesPage() {
 
   const toggleSection = (section: string) => {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  const handleDownloadPDF = () => {
+    if (!selectedGuideline || !modalBodyRef.current) return;
+    const title = language === 'en' ? selectedGuideline.title.en : selectedGuideline.title.id;
+    const contentHtml = modalBodyRef.current.innerHTML;
+    printContentAsPDF(
+      title,
+      contentHtml,
+      `cpg_${title.toLowerCase().replace(/[^a-z0-9]/g, '_')}.pdf`
+    );
   };
 
   const guidelines = useLiveQuery(async () => {
@@ -714,6 +727,13 @@ export default function GuidelinesPage() {
                 </span>
                 
                 <div className="flex items-center gap-2">
+                  <button 
+                    onClick={handleDownloadPDF}
+                    className="px-4 py-2 rounded-xl text-[11.5px] font-[700] transition-all flex items-center gap-1.5 text-neutral-300 hover:text-white bg-white/5 hover:bg-white/10 cursor-pointer"
+                  >
+                    <Download className="w-3.5 h-3.5 text-blue-400" />
+                    <span>{t.download_pdf}</span>
+                  </button>
                   <a 
                     href={selectedGuideline.pdfUrl ? selectedGuideline.pdfUrl : `https://www.google.com/search?q=${encodeURIComponent(language === 'en' ? selectedGuideline.title.en : selectedGuideline.title.id)}`}
                     target="_blank"
@@ -724,7 +744,7 @@ export default function GuidelinesPage() {
                     {selectedGuideline.pdfUrl ? (
                       <>
                         <FileText className="w-3.5 h-3.5 text-teal-400" />
-                        <span>{t.download_pdf}</span>
+                        <span>Official PDF</span>
                       </>
                     ) : (
                       <>

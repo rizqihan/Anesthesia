@@ -3,13 +3,14 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Activity, Cpu, AlertCircle, Clock, Trash2, Download } from 'lucide-react';
+import { Activity, Cpu, AlertCircle, Clock, Trash2, Download, Maximize2 } from 'lucide-react';
 import { generateAIResponse } from '@/lib/ai';
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { downloadAIResponsePDF } from '@/lib/pdfGenerator';
+import ResultModal from '@/components/ResultModal';
 
 export default function SymptomCheckerPage() {
   const { language, isOffline, symptomHistory, addSymptomHistory, clearSymptomHistory } = useAppStore();
@@ -18,6 +19,7 @@ export default function SymptomCheckerPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAnalyze = async () => {
     if (!symptom.trim()) return;
@@ -92,15 +94,21 @@ export default function SymptomCheckerPage() {
                 </motion.div>
               )}
               {result && (
-                <motion.div key="result" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="result-box overflow-y-auto max-h-[360px] flex-1 flex flex-col relative">
-                  <div className="flex justify-end mb-2 sticky top-0 z-10 bg-transparent">
-                    <button type="button" onClick={() => downloadAIResponsePDF('Symptom Analysis Report', language === 'en' ? 'Reported Symptoms:' : 'Gejala Dilaporkan:', symptom, t.result, result, 'symptom_report.pdf')} className="text-[11px] font-[600] flex items-center gap-1.5 transition-colors hover:text-white" style={{ color: 'var(--text-accent)' }}>
+                <motion.div key="result" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex-1 flex flex-col min-h-0 animate-fade-in-up">
+                  <div className="flex justify-end gap-2 mb-3 shrink-0">
+                    <button type="button" onClick={() => downloadAIResponsePDF('Symptom Analysis Report', language === 'en' ? 'Reported Symptoms:' : 'Gejala Dilaporkan:', symptom, t.result, result, 'symptom_report.pdf')} className="text-[11px] font-[600] flex items-center gap-1.5 transition-all hover:text-white px-2.5 py-1 rounded bg-white/5 border border-white/10 hover:bg-white/10 cursor-pointer" style={{ color: 'var(--text-accent)' }}>
                       <Download className="w-3.5 h-3.5" />
                       {t.download_pdf}
                     </button>
+                    <button type="button" onClick={() => setIsModalOpen(true)} className="text-[11px] font-[600] flex items-center gap-1.5 transition-all hover:text-white px-2.5 py-1 rounded bg-white/5 border border-white/10 hover:bg-white/10 cursor-pointer" style={{ color: 'var(--text-accent)' }}>
+                      <Maximize2 className="w-3.5 h-3.5" />
+                      {t.view_fullscreen}
+                    </button>
                   </div>
-                  <div className="text-[13px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)]">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{result}</ReactMarkdown>
+                  <div className="result-box overflow-y-auto max-h-[300px] flex-1">
+                    <div className="text-[13px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)]">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{result}</ReactMarkdown>
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -140,6 +148,18 @@ export default function SymptomCheckerPage() {
       )}
 
       <div className="text-center text-[11px]" style={{ color: 'var(--text-muted)' }}>{t.disclaimer}</div>
+
+      <ResultModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={t.symptom_checker}
+        queryLabel={language === 'en' ? 'Reported Symptoms:' : 'Gejala Dilaporkan:'}
+        queryText={symptom}
+        resultLabel={t.result}
+        markdownContent={result}
+        onDownloadPDF={() => downloadAIResponsePDF('Symptom Analysis Report', language === 'en' ? 'Reported Symptoms:' : 'Gejala Dilaporkan:', symptom, t.result, result, 'symptom_report.pdf')}
+        language={language}
+      />
     </div>
   );
 }

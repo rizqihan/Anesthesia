@@ -10,9 +10,11 @@ import { generatePhysicalExamGuideline } from '@/lib/syncAgent';
 import BodyIllustration from '@/components/BodyIllustration';
 import { 
   Stethoscope, Search, WifiOff, Sparkles, RefreshCw, X, Plus, 
-  AlertTriangle, BookOpen, Clipboard, Eye, AlertCircle, CheckCircle, Info
+  AlertTriangle, BookOpen, Clipboard, Eye, AlertCircle, CheckCircle, Info,
+  Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { printContentAsPDF } from '@/lib/pdfGenerator';
 
 export default function PhysicalExamPage() {
   const { language } = useAppStore();
@@ -33,6 +35,19 @@ export default function PhysicalExamPage() {
   // AI Generator state
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
+
+  const stepsContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPDF = () => {
+    if (!selectedExam || !stepsContainerRef.current) return;
+    const title = language === 'en' ? selectedExam.title.en : selectedExam.title.id;
+    const contentHtml = stepsContainerRef.current.innerHTML;
+    printContentAsPDF(
+      title,
+      contentHtml,
+      `physical_exam_${title.toLowerCase().replace(/[^a-z0-9]/g, '_')}.pdf`
+    );
+  };
 
   // Prevent background scroll when modal open
   useEffect(() => {
@@ -351,7 +366,7 @@ export default function PhysicalExamPage() {
                 <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
                   
                   {/* Left Column: Scrollable Steps */}
-                  <div className={`flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar border-r border-white/5 ${activeTab === 'steps' ? 'block' : 'hidden'} md:block`}>
+                  <div ref={stepsContainerRef} className={`flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar border-r border-white/5 ${activeTab === 'steps' ? 'block' : 'hidden'} md:block`}>
                     
                     {/* Definition */}
                     <div className="glass-card p-4 space-y-2 relative border border-white/5">
@@ -464,12 +479,21 @@ export default function PhysicalExamPage() {
                   <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
                     Physical Exam Diagnostic Guide v1.0
                   </span>
-                  <button 
-                    onClick={() => setSelectedExam(null)}
-                    className="px-4 py-1.5 rounded-xl text-[12px] font-[700] transition-all bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white"
-                  >
-                    Close
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={handleDownloadPDF}
+                      className="px-4 py-1.5 rounded-xl text-[12px] font-[700] transition-all bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5 text-blue-400" />
+                      <span>{t.download_pdf}</span>
+                    </button>
+                    <button 
+                      onClick={() => setSelectedExam(null)}
+                      className="px-4 py-1.5 rounded-xl text-[12px] font-[700] transition-all bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white cursor-pointer"
+                    >
+                      {t.close}
+                    </button>
+                  </div>
                 </div>
 
               </motion.div>

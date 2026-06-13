@@ -10,10 +10,11 @@ import {
   Activity, ArrowLeft, Search, SlidersHorizontal, BookOpen, AlertTriangle, 
   ChevronDown, Heart, Info, CheckCircle2, ShieldAlert, ExternalLink, 
   Clock, Stethoscope, BriefcaseMedical, AlertOctagon, HelpCircle, RefreshCw,
-  Monitor, ArrowRight
+  Monitor, ArrowRight, Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
+import { printContentAsPDF } from '@/lib/pdfGenerator';
 
 // ─── Programmatic SVG Waveform Component ───
 // Renders high-accuracy ECG waveforms on simulated pink grid paper (1mm and 5mm grid lines)
@@ -676,6 +677,19 @@ export default function EcgModule() {
   });
   
   const [mounted, setMounted] = useState(false);
+
+  const modalBodyRef = React.useRef<HTMLDivElement>(null);
+
+  const handleDownloadPDF = () => {
+    if (!selectedDiagnosis || !modalBodyRef.current) return;
+    const title = selectedDiagnosis.title[language];
+    const contentHtml = modalBodyRef.current.innerHTML;
+    printContentAsPDF(
+      title,
+      contentHtml,
+      `ecg_${title.toLowerCase().replace(/[^a-z0-9]/g, '_')}.pdf`
+    );
+  };
   
   // Initialize and load from Dexie DB
   useEffect(() => {
@@ -1097,7 +1111,7 @@ export default function EcgModule() {
                 </div>
 
                 {/* Modal Body */}
-                <div className="p-5 overflow-y-auto space-y-6 max-h-[60vh] md:max-h-[70vh] no-scrollbar">
+                <div ref={modalBodyRef} className="p-5 overflow-y-auto space-y-6 max-h-[60vh] md:max-h-[70vh] no-scrollbar">
                   
                   {/* Two-Column Top: Overview & Large SVG */}
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
@@ -1303,12 +1317,21 @@ export default function EcgModule() {
                   <span className="text-[11px] text-gray-500">
                     {t.disclaimer}
                   </span>
-                  <button 
-                    onClick={() => setSelectedDiagnosis(null)}
-                    className="btn-primary py-2 px-5 text-[12px] font-extrabold select-none"
-                  >
-                    {language === 'en' ? 'Understood' : 'Dimengerti'}
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={handleDownloadPDF}
+                      className="btn-primary py-2 px-5 text-[12px] font-extrabold select-none flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5 text-white" />
+                      <span>{t.download_pdf}</span>
+                    </button>
+                    <button 
+                      onClick={() => setSelectedDiagnosis(null)}
+                      className="btn-primary py-2 px-5 text-[12px] font-extrabold select-none cursor-pointer"
+                    >
+                      {language === 'en' ? 'Understood' : 'Dimengerti'}
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             </div>

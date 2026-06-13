@@ -123,8 +123,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <motion.div
           initial={false}
           animate={{ 
-            width: isCollapsed ? 68 : 220,
-            paddingLeft: isCollapsed ? 18 : 24
+            width: isCollapsed ? '68px' : '220px',
+            paddingLeft: isCollapsed ? '18px' : '24px'
           }}
           transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
           className="hidden md:flex items-center h-full overflow-hidden"
@@ -134,7 +134,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         >
           <motion.div 
             className="flex items-center"
-            animate={{ gap: isCollapsed ? 0 : 12 }}
+            animate={{ gap: isCollapsed ? '0px' : '12px' }}
             transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
           >
             <div
@@ -206,7 +206,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         {/* Sidebar (Desktop) */}
         <motion.nav
           initial={false}
-          animate={{ width: isCollapsed ? 68 : 220 }}
+          animate={{ width: isCollapsed ? '68px' : '220px' }}
           transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
           className="hidden md:flex flex-col shrink-0 overflow-hidden relative"
           style={{
@@ -235,7 +235,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               onClick={() => setIsCollapsed(!isCollapsed)}
               className="absolute p-1.5 rounded-lg"
               animate={{ 
-                right: isCollapsed ? 20 : 12,
+                right: isCollapsed ? '20px' : '12px',
                 y: '-50%'
               }}
               transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
@@ -261,9 +261,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   <motion.div
                     className={`nav-item flex items-center rounded-lg text-[13px] font-[500] ${isActive ? 'nav-item-active' : ''}`}
                     animate={{
-                      paddingLeft: isCollapsed ? 18 : 16,
-                      paddingRight: isCollapsed ? 18 : 16,
-                      gap: isCollapsed ? 0 : 12,
+                      paddingLeft: isCollapsed ? '18px' : '16px',
+                      paddingRight: isCollapsed ? '18px' : '16px',
+                      gap: isCollapsed ? '0px' : '12px',
                     }}
                     transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
                     style={{
@@ -297,8 +297,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <motion.div 
               className="flex items-center"
               animate={{
-                gap: isCollapsed ? 0 : 10,
-                paddingLeft: isCollapsed ? 14 : 0,
+                gap: isCollapsed ? '0px' : '10px',
+                paddingLeft: isCollapsed ? '14px' : '0px',
               }}
               transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
             >

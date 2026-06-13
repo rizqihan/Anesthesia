@@ -106,6 +106,11 @@ export default function CalculatorsPage() {
   const [fmWeight, setFmWeight] = useState('');
   const [fmResult, setFmResult] = useState<string | null>(null);
 
+  // Holliday-Segar State
+  const [hsWeight, setHsWeight] = useState('');
+  const [hsDripFactor, setHsDripFactor] = useState('20');
+  const [hsResult, setHsResult] = useState<null | { daily: string; hourly: string; tpm: string }>(null);
+
   const calculateBMI = () => {
     const w = parseFloat(bmiWeight);
     const h = parseFloat(bmiHeight) / 100;
@@ -267,6 +272,28 @@ export default function CalculatorsPage() {
     }
   };
 
+  const calculateHS = () => {
+    const w = parseFloat(hsWeight);
+    const df = parseFloat(hsDripFactor);
+    if (w > 0 && df > 0) {
+      let daily = 0;
+      if (w <= 10) {
+        daily = w * 100;
+      } else if (w <= 20) {
+        daily = 1000 + (w - 10) * 50;
+      } else {
+        daily = 1500 + (w - 20) * 20;
+      }
+      const hourly = daily / 24;
+      const tpm = (hourly * df) / 60;
+      setHsResult({
+        daily: daily.toFixed(0),
+        hourly: hourly.toFixed(1),
+        tpm: tpm.toFixed(1)
+      });
+    }
+  };
+
   const tabs = [
     { id: 'bmi', label: t.bmi },
     { id: 'ibw', label: t.ibw_abw },
@@ -278,6 +305,7 @@ export default function CalculatorsPage() {
     { id: 'pf', label: t.pf_ratio },
     { id: 'ag', label: t.alveolar_gas },
     { id: 'fm', label: t.fluid_maintenance },
+    { id: 'hs', label: t.holliday_segar },
   ];
 
   return (
@@ -480,6 +508,33 @@ export default function CalculatorsPage() {
                 {fmResult && <BigResult label={t.maintenance_fluid_rate} value={fmResult} unit="mL/hr" color="#38bdf8" />}
               </motion.div>
             )}
+
+            {activeTab === 'hs' && (
+              <motion.div key="hs" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="flex flex-col gap-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className={labelClass}>{t.weight}</label>
+                    <input type="number" value={hsWeight} onChange={e => setHsWeight(e.target.value)} className={inputClass} placeholder="e.g. 25" />
+                  </div>
+                  <div>
+                    <label className={labelClass}>{t.drip_factor}</label>
+                    <select value={hsDripFactor} onChange={e => setHsDripFactor(e.target.value)} className={`${inputClass} bg-slate-900 border-slate-700`}>
+                      <option value="20">{t.macro_20}</option>
+                      <option value="15">{t.macro_15}</option>
+                      <option value="60">{t.micro_60}</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="button" onClick={calculateHS} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
+                {hsResult && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <BigResult label={t.daily_volume} value={hsResult.daily} unit="mL/day" color="#38bdf8" />
+                    <BigResult label={t.hourly_rate} value={hsResult.hourly} unit="mL/hr" color="#34d399" />
+                    <BigResult label={t.drops_per_minute} value={hsResult.tpm} unit="gtt/min" color="#fbbf24" />
+                  </div>
+                )}
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
       </div>
@@ -507,6 +562,7 @@ export default function CalculatorsPage() {
             {activeTab === 'pf' && t.info_pf_ratio}
             {activeTab === 'ag' && t.info_alveolar_gas}
             {activeTab === 'fm' && t.info_fluid_maintenance}
+            {activeTab === 'hs' && t.info_holliday_segar}
           </div>
         </div>
       </motion.div>

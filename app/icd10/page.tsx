@@ -3,10 +3,11 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Book, Search, WifiOff } from 'lucide-react';
+import { Book, Search, WifiOff, ArrowLeft } from 'lucide-react';
 import db from '@/lib/db';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { motion, AnimatePresence } from 'motion/react';
+import Link from 'next/link';
 
 export default function Icd10Page() {
   const { language } = useAppStore();
@@ -27,6 +28,11 @@ export default function Icd10Page() {
   return (
     <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
+        <Link href="/">
+          <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+        </Link>
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#b45309,#f59e0b)', boxShadow: '0 0 16px rgba(245,158,11,0.35)' }}>
           <Book className="w-5 h-5 text-white" />
         </div>

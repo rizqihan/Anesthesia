@@ -3,10 +3,11 @@
 import React, { useState, Suspense } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Syringe, WifiOff, AlertTriangle } from 'lucide-react';
+import { Syringe, WifiOff, AlertTriangle, ArrowLeft } from 'lucide-react';
 import db from '@/lib/db';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { motion, AnimatePresence } from 'motion/react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 function DosageCalculatorContent() {
@@ -42,6 +43,11 @@ function DosageCalculatorContent() {
   return (
     <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
+        <Link href="/">
+          <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+        </Link>
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#0369a1,#0ea5e9)', boxShadow: '0 0 16px rgba(14,165,233,0.35)' }}>
           <Syringe className="w-5 h-5 text-white" />
         </div>

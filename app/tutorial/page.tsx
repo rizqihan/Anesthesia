@@ -18,9 +18,11 @@ import {
   Info,
   Layers,
   MessageSquare,
-  AlertCircle
+  AlertCircle,
+  ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import Link from 'next/link';
 
 // Structuring English Content
 const contentEn = {
@@ -367,8 +369,13 @@ export default function TutorialPage() {
         className="flex flex-col gap-2 border-b border-white/5 pb-6"
       >
         <div className="flex items-center gap-3">
+          <Link href="/">
+            <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+          </Link>
           <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center"
+            className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
             style={{ 
               background: 'linear-gradient(135deg, #0f766e, #14b8a6)', 
               boxShadow: '0 0 20px rgba(20,184,166,0.3)' 

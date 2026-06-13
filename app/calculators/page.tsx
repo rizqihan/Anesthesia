@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Calculator, WifiOff } from 'lucide-react';
+import { Calculator, WifiOff, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import Link from 'next/link';
 
 const inputClass = "glass-input w-full px-3 py-2.5 text-[13px] font-[500]";
 const labelClass = "form-label";
@@ -313,6 +314,11 @@ export default function CalculatorsPage() {
       {/* Header */}
       <div>
         <div className="flex items-center gap-3 mb-1">
+          <Link href="/">
+            <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+          </Link>
           <div className="icon-box" style={{ background: 'linear-gradient(135deg,#1d4ed8,#3b82f6)', boxShadow: '0 0 16px rgba(59,130,246,0.35)' }}>
             <Calculator className="w-5 h-5 text-white" />
           </div>

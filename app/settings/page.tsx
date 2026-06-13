@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope } from 'lucide-react';
+import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope, ArrowLeft } from 'lucide-react';
 import db from '@/lib/db';
 import { ICD10_DB } from '@/lib/icd10';
 import { DRUG_DB } from '@/lib/drugs';
@@ -11,6 +11,7 @@ import { GUIDELINES_DB } from '@/lib/guidelines';
 import { PHYSICAL_EXAMS_DB } from '@/lib/physicalExamsData';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { AnimatePresence } from 'motion/react';
+import Link from 'next/link';
 import { syncICD10, syncDrugs, syncGuidelines, syncPhysicalExams, type SyncResult } from '@/lib/syncAgent';
 import SyncReviewPanel from '@/components/SyncReviewPanel';
 
@@ -175,6 +176,11 @@ export default function SettingsPage() {
   return (
     <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
+        <Link href="/">
+          <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+        </Link>
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#374151,#6b7280)', boxShadow: '0 0 12px rgba(107,114,128,0.25)' }}>
           <Settings className="w-5 h-5 text-white" />
         </div>

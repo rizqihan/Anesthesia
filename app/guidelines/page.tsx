@@ -8,12 +8,13 @@ import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
 import { generateSingleCPG } from '@/lib/syncAgent';
 import { 
-  BookOpen, Search, WifiOff, FileText, HeartPulse, Stethoscope, Wind, Baby, Pill, 
+  BookOpen, Search, WifiOff, FileText, HeartPulse, Stethoscope, Wind, Baby, Pill, ArrowLeft, 
   Activity, FlaskConical, GitBranch, ShieldCheck, GraduationCap, ClipboardCheck, 
   AlertTriangle, Sparkles, ChevronDown, ChevronUp, RefreshCw, X, Plus, Brain, Syringe, Scan,
   Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import Link from 'next/link';
 import { printContentAsPDF } from '@/lib/pdfGenerator';
 
 const getCategoryIcon = (category: string) => {
@@ -180,6 +181,11 @@ export default function GuidelinesPage() {
       {/* Header Panel */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
+          <Link href="/">
+            <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+          </Link>
           <div className="icon-box" style={{ background: 'linear-gradient(135deg,#0f766e,#14b8a6)', boxShadow: '0 0 16px rgba(20,184,166,0.35)' }}>
             <BookOpen className="w-5 h-5 text-white" />
           </div>

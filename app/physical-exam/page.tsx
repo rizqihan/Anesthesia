@@ -11,9 +11,10 @@ import BodyIllustration from '@/components/BodyIllustration';
 import { 
   Stethoscope, Search, WifiOff, Sparkles, RefreshCw, X, Plus, 
   AlertTriangle, BookOpen, Clipboard, Eye, AlertCircle, CheckCircle, Info,
-  Download
+  Download, ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import Link from 'next/link';
 import { printContentAsPDF } from '@/lib/pdfGenerator';
 
 export default function PhysicalExamPage() {
@@ -126,6 +127,11 @@ export default function PhysicalExamPage() {
       {/* Header Panel */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
+          <Link href="/">
+            <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+          </Link>
           <div className="icon-box" style={{ background: 'linear-gradient(135deg,#4f46e5,#6366f1)', boxShadow: '0 0 16px rgba(99,102,241,0.35)' }}>
             <Stethoscope className="w-5 h-5 text-white" />
           </div>

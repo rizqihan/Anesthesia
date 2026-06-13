@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Pill, Search, WifiOff, AlertTriangle, BookOpen, Syringe, Filter } from 'lucide-react';
+import { Pill, Search, WifiOff, AlertTriangle, BookOpen, Syringe, Filter, ArrowLeft } from 'lucide-react';
 import db from '@/lib/db';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { motion, AnimatePresence } from 'motion/react';
@@ -37,6 +37,11 @@ export default function FormularyPage() {
   return (
     <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
+        <Link href="/">
+          <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+        </Link>
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#5b21b6,#8b5cf6)', boxShadow: '0 0 16px rgba(139,92,246,0.35)' }}>
           <Pill className="w-5 h-5 text-white" />
         </div>

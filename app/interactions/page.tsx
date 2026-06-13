@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Pill, Cpu, ShieldAlert, AlertCircle, Clock, Trash2, Download, Maximize2 } from 'lucide-react';
+import { Pill, Cpu, ShieldAlert, AlertCircle, Clock, Trash2, Download, Maximize2, ArrowLeft } from 'lucide-react';
 import { generateAIResponse } from '@/lib/ai';
 import { motion, AnimatePresence } from 'motion/react';
+import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -41,6 +42,11 @@ export default function InteractionsPage() {
   return (
     <div className="space-y-5 max-w-2xl mx-auto">
       <div className="flex items-center gap-3">
+        <Link href="/">
+          <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+        </Link>
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#be123c,#f43f5e)', boxShadow: '0 0 16px rgba(244,63,94,0.35)' }}>
           <Pill className="w-5 h-5 text-white" />
         </div>

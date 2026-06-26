@@ -28,7 +28,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     setIsInitialSyncing(true);
     try {
       const db = (await import('@/lib/db')).default;
-      const { ICD10_DB } = await import('@/lib/icd10');
+      const { ICD10_DB, loadFullICD10 } = await import('@/lib/icd10');
       const { DRUG_DB } = await import('@/lib/drugs');
       const { GUIDELINES_DB } = await import('@/lib/guidelines');
       const { PHYSICAL_EXAMS_DB } = await import('@/lib/physicalExamsData');
@@ -41,11 +41,23 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       await db.ecgDiagnoses.bulkPut(ECG_DIAGNOSES_DB as any);
       
       const now = new Date().toISOString();
-      store.updateSyncMeta('icd10', { lastSynced: now, count: ICD10_DB.length });
+      store.updateSyncMeta('icd10', { lastSynced: now, count: ICD10_DB.length, fullLoaded: false });
       store.updateSyncMeta('drugs', { lastSynced: now, count: DRUG_DB.length });
       store.updateSyncMeta('guidelines', { lastSynced: now, count: GUIDELINES_DB.length });
       store.updateSyncMeta('physicalExams', { lastSynced: now, count: PHYSICAL_EXAMS_DB.length });
       store.updateSyncMeta('ecgDiagnoses', { lastSynced: now, count: ECG_DIAGNOSES_DB.length });
+
+      // Load full ICD-10 data in the background of the sync process
+      try {
+        const fullCount = await loadFullICD10();
+        store.updateSyncMeta('icd10', {
+          lastSynced: new Date().toISOString(),
+          count: fullCount,
+          fullLoaded: true
+        });
+      } catch (icdErr) {
+        console.error('Failed to load full ICD-10 during sync:', icdErr);
+      }
     } catch (e) {
       console.error('Initial sync error:', e);
     } finally {
@@ -82,6 +94,25 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       window.removeEventListener('offline', handleOffline);
     };
   }, [setOfflineStatus]);
+
+  useEffect(() => {
+    const triggerFullIcdLoad = async () => {
+      if (store.syncMeta?.icd10?.lastSynced && !store.syncMeta?.icd10?.fullLoaded) {
+        try {
+          const { loadFullICD10 } = await import('@/lib/icd10');
+          const count = await loadFullICD10();
+          store.updateSyncMeta('icd10', {
+            lastSynced: new Date().toISOString(),
+            count,
+            fullLoaded: true
+          });
+        } catch (e) {
+          console.error('Failed to load full ICD-10 in background:', e);
+        }
+      }
+    };
+    triggerFullIcdLoad();
+  }, [store.syncMeta?.icd10?.lastSynced, store.syncMeta?.icd10?.fullLoaded]);
 
   const navItems = [
     { name: t.home, href: '/', icon: Home },

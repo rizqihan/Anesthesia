@@ -6,6 +6,8 @@ export interface ICD10Record {
   code: string;
   name: string;
   indonesian: string;
+  chapter?: string;
+  block?: string;
 }
 
 export interface CPGManagement {
@@ -101,6 +103,14 @@ db.version(3).stores({
 db.version(4).stores({
   drugs: 'id, genericName, drugClass, *brandNames',
   icd10: 'code, name, indonesian',
+  guidelines: '++id, title.en, title.id, category, isStructured',
+  physicalExams: '++id, title.en, title.id, category',
+  ecgDiagnoses: 'id, title.en, title.id, category'
+});
+
+db.version(5).stores({
+  drugs: 'id, genericName, drugClass, *brandNames',
+  icd10: 'code, name, indonesian, chapter, block',
   guidelines: '++id, title.en, title.id, category, isStructured',
   physicalExams: '++id, title.en, title.id, category',
   ecgDiagnoses: 'id, title.en, title.id, category'

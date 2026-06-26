@@ -83,10 +83,23 @@ export default function SettingsPage() {
       await db.guidelines.bulkPut(GUIDELINES_DB);
       await db.physicalExams.bulkPut(PHYSICAL_EXAMS_DB);
       const now = new Date().toISOString();
-      store.updateSyncMeta('icd10', { lastSynced: now, count: ICD10_DB.length });
+      store.updateSyncMeta('icd10', { lastSynced: now, count: ICD10_DB.length, fullLoaded: false });
       store.updateSyncMeta('drugs', { lastSynced: now, count: DRUG_DB.length });
       store.updateSyncMeta('guidelines', { lastSynced: now, count: GUIDELINES_DB.length });
       store.updateSyncMeta('physicalExams', { lastSynced: now, count: PHYSICAL_EXAMS_DB.length });
+
+      // Trigger full ICD-10 loading
+      try {
+        const { loadFullICD10 } = await import('@/lib/icd10');
+        const count = await loadFullICD10();
+        store.updateSyncMeta('icd10', {
+          lastSynced: new Date().toISOString(),
+          count,
+          fullLoaded: true
+        });
+      } catch (icdErr) {
+        console.error('Failed to seed full ICD-10 database:', icdErr);
+      }
     } catch (e) {
       console.error('Seed error:', e);
     }
@@ -334,7 +347,9 @@ export default function SettingsPage() {
                       <div className="min-w-0">
                         <div className="text-[13px] font-[600]" style={{ color: 'var(--text-primary)' }}>{label}</div>
                         <div className="flex items-center gap-2 text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                          <span className="font-[700]" style={{ color }}>{count} {t.records}</span>
+                          <span className="font-[700]" style={{ color }}>
+                            {count} {t.records} {key === 'icd10' && (meta.fullLoaded ? `(${store.language === 'en' ? 'Full' : 'Lengkap'})` : `(${store.language === 'en' ? 'Curated' : 'Kurasi'})`)}
+                          </span>
                           <span>•</span>
                           <span>{t.last_synced}: {meta.lastSynced ? new Date(meta.lastSynced).toLocaleDateString() : t.never_synced}</span>
                         </div>

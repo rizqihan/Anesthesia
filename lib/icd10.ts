@@ -158,3 +158,34 @@ export const ICD10_DB = [
   { code: 'F43.1', name: 'Post-traumatic stress disorder', indonesian: 'Gangguan stres pascatrauma (PTSD)' },
   { code: 'F51.0', name: 'Nonorganic insomnia', indonesian: 'Insomnia non-organik' }
 ];
+
+export async function loadFullICD10(): Promise<number> {
+  try {
+    const response = await fetch('/data/icd10-full.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.statusText}`);
+    }
+    const fullData = await response.json();
+    
+    // Merge curated entries to preserve specialized translations
+    const curatedMap = new Map(ICD10_DB.map(c => [c.code, c]));
+    
+    const mergedData = fullData.map((item: any) => {
+      const curated = curatedMap.get(item.code);
+      if (curated) {
+        return {
+          ...item,
+          indonesian: curated.indonesian || item.indonesian
+        };
+      }
+      return item;
+    });
+
+    const db = (await import('./db')).default;
+    await db.icd10.bulkPut(mergedData);
+    return mergedData.length;
+  } catch (error) {
+    console.error('Error loading full ICD-10 database:', error);
+    throw error;
+  }
+}

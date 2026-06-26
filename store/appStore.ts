@@ -14,6 +14,7 @@ export interface HistoryItem {
 export interface DatasetSyncMeta {
   lastSynced: string | null;
   count: number;
+  fullLoaded?: boolean;
 }
 
 interface AppState {

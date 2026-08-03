@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope, ArrowLeft } from 'lucide-react';
+import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope, ArrowLeft, RotateCw, Zap } from 'lucide-react';
 import db from '@/lib/db';
 import { ICD10_DB } from '@/lib/icd10';
 import { DRUG_DB } from '@/lib/drugs';
@@ -40,6 +40,49 @@ export default function SettingsPage() {
   const [syncingDataset, setSyncingDataset] = useState<DatasetType | null>(null);
   const [syncError, setSyncError] = useState<string | null>(null);
   const [reviewData, setReviewData] = useState<{ type: DatasetType; result: SyncResult<Record<string, unknown>> } | null>(null);
+
+  // Force Refresh state
+  const [isForceRefreshing, setIsForceRefreshing] = useState(false);
+  const [refreshStatus, setRefreshStatus] = useState<string | null>(null);
+
+  const handleForceRefresh = useCallback(async () => {
+    if (!window.confirm(t.force_refresh_confirm)) return;
+
+    setIsForceRefreshing(true);
+    setRefreshStatus(t.refreshing_app);
+
+    try {
+      // 1. Clear Service Worker registrations
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (const registration of registrations) {
+          await registration.unregister();
+        }
+      }
+
+      // 2. Clear CacheStorage caches
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map((key) => caches.delete(key)));
+      }
+
+      // 3. Clear session storage
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        window.sessionStorage.clear();
+      }
+
+      setRefreshStatus(t.cache_cleared_reloading);
+
+      setTimeout(() => {
+        const targetUrl = new URL(window.location.href);
+        targetUrl.searchParams.set('v', Date.now().toString());
+        window.location.href = targetUrl.toString();
+      }, 600);
+    } catch (e) {
+      console.error('Force refresh failed:', e);
+      window.location.reload();
+    }
+  }, [t]);
 
   // Groq model browser
   const [groqModels, setGroqModels] = useState<{ id: string; owned_by: string }[]>([]);
@@ -394,6 +437,60 @@ export default function SettingsPage() {
               </button>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Force Refresh & App Updates Card */}
+      <div className="glass-card-static overflow-hidden">
+        <div className="section-header justify-between">
+          <div className="flex items-center gap-2">
+            <RotateCw className="w-4 h-4 text-sky-400" />
+            <span className="section-header-label">{t.app_updates_title}</span>
+          </div>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-[700]" style={{ background: 'rgba(56,189,248,0.1)', color: '#38bdf8', border: '1px solid rgba(56,189,248,0.2)' }}>
+            <Zap className="w-3 h-3" />
+            <span>{store.language === 'en' ? 'Latest Features Sync' : 'Sinkron Fitur Terbaru'}</span>
+          </div>
+        </div>
+        <div className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="max-w-xl">
+            <h3 className="text-[14px] font-[700] mb-1" style={{ color: 'var(--text-primary)' }}>
+              {t.force_refresh_title}
+            </h3>
+            <p className="text-[12px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+              {t.force_refresh_desc}
+            </p>
+            {refreshStatus && (
+              <div className="mt-2.5 text-[11px] font-[600] flex items-center gap-1.5" style={{ color: '#38bdf8' }}>
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                <span>{refreshStatus}</span>
+              </div>
+            )}
+          </div>
+          <button
+            type="button"
+            disabled={isForceRefreshing}
+            onClick={handleForceRefresh}
+            className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-[700] transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+            style={{
+              background: 'linear-gradient(135deg, rgba(56,189,248,0.2), rgba(59,130,246,0.2))',
+              border: '1px solid rgba(56,189,248,0.35)',
+              color: '#7dd3fc',
+              boxShadow: '0 0 16px rgba(56,189,248,0.15)',
+            }}
+          >
+            {isForceRefreshing ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>{t.refreshing_app}</span>
+              </>
+            ) : (
+              <>
+                <RotateCw className="w-4 h-4" />
+                <span>{t.force_refresh_btn}</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
 

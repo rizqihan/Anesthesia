@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Download } from 'lucide-react';
+import { X, Download, FileJson } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -20,6 +20,7 @@ interface ResultModalProps {
   resultLabel: string;
   markdownContent: string;
   onDownloadPDF: () => void;
+  onDownloadJSON?: () => void;
   language: 'en' | 'id';
 }
 
@@ -35,6 +36,7 @@ export default function ResultModal({
   resultLabel,
   markdownContent,
   onDownloadPDF,
+  onDownloadJSON,
   language,
 }: ResultModalProps) {
   const t = translations[language];
@@ -61,6 +63,29 @@ export default function ResultModal({
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  const handleJSONExport = () => {
+    if (onDownloadJSON) {
+      onDownloadJSON();
+      return;
+    }
+    const reportData = {
+      title,
+      category: categoryTag || '',
+      status: statusTag || '',
+      agent: agentName || 'Anesthesia Agent',
+      query: { label: queryLabel, content: queryText },
+      result: { label: resultLabel, content: markdownContent },
+      exportedAt: new Date().toISOString(),
+    };
+    const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(reportData, null, 2))}`;
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute('href', jsonString);
+    downloadAnchor.setAttribute('download', `${title.toLowerCase().replace(/[^a-z0-9]/g, '_')}_report.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
 
   return (
     <AnimatePresence>
@@ -152,10 +177,18 @@ export default function ResultModal({
                 <button
                   type="button"
                   onClick={onDownloadPDF}
-                  className="px-4 py-2 rounded-xl text-[11.5px] font-[700] transition-all flex items-center gap-1.5 text-neutral-300 hover:text-white bg-white/5 hover:bg-white/10 cursor-pointer"
+                  className="px-3.5 py-2 rounded-xl text-[11.5px] font-[700] transition-all flex items-center gap-1.5 text-neutral-300 hover:text-white bg-white/5 hover:bg-white/10 cursor-pointer border border-white/[0.06]"
                 >
                   <Download className="w-3.5 h-3.5 text-blue-400" />
                   <span>{t.download_pdf}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleJSONExport}
+                  className="px-3.5 py-2 rounded-xl text-[11.5px] font-[700] transition-all flex items-center gap-1.5 text-emerald-300 hover:text-white bg-emerald-500/10 hover:bg-emerald-500/20 cursor-pointer border border-emerald-500/20"
+                >
+                  <FileJson className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Export JSON</span>
                 </button>
                 <button
                   type="button"

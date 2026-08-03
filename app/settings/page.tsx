@@ -39,8 +39,7 @@ export default function SettingsPage() {
   // Sync state
   const [syncingDataset, setSyncingDataset] = useState<DatasetType | null>(null);
   const [syncError, setSyncError] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [reviewData, setReviewData] = useState<{ type: DatasetType; result: SyncResult<any> } | null>(null);
+  const [reviewData, setReviewData] = useState<{ type: DatasetType; result: SyncResult<Record<string, unknown>> } | null>(null);
 
   // Groq model browser
   const [groqModels, setGroqModels] = useState<{ id: string; owned_by: string }[]>([]);

@@ -145,8 +145,7 @@ export async function generateAISearchResponse(prompt: string): Promise<AISearch
     // Extract grounding sources from response metadata
     const sources: AISearchSource[] = [];
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const candidates = (response as any).candidates;
+      const candidates = (response as unknown as { candidates?: Array<{ groundingMetadata?: { groundingChunks?: Array<{ web?: { uri?: string; title?: string } }> } }> }).candidates;
       const groundingMeta = candidates?.[0]?.groundingMetadata;
       if (groundingMeta?.groundingChunks) {
         for (const chunk of groundingMeta.groundingChunks) {

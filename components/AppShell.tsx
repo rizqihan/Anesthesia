@@ -95,13 +95,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     };
   }, [setOfflineStatus]);
 
+  const icd10Meta = store.syncMeta?.icd10;
+  const updateSyncMeta = store.updateSyncMeta;
   useEffect(() => {
     const triggerFullIcdLoad = async () => {
-      if (store.syncMeta?.icd10?.lastSynced && !store.syncMeta?.icd10?.fullLoaded) {
+      if (icd10Meta?.lastSynced && !icd10Meta?.fullLoaded) {
         try {
           const { loadFullICD10 } = await import('@/lib/icd10');
           const count = await loadFullICD10();
-          store.updateSyncMeta('icd10', {
+          updateSyncMeta('icd10', {
             lastSynced: new Date().toISOString(),
             count,
             fullLoaded: true
@@ -112,7 +114,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       }
     };
     triggerFullIcdLoad();
-  }, [store.syncMeta?.icd10?.lastSynced, store.syncMeta?.icd10?.fullLoaded]);
+  }, [icd10Meta?.lastSynced, icd10Meta?.fullLoaded, updateSyncMeta]);
 
   const navItems = [
     { name: t.home, href: '/', icon: Home },

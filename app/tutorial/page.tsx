@@ -315,14 +315,15 @@ export default function TutorialPage() {
   const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
-    // Check if running in standalone mode (already installed)
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone;
-    setIsInstalled(!!isStandalone);
+    // Check if running in standalone mode (already installed) and detect iOS device
+    queueMicrotask(() => {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone;
+      setIsInstalled(!!isStandalone);
 
-    // Detect iOS device
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    const ios = /iphone|ipad|ipod/.test(userAgent);
-    setIsIOS(ios);
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      const ios = /iphone|ipad|ipod/.test(userAgent);
+      setIsIOS(ios);
+    });
 
     // Handle standard PWA installation prompt event
     const handleBeforeInstallPrompt = (e: Event) => {

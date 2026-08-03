@@ -551,7 +551,7 @@ function ECGWaveform({ type, label, size = 'small' }: { type: string; label?: st
         return (
           <>
             <circle cx="64" cy={mid - 22} r="5" fill="none" stroke="#fbbf24" strokeWidth="1.5" className="animate-pulse" />
-            <text x="74" y={mid - 22} fill="#fbbf24" className="text-[10px] font-bold" style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}>"Coved" ST Elevation</text>
+            <text x="74" y={mid - 22} fill="#fbbf24" className="text-[10px] font-bold" style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}>&quot;Coved&quot; ST Elevation</text>
             <text x="100" y={mid + 30} fill="#f59e0b" className="text-[9px]" style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}>Negative T wave</text>
           </>
         );
@@ -560,7 +560,7 @@ function ECGWaveform({ type, label, size = 'small' }: { type: string; label?: st
           <>
             <circle cx="85" cy={mid - 45} r="5" fill="none" stroke="#f43f5e" strokeWidth="1.5" className="animate-pulse" />
             <text x="95" y={mid - 35} fill="#f43f5e" className="text-[10px] font-bold" style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}>Tall Peaked T wave</text>
-            <text x="95" y={mid - 22} fill="#fb7185" className="text-[9px]" style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}>("Tent-shaped", narrow basis)</text>
+            <text x="95" y={mid - 22} fill="#fb7185" className="text-[9px]" style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}>(&quot;Tent-shaped&quot;, narrow basis)</text>
           </>
         );
       case 'wpw':
@@ -581,7 +581,7 @@ function ECGWaveform({ type, label, size = 'small' }: { type: string; label?: st
       case 'aflutter':
         return (
           <>
-            <text x="10" y={mid + 26} fill="#fbbf24" className="text-[10px] font-bold" style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}>"Sawtooth" F waves (regular)</text>
+            <text x="10" y={mid + 26} fill="#fbbf24" className="text-[10px] font-bold" style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}>&quot;Sawtooth&quot; F waves (regular)</text>
             <text x="195" y={mid - 22} fill="#34d399" className="text-[9px]" style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}>Controlled AV conduction</text>
           </>
         );
@@ -693,7 +693,7 @@ export default function EcgModule() {
   
   // Initialize and load from Dexie DB
   useEffect(() => {
-    setMounted(true);
+    queueMicrotask(() => setMounted(true));
     
     async function loadData() {
       try {

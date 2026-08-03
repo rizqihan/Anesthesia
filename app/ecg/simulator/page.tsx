@@ -14,6 +14,47 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 
+interface LeadCardProps {
+  lead: { name: string; label: string };
+  activeCase: ECGSimCase;
+}
+
+const LeadCard = React.memo(function LeadCard({ lead, activeCase }: LeadCardProps) {
+  const pathString = useMemo(() => {
+    return generateECGPath(450, 110, activeCase, lead.name);
+  }, [activeCase, lead.name]);
+
+  return (
+    <div className="rounded-2xl border border-white/[0.06] bg-[#0c111b] overflow-hidden relative">
+      <div className="absolute top-2.5 left-3.5 z-10 select-none flex items-center gap-1.5">
+        <span className="text-[14px] font-[900] text-white font-sans drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+          {lead.name}
+        </span>
+        <span className="text-[9px] font-bold text-gray-500 uppercase font-sans tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] hidden sm:inline">
+          {lead.label}
+        </span>
+      </div>
+
+      <div className="w-full overflow-x-auto no-scrollbar scroll-smooth">
+        <div className="w-[450px] h-[110px] relative bg-[#0b0e14]">
+          <svg width="450" height="110" className="absolute top-0 left-0 z-0">
+            <rect width="450" height="110" fill="url(#ecg-grid-large)" />
+            <path 
+              d={pathString} 
+              fill="none" 
+              stroke="#10b981"
+              strokeWidth="1.8" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+              className="drop-shadow-[0_0_2.5px_rgba(16,185,129,0.45)]"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+});
+
 export default function ECGSimulatorPage() {
   const { language } = useAppStore();
   const t = translations[language];
@@ -540,50 +581,9 @@ export default function ECGSimulatorPage() {
               </defs>
             </svg>
 
-            {gridLeads.map((lead) => {
-              // Memorize static path for current case and lead to avoid laggy renders
-              const pathString = useMemo(() => {
-                return generateECGPath(450, 110, activeCase, lead.name);
-              }, [activeCase, lead.name]);
-
-              return (
-                <div 
-                  key={lead.name}
-                  className="rounded-2xl border border-white/[0.06] bg-[#0c111b] overflow-hidden relative"
-                >
-                  {/* Lead Panel Header */}
-                  <div className="absolute top-2.5 left-3.5 z-10 select-none flex items-center gap-1.5">
-                    <span className="text-[14px] font-[900] text-white font-sans drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-                      {lead.name}
-                    </span>
-                    <span className="text-[9px] font-bold text-gray-500 uppercase font-sans tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] hidden sm:inline">
-                      {lead.label}
-                    </span>
-                  </div>
-
-                  {/* ECG Grid Panel Background (renders grid-large pattern) */}
-                  <div className="w-full overflow-x-auto no-scrollbar scroll-smooth">
-                    <div className="w-[450px] h-[110px] relative bg-[#0b0e14]">
-                      <svg width="450" height="110" className="absolute top-0 left-0 z-0">
-                        {/* Grid Paper */}
-                        <rect width="450" height="110" fill="url(#ecg-grid-large)" />
-                        
-                        {/* Static Tracing Path */}
-                        <path 
-                          d={pathString} 
-                          fill="none" 
-                          stroke="#10b981" // Emerald neon color for the line
-                          strokeWidth="1.8" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                          className="drop-shadow-[0_0_2.5px_rgba(16,185,129,0.45)]"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {gridLeads.map((lead) => (
+              <LeadCard key={lead.name} lead={lead} activeCase={activeCase} />
+            ))}
           </div>
 
           {/* ─── RHYTHM STRIP (LEAD II) ─── */}

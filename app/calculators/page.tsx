@@ -112,6 +112,26 @@ export default function CalculatorsPage() {
   const [hsDripFactor, setHsDripFactor] = useState('20');
   const [hsResult, setHsResult] = useState<null | { daily: string; hourly: string; tpm: string }>(null);
 
+  // Anion Gap & Corrected Calcium State
+  const [agNa, setAgNa] = useState('');
+  const [agCl, setAgCl] = useState('');
+  const [agHco3, setAgHco3] = useState('');
+  const [agCa, setAgCa] = useState('');
+  const [agAlbumin, setAgAlbumin] = useState('');
+  const [anionGapCalcResult, setAnionGapCalcResult] = useState<null | {
+    ag: string;
+    correctedAg: string | null;
+    correctedCa: string | null;
+    isHigh: boolean;
+  }>(null);
+
+  // ASA Class State
+  const [asaSelected, setAsaSelected] = useState<string>('ASA_1');
+  const [asaEmergency, setAsaEmergency] = useState<boolean>(false);
+
+  // Mallampati Class State
+  const [mallampatiSelected, setMallampatiSelected] = useState<string>('Class_1');
+
   const calculateBMI = () => {
     const w = parseFloat(bmiWeight);
     const h = parseFloat(bmiHeight) / 100;
@@ -295,12 +315,46 @@ export default function CalculatorsPage() {
     }
   };
 
+  const calculateAnionGap = () => {
+    const na = parseFloat(agNa);
+    const cl = parseFloat(agCl);
+    const hco3 = parseFloat(agHco3);
+    const ca = parseFloat(agCa);
+    const alb = parseFloat(agAlbumin);
+
+    if (na > 0 && cl > 0 && hco3 > 0) {
+      const ag = na - (cl + hco3);
+      let corrAg: string | null = null;
+      let corrCa: string | null = null;
+
+      if (alb > 0) {
+        const corrAgVal = ag + 2.5 * (4.0 - alb);
+        corrAg = corrAgVal.toFixed(1);
+      }
+
+      if (ca > 0 && alb > 0) {
+        const corrCaVal = ca + 0.8 * (4.0 - alb);
+        corrCa = corrCaVal.toFixed(2);
+      }
+
+      setAnionGapCalcResult({
+        ag: ag.toFixed(1),
+        correctedAg: corrAg,
+        correctedCa: corrCa,
+        isHigh: ag > 12,
+      });
+    }
+  };
+
   const tabs = [
     { id: 'bmi', label: t.bmi },
     { id: 'ibw', label: t.ibw_abw },
     { id: 'cg', label: t.creatinine_clearance },
     { id: 'egfr', label: t.egfr_calculator },
     { id: 'map', label: t.map },
+    { id: 'anion_gap', label: t.anion_gap_title },
+    { id: 'asa', label: t.asa_title },
+    { id: 'mallampati', label: t.mallampati_title },
     { id: 'ett', label: t.pediatric_ett },
     { id: 'abl', label: t.allowable_blood_loss },
     { id: 'pf', label: t.pf_ratio },
@@ -417,7 +471,163 @@ export default function CalculatorsPage() {
                   <div><label className={labelClass}>{t.diastolic_bp}</label><input type="number" value={mapDbp} onChange={e => setMapDbp(e.target.value)} className={inputClass} placeholder="e.g. 80" /></div>
                 </div>
                 <button type="button" onClick={calculateMAP} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
-                {mapResult && <BigResult label={t.map} value={mapResult} unit="mmHg" color="#60a5fa" />}
+                {mapResult && (
+                  <div className="flex flex-col gap-3">
+                    <BigResult label={t.map} value={mapResult} unit="mmHg" color={parseFloat(mapResult) < 65 ? '#f43f5e' : '#34d399'} />
+                    <div className={`p-3.5 rounded-xl text-[11.5px] font-medium border leading-relaxed ${
+                      parseFloat(mapResult) < 65 
+                        ? 'bg-rose-500/10 border-rose-500/25 text-rose-300' 
+                        : 'bg-emerald-500/10 border-emerald-500/25 text-emerald-300'
+                    }`}>
+                      {parseFloat(mapResult) < 65 
+                        ? (language === 'en' ? '⚠️ MAP < 65 mmHg: Below threshold for adequate renal, cerebral, and coronary perfusion.' : '⚠️ MAP < 65 mmHg: Di bawah ambang batas perfusi ginjal, serebral, dan koroner yang adekuat.') 
+                        : (language === 'en' ? '✓ MAP ≥ 65 mmHg: Adequate organ perfusion pressure for major surgery & ICU care.' : '✓ MAP ≥ 65 mmHg: Tekanan perfusi organ adekuat untuk operasi besar & perawatan ICU.')}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            )}
+
+            {activeTab === 'anion_gap' && (
+              <motion.div key="anion_gap" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="flex flex-col gap-4">
+                <p className="text-[12px] text-gray-400 leading-relaxed">{t.info_anion_gap}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div><label className={labelClass}>{t.na_concentration}</label><input type="number" value={agNa} onChange={e => setAgNa(e.target.value)} className={inputClass} placeholder="e.g. 140" /></div>
+                  <div><label className={labelClass}>{t.cl_concentration}</label><input type="number" value={agCl} onChange={e => setAgCl(e.target.value)} className={inputClass} placeholder="e.g. 102" /></div>
+                  <div><label className={labelClass}>{t.hco3_concentration}</label><input type="number" value={agHco3} onChange={e => setAgHco3(e.target.value)} className={inputClass} placeholder="e.g. 24" /></div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 border-t border-white/[0.06] pt-3">
+                  <div><label className={labelClass}>{t.ca_concentration}</label><input type="number" value={agCa} onChange={e => setAgCa(e.target.value)} className={inputClass} placeholder="e.g. 8.2 (optional)" /></div>
+                  <div><label className={labelClass}>{t.albumin_concentration}</label><input type="number" value={agAlbumin} onChange={e => setAgAlbumin(e.target.value)} className={inputClass} placeholder="e.g. 2.5 (optional)" /></div>
+                </div>
+                <button type="button" onClick={calculateAnionGap} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
+                {anionGapCalcResult && (
+                  <div className="flex flex-col gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <BigResult label="Anion Gap" value={anionGapCalcResult.ag} unit="mEq/L" color={anionGapCalcResult.isHigh ? '#f43f5e' : '#34d399'} />
+                      {anionGapCalcResult.correctedAg && <BigResult label="Corrected AG" value={anionGapCalcResult.correctedAg} unit="mEq/L" color="#38bdf8" />}
+                      {anionGapCalcResult.correctedCa && <BigResult label="Corrected Ca" value={anionGapCalcResult.correctedCa} unit="mg/dL" color="#fbbf24" />}
+                    </div>
+                    <div className={`p-3.5 rounded-xl text-[11.5px] font-medium border leading-relaxed ${
+                      anionGapCalcResult.isHigh
+                        ? 'bg-rose-500/10 border-rose-500/25 text-rose-300'
+                        : 'bg-emerald-500/10 border-emerald-500/25 text-emerald-300'
+                    }`}>
+                      {anionGapCalcResult.isHigh
+                        ? (language === 'en' 
+                          ? '🚨 High Anion Gap Acidosis (>12 mEq/L): Consider MUDPILES (Methanol, Uremia, DKA, Paraldehyde, Isoniazid/Iron, Lactic Acidosis, Ethylene Glycol, Salicylates).' 
+                          : '🚨 Asidosis Anion Gap Tinggi (>12 mEq/L): Pertimbangkan etiologi MUDPILES (Methanol, Uremia, DKA, Lactic Acidosis, Ethylene Glycol, Salisilat).')
+                        : (language === 'en'
+                          ? '✓ Normal Anion Gap (8-12 mEq/L): Normal anion gap acidosis (HARDUP: Hyperalimentation, Acetazolamide, Renal tubular acidosis, Diarrhea, Ureteral diversion, Pancreatic fistula).'
+                          : '✓ Anion Gap Normal (8-12 mEq/L): Jika ada asidosis, pertimbangkan HARDUP (Diare, RTA, Hiperalimentasi).')}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            )}
+
+            {activeTab === 'asa' && (
+              <motion.div key="asa" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="flex flex-col gap-4">
+                <p className="text-[12px] text-gray-400 leading-relaxed">{t.info_asa}</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {[
+                    { id: 'ASA_1', label: 'ASA I', desc: language === 'en' ? 'Normal healthy patient' : 'Pasien sehat normal' },
+                    { id: 'ASA_2', label: 'ASA II', desc: language === 'en' ? 'Mild systemic disease' : 'Penyakit sistemik ringan' },
+                    { id: 'ASA_3', label: 'ASA III', desc: language === 'en' ? 'Severe systemic disease' : 'Penyakit sistemik berat' },
+                    { id: 'ASA_4', label: 'ASA IV', desc: language === 'en' ? 'Severe disease, life threat' : 'Penyakit berat mengancam jiwa' },
+                    { id: 'ASA_5', label: 'ASA V', desc: language === 'en' ? 'Moribund, not expected to survive' : 'Pasien moribund' },
+                    { id: 'ASA_6', label: 'ASA VI', desc: language === 'en' ? 'Brain-dead organ donor' : 'Mati otak (donor organ)' },
+                  ].map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setAsaSelected(item.id)}
+                      className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                        asaSelected === item.id 
+                          ? 'bg-blue-500/15 border-blue-500/40 text-blue-300 shadow-[0_0_12px_rgba(59,130,246,0.15)]' 
+                          : 'bg-white/[0.02] border-white/[0.05] hover:bg-white/[0.05] text-gray-400'
+                      }`}
+                    >
+                      <span className="text-[13px] font-extrabold text-white">{item.label}</span>
+                      <span className="text-[10px] mt-1 text-gray-400 leading-tight">{item.desc}</span>
+                    </button>
+                  ))}
+                </div>
+
+                <label className="flex items-center gap-2 cursor-pointer select-none border border-white/[0.06] bg-white/[0.02] p-3 rounded-xl">
+                  <input
+                    type="checkbox"
+                    checked={asaEmergency}
+                    onChange={(e) => setAsaEmergency(e.target.checked)}
+                    className="w-4 h-4 rounded accent-rose-500"
+                  />
+                  <span className="text-[12.5px] font-bold text-rose-300">
+                    {language === 'en' ? 'Emergency Surgery (E suffix)' : 'Operasi Darurat / Cito (Sufiks E)'}
+                  </span>
+                </label>
+
+                <div className="p-4 rounded-xl border bg-slate-900/80 border-blue-500/30 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[14px] font-extrabold text-blue-400">
+                      {asaSelected.replace('_', ' ')}{asaEmergency ? ' E' : ''}
+                    </span>
+                    <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">
+                      {asaSelected === 'ASA_1' ? '< 0.1% mortality' : asaSelected === 'ASA_2' ? '0.2% mortality' : asaSelected === 'ASA_3' ? '1.8% mortality' : asaSelected === 'ASA_4' ? '7.8% mortality' : asaSelected === 'ASA_5' ? '9.4% mortality' : 'N/A'}
+                    </span>
+                  </div>
+                  <p className="text-[12px] text-gray-300 leading-relaxed">
+                    {asaSelected === 'ASA_1' && (language === 'en' ? 'No organic, physiological, or psychiatric disturbance. Non-smoker, minimal alcohol use.' : 'Tidak ada gangguan organik, fisiologis, atau psikiatri. Bukan perokok.')}
+                    {asaSelected === 'ASA_2' && (language === 'en' ? 'Well-controlled hypertension, DM without systemic sequelae, mild lung disease, smoker, social alcohol drinker.' : 'Hipertensi/DM terkontrol baik, perokok, obesitas ringan (BMI 30-40).')}
+                    {asaSelected === 'ASA_3' && (language === 'en' ? 'Substantial functional limitation. Poorly controlled DM/HTN, COPD, morbid obesity (BMI ≥40), active hepatitis, pacemaker.' : 'Keterbatasan fungsional nyata: HTN/DM tak terkontrol, PPOK, obesitas morbid, gagal ginjal kronis dialysis.')}
+                    {asaSelected === 'ASA_4' && (language === 'en' ? 'Recent (<3 months) MI, CVA, TIA, CAD/stents, ongoing cardiac ischemia, severe valve dysfunction, sepsis, DIC.' : 'Penyakit berat mengancam jiwa: Infark miokard/stroke <3 bulan, sepsis, sindrom distress pernapasan ARDS.')}
+                    {asaSelected === 'ASA_5' && (language === 'en' ? 'Ruptured abdominal/thoracic aneurysm, massive trauma, intracranial bleed with mass effect, ischemic bowel.' : 'Pasien moribund: Ruptur aneurisma aorta, trauma masif, perdarahan intrakranial masif.')}
+                    {asaSelected === 'ASA_6' && (language === 'en' ? 'Declared brain-dead patient whose organs are being harvested for donor transplantation.' : 'Pasien mati otak untuk pengambilan organ donor.')}
+                  </p>
+                </div>
+              </motion.div>
+            )}
+
+            {activeTab === 'mallampati' && (
+              <motion.div key="mallampati" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="flex flex-col gap-4">
+                <p className="text-[12px] text-gray-400 leading-relaxed">{t.info_mallampati}</p>
+                <div className="grid grid-cols-2 gap-2.5">
+                  {[
+                    { id: 'Class_1', label: 'Class I', risk: language === 'en' ? 'Easy Intubation' : 'Intubasi Mudah', color: '#34d399' },
+                    { id: 'Class_2', label: 'Class II', risk: language === 'en' ? 'Low Risk' : 'Risiko Rendah', color: '#38bdf8' },
+                    { id: 'Class_3', label: 'Class III', risk: language === 'en' ? 'Moderate Risk' : 'Risiko Sedang', color: '#fbbf24' },
+                    { id: 'Class_4', label: 'Class IV', risk: language === 'en' ? 'High Risk' : 'Risiko Tinggi', color: '#f43f5e' },
+                  ].map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setMallampatiSelected(item.id)}
+                      className={`p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                        mallampatiSelected === item.id
+                          ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.15)]'
+                          : 'bg-white/[0.02] border-white/[0.05] hover:bg-white/[0.05] text-gray-400'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-[13.5px] font-extrabold text-white">{item.label}</span>
+                        <span className="text-[9.5px] font-bold px-2 py-0.5 rounded" style={{ backgroundColor: `${item.color}20`, color: item.color }}>
+                          {item.risk}
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="p-4 rounded-xl border bg-slate-900/80 border-emerald-500/30 flex flex-col gap-2">
+                  <span className="text-[14px] font-extrabold text-emerald-400">
+                    Mallampati {mallampatiSelected.replace('_', ' ')} Assessment
+                  </span>
+                  <p className="text-[12px] text-gray-300 leading-relaxed">
+                    {mallampatiSelected === 'Class_1' && (language === 'en' ? 'Soft palate, fauces, uvula, and anterior/posterior tonsillar pillars visible. Low incidence of difficult mask ventilation or intubation.' : 'Palatum mole, fosa fausium, uvula, dan pilar tonsil terlihat jelas. Risiko kesulitan intubasi minimal.')}
+                    {mallampatiSelected === 'Class_2' && (language === 'en' ? 'Soft palate, fauces, and uvula visible. Tonsillar pillars hidden by base of tongue. Standard airway setup.' : 'Palatum mole, fosa fausium, dan uvula terlihat. Pilar tonsil tertutup pangkal lidah.')}
+                    {mallampatiSelected === 'Class_3' && (language === 'en' ? 'Soft palate and base of uvula visible only. Increased risk of difficult laryngoscopy (Cormack-Lehane Grade 3/4). Prepare videolaryngoscope.' : 'Hanya palatum mole dan dasar uvula yang terlihat. Peningkatan risiko kesulitan laringoskopi (Cormack-Lehane 3/4). Siapkan videolaringoskop.')}
+                    {mallampatiSelected === 'Class_4' && (language === 'en' ? 'Hard palate visible only (soft palate not visible at all). High risk of difficult intubation & mask ventilation. Difficult Airway Cart / Awake Fiberoptic Intubation standby.' : 'Hanya palatum durum yang terlihat (palatum mole tidak terlihat). Risiko tinggi kesulitan saluran napas. Siapkan Troli Saluran Napas Sulit / Intubasi Serat Optik.')}
+                  </p>
+                </div>
               </motion.div>
             )}
 

@@ -3,11 +3,12 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Calculator, WifiOff, ArrowLeft, Copy, Check, ShieldAlert, Activity } from 'lucide-react';
+import { Calculator, WifiOff, ArrowLeft, Copy, Check, ShieldAlert, Activity, Baby } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 import RiskScoresTab from '@/components/calculators/RiskScoresTab';
 import DiagnosticLabTab from '@/components/calculators/DiagnosticLabTab';
+import PediatricGrowthSuite from '@/components/pediatric/PediatricGrowthSuite';
 
 const inputClass = "glass-input w-full px-3 py-2.5 text-[13px] font-[500]";
 const labelClass = "form-label";
@@ -67,7 +68,7 @@ export default function CalculatorsPage() {
   const { language, activeCase } = useAppStore();
   const t = translations[language] as any;
 
-  const [category, setCategory] = useState<'bedside' | 'risk_scores' | 'diagnostic_labs'>('bedside');
+  const [category, setCategory] = useState<'bedside' | 'risk_scores' | 'diagnostic_labs' | 'pediatric'>('bedside');
   const [activeTab, setActiveTab] = useState('bmi');
 
   // BMI State
@@ -405,8 +406,8 @@ export default function CalculatorsPage() {
         </div>
       </div>
 
-      {/* Category Pills: Bedside vs Clinical Risk Scores vs Diagnostic Labs */}
-      <div className="grid grid-cols-3 p-1 rounded-2xl bg-white/[0.03] border border-white/10 gap-1 shadow-inner">
+      {/* Category Pills: Bedside vs Clinical Risk Scores vs Diagnostic Labs vs Pediatric */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 p-1 rounded-2xl bg-white/[0.03] border border-white/10 gap-1 shadow-inner">
         {[
           { 
             id: 'bedside', 
@@ -425,6 +426,12 @@ export default function CalculatorsPage() {
             fullLabel: t.diagnostic_labs_abg || 'Diagnostic Labs & ABG', 
             shortLabel: language === 'en' ? 'Labs & ABG' : 'Lab & AGD', 
             icon: Activity 
+          },
+          { 
+            id: 'pediatric', 
+            fullLabel: language === 'en' ? 'Pediatric & Neonatal' : 'Pediatrik & Neonatal', 
+            shortLabel: language === 'en' ? 'Pediatric' : 'Pediatrik', 
+            icon: Baby 
           },
         ].map((cat) => {
           const Icon = cat.icon;
@@ -896,6 +903,11 @@ export default function CalculatorsPage() {
   {/* Diagnostic Lab Interpreters Suite */}
   {category === 'diagnostic_labs' && (
     <DiagnosticLabTab />
+  )}
+
+  {/* Pediatric & Neonatal Suite */}
+  {category === 'pediatric' && (
+    <PediatricGrowthSuite />
   )}
 </div>
 );

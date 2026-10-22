@@ -8,11 +8,12 @@ import { translations } from '@/lib/i18n';
 import { 
   LayoutDashboard, Settings, ChevronLeft, WifiOff, Activity, Database, 
   RefreshCw, X, BookOpen, AlertOctagon, Calculator, Syringe, Pill, 
-  Stethoscope, Book, Search, User, Globe, ShieldAlert, Printer, Radio
+  Stethoscope, Book, Search, User, Globe, ShieldAlert, Printer, Radio, FileText
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ActiveCaseModal from '@/components/ActiveCaseModal';
 import CommandPalette from '@/components/CommandPalette';
+import SOAPNoteModal from '@/components/SOAPNoteModal';
 import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -27,6 +28,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [hasIgnoredSync, setHasIgnoredSync] = useState(false);
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
   const [isCmdPaletteOpen, setIsCmdPaletteOpen] = useState(false);
+  const [isSoapModalOpen, setIsSoapModalOpen] = useState(false);
 
   const isNotSynced = !store.lastSyncDate && 
     !store.syncMeta?.icd10?.lastSynced && 
@@ -206,6 +208,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <Printer className="w-3.5 h-3.5 text-blue-400" />
             <span>{language === 'en' ? 'SBAR PDF' : 'PDF SBAR'}</span>
           </button>
+
+          {/* 1-Tap Structured SOAP Progress Note */}
+          <button
+            onClick={() => setIsSoapModalOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600/20 border border-purple-500/40 hover:bg-purple-600/30 text-purple-300 transition-all text-[12px] font-[700]"
+            title="Generate Structured Clinical SOAP Note"
+          >
+            <FileText className="w-3.5 h-3.5 text-purple-400" />
+            <span>SOAP Note</span>
+          </button>
         </div>
 
         {/* Right controls */}
@@ -354,6 +366,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </button>
             <div className="flex items-center gap-1.5 shrink-0">
               <button
+                onClick={() => setIsSoapModalOpen(true)}
+                className="min-h-[44px] px-2 rounded-xl bg-purple-600/20 border border-purple-500/40 text-purple-300 font-[800] flex items-center gap-1 transition-colors text-[11px]"
+                aria-label="Generate SOAP progress note"
+              >
+                <FileText className="w-3.5 h-3.5 text-purple-400" />
+                <span>SOAP</span>
+              </button>
+              <button
                 onClick={() => {
                   exportBedsideRoundsPDF({
                     activeCase: store.activeCase,
@@ -413,6 +433,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Modals & Trays */}
       <ActiveCaseModal isOpen={isCaseModalOpen} onClose={() => setIsCaseModalOpen(false)} />
+      <SOAPNoteModal isOpen={isSoapModalOpen} onClose={() => setIsSoapModalOpen(false)} />
       <CommandPalette 
         isOpen={isCmdPaletteOpen} 
         onClose={() => setIsCmdPaletteOpen(false)} 

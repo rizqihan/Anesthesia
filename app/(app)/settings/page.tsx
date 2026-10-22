@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope, ArrowLeft, RotateCw, Zap, Tag } from 'lucide-react';
+import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope, ArrowLeft, RotateCw, Zap, Tag, Printer, User } from 'lucide-react';
 import db from '@/lib/db';
 import { ICD10_DB } from '@/lib/icd10';
 import { DRUG_DB } from '@/lib/drugs';
@@ -15,6 +15,9 @@ import Link from 'next/link';
 import { syncICD10, syncDrugs, syncGuidelines, syncPhysicalExams, type SyncResult } from '@/lib/syncAgent';
 import SyncReviewPanel from '@/components/SyncReviewPanel';
 import ReleaseNotesModal from '@/components/ReleaseNotesModal';
+import ActiveCaseModal from '@/components/ActiveCaseModal';
+import SOAPNoteModal from '@/components/SOAPNoteModal';
+import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
 import { APP_VERSION, BUILD_DATE, DB_SCHEMA_VERSION, RELEASE_NAME } from '@/lib/version';
 
 type DatasetType = 'icd10' | 'drugs' | 'guidelines' | 'physicalExams';
@@ -23,6 +26,8 @@ export default function SettingsPage() {
   const store = useAppStore();
   const t = translations[store.language];
   const [isReleaseModalOpen, setIsReleaseModalOpen] = useState(false);
+  const [isSoapModalOpen, setIsSoapModalOpen] = useState(false);
+  const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
 
   // AI config status
   const isAiConfigured = () => {
@@ -247,6 +252,85 @@ export default function SettingsPage() {
         <div>
           <h1 className="text-[18px] font-[800] tracking-tight" style={{ color: 'var(--text-primary)' }}>{t.settings}</h1>
           <p className="text-[12px]" style={{ color: 'var(--text-muted)' }}>{store.language === 'en' ? 'Manage application preferences' : 'Kelola preferensi aplikasi'}</p>
+        </div>
+      </div>
+
+      {/* Clinical Documentation & Bedside Handoff Hub */}
+      <div className="glass-card-static overflow-hidden">
+        <div className="section-header justify-between">
+          <div className="flex items-center gap-2">
+            <FileText className="w-4 h-4 text-purple-400" />
+            <span className="section-header-label">
+              {store.language === 'en' ? 'Clinical Documentation & Handoff' : 'Dokumentasi Klinis & Handoff'}
+            </span>
+          </div>
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30">
+            {store.language === 'en' ? '1-TAP ACTIONS' : 'AKSI CEPAT'}
+          </span>
+        </div>
+        <div className="p-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {/* SOAP Note */}
+          <button
+            type="button"
+            onClick={() => setIsSoapModalOpen(true)}
+            className="flex items-center gap-3 p-3 rounded-xl bg-purple-600/10 hover:bg-purple-600/20 border border-purple-500/20 hover:border-purple-500/40 text-left transition-all group"
+          >
+            <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform shrink-0">
+              <FileText className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[12px] font-[800] text-purple-200">
+                {store.language === 'en' ? 'Structured SOAP Note' : 'Catatan SOAP Terstruktur'}
+              </div>
+              <div className="text-[10px] text-slate-400 truncate">
+                {store.language === 'en' ? 'Compile EHR-ready note' : 'Susun CPPT siap-EHR'}
+              </div>
+            </div>
+          </button>
+
+          {/* SBAR PDF */}
+          <button
+            type="button"
+            onClick={() => {
+              exportBedsideRoundsPDF({
+                activeCase: store.activeCase,
+                patientLabs: store.patientLabs,
+                language: store.language,
+              });
+            }}
+            className="flex items-center gap-3 p-3 rounded-xl bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 text-left transition-all group"
+          >
+            <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform shrink-0">
+              <Printer className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[12px] font-[800] text-blue-200">
+                {store.language === 'en' ? 'Bedside SBAR PDF' : 'PDF SBAR Ronde Pasien'}
+              </div>
+              <div className="text-[10px] text-slate-400 truncate">
+                {store.language === 'en' ? 'Print or export handoff' : 'Cetak handoff klinis'}
+              </div>
+            </div>
+          </button>
+
+          {/* Active Case */}
+          <button
+            type="button"
+            onClick={() => setIsCaseModalOpen(true)}
+            className="flex items-center gap-3 p-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 border border-emerald-500/20 hover:border-emerald-500/40 text-left transition-all group"
+          >
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform shrink-0">
+              <User className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[12px] font-[800] text-emerald-200">
+                {store.language === 'en' ? 'Active Patient Session' : 'Sesi Pasien Aktif'}
+              </div>
+              <div className="text-[10px] text-slate-400 truncate">
+                {store.activeCase.patientWeight || '70'}kg • {store.activeCase.patientSex} • ASA {store.activeCase.asaClass}
+              </div>
+            </div>
+          </button>
         </div>
       </div>
 
@@ -552,6 +636,16 @@ export default function SettingsPage() {
           </div>
         </div>
       </div>
+
+      {/* Modals */}
+      <ActiveCaseModal
+        isOpen={isCaseModalOpen}
+        onClose={() => setIsCaseModalOpen(false)}
+      />
+      <SOAPNoteModal
+        isOpen={isSoapModalOpen}
+        onClose={() => setIsSoapModalOpen(false)}
+      />
 
       {/* Release Notes Modal */}
       <ReleaseNotesModal

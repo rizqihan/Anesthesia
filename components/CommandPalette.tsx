@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import { 
   Search, Calculator, Syringe, Activity, Pill, BookOpen, Stethoscope, 
-  AlertOctagon, Book, Settings, User, ArrowRight, X, ShieldAlert, Printer, Radio
+  AlertOctagon, Book, Settings, User, ArrowRight, X, ShieldAlert, Printer, Radio, FileText
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
@@ -14,9 +14,10 @@ interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenCaseModal?: () => void;
+  onOpenSoapModal?: () => void;
 }
 
-export default function CommandPalette({ isOpen, onClose, onOpenCaseModal }: CommandPaletteProps) {
+export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpenSoapModal }: CommandPaletteProps) {
   const router = useRouter();
   const { language } = useAppStore();
   const [query, setQuery] = useState('');
@@ -53,6 +54,17 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal }: Com
       category: 'Pharmacology',
     },
     {
+      id: 'soap-note',
+      title: language === 'en' ? '📝 Structured Clinical SOAP Note' : '📝 Catatan Perkembangan SOAP Terstruktur',
+      subtitle: language === 'en' ? 'Compile EHR-ready bedside progress note from active case & labs' : 'Susun catatan perkembangan klinis SOAP siap-EHR dari data pasien & lab',
+      action: () => {
+        onClose();
+        if (onOpenSoapModal) onOpenSoapModal();
+      },
+      icon: FileText,
+      category: 'Patient',
+    },
+    {
       id: 'export-sbar',
       title: language === 'en' ? '📄 Export Bedside Rounds SBAR PDF' : '📄 Ekspor PDF SBAR Visite Pasien',
       subtitle: language === 'en' ? 'One-tap hospital-grade SBAR handoff sheet with CrCl & crisis doses' : 'Lembar handoff klinis SBAR dengan klirens ginjal & dosis krisis',
@@ -62,6 +74,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal }: Com
         exportBedsideRoundsPDF({
           activeCase: state.activeCase,
           patientLabs: state.patientLabs,
+          language: state.language,
         });
       },
       icon: Printer,

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
-import { FileText, X, Copy, Check, Sparkles, Download } from 'lucide-react';
+import { FileText, X, Copy, Check, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { generateStructuredSoapNote } from '@/lib/soapGenerator';
 
@@ -18,11 +18,14 @@ export default function SOAPNoteModal({ isOpen, onClose }: SOAPNoteModalProps) {
   const [planNotes, setPlanNotes] = useState('');
   const [format, setFormat] = useState<'plain' | 'markdown'>('plain');
 
+  const isIndonesian = language === 'id';
+
   const { plainText, markdown, timestamp } = generateStructuredSoapNote({
     activeCase,
     patientLabs,
     additionalDiagnosis,
     planNotes,
+    language,
   });
 
   const contentToCopy = format === 'plain' ? plainText : markdown;
@@ -38,7 +41,8 @@ export default function SOAPNoteModal({ isOpen, onClose }: SOAPNoteModalProps) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `SOAP_Note_${activeCase.patientAge || 'Pt'}_${new Date().toISOString().slice(0, 10)}.txt`;
+    const prefix = isIndonesian ? 'SOAP_CPPT' : 'SOAP_Note';
+    a.download = `${prefix}_${activeCase.patientAge || 'Pt'}_${new Date().toISOString().slice(0, 10)}.txt`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -57,20 +61,22 @@ export default function SOAPNoteModal({ isOpen, onClose }: SOAPNoteModalProps) {
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.08] bg-[#090e1a]/80">
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30">
+              <div className="p-2 rounded-xl bg-purple-600/20 text-purple-400 border border-purple-500/30">
                 <FileText className="w-4 h-4" />
               </div>
               <div>
                 <h2 className="text-[15px] font-[800] text-slate-100 flex items-center gap-2">
-                  <span>Structured SOAP Progress Note</span>
+                  <span>
+                    {isIndonesian ? 'Catatan Perkembangan SOAP Terstruktur' : 'Structured SOAP Progress Note'}
+                  </span>
                   <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-                    EHR READY
+                    {isIndonesian ? 'SIAP EHR / CPPT' : 'EHR READY'}
                   </span>
                 </h2>
                 <p className="text-[11px] text-slate-400">
-                  {language === 'en'
-                    ? 'Synthesized from active case, labs, risk scores & emergency orders'
-                    : 'Disintesis dari kasus aktif, lab, skor risiko & dosis darurat'}
+                  {isIndonesian
+                    ? 'Disintesis dari parameter kasus aktif, lab, skor risiko & dosis darurat'
+                    : 'Synthesized from active case, labs, risk scores & emergency orders'}
                 </p>
               </div>
             </div>
@@ -87,25 +93,25 @@ export default function SOAPNoteModal({ isOpen, onClose }: SOAPNoteModalProps) {
           <div className="px-5 py-3 bg-[#080d17]/60 border-b border-white/[0.05] grid grid-cols-1 sm:grid-cols-2 gap-2 text-[12px]">
             <div>
               <label className="text-[10px] font-[700] uppercase tracking-wider text-slate-400 mb-1 block">
-                Primary Diagnosis / Indication
+                {isIndonesian ? 'Diagnosis Utama / Indikasi' : 'Primary Diagnosis / Indication'}
               </label>
               <input
                 type="text"
                 value={additionalDiagnosis}
                 onChange={(e) => setAdditionalDiagnosis(e.target.value)}
-                placeholder="e.g. Acute Appendicitis / Septic Shock"
+                placeholder={isIndonesian ? 'cth. Apendisitis Akut / Syok Septik' : 'e.g. Acute Appendicitis / Septic Shock'}
                 className="glass-input w-full px-2.5 py-1.5 text-[12px]"
               />
             </div>
             <div>
               <label className="text-[10px] font-[700] uppercase tracking-wider text-slate-400 mb-1 block">
-                Additional Plan Notes
+                {isIndonesian ? 'Catatan Rencana Tambahan' : 'Additional Plan Notes'}
               </label>
               <input
                 type="text"
                 value={planNotes}
                 onChange={(e) => setPlanNotes(e.target.value)}
-                placeholder="e.g. NPO past midnight, Type & Screen sent"
+                placeholder={isIndonesian ? 'cth. Puasa tengah malam, sampel darah terkirim' : 'e.g. NPO past midnight, Type & Screen sent'}
                 className="glass-input w-full px-2.5 py-1.5 text-[12px]"
               />
             </div>
@@ -121,7 +127,7 @@ export default function SOAPNoteModal({ isOpen, onClose }: SOAPNoteModalProps) {
                   format === 'plain' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
-                Plain Text (HIS / EHR)
+                {isIndonesian ? 'Teks Biasa (SIMRS / HIS)' : 'Plain Text (HIS / EHR)'}
               </button>
               <button
                 type="button"
@@ -151,7 +157,7 @@ export default function SOAPNoteModal({ isOpen, onClose }: SOAPNoteModalProps) {
               className="px-3 py-2 rounded-xl border border-white/10 hover:bg-white/5 text-[12px] font-[600] text-slate-300 hover:text-white flex items-center gap-1.5 transition-colors"
             >
               <Download className="w-3.5 h-3.5 text-slate-400" />
-              <span>Download .txt</span>
+              <span>{isIndonesian ? 'Unduh .txt' : 'Download .txt'}</span>
             </button>
 
             <div className="flex items-center gap-2">
@@ -159,22 +165,22 @@ export default function SOAPNoteModal({ isOpen, onClose }: SOAPNoteModalProps) {
                 onClick={onClose}
                 className="px-3 py-2 rounded-xl text-[12px] font-[600] text-slate-400 hover:text-white"
               >
-                Close
+                {isIndonesian ? 'Tutup' : 'Close'}
               </button>
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={handleCopy}
-                className="btn-primary px-4 py-2 text-[12.5px] font-[700] flex items-center gap-1.5 rounded-xl shadow-lg shadow-blue-600/30"
+                className="btn-primary px-4 py-2 text-[12.5px] font-[700] flex items-center gap-1.5 rounded-xl shadow-lg shadow-purple-600/30 bg-purple-600 hover:bg-purple-500"
               >
                 {copied ? (
                   <>
                     <Check className="w-4 h-4 text-emerald-300" />
-                    <span>Copied to Clipboard!</span>
+                    <span>{isIndonesian ? 'Tersalin ke Clipboard!' : 'Copied to Clipboard!'}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-4 h-4" />
-                    <span>Copy SOAP Note</span>
+                    <span>{isIndonesian ? 'Salin Catatan SOAP' : 'Copy SOAP Note'}</span>
                   </>
                 )}
               </motion.button>

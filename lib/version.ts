@@ -6,17 +6,28 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.4.0';
+export const APP_VERSION = '2.4.1';
 export const BUILD_DATE = '2026-10-22';
 export const DB_SCHEMA_VERSION = 6;
-export const RELEASE_NAME = 'Clinical Precision & Emergency Resilience';
+export const RELEASE_NAME = 'Mobile Resilience & Clinical CPPT Localization';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.4.1',
+    date: '2026-10-22',
+    title: 'Mobile Persistent HUD & Indonesian (id) SOAP/CPPT Localization',
+    highlight: true,
+    features: [
+      'Mobile Persistent Clinical HUD: Fixed header sub-bar on phones keeping Patient Parameters, SOAP Note, SBAR PDF, and Crisis buttons visible at all times across all scroll positions',
+      'Indonesian SOAP / CPPT Generator: Full bilingual clinical localization ([SUBJEKTIF], [OBJEKTIF], [ASESMEN], [RENCANA / TATALAKSANA]) with PERDATIN/IDI terminology',
+      'Bilingual SBAR Handoff PDF: Indonesian localization for Bedside Rounds SBAR Clinical Handoff Sheet ([S] SITUASI, [B] LATAR BELAKANG, [A] ASESMEN, [R] REKOMENDASI)',
+      'Command Palette & Settings Hub: Instant 1-tap SOAP and SBAR access in Cmd+K search and Settings documentation section',
+    ],
+  },
   {
     version: '2.4.0',
     date: '2026-10-22',
     title: 'Dynamic Groq Hub, ASRA Coags & Syringe Pump Titrator',
-    highlight: true,
     features: [
       'Dynamic Groq Model Browser: Support for all Groq models including DeepSeek R1 Distill 70B & Qwen 2.5',
       'ASRA Coags 2024 Regional Anticoagulation Decision Matrix with real-time washout checks',

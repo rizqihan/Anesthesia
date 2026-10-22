@@ -2095,6 +2095,7 @@ export interface BedsideRoundsSbarInput {
     compensation: string;
     anionGap?: string;
   };
+  language?: 'en' | 'id';
 }
 
 /**
@@ -2228,10 +2229,19 @@ export function generateBedsideRoundsSbarHtml(data: BedsideRoundsSbarInput): str
     };
   }
 
-  const currentDate = new Date().toLocaleString('en-US', {
+  const isIndonesian = data.language === 'id';
+
+  const currentDate = new Date().toLocaleString(isIndonesian ? 'id-ID' : 'en-US', {
     dateStyle: 'medium',
     timeStyle: 'short',
   });
+
+  const headerTitle = isIndonesian ? 'HANDOFF SBAR ANESTESI & PERAWATAN KRITIS' : 'ANESTHESIA & CRITICAL CARE SBAR HANDOFF';
+  const headerSubtitle = isIndonesian ? 'Lembar Protokol Klinis Ronde Pasien & Resusitasi Akut' : 'Bedside Rounds & Acute Resuscitation Clinical Protocol Sheet';
+  const labelSituation = isIndonesian ? '[S] SITUASI — DEMOGRAFI PASIEN & KONTEKS KLINIS' : '[S] SITUATION — PATIENT DEMOGRAPHICS & CLINICAL CONTEXT';
+  const labelBackground = isIndonesian ? '[B] LATAR BELAKANG — KLIRENS GINJAL & PROFIL LABORATORIUM' : '[B] BACKGROUND — RENAL CLEARANCE HUD & LABORATORY INDICES';
+  const labelAssessment = isIndonesian ? '[A] ASESMEN — SKOR RISIKO KLINIS & ANALISIS BGA' : '[A] ASSESSMENT — CLINICAL RISK STRATIFICATION & ABG ANALYSIS';
+  const labelRecommendation = isIndonesian ? '[R] REKOMENDASI — DOSIS KRISIS BERDASARKAN BERAT & REGIMEN OBAT' : '[R] RECOMMENDATION — WEIGHT-CALCULATED CRISIS DOSES & ANTIMICROBIAL PLAN';
 
   return `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #080c15; background: #ffffff; padding: 24px; max-width: 900px; margin: 0 auto; line-height: 1.45; font-size: 12px;">
@@ -2240,10 +2250,10 @@ export function generateBedsideRoundsSbarHtml(data: BedsideRoundsSbarInput): str
       <div style="border-bottom: 3px solid #0f172a; padding-bottom: 12px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-start;">
         <div>
           <div style="font-size: 20px; font-weight: 900; letter-spacing: -0.5px; color: #020617; text-transform: uppercase;">
-            ANESTHESIA & CRITICAL CARE SBAR HANDOFF
+            ${headerTitle}
           </div>
           <div style="font-size: 11px; font-weight: 700; color: #2563eb; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px;">
-            Bedside Rounds & Acute Resuscitation Clinical Protocol Sheet
+            ${headerSubtitle}
           </div>
         </div>
         <div style="text-align: right; font-size: 11px; color: #475569;">
@@ -2255,7 +2265,7 @@ export function generateBedsideRoundsSbarHtml(data: BedsideRoundsSbarInput): str
       <!-- S: SITUATION -->
       <div style="margin-bottom: 16px; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden;">
         <div style="background: #0f172a; color: #f8fafc; padding: 6px 12px; font-weight: 800; font-size: 13px; display: flex; justify-content: space-between;">
-          <span>[S] SITUATION — PATIENT DEMOGRAPHICS & CLINICAL CONTEXT</span>
+          <span>${labelSituation}</span>
           <span style="font-family: ui-monospace, monospace; font-size: 11px; color: #93c5fd;">ACTIVE SESSION</span>
         </div>
         <div style="padding: 12px; background: #f8fafc;">
@@ -2278,7 +2288,7 @@ export function generateBedsideRoundsSbarHtml(data: BedsideRoundsSbarInput): str
       <!-- B: BACKGROUND -->
       <div style="margin-bottom: 16px; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden;">
         <div style="background: #1e293b; color: #f8fafc; padding: 6px 12px; font-weight: 800; font-size: 13px; display: flex; justify-content: space-between;">
-          <span>[B] BACKGROUND — RENAL CLEARANCE HUD & LABORATORY INDICES</span>
+          <span>${labelBackground}</span>
           <span style="font-family: ui-monospace, monospace; font-size: 11px; color: ${crcl < 60 ? '#fca5a5' : '#86efac'};">
             ${renal.stageDescription}
           </span>
@@ -2346,7 +2356,7 @@ export function generateBedsideRoundsSbarHtml(data: BedsideRoundsSbarInput): str
       <!-- A: ASSESSMENT -->
       <div style="margin-bottom: 16px; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden;">
         <div style="background: #334155; color: #f8fafc; padding: 6px 12px; font-weight: 800; font-size: 13px; display: flex; justify-content: space-between;">
-          <span>[A] ASSESSMENT — ACTIVE RISK SCORES & DIAGNOSTIC LAB INTERPRETATION</span>
+          <span>${labelAssessment}</span>
           <span style="font-size: 10px; color: #cbd5e1;">EVIDENCE-BASED RISK ENGINES</span>
         </div>
         <div style="padding: 12px; background: #ffffff;">
@@ -2395,7 +2405,7 @@ export function generateBedsideRoundsSbarHtml(data: BedsideRoundsSbarInput): str
       <!-- R: RECOMMENDATION -->
       <div style="border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden;">
         <div style="background: #020617; color: #f8fafc; padding: 6px 12px; font-weight: 800; font-size: 13px; display: flex; justify-content: space-between;">
-          <span>[R] RECOMMENDATION — WEIGHT-CALCULATED CRISIS DOSES & ANTIMICROBIAL PLAN</span>
+          <span>${labelRecommendation}</span>
           <span style="font-size: 10px; color: #f87171; font-weight: 800;">CRITICAL CARE ACTION PLAN</span>
         </div>
         <div style="padding: 12px; background: #ffffff;">

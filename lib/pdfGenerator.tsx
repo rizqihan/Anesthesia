@@ -260,9 +260,17 @@ export { generateBedsideRoundsSbarHtml, type BedsideRoundsSbarInput };
  */
 export function exportBedsideRoundsPDF(data: BedsideRoundsSbarInput, filename?: string): void {
   const patientWeight = data.activeCase.patientWeight || '70';
-  const targetFilename = filename || `SBAR_Bedside_Rounds_${patientWeight}kg_${Date.now()}.pdf`;
+  const isIndonesian = data.language === 'id';
+  const targetFilename =
+    filename ||
+    (isIndonesian
+      ? `SBAR_Ronde_Klinis_${patientWeight}kg_${Date.now()}.pdf`
+      : `SBAR_Bedside_Rounds_${patientWeight}kg_${Date.now()}.pdf`);
   const html = generateBedsideRoundsSbarHtml(data);
-  printContentAsPDF('Bedside Rounds SBAR Clinical Handoff Sheet', html, targetFilename);
+  const title = isIndonesian
+    ? 'Lembar Handoff Klinis SBAR Ronde Pasien'
+    : 'Bedside Rounds SBAR Clinical Handoff Sheet';
+  printContentAsPDF(title, html, targetFilename);
 }
 
 

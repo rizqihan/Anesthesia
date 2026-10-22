@@ -192,3 +192,39 @@ test('Structured Clinical SOAP Note Synthesis', () => {
   assert.ok(note.plainText.includes('Septic Shock'));
   assert.ok(note.plainText.includes('Start Norepinephrine'));
 });
+
+test('Structured Clinical SOAP Note Synthesis - Indonesian (id) Localization', () => {
+  const noteId = generateStructuredSoapNote({
+    activeCase: {
+      patientAge: '52',
+      patientSex: 'F',
+      patientWeight: '62',
+      patientHeight: '158',
+      asaClass: 'II',
+    },
+    patientLabs: {
+      sodium: '138',
+      potassium: '3.9',
+      creatinine: '0.9',
+      glucose: '110',
+    },
+    additionalDiagnosis: 'Apendisitis Akut Perforasi',
+    planNotes: 'Puasa pra-bedah, infus Ringer Laktat 1500 mL/24 jam',
+    language: 'id',
+  });
+
+  assert.ok(noteId.plainText.includes('CATATAN PERKEMBANGAN PASIEN TERINTEGRASI (CPPT / SOAP)'));
+  assert.ok(noteId.plainText.includes('[SUBJEKTIF]'));
+  assert.ok(noteId.plainText.includes('[OBJEKTIF]'));
+  assert.ok(noteId.plainText.includes('[ASESMEN]'));
+  assert.ok(noteId.plainText.includes('[RENCANA / TATALAKSANA]'));
+  assert.ok(noteId.plainText.includes('Perempuan'));
+  assert.ok(noteId.plainText.includes('52 tahun'));
+  assert.ok(noteId.plainText.includes('62 kg'));
+  assert.ok(noteId.plainText.includes('Apendisitis Akut Perforasi'));
+  assert.ok(noteId.plainText.includes('Puasa pra-bedah'));
+  assert.ok(noteId.plainText.includes('DOKUMEN REKAM MEDIS RAHASIA'));
+  assert.ok(noteId.markdown.includes('### Catatan Perkembangan Pasien Terintegrasi (SOAP)'));
+  assert.ok(noteId.markdown.includes('#### **S — Subjektif**'));
+  assert.ok(noteId.markdown.includes('#### **P — Rencana / Tata Laksana**'));
+});

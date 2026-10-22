@@ -146,146 +146,210 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <div className="h-screen overflow-hidden flex flex-col bg-[#080c15] text-[#f8fafc]">
       {/* ─── Top Bar ─── */}
       <header
-        className="h-[56px] shrink-0 flex items-center justify-between px-3 md:px-4 z-20 w-full fixed md:static top-0 bg-[#0a0f1d]/90 backdrop-blur-md border-b border-white/[0.08]"
+        className="shrink-0 z-30 w-full fixed md:static top-0 bg-[#0a0f1d]/95 backdrop-blur-md border-b border-white/[0.08]"
       >
-        {/* Left: Mobile Branding / Logo */}
-        <div className="flex items-center gap-3">
-          <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center shrink-0">
-              <Activity className="w-4 h-4 text-blue-400" />
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-[900] text-[15px] tracking-tight text-white leading-none">Anesthesia</span>
-                <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-bold">
-                  v{APP_VERSION}
+        {/* Main Row */}
+        <div className="h-[52px] sm:h-[56px] flex items-center justify-between px-3 md:px-4">
+          {/* Left: Mobile Branding / Logo */}
+          <div className="flex items-center gap-3">
+            <Link href="/dashboard" className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center shrink-0">
+                <Activity className="w-4 h-4 text-blue-400" />
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-[900] text-[15px] tracking-tight text-white leading-none">Anesthesia</span>
+                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-bold">
+                    v{APP_VERSION}
+                  </span>
+                </div>
+                <span className="text-[10px] text-slate-400 font-[500] leading-none mt-1">Acute Care Suite</span>
+              </div>
+            </Link>
+          </div>
+
+          {/* Center: Active Case Bar (Desktop & Tablet) */}
+          <div className="hidden sm:flex items-center gap-2">
+            <button
+              onClick={() => setIsCaseModalOpen(true)}
+              className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 hover:bg-blue-500/10 transition-all text-[12px] group"
+              title="Click to edit active patient parameters"
+            >
+              <div className="w-5 h-5 rounded-md bg-blue-500/20 flex items-center justify-center text-blue-400">
+                <User className="w-3 h-3" />
+              </div>
+              <div className="flex items-center gap-2 text-slate-300">
+                <span className="font-[600]">
+                  {language === 'en' ? 'Active Case' : 'Pasien'}:
+                </span>
+                <span className="font-mono font-[700] text-blue-300">
+                  {activeCase.patientWeight || '70'} kg
+                </span>
+                <span className="text-slate-500">•</span>
+                <span className="font-mono text-slate-300">
+                  {activeCase.patientSex} / {activeCase.patientAge || '45'}y
+                </span>
+                <span className="text-slate-500">•</span>
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-[800] bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                  ASA {activeCase.asaClass}
                 </span>
               </div>
-              <span className="text-[10px] text-slate-400 font-[500] leading-none mt-1">Acute Care Suite</span>
+            </button>
+
+            {/* Quick Emergency Button */}
+            <Link href="/emergency">
+              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600/20 border border-rose-500/40 hover:bg-rose-600/30 text-rose-300 transition-all text-[12px] font-[700]">
+                <AlertOctagon className="w-3.5 h-3.5 text-rose-400" />
+                <span>{language === 'en' ? 'Crisis Dose' : 'Dosis Krisis'}</span>
+              </button>
+            </Link>
+
+            {/* 1-Tap SBAR Rounds PDF Button */}
+            <button
+              onClick={() => {
+                exportBedsideRoundsPDF({
+                  activeCase: store.activeCase,
+                  patientLabs: store.patientLabs,
+                  language: store.language,
+                });
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600/20 border border-blue-500/40 hover:bg-blue-600/30 text-blue-300 transition-all text-[12px] font-[700]"
+              title="Export Bedside Rounds SBAR Clinical Handoff Sheet"
+            >
+              <Printer className="w-3.5 h-3.5 text-blue-400" />
+              <span>{language === 'en' ? 'SBAR PDF' : 'PDF SBAR'}</span>
+            </button>
+
+            {/* 1-Tap Structured SOAP Progress Note */}
+            <button
+              onClick={() => setIsSoapModalOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600/20 border border-purple-500/40 hover:bg-purple-600/30 text-purple-300 transition-all text-[12px] font-[700]"
+              title="Generate Structured Clinical SOAP Note"
+            >
+              <FileText className="w-3.5 h-3.5 text-purple-400" />
+              <span>SOAP Note</span>
+            </button>
+          </div>
+
+          {/* Right controls */}
+          <div className="flex items-center gap-2 md:gap-3">
+            {/* Cmd+K Search trigger */}
+            <button
+              onClick={() => setIsCmdPaletteOpen(true)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 text-slate-400 hover:text-slate-200 transition-all text-[12px]"
+              title="Search commands, calculators, drugs (Cmd+K)"
+              aria-label="Search commands"
+            >
+              <Search className="w-3.5 h-3.5" />
+              <span className="hidden lg:inline text-[11px] font-mono">⌘K</span>
+            </button>
+
+            {/* LoLyeah Topic Showcase */}
+            <a
+              href="https://lolyeah.github.io/topics/anesthesia.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="LoLyeah Topic Showcase"
+              className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/10 text-slate-400 hover:text-slate-200 transition-colors"
+            >
+              <Globe className="w-4 h-4" />
+            </a>
+
+            {/* Offline status indicator */}
+            <AnimatePresence>
+              {isOffline && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="badge-offline text-[10px] hidden sm:flex items-center gap-1"
+                >
+                  <WifiOff className="w-3 h-3" />
+                  <span>OFFLINE</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Language toggle */}
+            <div className="flex rounded-lg p-[2px] bg-white/[0.04] border border-white/10">
+              {(['en', 'id'] as const).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  className={`px-2 py-1 rounded-md text-[11px] font-[700] transition-all ${
+                    language === lang
+                      ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 shadow-sm'
+                      : 'text-slate-400 border border-transparent hover:text-slate-200'
+                  }`}
+                >
+                  {lang.toUpperCase()}
+                </button>
+              ))}
             </div>
-          </Link>
+          </div>
         </div>
 
-        {/* Center: Active Case Bar (Desktop & Tablet) */}
-        <div className="hidden sm:flex items-center gap-2">
+        {/* Mobile Row 2: Persistent Clinical Action & Patient HUD */}
+        <div className="sm:hidden h-[42px] px-3 flex items-center justify-between gap-1.5 border-t border-white/[0.06] bg-[#070c17]/95">
+          {/* Active Patient Pill */}
           <button
             onClick={() => setIsCaseModalOpen(true)}
-            className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 hover:bg-blue-500/10 transition-all text-[12px] group"
-            title="Click to edit active patient parameters"
+            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white/[0.04] border border-white/10 hover:border-blue-500/40 text-blue-300 font-[700] min-w-0 flex-1 truncate transition-colors text-[11px]"
+            title={language === 'en' ? 'Click to edit active patient parameters' : 'Klik untuk edit data pasien aktif'}
+            aria-label="Edit active patient case"
           >
-            <div className="w-5 h-5 rounded-md bg-blue-500/20 flex items-center justify-center text-blue-400">
-              <User className="w-3 h-3" />
-            </div>
-            <div className="flex items-center gap-2 text-slate-300">
-              <span className="font-[600]">
-                {language === 'en' ? 'Active Case' : 'Pasien'}:
-              </span>
-              <span className="font-mono font-[700] text-blue-300">
-                {activeCase.patientWeight || '70'} kg
-              </span>
-              <span className="text-slate-500">•</span>
-              <span className="font-mono text-slate-300">
-                {activeCase.patientSex} / {activeCase.patientAge || '45'}y
-              </span>
-              <span className="text-slate-500">•</span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-[800] bg-amber-500/15 text-amber-300 border border-amber-500/30">
-                ASA {activeCase.asaClass}
-              </span>
-            </div>
+            <User className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+            <span className="truncate">
+              {activeCase.patientWeight || '70'}kg • {activeCase.patientSex} • ASA {activeCase.asaClass}
+            </span>
           </button>
 
-          {/* Quick Emergency Button */}
-          <Link href="/emergency">
-            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600/20 border border-rose-500/40 hover:bg-rose-600/30 text-rose-300 transition-all text-[12px] font-[700]">
-              <AlertOctagon className="w-3.5 h-3.5 text-rose-400" />
-              <span>{language === 'en' ? 'Crisis Dose' : 'Dosis Krisis'}</span>
+          {/* Action buttons */}
+          <div className="flex items-center gap-1 shrink-0">
+            {/* SOAP Note Button */}
+            <button
+              onClick={() => setIsSoapModalOpen(true)}
+              className="px-2 py-1 rounded-lg bg-purple-600/25 border border-purple-500/40 text-purple-200 hover:bg-purple-600/35 active:scale-95 font-[800] flex items-center gap-1 transition-all text-[11px]"
+              title="Generate Structured SOAP Note"
+              aria-label="Generate SOAP progress note"
+            >
+              <FileText className="w-3.5 h-3.5 text-purple-300" />
+              <span>SOAP</span>
             </button>
-          </Link>
 
-          {/* 1-Tap SBAR Rounds PDF Button */}
-          <button
-            onClick={() => {
-              exportBedsideRoundsPDF({
-                activeCase: store.activeCase,
-                patientLabs: store.patientLabs,
-              });
-            }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600/20 border border-blue-500/40 hover:bg-blue-600/30 text-blue-300 transition-all text-[12px] font-[700]"
-            title="Export Bedside Rounds SBAR Clinical Handoff Sheet"
-          >
-            <Printer className="w-3.5 h-3.5 text-blue-400" />
-            <span>{language === 'en' ? 'SBAR PDF' : 'PDF SBAR'}</span>
-          </button>
+            {/* SBAR PDF Button */}
+            <button
+              onClick={() => {
+                exportBedsideRoundsPDF({
+                  activeCase: store.activeCase,
+                  patientLabs: store.patientLabs,
+                  language: store.language,
+                });
+              }}
+              className="px-2 py-1 rounded-lg bg-blue-600/25 border border-blue-500/40 text-blue-200 hover:bg-blue-600/35 active:scale-95 font-[800] flex items-center gap-1 transition-all text-[11px]"
+              title="Export Bedside Rounds SBAR Clinical Handoff Sheet"
+              aria-label="Export SBAR rounds PDF"
+            >
+              <Printer className="w-3.5 h-3.5 text-blue-300" />
+              <span>SBAR</span>
+            </button>
 
-          {/* 1-Tap Structured SOAP Progress Note */}
-          <button
-            onClick={() => setIsSoapModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600/20 border border-purple-500/40 hover:bg-purple-600/30 text-purple-300 transition-all text-[12px] font-[700]"
-            title="Generate Structured Clinical SOAP Note"
-          >
-            <FileText className="w-3.5 h-3.5 text-purple-400" />
-            <span>SOAP Note</span>
-          </button>
-        </div>
-
-        {/* Right controls */}
-        <div className="flex items-center gap-2 md:gap-3">
-          {/* Cmd+K Search trigger */}
-          <button
-            onClick={() => setIsCmdPaletteOpen(true)}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 text-slate-400 hover:text-slate-200 transition-all text-[12px]"
-          >
-            <Search className="w-3.5 h-3.5" />
-            <span className="hidden lg:inline text-[11px] font-mono">⌘K</span>
-          </button>
-
-          {/* LoLyeah Topic Showcase */}
-          <a
-            href="https://lolyeah.github.io/topics/anesthesia.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="LoLyeah Topic Showcase"
-            className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/10 text-slate-400 hover:text-slate-200 transition-colors"
-          >
-            <Globe className="w-4 h-4" />
-          </a>
-
-          {/* Offline status indicator */}
-          <AnimatePresence>
-            {isOffline && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                className="badge-offline text-[10px] hidden sm:flex items-center gap-1"
-              >
-                <WifiOff className="w-3 h-3" />
-                <span>OFFLINE</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Language toggle */}
-          <div className="flex rounded-lg p-[2px] bg-white/[0.04] border border-white/10">
-            {(['en', 'id'] as const).map((lang) => (
-              <button
-                key={lang}
-                onClick={() => setLanguage(lang)}
-                className={`px-2 py-1 rounded-md text-[11px] font-[700] transition-all ${
-                  language === lang
-                    ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 shadow-sm'
-                    : 'text-slate-400 border border-transparent hover:text-slate-200'
-                }`}
-              >
-                {lang.toUpperCase()}
-              </button>
-            ))}
+            {/* Crisis Button */}
+            <Link
+              href="/emergency"
+              className="px-2 py-1 rounded-lg bg-rose-600/25 border border-rose-500/40 text-rose-200 hover:bg-rose-600/35 active:scale-95 font-[800] flex items-center gap-1 transition-all text-[11px]"
+              title="Open Emergency Crisis Protocols"
+              aria-label="Open emergency crisis protocols"
+            >
+              <AlertOctagon className="w-3.5 h-3.5 text-rose-300" />
+              <span>{language === 'en' ? 'Crisis' : 'Krisis'}</span>
+            </Link>
           </div>
         </div>
       </header>
 
       {/* ─── Main Workspace Shell ─── */}
-      <div className="flex flex-1 overflow-hidden min-w-0 pt-[56px] md:pt-0 pb-[72px] md:pb-0 relative">
+      <div className="flex flex-1 overflow-hidden min-w-0 pt-[94px] sm:pt-[56px] md:pt-0 pb-[72px] md:pb-0 relative">
         {/* Desktop Sidebar */}
         <motion.nav
           initial={false}
@@ -382,49 +446,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto overflow-x-hidden min-w-0 w-full">
-          {/* Active Case Mobile Bar */}
-          <div className="sm:hidden flex items-center justify-between px-3 py-1.5 bg-blue-950/20 border-b border-blue-500/20 text-[12px] gap-2">
-            <button
-              onClick={() => setIsCaseModalOpen(true)}
-              className="min-h-[44px] flex items-center gap-2 text-blue-300 font-[700] px-2 py-1 rounded-lg hover:bg-blue-500/10 transition-colors min-w-0 flex-1"
-              aria-label="Edit active patient case"
-            >
-              <User className="w-4 h-4 text-blue-400 shrink-0" />
-              <span className="truncate">{activeCase.patientWeight || '70'}kg • {activeCase.patientSex} • ASA {activeCase.asaClass}</span>
-            </button>
-            <div className="flex items-center gap-1.5 shrink-0">
-              <button
-                onClick={() => setIsSoapModalOpen(true)}
-                className="min-h-[44px] px-2 rounded-xl bg-purple-600/20 border border-purple-500/40 text-purple-300 font-[800] flex items-center gap-1 transition-colors text-[11px]"
-                aria-label="Generate SOAP progress note"
-              >
-                <FileText className="w-3.5 h-3.5 text-purple-400" />
-                <span>SOAP</span>
-              </button>
-              <button
-                onClick={() => {
-                  exportBedsideRoundsPDF({
-                    activeCase: store.activeCase,
-                    patientLabs: store.patientLabs,
-                  });
-                }}
-                className="min-h-[44px] px-2.5 rounded-xl bg-blue-600/20 border border-blue-500/40 text-blue-300 font-[800] flex items-center gap-1 transition-colors text-[11px]"
-                aria-label="Export SBAR rounds PDF"
-              >
-                <Printer className="w-3.5 h-3.5 text-blue-400" />
-                <span>SBAR</span>
-              </button>
-              <Link
-                href="/emergency"
-                className="min-h-[44px] px-3 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-300 font-[800] flex items-center gap-1.5 transition-colors"
-                aria-label="Open emergency crisis protocols"
-              >
-                <AlertOctagon className="w-4 h-4 text-rose-400" />
-                <span>Crisis</span>
-              </Link>
-            </div>
-          </div>
-
           <div className="p-4 md:p-6 w-full max-w-7xl mx-auto">
             {children}
           </div>
@@ -466,6 +487,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         isOpen={isCmdPaletteOpen} 
         onClose={() => setIsCmdPaletteOpen(false)} 
         onOpenCaseModal={() => setIsCaseModalOpen(true)}
+        onOpenSoapModal={() => setIsSoapModalOpen(true)}
       />
 
       {/* Database Sync Warning Modal */}

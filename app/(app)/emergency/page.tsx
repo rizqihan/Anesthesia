@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import {
   AlertOctagon,
@@ -34,13 +35,16 @@ type EmergencyModuleTab =
   | 'status_epilepticus'
   | 'hypertensive_crisis';
 
-export default function EmergencyPage() {
+function EmergencyContent() {
   const { activeCase, setActiveCase, language } = useAppStore();
+  const searchParams = useSearchParams();
+  const tabParam = searchParams?.get('tab') as EmergencyModuleTab;
+  const [activeTabOverride, setActiveTabOverride] = useState<EmergencyModuleTab | null>(null);
+  const selectedModule = activeTabOverride ?? (tabParam && ['push_doses', 'acls_cpr', 'broselow', 'status_epilepticus', 'hypertensive_crisis'].includes(tabParam) ? tabParam : 'push_doses');
+  const setSelectedModule = (tab: EmergencyModuleTab) => setActiveTabOverride(tab);
+
   const weight = parseFloat(activeCase.patientWeight) || 70;
   const [copiedId, setCopiedId] = useState<string | null>(null);
-
-  // Top-level module navigation
-  const [selectedModule, setSelectedModule] = useState<EmergencyModuleTab>('push_doses');
 
   // Sub-tabs for Push Doses
   const [pushDoseSubTab, setPushDoseSubTab] = useState<
@@ -152,7 +156,7 @@ export default function EmergencyPage() {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => adjustWeight(-5)}
-              className="px-2 py-1 min-h-[32px] rounded bg-white/5 hover:bg-white/10 text-slate-400 text-[11px] font-mono"
+              className="px-2 py-1 min-h-[44px] min-w-[44px] rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-slate-200 text-[12px] font-mono font-[700] flex items-center justify-center transition-colors"
               aria-label="Decrease weight by 5 kg"
             >
               -5
@@ -170,7 +174,7 @@ export default function EmergencyPage() {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => adjustWeight(5)}
-              className="px-2 py-1 min-h-[32px] rounded bg-white/5 hover:bg-white/10 text-slate-400 text-[11px] font-mono"
+              className="px-2 py-1 min-h-[44px] min-w-[44px] rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-slate-200 text-[12px] font-mono font-[700] flex items-center justify-center transition-colors"
               aria-label="Increase weight by 5 kg"
             >
               +5
@@ -222,10 +226,10 @@ export default function EmergencyPage() {
                 <button
                   key={sub.id}
                   onClick={() => setPushDoseSubTab(sub.id as any)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 min-h-[38px] rounded-lg text-[12px] font-[600] transition-colors border ${
+                  className={`flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] rounded-xl text-[12px] font-[700] transition-colors border ${
                     isActive
-                      ? 'bg-slate-800 border-slate-600 text-slate-100'
-                      : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:text-slate-200'
+                      ? 'bg-slate-800 border-slate-600 text-slate-100 shadow-sm'
+                      : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-900'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -570,5 +574,13 @@ export default function EmergencyPage() {
       {/* TAB 5: HYPERTENSIVE CRISIS */}
       {selectedModule === 'hypertensive_crisis' && <HypertensiveCrisisEngine />}
     </div>
+  );
+}
+
+export default function EmergencyPage() {
+  return (
+    <Suspense fallback={<div className="p-4 text-[13px] text-slate-400">Loading resuscitation suite...</div>}>
+      <EmergencyContent />
+    </Suspense>
   );
 }

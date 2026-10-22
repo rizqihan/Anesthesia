@@ -31,7 +31,16 @@ export default function BroselowTapePicker() {
   const [weightKg, setWeightKg] = useState<number>(
     currentStoreWeight <= 36 && currentStoreWeight >= 3 ? currentStoreWeight : 12
   );
+  const [prevStoreWeight, setPrevStoreWeight] = useState(currentStoreWeight);
   const [copied, setCopied] = useState(false);
+
+  // Sync with store weight during render if store weight updates in the pediatric range
+  if (currentStoreWeight !== prevStoreWeight) {
+    setPrevStoreWeight(currentStoreWeight);
+    if (currentStoreWeight >= 3 && currentStoreWeight <= 36) {
+      setWeightKg(currentStoreWeight);
+    }
+  }
 
   // Derive active Broselow zone and doses
   const activeZone = getBroselowZoneByWeight(weightKg);
@@ -183,16 +192,18 @@ export default function BroselowTapePicker() {
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setWeightKg((prev) => Math.max(3, +(prev - 1).toFixed(1)))}
-                className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono font-bold text-[14px] flex items-center justify-center"
+                className="min-w-[44px] min-h-[44px] rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono font-bold text-[18px] flex items-center justify-center transition-colors"
+                aria-label="Decrease weight by 1 kg"
               >
                 -
               </button>
-              <div className="px-3 py-1 rounded-lg bg-slate-950 border border-slate-700 font-mono text-[16px] font-[900] text-blue-400 tabular-nums">
+              <div className="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 font-mono text-[16px] font-[900] text-blue-400 tabular-nums">
                 {weightKg} kg
               </div>
               <button
                 onClick={() => setWeightKg((prev) => Math.min(36, +(prev + 1).toFixed(1)))}
-                className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono font-bold text-[14px] flex items-center justify-center"
+                className="min-w-[44px] min-h-[44px] rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono font-bold text-[18px] flex items-center justify-center transition-colors"
+                aria-label="Increase weight by 1 kg"
               >
                 +
               </button>

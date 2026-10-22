@@ -16,9 +16,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // output: 'standalone', // Disabled for Netlify OpenNext runtime compatibility
   transpilePackages: ['motion'],
   turbopack: {},
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/dashboard',
+        permanent: false,
+      },
+    ];
+  },
   webpack: (config, {dev}) => {
     // HMR is disabled in AI Studio via DISABLE_HMR env var.
     // Do not modifyâfile watching is disabled to prevent flickering during agent edits.

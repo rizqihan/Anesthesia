@@ -381,6 +381,9 @@ export default function StatusEpilepticusTimeline() {
                 <div className="text-[22px] font-[900] font-mono text-slate-100 tabular-nums my-1">
                   {doses.phase2FirstLine.midazolamIm.doseMg} mg <span className="text-[14px] text-slate-400">IM</span>
                 </div>
+                <div className="text-[12px] font-mono text-slate-300">
+                  5 mg/mL = <strong className="text-emerald-300">{doses.phase2FirstLine.midazolamIm.volumeMl} mL</strong>
+                </div>
                 <p className="text-[11px] text-slate-400">
                   {doses.phase2FirstLine.midazolamIm.instruction} First choice when IV access is delayed.
                 </p>
@@ -489,7 +492,7 @@ export default function StatusEpilepticusTimeline() {
             </div>
 
             <div className="p-3.5 rounded-xl bg-rose-950/30 border border-rose-500/40 text-[12px] text-slate-300 leading-relaxed">
-              <strong className="text-rose-200">ICU / Anesthesia Protocol:</strong> Intubate immediately with Rocuronium 1.2 mg/kg. Target continuous EEG burst suppression (10–15s inter-burst intervals) for 24–48 hours. Keep Norepinephrine infusion ready for hypotension.
+              <strong className="text-rose-200">ICU / Anesthesia Protocol:</strong> Intubate immediately with Rocuronium 1.2 mg/kg ({Math.round(weight * 1.2)} mg). Target continuous EEG burst suppression (10–15s inter-burst intervals) for 24–48 hours. Keep Norepinephrine infusion ready for hypotension.
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">

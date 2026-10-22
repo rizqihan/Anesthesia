@@ -54,6 +54,7 @@ export default function ACLSCycleTimer() {
   const [lastEpiElapsedSec, setLastEpiElapsedSec] = useState<number | null>(null);
   const [amiodaroneDoseCount, setAmiodaroneDoseCount] = useState(0);
   const [isRoscAchieved, setIsRoscAchieved] = useState(false);
+  const [isSessionActive, setIsSessionActive] = useState(false);
 
   // Hs & Ts checklist state
   const [checkedHtIds, setCheckedHtIds] = useState<Record<string, boolean>>({});
@@ -66,6 +67,7 @@ export default function ACLSCycleTimer() {
   // Web Audio Context Reference
   const audioCtxRef = useRef<AudioContext | null>(null);
   const metronomeTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const hasAlarmFiredRef = useRef(false);
 
   // Format seconds to MM:SS
   const formatTime = (totalSec: number) => {
@@ -155,8 +157,10 @@ export default function ACLSCycleTimer() {
   }, [getAudioContext]);
 
   // Metronome loop (110 BPM = 545.45 ms interval)
+  // Only beeps while CPR compression cycle is running and not paused for rhythm check
+  const isCompressing = isRunning && cycleSecondsLeft > 0;
   useEffect(() => {
-    if (isMetronomeActive) {
+    if (isMetronomeActive && isCompressing) {
       const intervalMs = Math.round(60000 / 110); // ~545ms
       metronomeTimerRef.current = setInterval(() => {
         playSineBeep(880, 0.04, 0.2);
@@ -174,35 +178,46 @@ export default function ACLSCycleTimer() {
         clearInterval(metronomeTimerRef.current);
       }
     };
-  }, [isMetronomeActive, playSineBeep]);
+  }, [isMetronomeActive, isCompressing, playSineBeep]);
 
-  // 1-second interval timer for CPR cycle and total elapsed time
+  // 1-second interval timer for CPR cycle and total elapsed arrest time
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
-    if (isRunning) {
+    if (isSessionActive && !isRoscAchieved) {
       timer = setInterval(() => {
         setTotalElapsedSeconds((prev) => prev + 1);
-        setCycleSecondsLeft((prev) => {
-          if (prev <= 1) {
-            playCycleAlarm();
-            return 0;
-          }
-          return prev - 1;
-        });
+        if (isRunning) {
+          setCycleSecondsLeft((prev) => {
+            if (prev <= 1) {
+              if (!hasAlarmFiredRef.current) {
+                hasAlarmFiredRef.current = true;
+                setTimeout(() => {
+                  setIsRunning(false);
+                  playCycleAlarm();
+                  logEvent('note', `CPR Cycle #${cycleCount} completed (00:00) — Rhythm & Pulse Check`);
+                }, 0);
+              }
+              return 0;
+            }
+            return prev - 1;
+          });
+        }
       }, 1000);
     }
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [isRunning, playCycleAlarm]);
+  }, [isSessionActive, isRunning, isRoscAchieved, cycleCount, logEvent, playCycleAlarm]);
 
   // Handle Start / Pause
   const toggleRunning = () => {
     if (!isRunning) {
       getAudioContext();
-      if (totalElapsedSeconds === 0) {
+      if (!isSessionActive) {
+        setIsSessionActive(true);
         logEvent('cpr', `CPR Started (Cycle #1, Target 110 bpm)`);
       }
+      hasAlarmFiredRef.current = false;
       setIsRunning(true);
     } else {
       setIsRunning(false);
@@ -213,9 +228,13 @@ export default function ACLSCycleTimer() {
   const handleDeliverShock = () => {
     const nextShock = shockCount + 1;
     const energy = isPediatric
-      ? `${Math.min(200, Math.round(patientWeight * 2))} J (2 J/kg initial)`
+      ? nextShock === 1
+        ? `${Math.min(200, Math.round(patientWeight * 2))} J (2 J/kg initial)`
+        : `${Math.min(200, Math.round(patientWeight * 4))} J (4 J/kg subsequent)`
       : '200 J Biphasic';
     setShockCount(nextShock);
+    setRhythmMode('shockable');
+    hasAlarmFiredRef.current = false;
     logEvent('shock', `Defibrillation #${nextShock} Delivered: ${energy}`);
     // Reset cycle and resume
     setCycleSecondsLeft(120);
@@ -226,6 +245,8 @@ export default function ACLSCycleTimer() {
 
   // Non-shockable check & Restart 2-Min Cycle
   const handleContinueNonShockable = () => {
+    hasAlarmFiredRef.current = false;
+    setRhythmMode('non_shockable');
     logEvent('rhythm', `Rhythm Check: Non-Shockable (PEA/Asystole) — No shock indicated`);
     setCycleSecondsLeft(120);
     setCycleCount((prev) => prev + 1);
@@ -238,9 +259,11 @@ export default function ACLSCycleTimer() {
     const nextDose = epiDoseCount + 1;
     setEpiDoseCount(nextDose);
     setLastEpiElapsedSec(totalElapsedSeconds);
+    const pedsMg = Math.min(1.0, +(patientWeight * 0.01).toFixed(2));
+    const pedsMl = +(pedsMg * 10).toFixed(1);
     const doseText = isPediatric
-      ? `${Math.min(1.0, +(patientWeight * 0.01).toFixed(2))} mg IV/IO (0.01 mg/kg)`
-      : '1.0 mg IV/IO (1:10,000)';
+      ? `${pedsMg} mg IV/IO (${pedsMl} mL of 1:10,000, 0.01 mg/kg)`
+      : '1.0 mg IV/IO (10 mL of 1:10,000)';
     logEvent('epi', `Epinephrine Dose #${nextDose} (${doseText}) administered with 20mL NS flush`);
   };
 
@@ -261,6 +284,7 @@ export default function ACLSCycleTimer() {
   const handleRosc = () => {
     setIsRoscAchieved(true);
     setIsRunning(false);
+    setIsSessionActive(false);
     setIsMetronomeActive(false);
     logEvent('rosc', `ROSC Confirmed! Return of spontaneous circulation achieved at ${formatTime(totalElapsedSeconds)}`);
   };
@@ -268,7 +292,9 @@ export default function ACLSCycleTimer() {
   // Reset Everything
   const handleFullReset = () => {
     setIsRunning(false);
+    setIsSessionActive(false);
     setIsMetronomeActive(false);
+    hasAlarmFiredRef.current = false;
     setCycleSecondsLeft(120);
     setCycleCount(1);
     setTotalElapsedSeconds(0);
@@ -464,7 +490,7 @@ export default function ACLSCycleTimer() {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={handleFullReset}
-              className="text-slate-500 hover:text-slate-400 text-[11px] font-[600] py-1 text-center"
+              className="min-h-[44px] flex items-center justify-center text-slate-500 hover:text-slate-400 text-[11px] font-[600] py-1 text-center"
             >
               Reset Full Code Arrest Session
             </motion.button>
@@ -663,11 +689,33 @@ export default function ACLSCycleTimer() {
             <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-500/40 space-y-3">
               <div className="flex items-center gap-2 text-amber-300 font-[800] text-[14px]">
                 <ShieldAlert className="w-5 h-5 text-amber-400" />
-                <span>Immediate Epinephrine & Reversible Causes Focus</span>
+                <span>Immediate Epinephrine &amp; Reversible Causes Focus</span>
               </div>
               <p className="text-[12px] text-slate-300 leading-relaxed">
-                In Asystole or PEA, give <strong>Epinephrine 1 mg IV/IO immediately</strong> as soon as feasible. Do NOT shock. High-quality CPR 2-minute cycles, check rhythm every 2 minutes. The primary determinant of survival is finding and fixing the underlying cause (Hs &amp; Ts).
+                In Asystole or PEA, give <strong>{isPediatric ? `${Math.min(1.0, +(patientWeight * 0.01).toFixed(2))} mg IV/IO (0.01 mg/kg)` : 'Epinephrine 1 mg IV/IO'} immediately</strong> as soon as feasible. Do NOT shock. High-quality CPR 2-minute cycles, check rhythm every 2 minutes. The primary determinant of survival is finding and fixing the underlying cause (Hs &amp; Ts).
               </p>
+
+              {/* Epinephrine interval status for PEA/Asystole */}
+              <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 text-[12px] text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  {lastEpiElapsedSec !== null ? (
+                    <>
+                      Last dose: <strong className="text-slate-100 font-mono tabular-nums">{formatTime(epiSecondsSince || 0)} ago</strong>
+                      {isEpiDue && (
+                        <span className="ml-2 text-rose-400 font-[800] animate-pulse">
+                          (REPEAT DOSE DUE NOW!)
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    <span className="text-amber-300 font-[700]">Give Epinephrine Dose #1 immediately on arrest recognition!</span>
+                  )}
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/10 text-blue-300 border border-blue-500/20 self-start sm:self-auto">
+                  q3–5 min
+                </span>
+              </div>
+
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
@@ -675,7 +723,9 @@ export default function ACLSCycleTimer() {
                   className="min-h-[44px] px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-[800] text-[13px] flex items-center gap-2"
                 >
                   <Syringe className="w-4 h-4" />
-                  <span>Give Immediate Epinephrine 1 mg (Dose #{epiDoseCount + 1})</span>
+                  <span>
+                    Give Epinephrine {isPediatric ? `${Math.min(1.0, +(patientWeight * 0.01).toFixed(2))} mg (${(Math.min(1.0, +(patientWeight * 0.01).toFixed(2)) * 10).toFixed(1)} mL)` : '1.0 mg'} (Dose #{epiDoseCount + 1})
+                  </span>
                 </motion.button>
               </div>
             </div>
@@ -745,7 +795,7 @@ export default function ACLSCycleTimer() {
 
                   <button
                     onClick={() => setExpandedHtId(isExpanded ? null : item.id)}
-                    className="p-1 rounded text-slate-400 hover:text-slate-200"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-xl text-slate-400 hover:text-slate-200"
                     aria-label="Expand details"
                   >
                     {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}

@@ -225,9 +225,8 @@ export default function HypertensiveCrisisEngine() {
         </div>
 
         {/* Special Aortic Dissection Toggle */}
-        <div
-          onClick={() => setHasAorticDissection(!hasAorticDissection)}
-          className={`p-4 rounded-xl border cursor-pointer transition-all ${
+        <label
+          className={`p-4 rounded-xl border cursor-pointer select-none transition-all block ${
             hasAorticDissection
               ? 'bg-rose-950/40 border-rose-500 shadow-md ring-1 ring-rose-500/50'
               : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'
@@ -238,8 +237,8 @@ export default function HypertensiveCrisisEngine() {
               <input
                 type="checkbox"
                 checked={hasAorticDissection}
-                onChange={() => {}}
-                className="mt-1 w-4 h-4 rounded text-rose-600 bg-slate-950 border-slate-700"
+                onChange={() => setHasAorticDissection(!hasAorticDissection)}
+                className="mt-1 w-4 h-4 rounded text-rose-600 bg-slate-950 border-slate-700 cursor-pointer"
               />
               <div>
                 <div className="flex items-center gap-2">
@@ -256,7 +255,7 @@ export default function HypertensiveCrisisEngine() {
               </div>
             </div>
           </div>
-        </div>
+        </label>
 
         {/* Other Organ Damage Checkboxes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
@@ -464,10 +463,26 @@ export default function HypertensiveCrisisEngine() {
                 onChange={(e) => setNicardipineDose(Number(e.target.value))}
                 className="w-full mt-2 accent-blue-500 cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] font-mono text-slate-500">
+              <div className="flex justify-between text-[10px] font-mono text-slate-500 mb-2">
                 <span>3 mg/hr</span>
                 <span>5 mg/hr (Start)</span>
                 <span>15 mg/hr (Max)</span>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {[5, 7.5, 10, 15].map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    onClick={() => setNicardipineDose(preset)}
+                    className={`px-3 py-2 min-h-[44px] min-w-[44px] rounded-xl text-[12px] font-mono font-[700] border flex items-center justify-center transition-colors ${
+                      nicardipineDose === preset
+                        ? 'bg-blue-600/30 border-blue-500/60 text-blue-200'
+                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                    }`}
+                  >
+                    {preset} mg/h
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -505,16 +520,33 @@ export default function HypertensiveCrisisEngine() {
                 onChange={(e) => setLabetalolDose(Number(e.target.value))}
                 className="w-full mt-2 accent-purple-500 cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] font-mono text-slate-500">
+              <div className="flex justify-between text-[10px] font-mono text-slate-500 mb-2">
                 <span>0.5 mg/min</span>
-                <span>2 mg/min</span>
+                <span>2 mg/min (Std)</span>
                 <span>8 mg/min (Max)</span>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {[1, 2, 4, 8].map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    onClick={() => setLabetalolDose(preset)}
+                    className={`px-3 py-2 min-h-[44px] min-w-[44px] rounded-xl text-[12px] font-mono font-[700] border flex items-center justify-center transition-colors ${
+                      labetalolDose === preset
+                        ? 'bg-purple-600/30 border-purple-500/60 text-purple-200'
+                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                    }`}
+                  >
+                    {preset} mg/min
+                  </button>
+                ))}
               </div>
             </div>
 
             <div className="text-[11px] text-slate-400 space-y-1">
               <div>• Initial Bolus: <strong className="text-slate-200">20 mg IV over 2 min</strong></div>
-              <div>• Pump Rate (5 mg/mL neat): <strong className="text-purple-300 font-mono">{labetalol.rateMlPerHrNeat} mL/hr</strong></div>
+              <div>• Neat (5 mg/mL): <strong className="text-purple-300 font-mono">{labetalol.rateMlPerHrNeat} mL/hr</strong></div>
+              <div>• Dilute (1 mg/mL): <strong className="text-purple-300 font-mono">{labetalol.rateMlPerHrDilute} mL/hr</strong></div>
               <div>• Cumulative max 300 mg. Avoid in severe asthma or heart block.</div>
             </div>
           </div>
@@ -535,9 +567,12 @@ export default function HypertensiveCrisisEngine() {
                 <span className="text-[26px] font-[900] font-mono text-slate-100 tabular-nums">
                   {nitroprusside.doseMcgPerKgPerMin} <span className="text-[12px] text-slate-400 font-normal">mcg/kg/min</span>
                 </span>
-                <span className="text-[16px] font-[800] font-mono text-amber-400 tabular-nums">
-                  {nitroprusside.rateMlPerHr} mL/hr
-                </span>
+                <div className="text-right">
+                  <span className="text-[16px] font-[800] font-mono text-amber-400 tabular-nums">
+                    {nitroprusside.rateMlPerHr} mL/hr
+                  </span>
+                  <div className="text-[10px] font-mono text-slate-500">for {weight} kg</div>
+                </div>
               </div>
               <input
                 type="range"
@@ -548,10 +583,26 @@ export default function HypertensiveCrisisEngine() {
                 onChange={(e) => setNitroprussideDose(Number(e.target.value))}
                 className="w-full mt-2 accent-amber-500 cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] font-mono text-slate-500">
+              <div className="flex justify-between text-[10px] font-mono text-slate-500 mb-2">
                 <span>0.2</span>
                 <span>0.5 (Start)</span>
                 <span>2.0 (Cyanide Alert)</span>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {[0.3, 0.5, 1.0, 2.0].map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    onClick={() => setNitroprussideDose(preset)}
+                    className={`px-3 py-2 min-h-[44px] min-w-[44px] rounded-xl text-[12px] font-mono font-[700] border flex items-center justify-center transition-colors ${
+                      nitroprussideDose === preset
+                        ? 'bg-amber-600/30 border-amber-500/60 text-amber-200'
+                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                    }`}
+                  >
+                    {preset} mcg/kg/min
+                  </button>
+                ))}
               </div>
             </div>
 

@@ -292,14 +292,16 @@ export const BROSELOW_ZONES: BroselowZone[] = [
 ];
 
 export function getBroselowZoneByWeight(weightKg: number): BroselowZone {
-  const w = Math.max(3, Math.min(36, weightKg));
-  for (const zone of BROSELOW_ZONES) {
-    if (w >= zone.weightMin && w <= zone.weightMax) {
-      return zone;
-    }
-  }
-  if (w < 3) return BROSELOW_ZONES[0];
-  return BROSELOW_ZONES[BROSELOW_ZONES.length - 1];
+  const w = Number(weightKg) || 0;
+  if (w < 6) return BROSELOW_ZONES[0]; // Grey (3–5 kg)
+  if (w < 8) return BROSELOW_ZONES[1]; // Pink (6–7 kg)
+  if (w < 10) return BROSELOW_ZONES[2]; // Red (8–9 kg)
+  if (w < 12) return BROSELOW_ZONES[3]; // Purple (10–11 kg)
+  if (w < 15) return BROSELOW_ZONES[4]; // Yellow (12–14 kg)
+  if (w < 19) return BROSELOW_ZONES[5]; // White (15–18 kg)
+  if (w < 24) return BROSELOW_ZONES[6]; // Blue (19–23 kg)
+  if (w < 30) return BROSELOW_ZONES[7]; // Orange (24–29 kg)
+  return BROSELOW_ZONES[8]; // Green (30–36 kg)
 }
 
 export interface PediatricResuscitationDoses {
@@ -417,7 +419,7 @@ export interface StatusEpilepticusDoses {
   phase2FirstLine: {
     lorazepamIv: { doseMg: number; volumeMl: number; instruction: string };
     diazepamIv: { doseMg: number; instruction: string };
-    midazolamIm: { doseMg: number; instruction: string };
+    midazolamIm: { doseMg: number; volumeMl: number; instruction: string };
   };
   phase3SecondLine: {
     keppra: { doseMg: number; rate: string; instruction: string };
@@ -456,6 +458,7 @@ export function calculateStatusEpilepticusDoses(weightKg: number): StatusEpilept
 
   // Midazolam IM: 10 mg IM if > 40kg, 5 mg IM if 13-40kg, 0.2 mg/kg if < 13kg (max 10 mg)
   const midazolamImMg = w > 40 ? 10 : w >= 13 ? 5 : Math.min(5, +(w * 0.2).toFixed(1));
+  const midazolamImVolumeMl = +(midazolamImMg / 5).toFixed(1); // 5 mg/mL solution
 
   // Phase 3: Second-line IV AEDs
   // Keppra (Levetiracetam): 60 mg/kg IV (max 4,500 mg) over 10 min
@@ -495,6 +498,7 @@ export function calculateStatusEpilepticusDoses(weightKg: number): StatusEpilept
       },
       midazolamIm: {
         doseMg: midazolamImMg,
+        volumeMl: midazolamImVolumeMl,
         instruction: 'Autoinjector or needle into mid-outer thigh. Best when no IV access.',
       },
     },

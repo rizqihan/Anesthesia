@@ -201,12 +201,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <span className="hidden lg:inline text-[11px] font-mono">⌘K</span>
           </button>
 
-          {/* Landing Link */}
-          <Link href="/" title="Public Landing Page">
-            <button className="p-1.5 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/10 text-slate-400 hover:text-slate-200 transition-colors">
-              <Globe className="w-4 h-4" />
-            </button>
-          </Link>
+          {/* LoLyeah Topic Showcase */}
+          <a
+            href="https://lolyeah.github.io/topics/anesthesia.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="LoLyeah Topic Showcase"
+            className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/10 text-slate-400 hover:text-slate-200 transition-colors"
+          >
+            <Globe className="w-4 h-4" />
+          </a>
 
           {/* Offline status indicator */}
           <AnimatePresence>
@@ -321,16 +325,21 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto w-full">
           {/* Active Case Mobile Bar */}
-          <div className="sm:hidden flex items-center justify-between px-4 py-2 bg-blue-950/20 border-b border-blue-500/20 text-[11px]">
+          <div className="sm:hidden flex items-center justify-between px-3 py-1.5 bg-blue-950/20 border-b border-blue-500/20 text-[12px]">
             <button
               onClick={() => setIsCaseModalOpen(true)}
-              className="flex items-center gap-1.5 text-blue-300 font-[600]"
+              className="min-h-[44px] flex items-center gap-2 text-blue-300 font-[700] px-2 py-1 rounded-lg hover:bg-blue-500/10 transition-colors"
+              aria-label="Edit active patient case"
             >
-              <User className="w-3.5 h-3.5 text-blue-400" />
+              <User className="w-4 h-4 text-blue-400" />
               <span>{activeCase.patientWeight || '70'}kg • {activeCase.patientSex} • ASA {activeCase.asaClass}</span>
             </button>
-            <Link href="/emergency" className="text-rose-400 font-[700] flex items-center gap-1">
-              <AlertOctagon className="w-3.5 h-3.5" />
+            <Link
+              href="/emergency"
+              className="min-h-[44px] px-3 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-300 font-[800] flex items-center gap-1.5 transition-colors"
+              aria-label="Open emergency crisis protocols"
+            >
+              <AlertOctagon className="w-4 h-4 text-rose-400" />
               <span>Crisis</span>
             </Link>
           </div>
@@ -379,7 +388,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Database Sync Warning Modal */}
       <AnimatePresence>
-        {isNotSynced && !hasIgnoredSync && pathname !== '/' && pathname !== '/settings' && (
+        {isNotSynced && !hasIgnoredSync && pathname !== '/' && pathname !== '/settings' && pathname !== '/emergency' && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

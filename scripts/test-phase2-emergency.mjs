@@ -25,40 +25,54 @@ test('Broselow Tape Zones and Boundary Selection', () => {
   assert.equal(BROSELOW_ZONES[7].id, 'orange');
   assert.equal(BROSELOW_ZONES[8].id, 'green');
 
-  // Boundary testing
-  const zone3kg = getBroselowZoneByWeight(3);
-  assert.equal(zone3kg.id, 'grey');
+  // Boundary testing across contiguous decimal intervals (ensuring no gap bugs)
+  assert.equal(getBroselowZoneByWeight(3).id, 'grey');
+  assert.equal(getBroselowZoneByWeight(4.5).id, 'grey');
+  assert.equal(getBroselowZoneByWeight(5.5).id, 'grey'); // Was previously buggy (jumped to green)
+  assert.equal(getBroselowZoneByWeight(5.9).id, 'grey');
 
-  const zone6kg = getBroselowZoneByWeight(6.5);
-  assert.equal(zone6kg.id, 'pink');
+  assert.equal(getBroselowZoneByWeight(6.0).id, 'pink');
+  assert.equal(getBroselowZoneByWeight(6.5).id, 'pink');
+  assert.equal(getBroselowZoneByWeight(7.5).id, 'pink'); // Was previously buggy (jumped to green)
+  assert.equal(getBroselowZoneByWeight(7.9).id, 'pink');
 
-  const zone8kg = getBroselowZoneByWeight(8.5);
-  assert.equal(zone8kg.id, 'red');
+  assert.equal(getBroselowZoneByWeight(8.0).id, 'red');
+  assert.equal(getBroselowZoneByWeight(8.5).id, 'red');
+  assert.equal(getBroselowZoneByWeight(9.5).id, 'red'); // Was previously buggy (jumped to green)
+  assert.equal(getBroselowZoneByWeight(9.9).id, 'red');
 
-  const zone10kg = getBroselowZoneByWeight(10.5);
-  assert.equal(zone10kg.id, 'purple');
+  assert.equal(getBroselowZoneByWeight(10.0).id, 'purple');
+  assert.equal(getBroselowZoneByWeight(10.5).id, 'purple');
+  assert.equal(getBroselowZoneByWeight(11.5).id, 'purple'); // Was previously buggy (jumped to green)
+  assert.equal(getBroselowZoneByWeight(11.9).id, 'purple');
 
-  const zone13kg = getBroselowZoneByWeight(13);
-  assert.equal(zone13kg.id, 'yellow');
+  assert.equal(getBroselowZoneByWeight(12.0).id, 'yellow');
+  assert.equal(getBroselowZoneByWeight(13).id, 'yellow');
+  assert.equal(getBroselowZoneByWeight(14.5).id, 'yellow'); // Was previously buggy (jumped to green)
+  assert.equal(getBroselowZoneByWeight(14.9).id, 'yellow');
 
-  const zone16kg = getBroselowZoneByWeight(16.5);
-  assert.equal(zone16kg.id, 'white');
+  assert.equal(getBroselowZoneByWeight(15.0).id, 'white');
+  assert.equal(getBroselowZoneByWeight(16.5).id, 'white');
+  assert.equal(getBroselowZoneByWeight(18.5).id, 'white'); // Was previously buggy (jumped to green)
+  assert.equal(getBroselowZoneByWeight(18.9).id, 'white');
 
-  const zone21kg = getBroselowZoneByWeight(21);
-  assert.equal(zone21kg.id, 'blue');
+  assert.equal(getBroselowZoneByWeight(19.0).id, 'blue');
+  assert.equal(getBroselowZoneByWeight(21).id, 'blue');
+  assert.equal(getBroselowZoneByWeight(23.5).id, 'blue'); // Was previously buggy (jumped to green)
+  assert.equal(getBroselowZoneByWeight(23.9).id, 'blue');
 
-  const zone26kg = getBroselowZoneByWeight(26.5);
-  assert.equal(zone26kg.id, 'orange');
+  assert.equal(getBroselowZoneByWeight(24.0).id, 'orange');
+  assert.equal(getBroselowZoneByWeight(26.5).id, 'orange');
+  assert.equal(getBroselowZoneByWeight(29.5).id, 'orange'); // Was previously buggy (jumped to green)
+  assert.equal(getBroselowZoneByWeight(29.9).id, 'orange');
 
-  const zone33kg = getBroselowZoneByWeight(33);
-  assert.equal(zone33kg.id, 'green');
+  assert.equal(getBroselowZoneByWeight(30.0).id, 'green');
+  assert.equal(getBroselowZoneByWeight(33).id, 'green');
+  assert.equal(getBroselowZoneByWeight(35.5).id, 'green');
 
   // Below and above limits
-  const zoneUnder = getBroselowZoneByWeight(2);
-  assert.equal(zoneUnder.id, 'grey');
-
-  const zoneOver = getBroselowZoneByWeight(45);
-  assert.equal(zoneOver.id, 'green');
+  assert.equal(getBroselowZoneByWeight(2).id, 'grey');
+  assert.equal(getBroselowZoneByWeight(45).id, 'green');
 });
 
 test('Pediatric Resuscitation Calculations', () => {
@@ -97,6 +111,7 @@ test('Status Epilepticus 4-Phase Protocol Dosing', () => {
   assert.equal(se70kg.phase2FirstLine.lorazepamIv.volumeMl, 2);
   assert.equal(se70kg.phase2FirstLine.diazepamIv.doseMg, 10); // Max 10 mg cap
   assert.equal(se70kg.phase2FirstLine.midazolamIm.doseMg, 10); // > 40kg gets 10 mg IM
+  assert.equal(se70kg.phase2FirstLine.midazolamIm.volumeMl, 2.0); // 5 mg/mL
   assert.equal(se70kg.phase3SecondLine.keppra.doseMg, 4200); // 70 * 60 = 4200 mg (capped at 4500)
   assert.equal(se70kg.phase3SecondLine.fosphenytoin.doseMgPe, 1400); // 70 * 20 = 1400 mg PE
   assert.equal(se70kg.phase3SecondLine.valproate.doseMg, 2800); // 70 * 40 = 2800 mg
@@ -106,7 +121,13 @@ test('Status Epilepticus 4-Phase Protocol Dosing', () => {
   const se15kg = calculateStatusEpilepticusDoses(15);
   assert.equal(se15kg.phase2FirstLine.lorazepamIv.doseMg, 1.5); // 0.1 mg/kg
   assert.equal(se2ChildMidazolam(se15kg), 5); // 13-40kg gets 5 mg IM
+  assert.equal(se15kg.phase2FirstLine.midazolamIm.volumeMl, 1.0); // 5 mg/mL
   assert.equal(se15kg.phase3SecondLine.keppra.doseMg, 900); // 15 * 60 = 900 mg
+
+  // 8 kg infant (< 13 kg: 0.2 mg/kg)
+  const se8kg = calculateStatusEpilepticusDoses(8);
+  assert.equal(se8kg.phase2FirstLine.midazolamIm.doseMg, 1.6);
+  assert.equal(se8kg.phase2FirstLine.midazolamIm.volumeMl, 0.3);
 });
 
 function se2ChildMidazolam(se) {

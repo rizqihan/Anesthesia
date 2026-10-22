@@ -14,7 +14,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import ActiveCaseModal from '@/components/ActiveCaseModal';
 import CommandPalette from '@/components/CommandPalette';
 import SOAPNoteModal from '@/components/SOAPNoteModal';
+import ReleaseNotesModal from '@/components/ReleaseNotesModal';
 import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
+import { APP_VERSION } from '@/lib/version';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const store = useAppStore();
@@ -29,6 +31,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
   const [isCmdPaletteOpen, setIsCmdPaletteOpen] = useState(false);
   const [isSoapModalOpen, setIsSoapModalOpen] = useState(false);
+  const [isReleaseModalOpen, setIsReleaseModalOpen] = useState(false);
 
   const isNotSynced = !store.lastSyncDate && 
     !store.syncMeta?.icd10?.lastSynced && 
@@ -152,7 +155,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <Activity className="w-4 h-4 text-blue-400" />
             </div>
             <div className="flex flex-col">
-              <span className="font-[900] text-[15px] tracking-tight text-white leading-none">Anesthesia</span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-[900] text-[15px] tracking-tight text-white leading-none">Anesthesia</span>
+                <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-bold">
+                  v{APP_VERSION}
+                </span>
+              </div>
               <span className="text-[10px] text-slate-400 font-[500] leading-none mt-1">Acute Care Suite</span>
             </div>
           </Link>
@@ -336,12 +344,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             })}
           </div>
 
-          {/* AI / Offline Footer */}
-          <div className="p-3 border-t border-white/[0.05] bg-[#070b14]/60">
+          {/* AI / Offline & Version Footer */}
+          <div className="p-3 border-t border-white/[0.05] bg-[#070b14]/60 space-y-2">
             <div className="flex items-center gap-2.5">
               <span className={statusDotClass} />
               {!isCollapsed && (
-                <div className="text-[11px] truncate leading-tight">
+                <div className="text-[11px] truncate leading-tight flex-1">
                   <div className="text-slate-400">{getProviderName()} Engine</div>
                   <div className={`font-[700] ${aiStatus === 'ready' ? 'text-emerald-400' : 'text-amber-400'}`}>
                     {statusLabel}
@@ -349,6 +357,26 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 </div>
               )}
             </div>
+            {!isCollapsed ? (
+              <button
+                type="button"
+                onClick={() => setIsReleaseModalOpen(true)}
+                className="w-full flex items-center justify-between px-2 py-1 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] text-[10px] font-mono text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
+                title="View Release Notes & Changelog"
+              >
+                <span>v{APP_VERSION}</span>
+                <span className="text-[9px] text-blue-400 font-sans font-bold">Changelog →</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setIsReleaseModalOpen(true)}
+                className="w-full text-center text-[9px] font-mono text-slate-400 hover:text-blue-400 py-0.5 cursor-pointer"
+                title={`v${APP_VERSION} (Click for changelog)`}
+              >
+                v{APP_VERSION}
+              </button>
+            )}
           </div>
         </motion.nav>
 
@@ -499,6 +527,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Release Notes & Changelog Modal */}
+      <ReleaseNotesModal
+        isOpen={isReleaseModalOpen}
+        onClose={() => setIsReleaseModalOpen(false)}
+        language={language}
+      />
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope, ArrowLeft, RotateCw, Zap } from 'lucide-react';
+import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope, ArrowLeft, RotateCw, Zap, Tag } from 'lucide-react';
 import db from '@/lib/db';
 import { ICD10_DB } from '@/lib/icd10';
 import { DRUG_DB } from '@/lib/drugs';
@@ -14,12 +14,15 @@ import { AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 import { syncICD10, syncDrugs, syncGuidelines, syncPhysicalExams, type SyncResult } from '@/lib/syncAgent';
 import SyncReviewPanel from '@/components/SyncReviewPanel';
+import ReleaseNotesModal from '@/components/ReleaseNotesModal';
+import { APP_VERSION, BUILD_DATE, DB_SCHEMA_VERSION, RELEASE_NAME } from '@/lib/version';
 
 type DatasetType = 'icd10' | 'drugs' | 'guidelines' | 'physicalExams';
 
 export default function SettingsPage() {
   const store = useAppStore();
   const t = translations[store.language];
+  const [isReleaseModalOpen, setIsReleaseModalOpen] = useState(false);
 
   // AI config status
   const isAiConfigured = () => {
@@ -497,6 +500,65 @@ export default function SettingsPage() {
           </button>
         </div>
       </div>
+
+      {/* About & Versioning Card */}
+      <div className="glass-card-static p-5 border border-white/10 rounded-2xl space-y-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+              <Tag className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-[14px] font-[800] text-white">
+                  Anesthesia Acute Care Suite
+                </h3>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 font-bold">
+                  v{APP_VERSION}
+                </span>
+              </div>
+              <p className="text-[11.5px] text-slate-400">
+                {RELEASE_NAME} • Released {BUILD_DATE}
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsReleaseModalOpen(true)}
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-[12px] font-[700] bg-blue-600/20 border border-blue-500/40 text-blue-300 hover:bg-blue-600/30 transition-all cursor-pointer"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+            <span>{store.language === 'en' ? 'View Release Notes' : 'Lihat Catatan Rilis'}</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-white/[0.06] text-[11px] font-mono text-slate-400">
+          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+            <div className="text-[10px] uppercase text-slate-500 font-sans font-bold">Core Stack</div>
+            <div className="text-slate-200 mt-0.5">Next 16 • React 19</div>
+          </div>
+          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+            <div className="text-[10px] uppercase text-slate-500 font-sans font-bold">Local Storage</div>
+            <div className="text-slate-200 mt-0.5">Dexie DB v{DB_SCHEMA_VERSION}</div>
+          </div>
+          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+            <div className="text-[10px] uppercase text-slate-500 font-sans font-bold">Clinical Units</div>
+            <div className="text-slate-200 mt-0.5">50 Auto-Tests ✔</div>
+          </div>
+          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+            <div className="text-[10px] uppercase text-slate-500 font-sans font-bold">License</div>
+            <div className="text-slate-200 mt-0.5">Open Source</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Release Notes Modal */}
+      <ReleaseNotesModal
+        isOpen={isReleaseModalOpen}
+        onClose={() => setIsReleaseModalOpen(false)}
+        language={store.language}
+      />
 
       {/* Review Modal */}
       <AnimatePresence>

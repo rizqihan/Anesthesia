@@ -2,20 +2,30 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Home, Settings, ChevronLeft, Wifi, WifiOff, AlertTriangle, Activity, Database, RefreshCw, X, BookOpen } from 'lucide-react';
+import { 
+  LayoutDashboard, Settings, ChevronLeft, WifiOff, Activity, Database, 
+  RefreshCw, X, BookOpen, AlertOctagon, Calculator, Syringe, Pill, 
+  Stethoscope, Book, Search, User, Globe
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import ActiveCaseModal from '@/components/ActiveCaseModal';
+import CommandPalette from '@/components/CommandPalette';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const store = useAppStore();
-  const { language, setLanguage, isOffline, setOfflineStatus } = store;
+  const { language, setLanguage, isOffline, setOfflineStatus, activeCase } = store;
   const t = translations[language];
   const pathname = usePathname();
+  const router = useRouter();
+
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isInitialSyncing, setIsInitialSyncing] = useState(false);
   const [hasIgnoredSync, setHasIgnoredSync] = useState(false);
+  const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
+  const [isCmdPaletteOpen, setIsCmdPaletteOpen] = useState(false);
 
   const isNotSynced = !store.lastSyncDate && 
     !store.syncMeta?.icd10?.lastSynced && 
@@ -47,7 +57,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       store.updateSyncMeta('physicalExams', { lastSynced: now, count: PHYSICAL_EXAMS_DB.length });
       store.updateSyncMeta('ecgDiagnoses', { lastSynced: now, count: ECG_DIAGNOSES_DB.length });
 
-      // Load full ICD-10 data in the background of the sync process
       try {
         const fullCount = await loadFullICD10();
         store.updateSyncMeta('icd10', {
@@ -66,7 +75,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   };
 
   const isAiConfigured = () => {
-    // default_groq is always considered configured (key is server-side)
     if (store.aiProvider === 'custom_gemini' && !store.customGeminiKey.trim()) return false;
     if (store.aiProvider === 'openai_compatible' && (!store.openaiEndpoint.trim() || !store.openaiKey.trim())) return false;
     return true;
@@ -95,29 +103,30 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     };
   }, [setOfflineStatus]);
 
-  const icd10Meta = store.syncMeta?.icd10;
-  const updateSyncMeta = store.updateSyncMeta;
+  // Global keyboard shortcut: Cmd+K / Ctrl+K
   useEffect(() => {
-    const triggerFullIcdLoad = async () => {
-      if (icd10Meta?.lastSynced && !icd10Meta?.fullLoaded) {
-        try {
-          const { loadFullICD10 } = await import('@/lib/icd10');
-          const count = await loadFullICD10();
-          updateSyncMeta('icd10', {
-            lastSynced: new Date().toISOString(),
-            count,
-            fullLoaded: true
-          });
-        } catch (e) {
-          console.error('Failed to load full ICD-10 in background:', e);
-        }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsCmdPaletteOpen((prev) => !prev);
       }
     };
-    triggerFullIcdLoad();
-  }, [icd10Meta?.lastSynced, icd10Meta?.fullLoaded, updateSyncMeta]);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const navItems = [
-    { name: t.home, href: '/', icon: Home },
+    { name: language === 'en' ? 'Dashboard' : 'Dasbor', href: '/dashboard', icon: LayoutDashboard },
+    { name: language === 'en' ? 'OR Crisis Card' : 'Kartu Krisis', href: '/emergency', icon: AlertOctagon, badge: 'CRISIS' },
+    { name: t.calculators, href: '/calculators', icon: Calculator },
+    { name: t.dosage, href: '/dosage', icon: Syringe },
+    { name: '12-Lead ECG', href: '/ecg', icon: Activity },
+    { name: language === 'en' ? 'Formulary' : 'Formularium', href: '/formulary', icon: Pill },
+    { name: language === 'en' ? 'Guidelines' : 'Panduan', href: '/guidelines', icon: BookOpen },
+    { name: language === 'en' ? 'Physical Exam' : 'Pemeriksaan Fisik', href: '/physical-exam', icon: Stethoscope },
+    { name: t.interactions, href: '/interactions', icon: Pill },
+    { name: t.symptoms, href: '/symptoms', icon: Activity },
+    { name: 'ICD-10', href: '/icd10', icon: Book },
     { name: t.tutorial, href: '/tutorial', icon: BookOpen },
     { name: t.settings, href: '/settings', icon: Settings },
   ];
@@ -126,73 +135,80 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const statusLabel = aiStatus === 'ready' ? t.ready : aiStatus === 'missing' ? t.missing_config : t.offline;
 
   return (
-    <>
+    <div className="h-screen overflow-hidden flex flex-col bg-[#080c15] text-[#f8fafc]">
       {/* ─── Top Bar ─── */}
       <header
-        className="h-[56px] shrink-0 flex items-center justify-between px-4 md:px-0 z-10 w-full fixed md:static top-0"
-        style={{
-          background: 'rgba(8, 13, 23, 0.85)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-          boxShadow: '0 1px 0 rgba(255,255,255,0.03), 0 4px 24px rgba(0,0,0,0.4)',
-        }}
+        className="h-[56px] shrink-0 flex items-center justify-between px-3 md:px-4 z-20 w-full fixed md:static top-0 bg-[#0a0f1d]/90 backdrop-blur-md border-b border-white/[0.08]"
       >
-        {/* Mobile Logo */}
-        <div className="flex items-center gap-3 md:hidden">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-            style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)', boxShadow: '0 0 16px rgba(59,130,246,0.4)' }}
-          >
-            <Activity className="w-4 h-4 text-white" />
-          </div>
-          <div className="flex flex-col justify-center">
-            <span className="font-[800] text-[16px] leading-tight gradient-text tracking-tight">{t.app_name}</span>
-            <span className="text-[10px] leading-tight mt-0.5" style={{ color: 'var(--text-muted)' }}>Clinical Assistant</span>
-          </div>
+        {/* Left: Mobile Branding / Logo */}
+        <div className="flex items-center gap-3">
+          <Link href="/dashboard" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center shrink-0">
+              <Activity className="w-4 h-4 text-blue-400" />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-[900] text-[15px] tracking-tight text-white leading-none">Anesthesia</span>
+              <span className="text-[10px] text-slate-400 font-[500] leading-none mt-1">Acute Care Suite</span>
+            </div>
+          </Link>
         </div>
 
-        {/* Desktop Logo */}
-        <motion.div
-          initial={false}
-          animate={{ 
-            width: isCollapsed ? '68px' : '220px',
-            paddingLeft: isCollapsed ? '18px' : '24px'
-          }}
-          transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-          className="hidden md:flex items-center h-full overflow-hidden"
-          style={{
-            borderRight: '1px solid rgba(255,255,255,0.06)',
-          }}
-        >
-          <motion.div 
-            className="flex items-center"
-            animate={{ gap: isCollapsed ? '0px' : '12px' }}
-            transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+        {/* Center: Active Case Bar (Desktop & Tablet) */}
+        <div className="hidden sm:flex items-center gap-2">
+          <button
+            onClick={() => setIsCaseModalOpen(true)}
+            className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 hover:bg-blue-500/10 transition-all text-[12px] group"
+            title="Click to edit active patient parameters"
           >
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-              style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)', boxShadow: '0 0 16px rgba(59,130,246,0.4)' }}
-            >
-              <Activity className="w-4 h-4 text-white" />
+            <div className="w-5 h-5 rounded-md bg-blue-500/20 flex items-center justify-center text-blue-400">
+              <User className="w-3 h-3" />
             </div>
-            <motion.div
-              initial={false}
-              animate={{ 
-                opacity: isCollapsed ? 0 : 1
-              }}
-              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-              className="flex flex-col justify-center whitespace-nowrap overflow-hidden"
-            >
-              <span className="font-[800] text-[16px] leading-tight gradient-text tracking-tight">{t.app_name}</span>
-              <span className="text-[10px] leading-tight mt-0.5" style={{ color: 'var(--text-muted)' }}>Clinical Assistant</span>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+            <div className="flex items-center gap-2 text-slate-300">
+              <span className="font-[600]">
+                {language === 'en' ? 'Active Case' : 'Pasien'}:
+              </span>
+              <span className="font-mono font-[700] text-blue-300">
+                {activeCase.patientWeight || '70'} kg
+              </span>
+              <span className="text-slate-500">•</span>
+              <span className="font-mono text-slate-300">
+                {activeCase.patientSex} / {activeCase.patientAge || '45'}y
+              </span>
+              <span className="text-slate-500">•</span>
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-[800] bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                ASA {activeCase.asaClass}
+              </span>
+            </div>
+          </button>
+
+          {/* Quick Emergency Button */}
+          <Link href="/emergency">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600/20 border border-rose-500/40 hover:bg-rose-600/30 text-rose-300 transition-all text-[12px] font-[700]">
+              <AlertOctagon className="w-3.5 h-3.5 text-rose-400" />
+              <span>{language === 'en' ? 'Crisis Dose' : 'Dosis Krisis'}</span>
+            </button>
+          </Link>
+        </div>
 
         {/* Right controls */}
-        <div className="flex items-center gap-3 pr-4 md:pr-6">
-          {/* Offline badge */}
+        <div className="flex items-center gap-2 md:gap-3">
+          {/* Cmd+K Search trigger */}
+          <button
+            onClick={() => setIsCmdPaletteOpen(true)}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 text-slate-400 hover:text-slate-200 transition-all text-[12px]"
+          >
+            <Search className="w-3.5 h-3.5" />
+            <span className="hidden lg:inline text-[11px] font-mono">⌘K</span>
+          </button>
+
+          {/* Landing Link */}
+          <Link href="/" title="Public Landing Page">
+            <button className="p-1.5 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/10 text-slate-400 hover:text-slate-200 transition-colors">
+              <Globe className="w-4 h-4" />
+            </button>
+          </Link>
+
+          {/* Offline status indicator */}
           <AnimatePresence>
             {isOffline && (
               <motion.div
@@ -208,24 +224,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </AnimatePresence>
 
           {/* Language toggle */}
-          <div
-            className="flex rounded-lg p-[3px] gap-[2px]"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-card)' }}
-          >
+          <div className="flex rounded-lg p-[2px] bg-white/[0.04] border border-white/10">
             {(['en', 'id'] as const).map((lang) => (
               <button
                 key={lang}
                 onClick={() => setLanguage(lang)}
-                className="px-2.5 py-1 rounded-md text-[11px] font-[700] transition-all duration-200"
-                style={language === lang ? {
-                  background: 'rgba(59,130,246,0.2)',
-                  color: '#93c5fd',
-                  border: '1px solid rgba(59,130,246,0.3)',
-                  boxShadow: '0 0 10px rgba(59,130,246,0.15)',
-                } : {
-                  color: 'var(--text-muted)',
-                  border: '1px solid transparent',
-                }}
+                className={`px-2 py-1 rounded-md text-[11px] font-[700] transition-all ${
+                  language === lang
+                    ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 shadow-sm'
+                    : 'text-slate-400 border border-transparent hover:text-slate-200'
+                }`}
               >
                 {lang.toUpperCase()}
               </button>
@@ -234,230 +242,200 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      {/* ─── Main Layout ─── */}
-      <div className="flex flex-1 overflow-hidden pt-[56px] md:pt-0 pb-[110px] md:pb-0 relative">
-        {/* Sidebar (Desktop) */}
+      {/* ─── Main Workspace Shell ─── */}
+      <div className="flex flex-1 overflow-hidden pt-[56px] md:pt-0 pb-[72px] md:pb-0 relative">
+        {/* Desktop Sidebar */}
         <motion.nav
           initial={false}
-          animate={{ width: isCollapsed ? '68px' : '220px' }}
-          transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-          className="hidden md:flex flex-col shrink-0 overflow-hidden relative"
-          style={{
-            background: 'rgba(8, 13, 23, 0.95)',
-            borderRight: '1px solid rgba(255,255,255,0.06)',
-          }}
+          animate={{ width: isCollapsed ? '68px' : '230px' }}
+          transition={{ type: 'tween', ease: 'easeInOut', duration: 0.2 }}
+          className="hidden md:flex flex-col shrink-0 overflow-hidden relative bg-[#090e1a] border-r border-white/[0.07]"
         >
-          {/* Sidebar top glow */}
-          <div
-            className="absolute top-0 left-0 right-0 h-[1px]"
-            style={{ background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.4), transparent)' }}
-          />
-
-          {/* Collapse toggle */}
-          <div className="flex items-center px-4 h-[52px] border-b relative" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-            <motion.span
-              initial={false}
-              animate={{ opacity: isCollapsed ? 0 : 1 }}
-              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-              className="text-[10px] uppercase tracking-[1.5px] font-[700] overflow-hidden whitespace-nowrap"
-              style={{ color: 'var(--text-muted)' }}
-            >
-              Navigation
-            </motion.span>
-            <motion.button
+          {/* Collapse header */}
+          <div className="flex items-center justify-between px-4 h-[48px] border-b border-white/[0.05]">
+            <span className={`text-[10px] uppercase tracking-[1.5px] font-[800] text-slate-400 truncate ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>
+              Clinical Suite
+            </span>
+            <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="absolute p-1.5 rounded-lg"
-              animate={{ 
-                right: isCollapsed ? '20px' : '12px',
-                y: '-50%'
-              }}
-              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-              style={{ color: 'var(--text-muted)', top: '50%' }}
+              className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
             >
-              <motion.div animate={{ rotate: isCollapsed ? 180 : 0 }} transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}>
-                <ChevronLeft className="w-4 h-4" />
-              </motion.div>
-            </motion.button>
+              <ChevronLeft className={`w-4 h-4 transition-transform ${isCollapsed ? 'rotate-180' : ''}`} />
+            </button>
           </div>
 
-          {/* Nav items */}
-          <div className="flex-1 py-3 overflow-y-auto">
+          {/* Nav Links */}
+          <div className="flex-1 py-2 overflow-y-auto space-y-0.5 px-2">
             {navItems.map((item) => {
-              const isActive = pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/');
+              const isActive = pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/dashboard');
+              const isEmergency = item.href === '/emergency';
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   title={isCollapsed ? item.name : undefined}
-                  className="mx-2 mb-1 block"
+                  className="block"
                 >
-                  <motion.div
-                    className={`nav-item flex items-center rounded-lg text-[13px] font-[500] ${isActive ? 'nav-item-active' : ''}`}
-                    animate={{
-                      paddingLeft: isCollapsed ? '18px' : '16px',
-                      paddingRight: isCollapsed ? '18px' : '16px',
-                      gap: isCollapsed ? '0px' : '12px',
-                    }}
-                    transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-                    style={{
-                      color: isActive ? '#93c5fd' : 'var(--text-secondary)',
-                      background: isActive ? 'rgba(59,130,246,0.1)' : 'transparent',
-                      boxShadow: isActive ? '0 0 20px rgba(59,130,246,0.08)' : 'none',
-                      height: '44px',
-                      transition: 'background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
-                    }}
+                  <div
+                    className={`flex items-center px-3 py-2 rounded-xl text-[13px] font-[600] transition-all ${
+                      isActive
+                        ? isEmergency
+                          ? 'bg-rose-600/25 text-rose-200 border border-rose-500/40 shadow-[0_0_15px_rgba(244,63,94,0.15)]'
+                          : 'bg-blue-600/20 text-blue-300 border border-blue-500/30 shadow-[0_0_15px_rgba(37,99,235,0.15)]'
+                        : isEmergency
+                        ? 'text-rose-400/90 hover:bg-rose-500/10 hover:text-rose-300'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
+                    }`}
                   >
                     <item.icon className="w-4 h-4 shrink-0" />
-                    <motion.span
-                      initial={false}
-                      animate={{ opacity: isCollapsed ? 0 : 1 }}
-                      transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-                      className="overflow-hidden whitespace-nowrap truncate"
-                    >
-                      {item.name}
-                    </motion.span>
-                  </motion.div>
+                    {!isCollapsed && (
+                      <span className="ml-3 truncate flex-1">{item.name}</span>
+                    )}
+                    {!isCollapsed && item.badge && (
+                      <span className="ml-auto text-[9px] font-[800] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
                 </Link>
               );
             })}
           </div>
 
-          {/* AI Status footer */}
-          <div
-            className="p-4 border-t relative"
-            style={{ borderColor: 'rgba(255,255,255,0.05)' }}
-          >
-            <motion.div 
-              className="flex items-center"
-              animate={{
-                gap: isCollapsed ? '0px' : '10px',
-                paddingLeft: isCollapsed ? '14px' : '0px',
-              }}
-              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-            >
+          {/* AI / Offline Footer */}
+          <div className="p-3 border-t border-white/[0.05] bg-[#070b14]/60">
+            <div className="flex items-center gap-2.5">
               <span className={statusDotClass} />
-              <motion.div
-                initial={false}
-                animate={{ opacity: isCollapsed ? 0 : 1 }}
-                transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-                className="overflow-hidden"
-              >
-                <div className="text-[10px] font-[600] whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
-                  {getProviderName()}
+              {!isCollapsed && (
+                <div className="text-[11px] truncate leading-tight">
+                  <div className="text-slate-400">{getProviderName()} Engine</div>
+                  <div className={`font-[700] ${aiStatus === 'ready' ? 'text-emerald-400' : 'text-amber-400'}`}>
+                    {statusLabel}
+                  </div>
                 </div>
-                <div className={`text-[10px] font-[700] whitespace-nowrap ${aiStatus === 'ready' ? 'text-emerald-400' : aiStatus === 'missing' ? 'text-amber-400' : 'text-rose-400'}`}>
-                  {statusLabel}
-                </div>
-              </motion.div>
-            </motion.div>
+              )}
+            </div>
           </div>
         </motion.nav>
 
-        {/* Content Area */}
+        {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto w-full">
-          <div className="p-4 md:p-6 w-full max-w-full mx-auto container">
+          {/* Active Case Mobile Bar */}
+          <div className="sm:hidden flex items-center justify-between px-4 py-2 bg-blue-950/20 border-b border-blue-500/20 text-[11px]">
+            <button
+              onClick={() => setIsCaseModalOpen(true)}
+              className="flex items-center gap-1.5 text-blue-300 font-[600]"
+            >
+              <User className="w-3.5 h-3.5 text-blue-400" />
+              <span>{activeCase.patientWeight || '70'}kg • {activeCase.patientSex} • ASA {activeCase.asaClass}</span>
+            </button>
+            <Link href="/emergency" className="text-rose-400 font-[700] flex items-center gap-1">
+              <AlertOctagon className="w-3.5 h-3.5" />
+              <span>Crisis</span>
+            </Link>
+          </div>
+
+          <div className="p-4 md:p-6 w-full max-w-7xl mx-auto">
             {children}
           </div>
         </main>
       </div>
 
-      {/* Bottom Navigation (Mobile) */}
-      <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 flex justify-around px-2 pb-safe z-20"
-        style={{
-          background: 'rgba(8, 13, 23, 0.92)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderTop: '1px solid rgba(255,255,255,0.07)',
-          paddingTop: '8px',
-          paddingBottom: 'env(safe-area-inset-bottom)',
-        }}
-      >
-        {navItems.map((item) => {
-          const isActive = pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/');
+      {/* Mobile Bottom Navigation Bar */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-[64px] bg-[#090e1a]/95 backdrop-blur-lg border-t border-white/10 flex items-center justify-around px-2 z-30">
+        {[
+          { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+          { name: 'Crisis', href: '/emergency', icon: AlertOctagon, highlight: true },
+          { name: 'Calculators', href: '/calculators', icon: Calculator },
+          { name: 'Dosing', href: '/dosage', icon: Syringe },
+          { name: 'ECG', href: '/ecg', icon: Activity },
+          { name: 'More', href: '/settings', icon: Settings },
+        ].map((item) => {
+          const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className="flex flex-col items-center py-1 px-4 rounded-xl min-w-[60px] transition-all"
-              style={isActive ? { color: '#60a5fa' } : { color: 'var(--text-muted)' }}
+              className={`flex flex-col items-center justify-center flex-1 py-1 transition-colors ${
+                isActive
+                  ? item.highlight ? 'text-rose-400' : 'text-blue-400'
+                  : item.highlight ? 'text-rose-400/70' : 'text-slate-400'
+              }`}
             >
-              <div
-                className="p-2 rounded-xl mb-0.5 transition-all"
-                style={isActive ? {
-                  background: 'rgba(59,130,246,0.15)',
-                  boxShadow: '0 0 12px rgba(59,130,246,0.25)',
-                } : {}}
-              >
-                <item.icon className="w-5 h-5" />
-              </div>
+              <item.icon className="w-5 h-5 mb-0.5" />
               <span className="text-[10px] font-[600]">{item.name}</span>
             </Link>
           );
         })}
       </nav>
 
-      {/* Sync Warning Modal */}
+      {/* Modals & Trays */}
+      <ActiveCaseModal isOpen={isCaseModalOpen} onClose={() => setIsCaseModalOpen(false)} />
+      <CommandPalette 
+        isOpen={isCmdPaletteOpen} 
+        onClose={() => setIsCmdPaletteOpen(false)} 
+        onOpenCaseModal={() => setIsCaseModalOpen(true)}
+      />
+
+      {/* Database Sync Warning Modal */}
       <AnimatePresence>
         {isNotSynced && !hasIgnoredSync && pathname !== '/' && pathname !== '/settings' && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              initial={{ scale: 0.95, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="glass-card-static w-full max-w-sm p-6 flex flex-col items-center text-center relative"
+              exit={{ scale: 0.95, opacity: 0, y: 15 }}
+              className="w-full max-w-sm p-6 bg-[#0e1424] border border-white/10 rounded-2xl shadow-2xl flex flex-col items-center text-center relative"
             >
               <button 
                 onClick={() => setHasIgnoredSync(true)}
-                className="absolute top-3 right-3 p-1.5 rounded-lg transition-colors hover:bg-white/5"
-                style={{ color: 'var(--text-muted)' }}
+                className="absolute top-3 right-3 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5"
               >
                 <X className="w-4 h-4" />
               </button>
-              <div className="w-14 h-14 rounded-full mb-5 flex items-center justify-center shadow-lg mt-2" style={{ background: 'rgba(251,191,36,0.1)', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.2)' }}>
-                <Database className="w-7 h-7" />
+              <div className="w-12 h-12 rounded-xl mb-4 flex items-center justify-center bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                <Database className="w-6 h-6" />
               </div>
-              <h2 className="text-[18px] font-[800] mb-2" style={{ color: 'var(--text-primary)' }}>
-                {language === 'en' ? 'Database Not Synced' : 'Database Belum Disinkronkan'}
+              <h2 className="text-[17px] font-[800] text-slate-100 mb-1.5">
+                {language === 'en' ? 'Offline Database Not Synced' : 'Database Offline Belum Disinkronkan'}
               </h2>
-              <p className="text-[13px] mb-6 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                {language === 'en' 
-                  ? 'Please sync the clinical database first to enable offline features like medical calculators and drug references.'
-                  : 'Harap sinkronkan database klinis terlebih dahulu untuk mengaktifkan fitur offline seperti kalkulator medis dan referensi obat.'}
+              <p className="text-[12px] text-slate-400 mb-5 leading-relaxed">
+                {language === 'en'
+                  ? 'Sync offline data to ensure instant access to drug formularies and calculators without network latency.'
+                  : 'Sinkronkan data offline untuk memastikan akses cepat ke formularium obat dan kalkulator tanpa latensi jaringan.'}
               </p>
               <button 
                 onClick={handleInitialSync}
                 disabled={isInitialSyncing}
-                className="btn-primary w-full py-3 text-[14px] font-[600] flex justify-center items-center gap-2"
+                className="btn-primary w-full py-2.5 text-[13px] font-[700] flex justify-center items-center gap-2 rounded-xl"
               >
                 {isInitialSyncing ? (
                   <>
                     <RefreshCw className="w-4 h-4 animate-spin" />
-                    {language === 'en' ? 'Syncing...' : 'Menyinkronkan...'}
+                    <span>{language === 'en' ? 'Syncing Datasets...' : 'Menyinkronkan Data...'}</span>
                   </>
                 ) : (
                   <>
                     <Database className="w-4 h-4" />
-                    {language === 'en' ? 'Sync Database Now' : 'Sinkronkan Database Sekarang'}
+                    <span>{language === 'en' ? 'Sync Local Database' : 'Sinkronkan Database Lokal'}</span>
                   </>
                 )}
               </button>
               <button 
                 onClick={() => setHasIgnoredSync(true)}
-                className="w-full py-2.5 mt-3 text-[13px] font-[600] rounded-xl transition-all hover:bg-white/5"
-                style={{ color: 'var(--text-muted)', background: 'rgba(255,255,255,0.02)' }}
+                className="w-full py-2 mt-2 text-[12px] text-slate-400 hover:text-slate-200"
               >
-                {language === 'en' ? 'Ignore for now' : 'Abaikan untuk saat ini'}
+                {language === 'en' ? 'Continue for now' : 'Lanjutkan sekarang'}
               </button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }

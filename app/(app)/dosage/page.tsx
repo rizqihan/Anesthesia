@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 function DosageCalculatorContent() {
-  const { language } = useAppStore();
+  const { language, activeCase } = useAppStore();
   const t = translations[language];
   const searchParams = useSearchParams();
   const initDrugId = searchParams?.get('drug');
@@ -23,7 +23,7 @@ function DosageCalculatorContent() {
   }, []) || [];
 
   const bestInitialDrug = (initDrugId && calculableDrugs.some(d => d.id === initDrugId)) ? initDrugId : (calculableDrugs[0]?.id || '');
-  const [weight, setWeight] = useState('');
+  const [weight, setWeight] = useState(activeCase.patientWeight || '');
   const [selectedDrug, setSelectedDrug] = useState('');
   const [result, setResult] = useState<{ dose: number; maxReached: boolean } | null>(null);
 
@@ -43,7 +43,7 @@ function DosageCalculatorContent() {
   return (
     <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
-        <Link href="/">
+        <Link href="/dashboard">
           <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
             <ArrowLeft className="w-4 h-4" />
           </button>

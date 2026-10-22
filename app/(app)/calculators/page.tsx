@@ -45,33 +45,33 @@ function BigResult({ label, value, unit, color }: { label: string; value: string
 }
 
 export default function CalculatorsPage() {
-  const { language } = useAppStore();
+  const { language, activeCase } = useAppStore();
   const t = translations[language] as any;
 
   const [activeTab, setActiveTab] = useState('bmi');
 
   // BMI State
-  const [bmiWeight, setBmiWeight] = useState('');
-  const [bmiHeight, setBmiHeight] = useState('');
+  const [bmiWeight, setBmiWeight] = useState(activeCase.patientWeight || '');
+  const [bmiHeight, setBmiHeight] = useState(activeCase.patientHeight || '');
   const [bmiResult, setBmiResult] = useState<null | { bmi: string; category: string; color: string }>(null);
 
   // IBW/ABW State
-  const [ibwGender, setIbwGender] = useState<'M' | 'F'>('M');
-  const [ibwHeight, setIbwHeight] = useState('');
-  const [ibwActualWeight, setIbwActualWeight] = useState('');
+  const [ibwGender, setIbwGender] = useState<'M' | 'F'>(activeCase.patientSex || 'M');
+  const [ibwHeight, setIbwHeight] = useState(activeCase.patientHeight || '');
+  const [ibwActualWeight, setIbwActualWeight] = useState(activeCase.patientWeight || '');
   const [ibwResult, setIbwResult] = useState<null | { ibw: string; abw: string }>(null);
 
   // CG State
-  const [cgAge, setCgAge] = useState('');
-  const [cgWeight, setCgWeight] = useState('');
+  const [cgAge, setCgAge] = useState(activeCase.patientAge || '');
+  const [cgWeight, setCgWeight] = useState(activeCase.patientWeight || '');
   const [cgCr, setCgCr] = useState('');
-  const [cgGender, setCgGender] = useState<'M' | 'F'>('M');
+  const [cgGender, setCgGender] = useState<'M' | 'F'>(activeCase.patientSex || 'M');
   const [cgResult, setCgResult] = useState<string | null>(null);
 
   // eGFR State
-  const [egfrAge, setEgfrAge] = useState('');
+  const [egfrAge, setEgfrAge] = useState(activeCase.patientAge || '');
   const [egfrCr, setEgfrCr] = useState('');
-  const [egfrGender, setEgfrGender] = useState<'M' | 'F'>('M');
+  const [egfrGender, setEgfrGender] = useState<'M' | 'F'>(activeCase.patientSex || 'M');
   const [egfrResult, setEgfrResult] = useState<string | null>(null);
 
   // MAP State
@@ -368,7 +368,7 @@ export default function CalculatorsPage() {
       {/* Header */}
       <div>
         <div className="flex items-center gap-3 mb-1">
-          <Link href="/">
+          <Link href="/dashboard">
             <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
               <ArrowLeft className="w-4 h-4" />
             </button>

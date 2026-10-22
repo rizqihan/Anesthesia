@@ -370,7 +370,7 @@ export default function TutorialPage() {
         className="flex flex-col gap-2 border-b border-white/5 pb-6"
       >
         <div className="flex items-center gap-3">
-          <Link href="/">
+          <Link href="/dashboard">
             <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -494,7 +494,7 @@ export default function TutorialPage() {
                     el.style.transform = 'translateY(0)';
                   }}
                 >
-                  <Download className="w-4 h-4 text-white animate-bounce" />
+                  <Download className="w-4 h-4 text-white group-hover:translate-y-0.5 transition-transform" />
                   <span>{content.sections.pwa.installBtn}</span>
                 </button>
               ) : isIOS ? (

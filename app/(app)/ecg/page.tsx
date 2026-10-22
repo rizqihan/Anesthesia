@@ -826,7 +826,7 @@ export default function EcgModule() {
       {/* ─── Back Arrow & Header ─── */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <Link href="/">
+          <Link href="/dashboard">
             <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
               <ArrowLeft className="w-4 h-4" />
             </button>

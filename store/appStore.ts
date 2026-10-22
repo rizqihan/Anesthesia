@@ -17,11 +17,25 @@ export interface DatasetSyncMeta {
   fullLoaded?: boolean;
 }
 
+export interface ActiveCase {
+  patientWeight: string; // e.g. "70"
+  patientHeight: string; // e.g. "175"
+  patientAge: string;    // e.g. "45"
+  patientSex: 'M' | 'F';
+  asaClass: 'I' | 'II' | 'III' | 'IV' | 'V' | 'E';
+  mallampati: 'I' | 'II' | 'III' | 'IV';
+}
+
 interface AppState {
   language: Language;
   setLanguage: (lang: Language) => void;
   isOffline: boolean;
   setOfflineStatus: (status: boolean) => void;
+  
+  // Active Clinical Case Context
+  activeCase: ActiveCase;
+  setActiveCase: (caseData: Partial<ActiveCase>) => void;
+  clearActiveCase: () => void;
   
   aiProvider: AIProvider;
   setAiProvider: (provider: AIProvider) => void;
@@ -66,6 +80,30 @@ export const useAppStore = create<AppState>()(
       setLanguage: (lang) => set({ language: lang }),
       isOffline: false,
       setOfflineStatus: (status) => set({ isOffline: status }),
+      
+      activeCase: {
+        patientWeight: '70',
+        patientHeight: '170',
+        patientAge: '45',
+        patientSex: 'M',
+        asaClass: 'I',
+        mallampati: 'I',
+      },
+      setActiveCase: (caseData) =>
+        set((state) => ({
+          activeCase: { ...state.activeCase, ...caseData },
+        })),
+      clearActiveCase: () =>
+        set({
+          activeCase: {
+            patientWeight: '',
+            patientHeight: '',
+            patientAge: '',
+            patientSex: 'M',
+            asaClass: 'I',
+            mallampati: 'I',
+          },
+        }),
       
       aiProvider: 'default_groq',
       setAiProvider: (provider) => set({ aiProvider: provider }),
@@ -124,6 +162,7 @@ export const useAppStore = create<AppState>()(
         syncMeta: state.syncMeta,
         interactionHistory: state.interactionHistory,
         symptomHistory: state.symptomHistory,
+        activeCase: state.activeCase,
       }),
     }
   )

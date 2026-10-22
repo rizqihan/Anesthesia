@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -6,25 +5,25 @@
    CSS CUSTOM PROPERTIES
    =========================== */
 :root {
-  --bg-base: #080d17;
-  --bg-surface: #0d1526;
-  --bg-card: rgba(15, 23, 42, 0.7);
-  --bg-card-hover: rgba(20, 30, 55, 0.85);
-  --bg-input: rgba(10, 16, 30, 0.8);
-  --border-subtle: rgba(255, 255, 255, 0.06);
+  --bg-base: #080c15;
+  --bg-surface: #0e1424;
+  --bg-card: rgba(14, 20, 36, 0.85);
+  --bg-card-hover: rgba(22, 32, 54, 0.95);
+  --bg-input: rgba(10, 15, 28, 0.85);
+  --border-subtle: rgba(255, 255, 255, 0.07);
   --border-card: rgba(255, 255, 255, 0.09);
-  --border-card-hover: rgba(59, 130, 246, 0.35);
+  --border-card-hover: rgba(59, 130, 246, 0.4);
   --border-input: rgba(255, 255, 255, 0.12);
-  --border-input-focus: rgba(59, 130, 246, 0.7);
+  --border-input-focus: rgba(59, 130, 246, 0.8);
 
-  --text-primary: #f0f4ff;
-  --text-secondary: #8b9ab4;
-  --text-muted: #4d5f7a;
-  --text-accent: #60a5fa;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-accent: #38bdf8;
 
-  --accent-blue: #3b82f6;
-  --accent-blue-glow: rgba(59, 130, 246, 0.25);
-  --accent-blue-subtle: rgba(59, 130, 246, 0.1);
+  --accent-blue: #2563eb;
+  --accent-blue-glow: rgba(37, 99, 235, 0.2);
+  --accent-blue-subtle: rgba(37, 99, 235, 0.1);
   --accent-emerald: #10b981;
   --accent-emerald-subtle: rgba(16, 185, 129, 0.1);
   --accent-rose: #f43f5e;
@@ -34,10 +33,10 @@
   --accent-violet: #8b5cf6;
   --accent-violet-subtle: rgba(139, 92, 246, 0.1);
 
-  --shadow-card: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 0 0 1px rgba(59,130,246,0.3), 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(59, 130, 246, 0.08);
-  --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 60px rgba(59, 130, 246, 0.1);
-  --shadow-input-focus: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-card-hover: 0 4px 20px -2px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.3);
+  --shadow-glow-blue: 0 0 20px rgba(37, 99, 235, 0.25);
+  --shadow-input-focus: 0 0 0 2px rgba(59, 130, 246, 0.25);
 }
 
 /* ===========================
@@ -48,18 +47,17 @@
 }
 
 html, body {
-  height: 100%;
   margin: 0;
   padding: 0;
+  min-height: 100%;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: var(--bg-base);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
 }
 
 /* ===========================
@@ -133,20 +131,23 @@ body {
 }
 
 /* ===========================
-   GRADIENT TEXT
+   TYPOGRAPHY & HEADINGS
    =========================== */
 .gradient-text {
-  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #34d399 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .gradient-text-blue {
-  background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #60a5fa;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /* ===========================

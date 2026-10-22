@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import AppShell from '@/components/AppShell';
 
 export const metadata: Metadata = {
-  title: 'Anesthesia — Clinical Assistant',
-  description: 'AI-powered clinical assistant, medical calculators, and offline reference suite tailored for MDs and healthcare professionals.',
+  title: 'Anesthesia — Clinical Decision Support & Acute Care Suite',
+  description: 'Offline-capable suite of intelligent clinical tools, 12-lead ECG simulation, crisis dosing, and reference apps for anesthesiologists and healthcare professionals.',
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.png',
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#080d17',
+  themeColor: '#080c15',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -33,13 +32,10 @@ export default function RootLayout({
   return (
     <html lang="en" style={{ colorScheme: 'dark' }}>
       <body
-        className="antialiased h-screen overflow-hidden flex flex-col"
-        style={{ background: 'var(--bg-base)', color: 'var(--text-primary)', fontFamily: "'Inter', sans-serif" }}
+        className="antialiased min-h-screen text-[var(--text-primary)] bg-[var(--bg-base)] selection:bg-blue-500/20 selection:text-blue-200"
         suppressHydrationWarning
       >
-        <AppShell>
-          {children}
-        </AppShell>
+        {children}
       </body>
     </html>
   );

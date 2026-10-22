@@ -127,7 +127,7 @@ export default function PhysicalExamPage() {
       {/* Header Panel */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
-          <Link href="/">
+          <Link href="/dashboard">
             <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -275,7 +275,7 @@ export default function PhysicalExamPage() {
                           {exam.category}
                         </span>
                       </div>
-                      <h3 className="font-[700] text-[14px] leading-snug mb-2 group-hover:text-indigo-400 transition-colors" style={{ color: 'var(--text-primary)' }}>
+                      <h3 className="font-[700] text-[14px] leading-snug mb-2 group-hover:text-blue-400 transition-colors" style={{ color: 'var(--text-primary)' }}>
                         {language === 'en' ? exam.title.en : exam.title.id}
                       </h3>
                       <p className="text-[12px] leading-relaxed flex-1 line-clamp-3" style={{ color: 'var(--text-secondary)' }}>

@@ -356,9 +356,9 @@ export default function ECGSimulatorPage() {
                     </span>
                   </div>
 
-                  {/* Left accent bar on active item */}
+                  {/* Clean active state badge/indicator */}
                   {isActive && (
-                    <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500" />
+                    <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
                   )}
                 </button>
               );

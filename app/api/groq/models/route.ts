@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+let cachedModelsResponse: unknown = null;
+let cacheExpiresAt = 0;
+
 export async function GET() {
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
@@ -7,6 +10,12 @@ export async function GET() {
       { error: { message: 'GROQ_API_KEY is not configured on the server.' } },
       { status: 500 }
     );
+  }
+
+  // Return cached model response if still fresh (1 hour TTL)
+  const now = Date.now();
+  if (cachedModelsResponse && now < cacheExpiresAt) {
+    return NextResponse.json(cachedModelsResponse);
   }
 
   try {
@@ -22,6 +31,9 @@ export async function GET() {
     if (!response.ok) {
       return NextResponse.json(data, { status: response.status });
     }
+
+    cachedModelsResponse = data;
+    cacheExpiresAt = now + 3600000; // 1 hour cache
 
     return NextResponse.json(data);
   } catch (e) {

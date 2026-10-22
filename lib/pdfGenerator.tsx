@@ -50,6 +50,12 @@ export const printContentAsPDF = (
 
   const safeTitle = escapeHtml(title);
 
+  // Strip script tags and active event handlers from htmlContent before writing
+  const sanitizedHtml = htmlContent
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/on\w+\s*=\s*(["']).*?\1/gi, '')
+    .replace(/javascript:/gi, '');
+
   // Write content with print-specific styles
   doc.write(`
     <!DOCTYPE html>
@@ -192,8 +198,8 @@ export const printContentAsPDF = (
         </style>
       </head>
       <body>
-        <h1>${title}</h1>
-        <div>${htmlContent}</div>
+        <h1>${safeTitle}</h1>
+        <div>${sanitizedHtml}</div>
       </body>
     </html>
   `);

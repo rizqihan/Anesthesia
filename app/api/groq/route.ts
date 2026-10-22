@@ -8,6 +8,10 @@ const ALLOWED_MODELS = new Set([
   'mixtral-8x7b-32768',
   'gemma2-9b-it',
 ]);
+const ALLOWED_ROLES = new Set(['user', 'assistant', 'system']);
+
+// In-memory sliding window rate limiter (max 20 requests/min per IP)
+const ipRequestTracker = new Map<string, { count: number; resetTime: number }>();
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GROQ_API_KEY;
@@ -16,6 +20,30 @@ export async function POST(req: NextRequest) {
       { error: { message: 'GROQ_API_KEY is not configured on the server.' } },
       { status: 500 }
     );
+  }
+
+  // Rate Limiting by IP
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  const now = Date.now();
+  const rateRecord = ipRequestTracker.get(ip);
+
+  if (rateRecord && now < rateRecord.resetTime) {
+    if (rateRecord.count >= 20) {
+      return NextResponse.json(
+        { error: { message: 'Rate limit reached: maximum 20 clinical queries per minute. Please wait.' } },
+        { status: 429 }
+      );
+    }
+    rateRecord.count += 1;
+  } else {
+    ipRequestTracker.set(ip, { count: 1, resetTime: now + 60000 });
+  }
+
+  // Periodic map cleanup
+  if (ipRequestTracker.size > 1000) {
+    for (const [key, val] of ipRequestTracker.entries()) {
+      if (now > val.resetTime) ipRequestTracker.delete(key);
+    }
   }
 
   try {
@@ -30,18 +58,24 @@ export async function POST(req: NextRequest) {
     }
 
     // Guard against excessive message arrays (DoS / quota exhaustion)
-    if (body.messages.length > 20) {
+    if (body.messages.length > 10) {
       return NextResponse.json(
-        { error: { message: 'Invalid payload: messages array exceeds maximum allowed length.' } },
+        { error: { message: 'Invalid payload: messages array exceeds maximum allowed length of 10.' } },
         { status: 400 }
       );
     }
 
-    // Validate each message structure and character bound
+    // Validate each message structure, role, and character bounds
     for (const msg of body.messages) {
-      if (!msg || typeof msg !== 'object' || typeof msg.content !== 'string' || msg.content.length > 10000) {
+      if (!msg || typeof msg !== 'object' || typeof msg.content !== 'string' || msg.content.length > 4000) {
         return NextResponse.json(
-          { error: { message: 'Invalid message object or message content exceeds length limit.' } },
+          { error: { message: 'Invalid message object or message content exceeds 4,000 character limit.' } },
+          { status: 400 }
+        );
+      }
+      if (msg.role && !ALLOWED_ROLES.has(msg.role)) {
+        return NextResponse.json(
+          { error: { message: `Invalid message role: '${msg.role}'. Allowed roles: user, assistant, system.` } },
           { status: 400 }
         );
       }

@@ -77,6 +77,9 @@ interface AppState {
   addSymptomHistory: (item: Omit<HistoryItem, 'id' | 'timestamp'>) => void;
   clearSymptomHistory: () => void;
 
+  // Clear all confidential patient demographics, labs, and case queries from localStorage
+  clearPatientSession: () => void;
+
   // Per-dataset sync metadata
   syncMeta: {
     icd10: DatasetSyncMeta;
@@ -182,6 +185,33 @@ export const useAppStore = create<AppState>()(
         symptomHistory: [{ ...item, id: Date.now().toString(), timestamp: Date.now() }, ...state.symptomHistory].slice(0, 5)
       })),
       clearSymptomHistory: () => set({ symptomHistory: [] }),
+
+      clearPatientSession: () =>
+        set({
+          activeCase: {
+            patientWeight: '',
+            patientHeight: '',
+            patientAge: '',
+            patientSex: 'M',
+            asaClass: 'I',
+            mallampati: 'I',
+          },
+          patientLabs: {
+            serumCreatinine: '',
+            bloodUreaNitrogen: '',
+            sodium: '',
+            potassium: '',
+            chloride: '',
+            bicarbonate: '',
+            glucose: '',
+            albumin: '',
+            totalBilirubin: '',
+            platelets: '',
+            inr: '',
+          },
+          interactionHistory: [],
+          symptomHistory: [],
+        }),
 
       syncMeta: {
         icd10: { lastSynced: null, count: 0 },

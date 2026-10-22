@@ -3,9 +3,13 @@ import { GoogleGenAI } from '@google/genai';
 
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
 
-/** Normalize an OpenAI-compatible base URL to ensure it ends with /chat/completions */
+/** Normalize an OpenAI-compatible base URL to ensure it ends with /chat/completions and uses HTTPS */
 function buildOpenAIUrl(endpoint: string): string {
   let base = endpoint.trim().replace(/\/+$/, '');
+  const isLocal = base.startsWith('http://localhost') || base.startsWith('http://127.0.0.1');
+  if (base.startsWith('http://') && !isLocal) {
+    base = base.replace(/^http:\/\//i, 'https://');
+  }
   if (base.endsWith('/chat/completions')) return base;
   if (!base.endsWith('/v1')) base = base.replace(/\/v1\/.*$/, '/v1');
   return `${base}/chat/completions`;

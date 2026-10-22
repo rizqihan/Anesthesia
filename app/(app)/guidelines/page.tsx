@@ -9,13 +9,14 @@ import { translations } from '@/lib/i18n';
 import { generateSingleCPG } from '@/lib/syncAgent';
 import { 
   BookOpen, Search, WifiOff, FileText, HeartPulse, Stethoscope, Wind, Baby, Pill, ArrowLeft, 
-  Activity, FlaskConical, GitBranch, ShieldCheck, GraduationCap, ClipboardCheck, 
+  Activity, FlaskConical, GitBranch, ShieldCheck, ShieldAlert, GraduationCap, ClipboardCheck, 
   AlertTriangle, Sparkles, ChevronDown, ChevronUp, RefreshCw, X, Plus, Brain, Syringe, Scan,
   Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 import { printContentAsPDF } from '@/lib/pdfGenerator';
+import ASRACoagsNavigator from '@/components/asra/ASRACoagsNavigator';
 
 const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase();
@@ -55,6 +56,7 @@ export default function GuidelinesPage() {
   const [search, setSearch] = useState('');
   const [newCondition, setNewCondition] = useState('');
   const [selectedGuideline, setSelectedGuideline] = useState<GuidelineRecord | null>(null);
+  const [activeView, setActiveView] = useState<'guidelines' | 'asra'>('guidelines');
   
   // Client mount status for React Portal
   const [mounted, setMounted] = useState(false);
@@ -213,8 +215,40 @@ export default function GuidelinesPage() {
         </div>
       </div>
 
-      {/* AI CPG Generator Input Panel */}
-      <div className="glass-card p-5 relative overflow-hidden">
+      {/* View Switcher: Clinical Practice Guidelines vs ASRA Coags Regional Anticoagulation */}
+      <div className="flex items-center p-1 rounded-2xl bg-white/[0.03] border border-white/10 gap-1 shadow-inner max-w-md">
+        <button
+          type="button"
+          onClick={() => setActiveView('guidelines')}
+          className={`flex-1 py-2 px-3 rounded-xl text-[12px] font-[700] transition-all flex items-center justify-center gap-1.5 ${
+            activeView === 'guidelines'
+              ? 'bg-teal-600 text-white shadow-md'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+          }`}
+        >
+          <BookOpen className="w-3.5 h-3.5" />
+          <span>{language === 'en' ? 'Clinical Guidelines' : 'Pedoman Klinis'}</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveView('asra')}
+          className={`flex-1 py-2 px-3 rounded-xl text-[12px] font-[700] transition-all flex items-center justify-center gap-1.5 ${
+            activeView === 'asra'
+              ? 'bg-rose-600 text-white shadow-md'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+          }`}
+        >
+          <ShieldAlert className="w-3.5 h-3.5" />
+          <span>{language === 'en' ? 'ASRA Regional Coags' : 'ASRA Koagulasi'}</span>
+        </button>
+      </div>
+
+      {activeView === 'asra' ? (
+        <ASRACoagsNavigator />
+      ) : (
+        <>
+          {/* AI CPG Generator Input Panel */}
+          <div className="glass-card p-5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1 flex-1">
@@ -351,6 +385,8 @@ export default function GuidelinesPage() {
           </AnimatePresence>
         )}
       </div>
+      </>
+      )}
 
       {/* CPG Detail Modal Overlay */}
       {mounted && typeof window !== 'undefined' && createPortal(

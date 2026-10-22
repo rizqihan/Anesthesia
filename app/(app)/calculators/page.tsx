@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Calculator, WifiOff, ArrowLeft, Copy, Check, ShieldAlert, Activity, Baby } from 'lucide-react';
+import { Calculator, WifiOff, ArrowLeft, Copy, Check, ShieldAlert, Activity, Baby, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 import RiskScoresTab from '@/components/calculators/RiskScoresTab';
 import DiagnosticLabTab from '@/components/calculators/DiagnosticLabTab';
 import PediatricGrowthSuite from '@/components/pediatric/PediatricGrowthSuite';
+import ASRACoagsNavigator from '@/components/asra/ASRACoagsNavigator';
 
 const inputClass = "glass-input w-full px-3 py-2.5 text-[13px] font-[500]";
 const labelClass = "form-label";
@@ -68,7 +69,7 @@ export default function CalculatorsPage() {
   const { language, activeCase } = useAppStore();
   const t = translations[language] as any;
 
-  const [category, setCategory] = useState<'bedside' | 'risk_scores' | 'diagnostic_labs' | 'pediatric'>('bedside');
+  const [category, setCategory] = useState<'bedside' | 'risk_scores' | 'diagnostic_labs' | 'pediatric' | 'asra'>('bedside');
   const [activeTab, setActiveTab] = useState('bmi');
 
   // BMI State
@@ -406,8 +407,8 @@ export default function CalculatorsPage() {
         </div>
       </div>
 
-      {/* Category Pills: Bedside vs Clinical Risk Scores vs Diagnostic Labs vs Pediatric */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 p-1 rounded-2xl bg-white/[0.03] border border-white/10 gap-1 shadow-inner">
+      {/* Category Pills: Bedside vs Clinical Risk Scores vs Diagnostic Labs vs Pediatric vs ASRA Coags */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 p-1 rounded-2xl bg-white/[0.03] border border-white/10 gap-1 shadow-inner">
         {[
           { 
             id: 'bedside', 
@@ -432,6 +433,12 @@ export default function CalculatorsPage() {
             fullLabel: language === 'en' ? 'Pediatric & Neonatal' : 'Pediatrik & Neonatal', 
             shortLabel: language === 'en' ? 'Pediatric' : 'Pediatrik', 
             icon: Baby 
+          },
+          { 
+            id: 'asra', 
+            fullLabel: language === 'en' ? 'ASRA Regional Coags' : 'ASRA Koagulasi Regional', 
+            shortLabel: 'ASRA Coags', 
+            icon: ShieldCheck 
           },
         ].map((cat) => {
           const Icon = cat.icon;
@@ -908,6 +915,11 @@ export default function CalculatorsPage() {
   {/* Pediatric & Neonatal Suite */}
   {category === 'pediatric' && (
     <PediatricGrowthSuite />
+  )}
+
+  {/* ASRA Coags Regional Anticoagulation Suite */}
+  {category === 'asra' && (
+    <ASRACoagsNavigator />
   )}
 </div>
 );

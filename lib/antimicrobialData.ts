@@ -2103,6 +2103,15 @@ export interface BedsideRoundsSbarInput {
 export function generateBedsideRoundsSbarHtml(data: BedsideRoundsSbarInput): string {
   const { activeCase, patientLabs, customNotes, antimicrobialRegimen, riskAssessments, abgInterpretation } = data;
 
+  const escapeHtml = (str: string) =>
+    str.replace(/[<>&"']/g, (c) => ({
+      '<': '&lt;',
+      '>': '&gt;',
+      '&': '&amp;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }[c] || c));
+
   const weight = parseFloat(activeCase.patientWeight) || 70;
   const height = parseFloat(activeCase.patientHeight || '170') || 170;
   const age = parseFloat(activeCase.patientAge) || 45;
@@ -2475,7 +2484,7 @@ export function generateBedsideRoundsSbarHtml(data: BedsideRoundsSbarInput): str
               Bedside Rounds & Attending Physician Directives:
             </div>
             <div style="min-height: 48px; font-size: 11px; color: #0f172a; border-bottom: 1px dashed #cbd5e1; padding-bottom: 6px; margin-bottom: 8px;">
-              ${customNotes ? customNotes : 'Fluid Balance: Net neutral target. Maintain MAP > 65 mmHg. Check repeat lactate & ABG q4h. Renal dose re-evaluation on morning labs.'}
+              ${customNotes ? escapeHtml(customNotes) : 'Fluid Balance: Net neutral target. Maintain MAP > 65 mmHg. Check repeat lactate & ABG q4h. Renal dose re-evaluation on morning labs.'}
             </div>
             <div style="display: flex; justify-content: space-between; font-size: 10px; color: #64748b;">
               <span><strong>Attending Physician:</strong> ___________________________</span>

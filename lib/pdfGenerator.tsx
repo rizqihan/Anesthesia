@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 
 /**
  * Utility to print any HTML content as a PDF using browser native print.
@@ -38,12 +39,23 @@ export const printContentAsPDF = (
 
   doc.title = targetTitle;
 
+  const escapeHtml = (str: string) =>
+    str.replace(/[<>&"']/g, (c) => ({
+      '<': '&lt;',
+      '>': '&gt;',
+      '&': '&amp;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }[c] || c));
+
+  const safeTitle = escapeHtml(title);
+
   // Write content with print-specific styles
   doc.write(`
     <!DOCTYPE html>
     <html>
       <head>
-        <title>${title}</title>
+        <title>${safeTitle}</title>
         <style>
           body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -216,7 +228,7 @@ export const downloadAIResponsePDF = async (
         <p style={{ margin: 0, fontWeight: 500, fontSize: '13px' }}>{queryText}</p>
       </div>
       <h3 style={{ borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', textTransform: 'uppercase', color: '#64748b', fontSize: '12px' }}>{resultLabel}</h3>
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeSanitize]}>
         {markdownResult}
       </ReactMarkdown>
     </div>

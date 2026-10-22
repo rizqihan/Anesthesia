@@ -6,6 +6,7 @@ import { X, Download, FileJson } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 import { translations } from '@/lib/i18n';
 
 interface ResultModalProps {
@@ -156,7 +157,7 @@ export default function ResultModal({
                   {resultLabel}
                 </h4>
                 <div className="text-[14px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)] prose-table:border-collapse prose-th:border prose-th:border-white/10 prose-th:p-2 prose-td:border prose-td:border-white/10 prose-td:p-2">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeSanitize]}>
                     {markdownContent}
                   </ReactMarkdown>
                 </div>

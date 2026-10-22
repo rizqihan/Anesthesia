@@ -27,6 +27,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 import { downloadAIResponsePDF } from '@/lib/pdfGenerator';
 import ResultModal from '@/components/ResultModal';
 import {
@@ -455,7 +456,7 @@ Keep it structured with bullet points. Add standard medical disclaimer.`;
 
             <div className="result-box overflow-y-auto max-h-[350px]">
               <div className="text-[12.5px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-slate-300 prose-headings:text-slate-100">
-                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeSanitize]}>
                   {aiResult}
                 </ReactMarkdown>
               </div>

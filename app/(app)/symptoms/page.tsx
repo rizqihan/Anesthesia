@@ -10,6 +10,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 import { downloadAIResponsePDF } from '@/lib/pdfGenerator';
 import ResultModal from '@/components/ResultModal';
 
@@ -113,7 +114,7 @@ export default function SymptomCheckerPage() {
                   </div>
                   <div className="result-box overflow-y-auto max-h-[300px] flex-1">
                     <div className="text-[13px] leading-relaxed prose prose-invert prose-sm max-w-none prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)]">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{result}</ReactMarkdown>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeSanitize]}>{result}</ReactMarkdown>
                     </div>
                   </div>
                 </motion.div>

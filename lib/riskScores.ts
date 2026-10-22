@@ -126,8 +126,10 @@ export function calculateWellsPe(input: WellsPeInput): WellsPeResult {
     clinicalAction = 'High-sensitivity D-dimer testing indicated. If elevated, obtain urgent CTA chest.';
   }
 
-  // PERC Rule-Out evaluation (applicable when low risk or PE unlikely)
-  const percApplicable = score < 2.0 || twoTierRisk === 'Unlikely';
+  // PERC Rule-Out evaluation:
+  // Under consensus clinical guidelines (ACEP, ESC, Kline et al.), PERC is strictly validated and safe ONLY for LOW-RISK patients (Wells score < 2.0).
+  // Applying PERC to moderate or high risk patients carries an unacceptably high rate of missed fatal pulmonary embolism.
+  const percApplicable = score < 2.0;
   let percRuleOut = false;
 
   if (percApplicable && input.percCriteria) {
@@ -156,6 +158,12 @@ export function calculateWellsPe(input: WellsPeInput): WellsPeResult {
     if (!hasAnyPercRisk) {
       percRuleOut = true;
       clinicalAction = 'PERC negative in low-risk patient: Pulmonary embolism ruled out clinically (<1.8% risk). No D-dimer or imaging required.';
+    }
+  } else if (!percApplicable && score >= 2.0) {
+    if (score > 6.0) {
+      clinicalAction = 'High risk (Wells score > 6.0): PERC not applicable. CTA chest indicated immediately. Initiate therapeutic anticoagulation if no contraindications.';
+    } else {
+      clinicalAction = 'Moderate risk (Wells score 2.0 - 6.0): PERC not applicable. High-sensitivity D-dimer testing indicated. If elevated, obtain urgent CTA chest.';
     }
   }
 
@@ -226,9 +234,9 @@ export function calculateCha2ds2Vasc(input: Cha2ds2VascInput): Cha2ds2VascResult
     }
   } else {
     // Female
-    if (score === 1) {
+    if (score <= 1) {
       riskLevel = 'Low';
-      anticoagulationRecommendation = 'Score 1 (female sex alone): Low risk. No antithrombotic therapy indicated.';
+      anticoagulationRecommendation = 'Score ≤ 1 (female sex alone): Low risk. No antithrombotic therapy indicated.';
     } else if (score === 2) {
       riskLevel = 'Moderate';
       anticoagulationRecommendation = 'Score 2: Moderate risk. Oral anticoagulation (DOAC preferred) should be considered (Class IIa).';
@@ -358,7 +366,7 @@ export function calculatePsi(input: PsiInput): PsiResult {
   if (input.pleuralEffusion) score += 10;
 
   // Class assignment
-  // Class I: Age <= 50 without any comorbidities, altered mental status, or abnormal vitals
+  // Class I: Age <= 50 without any comorbidities, altered mental status, abnormal vitals, OR lab/imaging abnormalities
   const hasComorbidities = !!(
     input.neoplasticDisease ||
     input.liverDisease ||
@@ -374,12 +382,21 @@ export function calculatePsi(input: PsiInput): PsiResult {
     input.tempAbnormal ||
     input.pulseGte125
   );
+  const hasLabOrImagingAbnormality = !!(
+    input.arterialPhLt735 ||
+    input.bunGte30 ||
+    input.sodiumLt130 ||
+    input.glucoseGte250 ||
+    input.hematocritLt30 ||
+    input.pao2Lt60orSpo2Lt90 ||
+    input.pleuralEffusion
+  );
 
   let classTier: PsiResult['classTier'] = 'Class II';
   let mortalityPercent = '0.6%';
   let triageRecommendation = 'Class II: Outpatient care safe.';
 
-  if (input.age <= 50 && !hasComorbidities && !hasVitalsAbnormality) {
+  if (input.age <= 50 && !hasComorbidities && !hasVitalsAbnormality && !hasLabOrImagingAbnormality) {
     classTier = 'Class I';
     mortalityPercent = '0.1%';
     triageRecommendation = 'Class I: Very low risk. Outpatient management recommended.';
@@ -746,11 +763,16 @@ export interface MeldNaResult {
 }
 
 export function calculateMeldNa(input: MeldNaInput): MeldNaResult {
+  const rawCr = typeof input.creatinine === 'number' && !isNaN(input.creatinine) ? input.creatinine : 1.0;
+  const rawBili = typeof input.bilirubin === 'number' && !isNaN(input.bilirubin) ? input.bilirubin : 1.0;
+  const rawInr = typeof input.inr === 'number' && !isNaN(input.inr) ? input.inr : 1.0;
+  const rawNa = typeof input.sodium === 'number' && !isNaN(input.sodium) ? input.sodium : 137;
+
   // UNOS / OPTN Rules:
   // Values < 1.0 set to 1.0
-  let cr = Math.max(1.0, input.creatinine);
-  const bili = Math.max(1.0, input.bilirubin);
-  const inr = Math.max(1.0, input.inr);
+  let cr = Math.max(1.0, rawCr);
+  const bili = Math.max(1.0, rawBili);
+  const inr = Math.max(1.0, rawInr);
 
   // If dialyzed twice in prior 7 days or CVVH 24h, Cr set to 4.0
   if (input.onDialysisTwicePastWeek || cr > 4.0) {
@@ -765,7 +787,7 @@ export function calculateMeldNa(input: MeldNaInput): MeldNaResult {
   // If MELD > 11, adjust for Sodium bounded between 125 and 137
   let meldNa = meld;
   if (meld > 11) {
-    const boundedNa = Math.min(137, Math.max(125, input.sodium));
+    const boundedNa = Math.min(137, Math.max(125, rawNa));
     const rawMeldNa = meld + 1.32 * (137 - boundedNa) - 0.033 * meld * (137 - boundedNa);
     meldNa = Math.round(rawMeldNa);
   }
@@ -877,7 +899,9 @@ export interface CkdEpi2021Result {
 }
 
 export function calculateCkdEpi2021(input: CkdEpi2021Input): CkdEpi2021Result {
-  const { creatinine, age, sex } = input;
+  const creatinine = typeof input.creatinine === 'number' && !isNaN(input.creatinine) && input.creatinine > 0 ? Math.max(0.1, input.creatinine) : 0.1;
+  const age = typeof input.age === 'number' && !isNaN(input.age) && input.age > 0 ? Math.max(18, input.age) : 50;
+  const sex = input.sex === 'F' ? 'F' : 'M';
   const isFemale = sex === 'F';
   const kappa = isFemale ? 0.7 : 0.9;
   const alpha = isFemale ? -0.241 : -0.302;

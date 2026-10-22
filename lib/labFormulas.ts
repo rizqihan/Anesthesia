@@ -50,7 +50,14 @@ export interface AbgResult {
 }
 
 export function analyzeAbg(input: AbgInput): AbgResult {
-  const { ph, paco2, hco3, sodium, chloride, albumin, pao2, fio2 } = input;
+  const ph = typeof input.ph === 'number' && !isNaN(input.ph) && input.ph > 0 ? input.ph : 7.4;
+  const paco2 = typeof input.paco2 === 'number' && !isNaN(input.paco2) && input.paco2 > 0 ? input.paco2 : 40;
+  const hco3 = typeof input.hco3 === 'number' && !isNaN(input.hco3) && input.hco3 > 0 ? input.hco3 : 24;
+  const sodium = typeof input.sodium === 'number' && !isNaN(input.sodium) ? input.sodium : undefined;
+  const chloride = typeof input.chloride === 'number' && !isNaN(input.chloride) ? input.chloride : undefined;
+  const albumin = typeof input.albumin === 'number' && !isNaN(input.albumin) && input.albumin > 0 ? input.albumin : undefined;
+  const pao2 = typeof input.pao2 === 'number' && !isNaN(input.pao2) && input.pao2 > 0 ? input.pao2 : undefined;
+  const fio2 = typeof input.fio2 === 'number' && !isNaN(input.fio2) && input.fio2 > 0 ? input.fio2 : undefined;
 
   // Step 1: Acidemia vs Alkalemia
   let step1PhStatus: AbgResult['step1PhStatus'] = 'Normal pH';
@@ -155,21 +162,25 @@ export function analyzeAbg(input: AbgInput): AbgResult {
     const expectedValueText = `Expected PaCO2 = ${expectedPaco2.toFixed(1)} mmHg (${lowerPaco2.toFixed(1)} - ${upperPaco2.toFixed(1)} mmHg)`;
 
     if (paco2 > upperPaco2) {
-      compensation = {
-        type: 'metabolic_alkalosis',
-        expectedValueText,
-        isCompensated: false,
-        status: 'under_compensated',
-        concomitantDisorder: 'Concomitant Respiratory Acidosis',
-      };
-    } else if (paco2 < lowerPaco2) {
+      // PaCO2 has risen beyond expected compensatory hypoventilation -> excess CO2 retention / respiratory acidosis
       compensation = {
         type: 'metabolic_alkalosis',
         expectedValueText,
         isCompensated: false,
         status: 'over_compensated',
-        concomitantDisorder: 'Concomitant Respiratory Alkalosis',
+        concomitantDisorder: 'Concomitant Respiratory Acidosis (excess CO₂ retention / hypoventilation)',
       };
+      clinicalPearls.push('PaCO2 is higher than expected for metabolic alkalosis compensation: Concomitant respiratory acidosis present.');
+    } else if (paco2 < lowerPaco2) {
+      // PaCO2 has not risen to expected level -> insufficient hypoventilation / hyperventilation
+      compensation = {
+        type: 'metabolic_alkalosis',
+        expectedValueText,
+        isCompensated: false,
+        status: 'under_compensated',
+        concomitantDisorder: 'Concomitant Respiratory Alkalosis (inadequate hypoventilation / hyperventilation)',
+      };
+      clinicalPearls.push('PaCO2 is lower than expected for metabolic alkalosis compensation: Concomitant respiratory alkalosis present.');
     } else {
       compensation = {
         type: 'metabolic_alkalosis',
@@ -177,6 +188,7 @@ export function analyzeAbg(input: AbgInput): AbgResult {
         isCompensated: true,
         status: 'adequate',
       };
+      clinicalPearls.push('Respiratory compensation for metabolic alkalosis is adequate.');
     }
   } else if (isRespAcid || primaryDisorder.includes('Respiratory Acidosis')) {
     // Acute: Delta HCO3 = 1 * (Delta PaCO2 / 10); Chronic: Delta HCO3 = 3.5 * (Delta PaCO2 / 10)
@@ -269,6 +281,8 @@ export function analyzeAbg(input: AbgInput): AbgResult {
       } else {
         deltaDeltaInterpretation = 'HCO3 ≥ 24 with elevated Anion Gap: High Anion Gap Acidosis masked by significant concurrent Metabolic Alkalosis.';
       }
+    } else if (isMetAcid) {
+      deltaDeltaInterpretation = 'Normal Anion Gap Metabolic Acidosis (NAGMA / Hyperchloremic Acidosis): Anion gap is normal (≤12 mEq/L). Typical etiologies include gastrointestinal HCO3⁻ loss (severe diarrhea), Renal Tubular Acidosis (RTA), or rapid normal saline (0.9% NaCl) volume resuscitation.';
     }
 
     anionGapAnalysis = {
@@ -282,19 +296,24 @@ export function analyzeAbg(input: AbgInput): AbgResult {
     };
   }
 
-  // Summary diagnosis builder
+  // Summary diagnosis builder: Avoid duplicate text when primary is already combined
   const disorderParts: string[] = [primaryDisorder];
-  if (compensation.concomitantDisorder) {
+  if (compensation.concomitantDisorder && !primaryDisorder.startsWith('Combined (Mixed)')) {
     disorderParts.push(`with ${compensation.concomitantDisorder}`);
   }
-  if (anionGapAnalysis?.isHighAnionGap) {
-    disorderParts.push(`(High Anion Gap: ${anionGapAnalysis.correctedAnionGap ?? anionGapAnalysis.rawAnionGap} mEq/L)`);
+  if (anionGapAnalysis) {
+    if (anionGapAnalysis.isHighAnionGap) {
+      const agVal = anionGapAnalysis.correctedAnionGap ?? anionGapAnalysis.rawAnionGap;
+      disorderParts.push(`(High Anion Gap: ${agVal} mEq/L${anionGapAnalysis.correctedAnionGap !== null ? ' [Albumin-corrected]' : ''})`);
+    } else if (isMetAcid) {
+      disorderParts.push(`(Normal Anion Gap: ${anionGapAnalysis.correctedAnionGap ?? anionGapAnalysis.rawAnionGap} mEq/L [NAGMA])`);
+    }
   }
   const summaryDiagnosis = disorderParts.join(' ');
 
   // Optional P/F Ratio for ARDS
   let pfRatio: AbgResult['pfRatio'] | undefined = undefined;
-  if (pao2 !== undefined && fio2 !== undefined && fio2 > 0) {
+  if (pao2 !== undefined && fio2 !== undefined && fio2 > 0 && !isNaN(pao2) && !isNaN(fio2)) {
     const fraction = fio2 > 1.0 ? fio2 / 100 : fio2;
     const ratio = Math.round(pao2 / fraction);
     let ardsCategory = 'Normal oxygenation (P/F ≥ 300)';
@@ -328,19 +347,21 @@ export interface CorrectedSodiumResult {
 }
 
 export function calculateCorrectedSodium(measuredNa: number, glucose: number): CorrectedSodiumResult {
-  const glucoseDelta = Math.max(0, glucose - 100);
+  const na = typeof measuredNa === 'number' && !isNaN(measuredNa) ? measuredNa : 140;
+  const glu = typeof glucose === 'number' && !isNaN(glucose) ? glucose : 100;
+  const glucoseDelta = Math.max(0, glu - 100);
   const factor100 = glucoseDelta / 100;
 
   // Katz: +1.6 mEq/L per 100 mg/dL glucose over 100
-  const katzSodium = +(measuredNa + 1.6 * factor100).toFixed(1);
+  const katzSodium = +(na + 1.6 * factor100).toFixed(1);
 
   // Hillier et al. (1999): +2.4 mEq/L per 100 mg/dL glucose over 100
-  const hillierSodium = +(measuredNa + 2.4 * factor100).toFixed(1);
+  const hillierSodium = +(na + 2.4 * factor100).toFixed(1);
 
   let clinicalGuidance = 'Hillier formula is the modern standard, especially for Glucose > 400 mg/dL (DKA/HHS).';
-  if (glucose > 400) {
+  if (glu > 400) {
     clinicalGuidance = 'Severe Hyperglycemia (>400 mg/dL): Hillier formula (+2.4) prevents underestimation of hypernatremia. Use Hillier value for fluid tonicity selection.';
-  } else if (glucose <= 100) {
+  } else if (glu <= 100) {
     clinicalGuidance = 'Euglycemic: No osmotic fluid shifting adjustment necessary.';
   }
 
@@ -376,11 +397,14 @@ export function calculateFreeWaterDeficit(input: FreeWaterDeficitInput): FreeWat
     child: 0.60,
   };
 
+  const wt = typeof input.weightKg === 'number' && !isNaN(input.weightKg) && input.weightKg > 0 ? input.weightKg : 70;
+  const na = typeof input.serumSodium === 'number' && !isNaN(input.serumSodium) && input.serumSodium > 0 ? input.serumSodium : 140;
+
   const factor = factors[input.category] ?? 0.60;
-  const tbw = +(input.weightKg * factor).toFixed(1);
+  const tbw = +(wt * factor).toFixed(1);
 
   // Deficit = TBW * ((Serum Na / 140) - 1)
-  const deficitRaw = tbw * (input.serumSodium / 140 - 1);
+  const deficitRaw = tbw * (na / 140 - 1);
   const freeWaterDeficitLiters = +(Math.max(0, deficitRaw)).toFixed(2);
 
   const maxHourlyCorrectionRate = 'Decrease serum Na by no more than 0.5 mEq/L per hour (maximum 8 - 10 mEq/L in 24 hours).';
@@ -407,11 +431,21 @@ export interface PotassiumRepletionResult {
   centralIvLimit: string;
   oralPreferenceNote: string;
   magnesiumRequirementAlert: string;
+  hyperkalemiaAlert?: string;
+  isHyperkalemic: boolean;
 }
 
 export function calculatePotassiumRepletion(input: PotassiumRepletionInput): PotassiumRepletionResult {
-  const target = input.targetPotassium ?? 4.0;
-  const drop = Math.max(0, +(target - input.currentPotassium).toFixed(2));
+  const currentK = typeof input.currentPotassium === 'number' && !isNaN(input.currentPotassium) ? input.currentPotassium : 4.0;
+  const target = input.targetPotassium !== undefined && !isNaN(input.targetPotassium) ? input.targetPotassium : 4.0;
+  const isHyperkalemic = currentK > 5.0;
+
+  let hyperkalemiaAlert: string | undefined = undefined;
+  if (isHyperkalemic) {
+    hyperkalemiaAlert = '🚨 CRITICAL HYPERKALEMIA ALERT (K⁺ > 5.0 mEq/L): Do NOT administer potassium! Immediately obtain 12-lead ECG. If peaked T waves, PR prolongation, or QRS widening: give IV Calcium Gluconate (10 mL 10% over 2-3 min) to stabilize myocardium, followed by Regular Insulin 10U IV + 50 mL D50W, nebulized Albuterol (10-20 mg), and loop diuretics / emergent hemodialysis.';
+  }
+
+  const drop = Math.max(0, +(target - currentK).toFixed(2));
 
   // General rule: 0.1 mEq/L decrement below 4.0 ~ 10-20 mEq body deficit (use 10 mEq per 0.1 mEq/L baseline)
   let estimatedDeficit = Math.round((drop / 0.1) * 10);
@@ -420,7 +454,7 @@ export function calculatePotassiumRepletion(input: PotassiumRepletionInput): Pot
     estimatedDeficit = Math.round(estimatedDeficit * 0.5);
   }
 
-  const recommendedDoseMeq = estimatedDeficit;
+  const recommendedDoseMeq = isHyperkalemic ? 0 : estimatedDeficit;
 
   const peripheralIvLimit = 'Peripheral IV: Max rate 10 mEq/hour. Maximum fluid concentration 40 mEq/L to prevent chemical phlebitis and intense vein burning.';
   const centralIvLimit = 'Central Line (CVC): Max rate 20 mEq/hour with continuous cardiac telemetry monitoring. Emergency ICU resuscitation under continuous direct supervision: up to 40 mEq/hr.';
@@ -434,5 +468,7 @@ export function calculatePotassiumRepletion(input: PotassiumRepletionInput): Pot
     centralIvLimit,
     oralPreferenceNote,
     magnesiumRequirementAlert,
+    hyperkalemiaAlert,
+    isHyperkalemic,
   };
 }

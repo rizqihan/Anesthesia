@@ -56,12 +56,23 @@ export default function DiagnosticLabTab() {
 
   // Save current lab fields back to store
   const handleSaveLabsToProfile = () => {
-    updatePatientLabs({
-      sodium: abgNa,
-      chloride: abgCl,
-      bicarbonate: abgHco3,
-      albumin: abgAlbumin,
-    });
+    const updates: Parameters<typeof updatePatientLabs>[0] = {};
+    if (activeSubTab === 'abg') {
+      if (abgNa) updates.sodium = abgNa;
+      if (abgCl) updates.chloride = abgCl;
+      if (abgHco3) updates.bicarbonate = abgHco3;
+      if (abgAlbumin) updates.albumin = abgAlbumin;
+    } else {
+      if (electrolyteEngine === 'corr_na') {
+        if (corrNaMeas) updates.sodium = corrNaMeas;
+        if (corrNaGlucose) updates.glucose = corrNaGlucose;
+      } else if (electrolyteEngine === 'free_water') {
+        if (fwdSodium) updates.sodium = fwdSodium;
+      } else if (electrolyteEngine === 'k_repletion') {
+        if (kCurrent) updates.potassium = kCurrent;
+      }
+    }
+    updatePatientLabs(updates);
     setSyncedFeedback(true);
     setTimeout(() => setSyncedFeedback(false), 2000);
   };
@@ -378,7 +389,7 @@ export default function DiagnosticLabTab() {
 
                     {abgResult.step4AnionGap.deltaDeltaInterpretation && (
                       <div className="p-2.5 rounded-lg bg-purple-950/30 border border-purple-500/20 text-[11.5px] text-purple-200 leading-relaxed">
-                        🧬 <strong>Delta-Delta Interpretation:</strong> {abgResult.step4AnionGap.deltaDeltaInterpretation}
+                        🧬 <strong>Anion Gap / Delta-Delta Interpretation:</strong> {abgResult.step4AnionGap.deltaDeltaInterpretation}
                       </div>
                     )}
                   </div>
@@ -683,27 +694,41 @@ export default function DiagnosticLabTab() {
 
                     return (
                       <div className="p-4 rounded-xl bg-slate-900/90 border border-white/10 space-y-3">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="text-[10px] uppercase font-bold text-slate-400">Estimated Total Body Deficit</div>
-                            <div className="text-[28px] font-[800] font-mono text-emerald-400 tabular-nums">
-                              ~{res.estimatedDeficitMeq} <span className="text-[13px] font-normal text-slate-400">mEq</span>
+                        {res.isHyperkalemic ? (
+                          <div className="p-3.5 rounded-lg bg-rose-950/70 border border-rose-500/50 space-y-2">
+                            <div className="flex items-center gap-2 text-rose-300 font-bold text-[12.5px]">
+                              <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+                              Critical Hyperkalemia Emergency
                             </div>
+                            <p className="text-[11.5px] text-rose-200 leading-relaxed">
+                              {res.hyperkalemiaAlert}
+                            </p>
                           </div>
-                        </div>
+                        ) : (
+                          <>
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <div className="text-[10px] uppercase font-bold text-slate-400">Estimated Total Body Deficit</div>
+                                <div className="text-[28px] font-[800] font-mono text-emerald-400 tabular-nums">
+                                  ~{res.estimatedDeficitMeq} <span className="text-[13px] font-normal text-slate-400">mEq</span>
+                                </div>
+                              </div>
+                            </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11.5px]">
-                          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/5 text-slate-300">
-                            <strong>Peripheral IV Limit:</strong> {res.peripheralIvLimit}
-                          </div>
-                          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/5 text-slate-300">
-                            <strong>Central CVC Line:</strong> {res.centralIvLimit}
-                          </div>
-                        </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11.5px]">
+                              <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/5 text-slate-300">
+                                <strong>Peripheral IV Limit:</strong> {res.peripheralIvLimit}
+                              </div>
+                              <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/5 text-slate-300">
+                                <strong>Central CVC Line:</strong> {res.centralIvLimit}
+                              </div>
+                            </div>
 
-                        <div className="p-2.5 rounded-lg bg-blue-950/30 border border-blue-500/20 text-[11.5px] text-blue-200">
-                          💊 {res.oralPreferenceNote}
-                        </div>
+                            <div className="p-2.5 rounded-lg bg-blue-950/30 border border-blue-500/20 text-[11.5px] text-blue-200">
+                              💊 {res.oralPreferenceNote}
+                            </div>
+                          </>
+                        )}
 
                         <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-500/30 text-[11.5px] text-rose-200 leading-relaxed font-semibold">
                           {res.magnesiumRequirementAlert}

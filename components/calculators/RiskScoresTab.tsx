@@ -120,6 +120,7 @@ export default function RiskScoresTab({ initialScore = 'wells_dvt' }: RiskScoreT
     if (activeCase.patientAge) {
       const parsedAge = parseInt(activeCase.patientAge, 10);
       if (!isNaN(parsedAge)) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCha2ds2Vasc((prev) => ({ ...prev, age: parsedAge }));
       }
     }
@@ -189,6 +190,33 @@ export default function RiskScoresTab({ initialScore = 'wells_dvt' }: RiskScoreT
     creatinine: parseFloat(patientLabs.serumCreatinine) || 0.9,
     urineOutput24h: 1500,
   });
+
+  const [sofaVasopressor, setSofaVasopressor] = useState<'none' | 'dopamine_low' | 'dobutamine' | 'dopamine_mid' | 'epi_norepi_low' | 'dopamine_high' | 'epi_norepi_high'>('none');
+
+  const handleVasopressorChange = (val: string) => {
+    setSofaVasopressor(val as any);
+    let dopamineDose = 0;
+    let dobutamineDose = 0;
+    let epinephrineDose = 0;
+    let norepinephrineDose = 0;
+    if (val === 'dopamine_low') dopamineDose = 5;
+    else if (val === 'dobutamine') dobutamineDose = 5;
+    else if (val === 'dopamine_mid') dopamineDose = 10;
+    else if (val === 'epi_norepi_low') norepinephrineDose = 0.08;
+    else if (val === 'dopamine_high') dopamineDose = 20;
+    else if (val === 'epi_norepi_high') norepinephrineDose = 0.15;
+
+    setSofa((prev) => ({
+      ...prev,
+      cardiovascular: {
+        ...prev.cardiovascular,
+        dopamineDose,
+        dobutamineDose,
+        epinephrineDose,
+        norepinephrineDose,
+      },
+    }));
+  };
 
   // ==========================================
   // 6. GCS & GCS-P STATE
@@ -490,48 +518,59 @@ export default function RiskScoresTab({ initialScore = 'wells_dvt' }: RiskScoreT
               </div>
 
               {/* PERC Section */}
-              <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/10 space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <div className="text-[12px] font-bold text-slate-200 flex items-center gap-2">
-                    <ShieldAlert className="w-4 h-4 text-emerald-400" />
-                    PERC Rule-Out Criteria (Pulmonary Embolism Rule-out Criteria)
+              {(() => {
+                const peRes = calculateWellsPe(wellsPe);
+                return (
+                  <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/10 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div className="text-[12px] font-bold text-slate-200 flex items-center gap-2">
+                        <ShieldAlert className="w-4 h-4 text-emerald-400" />
+                        PERC Rule-Out Criteria (Pulmonary Embolism Rule-out Criteria)
+                      </div>
+                      <span className="text-[10.5px] text-slate-400">Strictly for Low-Risk (Wells &lt; 2)</span>
+                    </div>
+                    {peRes.percApplicable ? (
+                      <p className="text-[11px] text-slate-400">
+                        Wells PE is Low risk (&lt;2.0): If ALL 8 criteria below are negative, PE is clinically ruled out without D-dimer.
+                      </p>
+                    ) : (
+                      <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300">
+                        ⚠️ <strong>PERC Inapplicable:</strong> Wells PE score is ≥ 2.0 (Moderate/High risk). PERC cannot safely rule out PE; diagnostic testing (D-dimer or CTA) is required.
+                      </div>
+                    )}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                      {[
+                        { key: 'ageGte50', label: 'Age ≥ 50' },
+                        { key: 'heartRateGte100', label: 'Heart Rate ≥ 100 bpm' },
+                        { key: 'spo2Lt95', label: 'SpO2 < 95% on room air' },
+                        { key: 'unilateralLegSwelling', label: 'Unilateral leg swelling' },
+                        { key: 'hemoptysis', label: 'Hemoptysis' },
+                        { key: 'recentSurgeryOrTrauma', label: 'Recent surgery / trauma (≤4 wks)' },
+                        { key: 'priorDvtPe', label: 'Prior DVT or PE' },
+                        { key: 'hormoneUse', label: 'Exogenous estrogen / hormone use' },
+                      ].map((perc) => (
+                        <label key={perc.key} className="flex items-center gap-2 text-[11px] text-slate-300 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={!!wellsPe.percCriteria?.[perc.key as keyof typeof wellsPe.percCriteria]}
+                            onChange={(e) =>
+                              setWellsPe((prev) => ({
+                                ...prev,
+                                percCriteria: {
+                                  ...prev.percCriteria,
+                                  [perc.key]: e.target.checked,
+                                },
+                              }))
+                            }
+                            className="w-3.5 h-3.5 rounded accent-rose-500"
+                          />
+                          <span>{perc.label}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
-                  <span className="text-[10.5px] text-slate-400">Only for Low-Risk patients</span>
-                </div>
-                <p className="text-[11px] text-slate-400">
-                  If Wells PE is Low or Unlikely, checking ALL negative safely excludes PE without D-dimer.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                  {[
-                    { key: 'ageGte50', label: 'Age ≥ 50' },
-                    { key: 'heartRateGte100', label: 'Heart Rate ≥ 100 bpm' },
-                    { key: 'spo2Lt95', label: 'SpO2 < 95% on room air' },
-                    { key: 'unilateralLegSwelling', label: 'Unilateral leg swelling' },
-                    { key: 'hemoptysis', label: 'Hemoptysis' },
-                    { key: 'recentSurgeryOrTrauma', label: 'Recent surgery / trauma (≤4 wks)' },
-                    { key: 'priorDvtPe', label: 'Prior DVT or PE' },
-                    { key: 'hormoneUse', label: 'Exogenous estrogen / hormone use' },
-                  ].map((perc) => (
-                    <label key={perc.key} className="flex items-center gap-2 text-[11px] text-slate-300 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={!!wellsPe.percCriteria?.[perc.key as keyof typeof wellsPe.percCriteria]}
-                        onChange={(e) =>
-                          setWellsPe((prev) => ({
-                            ...prev,
-                            percCriteria: {
-                              ...prev.percCriteria,
-                              [perc.key]: e.target.checked,
-                            },
-                          }))
-                        }
-                        className="w-3.5 h-3.5 rounded accent-rose-500"
-                      />
-                      <span>{perc.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
+                );
+              })()}
 
               {/* Result Summary */}
               {(() => {
@@ -1021,9 +1060,9 @@ export default function RiskScoresTab({ initialScore = 'wells_dvt' }: RiskScoreT
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className={labelClass}>Mean Arterial Pressure (MAP)</label>
+                      <label className={labelClass}>Mean Arterial Pressure (MAP, mmHg)</label>
                       <input
                         type="number"
                         value={sofa.cardiovascular.map}
@@ -1036,6 +1075,25 @@ export default function RiskScoresTab({ initialScore = 'wells_dvt' }: RiskScoreT
                         className={inputClass}
                       />
                     </div>
+                    <div>
+                      <label className={labelClass}>Vasopressor Support (Cardiovascular SOFA)</label>
+                      <select
+                        value={sofaVasopressor}
+                        onChange={(e) => handleVasopressorChange(e.target.value)}
+                        className={inputClass}
+                      >
+                        <option value="none">No vasopressors (MAP only)</option>
+                        <option value="dopamine_low">Dopamine ≤ 5 mcg/kg/min (+2 pts)</option>
+                        <option value="dobutamine">Dobutamine any dose (+2 pts)</option>
+                        <option value="dopamine_mid">Dopamine 5.1 - 15 mcg/kg/min (+3 pts)</option>
+                        <option value="epi_norepi_low">Norepi / Epi ≤ 0.1 mcg/kg/min (+3 pts)</option>
+                        <option value="dopamine_high">Dopamine &gt; 15 mcg/kg/min (+4 pts)</option>
+                        <option value="epi_norepi_high">Norepi / Epi &gt; 0.1 mcg/kg/min (+4 pts)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className={labelClass}>Glasgow Coma Scale (GCS)</label>
                       <input

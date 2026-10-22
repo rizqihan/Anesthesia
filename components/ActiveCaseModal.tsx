@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useAppStore } from '@/store/appStore';
-import { X, User, Scale, Ruler, Calendar, ShieldAlert } from 'lucide-react';
+import { X, User, Scale, Ruler, Calendar, ShieldAlert, Plus, Minus } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface ActiveCaseModalProps {
@@ -15,12 +15,22 @@ export default function ActiveCaseModal({ isOpen, onClose }: ActiveCaseModalProp
 
   if (!isOpen) return null;
 
+  const currentWeight = parseFloat(activeCase.patientWeight) || 70;
+
+  const adjustWeight = (delta: number) => {
+    const updated = Math.max(1, Math.min(300, +(currentWeight + delta).toFixed(1)));
+    setActiveCase({ patientWeight: updated.toString() });
+  };
+
+  const weightPresets = [10, 25, 50, 70, 85, 100];
+
   return (
     <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
       <motion.div
         initial={{ opacity: 0, scale: 0.96, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 10 }}
+        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         className="glass-card-static w-full max-w-lg p-6 relative bg-[#0e1424] border border-white/10 shadow-2xl rounded-2xl"
       >
         <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
@@ -39,52 +49,89 @@ export default function ActiveCaseModal({ isOpen, onClose }: ActiveCaseModalProp
               </p>
             </div>
           </div>
-          <button
+          <motion.button
+            whileTap={{ scale: 0.9 }}
             onClick={onClose}
             className="p-1.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors"
           >
             <X className="w-5 h-5" />
-          </button>
+          </motion.button>
         </div>
 
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="form-label flex items-center gap-1.5">
+          {/* Weight with steppers and presets */}
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="form-label flex items-center gap-1.5 mb-0">
                 <Scale className="w-3.5 h-3.5 text-blue-400" />
                 {language === 'en' ? 'Weight (kg)' : 'Berat Badan (kg)'}
               </label>
-              <input
-                type="number"
-                step="0.5"
-                min="1"
-                max="300"
-                value={activeCase.patientWeight}
-                onChange={(e) => setActiveCase({ patientWeight: e.target.value })}
-                placeholder="70"
-                className="glass-input w-full px-3.5 py-2.5 text-[14px] font-mono tabular-nums"
-              />
+              {/* Steppers */}
+              <div className="flex items-center gap-1">
+                {[-5, -1, 1, 5].map((delta) => (
+                  <motion.button
+                    key={delta}
+                    whileTap={{ scale: 0.92 }}
+                    type="button"
+                    onClick={() => adjustWeight(delta)}
+                    className="px-2 py-0.5 rounded text-[11px] font-mono font-[700] bg-white/[0.04] hover:bg-white/10 border border-white/10 text-slate-300"
+                  >
+                    {delta > 0 ? `+${delta}` : delta}
+                  </motion.button>
+                ))}
+              </div>
             </div>
 
-            <div>
-              <label className="form-label flex items-center gap-1.5">
-                <Ruler className="w-3.5 h-3.5 text-blue-400" />
-                {language === 'en' ? 'Height (cm)' : 'Tinggi Badan (cm)'}
-              </label>
-              <input
-                type="number"
-                step="1"
-                min="30"
-                max="250"
-                value={activeCase.patientHeight}
-                onChange={(e) => setActiveCase({ patientHeight: e.target.value })}
-                placeholder="170"
-                className="glass-input w-full px-3.5 py-2.5 text-[14px] font-mono tabular-nums"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <input
+                  type="number"
+                  step="0.5"
+                  min="1"
+                  max="300"
+                  value={activeCase.patientWeight}
+                  onChange={(e) => setActiveCase({ patientWeight: e.target.value })}
+                  placeholder="70"
+                  className="glass-input w-full px-3.5 py-2 text-[15px] font-mono font-[700] tabular-nums"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="number"
+                  step="1"
+                  min="30"
+                  max="250"
+                  value={activeCase.patientHeight}
+                  onChange={(e) => setActiveCase({ patientHeight: e.target.value })}
+                  placeholder="170"
+                  className="glass-input w-full px-3.5 py-2 text-[15px] font-mono font-[700] tabular-nums"
+                />
+              </div>
+            </div>
+
+            {/* Quick Weight Presets */}
+            <div className="flex items-center gap-1.5 mt-2 overflow-x-auto pb-1">
+              <span className="text-[10px] text-slate-500 uppercase font-[700] mr-1">Presets:</span>
+              {weightPresets.map((preset) => (
+                <motion.button
+                  key={preset}
+                  whileTap={{ scale: 0.92 }}
+                  type="button"
+                  onClick={() => setActiveCase({ patientWeight: preset.toString() })}
+                  className={`px-2 py-0.5 rounded-md text-[11px] font-mono font-[600] border transition-colors ${
+                    currentWeight === preset
+                      ? 'bg-blue-600/30 text-blue-300 border-blue-500/50'
+                      : 'bg-white/[0.02] text-slate-400 border-white/5 hover:bg-white/5'
+                  }`}
+                >
+                  {preset}kg
+                </motion.button>
+              ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 pt-1">
             <div>
               <label className="form-label flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-blue-400" />
@@ -98,14 +145,15 @@ export default function ActiveCaseModal({ isOpen, onClose }: ActiveCaseModalProp
                 value={activeCase.patientAge}
                 onChange={(e) => setActiveCase({ patientAge: e.target.value })}
                 placeholder="45"
-                className="glass-input w-full px-3.5 py-2.5 text-[14px] font-mono tabular-nums"
+                className="glass-input w-full px-3.5 py-2 text-[14px] font-mono tabular-nums"
               />
             </div>
 
             <div>
               <label className="form-label">{language === 'en' ? 'Biological Sex' : 'Jenis Kelamin'}</label>
               <div className="grid grid-cols-2 gap-2">
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
                   type="button"
                   onClick={() => setActiveCase({ patientSex: 'M' })}
                   className={`py-2 px-3 rounded-lg text-[12px] font-[700] border transition-all ${
@@ -115,8 +163,9 @@ export default function ActiveCaseModal({ isOpen, onClose }: ActiveCaseModalProp
                   }`}
                 >
                   {language === 'en' ? 'Male (M)' : 'Laki-laki (L)'}
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
                   type="button"
                   onClick={() => setActiveCase({ patientSex: 'F' })}
                   className={`py-2 px-3 rounded-lg text-[12px] font-[700] border transition-all ${
@@ -126,7 +175,7 @@ export default function ActiveCaseModal({ isOpen, onClose }: ActiveCaseModalProp
                   }`}
                 >
                   {language === 'en' ? 'Female (F)' : 'Perempuan (P)'}
-                </button>
+                </motion.button>
               </div>
             </div>
           </div>
@@ -168,13 +217,14 @@ export default function ActiveCaseModal({ isOpen, onClose }: ActiveCaseModalProp
         </div>
 
         <div className="mt-6 flex justify-end gap-3 pt-4 border-t border-white/10">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.96 }}
             type="button"
             onClick={onClose}
-            className="btn-primary px-5 py-2 text-[13px] font-[700] rounded-xl"
+            className="btn-primary px-5 py-2 text-[13px] font-[700] rounded-xl shadow-md"
           >
             {language === 'en' ? 'Apply to Active Session' : 'Terapkan ke Sesi'}
-          </button>
+          </motion.button>
         </div>
       </motion.div>
     </div>

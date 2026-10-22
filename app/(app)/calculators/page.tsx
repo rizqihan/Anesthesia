@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Calculator, WifiOff, ArrowLeft } from 'lucide-react';
+import { Calculator, WifiOff, ArrowLeft, Copy, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 
@@ -29,17 +29,34 @@ function GenderToggle({ value, onChange, maleLabel, femaleLabel }: { value: 'M' 
 }
 
 function BigResult({ label, value, unit, color }: { label: string; value: string; unit?: string; color?: string }) {
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(`${value} ${unit || ''}`.trim());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="result-box text-center"
+      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      className="result-box text-center relative group"
     >
       <div className="text-[10px] font-[700] uppercase tracking-[1.5px] mb-2" style={{ color: 'var(--text-muted)' }}>{label}</div>
-      <div className="text-[38px] font-[800] tracking-tight" style={{ color: color || '#60a5fa' }}>
+      <div className="text-[38px] font-[800] tracking-tight font-mono tabular-nums" style={{ color: color || '#60a5fa' }}>
         {value}
         {unit && <span className="text-[16px] font-[400] ml-1.5" style={{ color: 'var(--text-secondary)' }}>{unit}</span>}
       </div>
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        onClick={handleCopy}
+        className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+        title="Copy result"
+      >
+        {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+      </motion.button>
     </motion.div>
   );
 }
@@ -385,20 +402,51 @@ export default function CalculatorsPage() {
         </div>
       </div>
 
-      {/* Calculator Selector Dropdown */}
+      {/* Tab Selector: Dropdown on Mobile, Animated Pill Strip on Tablet/Desktop */}
       <div className="space-y-1.5">
         <label className={labelClass}>{t.select_calculator}</label>
-        <select
-          value={activeTab}
-          onChange={(e) => setActiveTab(e.target.value)}
-          className="glass-input w-full px-3 py-2.5 text-[13px] font-[600]"
-        >
-          {tabs.map((tab) => (
-            <option key={tab.id} value={tab.id}>
-              {tab.label}
-            </option>
-          ))}
-        </select>
+
+        {/* Mobile Dropdown */}
+        <div className="sm:hidden">
+          <select
+            value={activeTab}
+            onChange={(e) => setActiveTab(e.target.value)}
+            className="glass-input w-full px-3 py-2.5 text-[13px] font-[600]"
+          >
+            {tabs.map((tab) => (
+              <option key={tab.id} value={tab.id}>
+                {tab.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Tablet & Desktop Horizontal Pill Tabs with Motion Indicator */}
+        <div className="hidden sm:flex flex-wrap gap-1.5 p-1 rounded-xl bg-white/[0.03] border border-white/10">
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <motion.button
+                key={tab.id}
+                whileTap={{ scale: 0.95 }}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-3 py-1.5 rounded-lg text-[12px] font-[600] transition-colors relative ${
+                  isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="calc-tab-pill"
+                    className="absolute inset-0 bg-blue-600/30 border border-blue-500/40 rounded-lg shadow-sm"
+                    transition={{ type: 'spring', bounce: 0.15, duration: 0.3 }}
+                  />
+                )}
+                <span className="relative z-10">{tab.label}</span>
+              </motion.button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Card */}

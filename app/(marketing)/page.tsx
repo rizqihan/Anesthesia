@@ -192,22 +192,33 @@ export default function LandingPage() {
           </div>
 
           {/* Animated ECG preview strip */}
-          <div className="mt-8 p-4 rounded-xl bg-black/50 border border-white/10 flex items-center justify-between overflow-hidden">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+          <div className="mt-8 p-4 rounded-xl bg-black/60 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 overflow-hidden relative">
+            <div className="flex items-center gap-3 z-10">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 relative">
                 <Activity className="w-4 h-4" />
+                <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
               </div>
               <div>
                 <span className="text-[12px] font-[800] text-slate-200">Normal Sinus Rhythm (Simulated Monitor)</span>
-                <span className="text-[11px] text-slate-400 block font-mono">HR: 72 bpm • 25 mm/s • Lead II</span>
+                <span className="text-[11px] text-slate-400 block font-mono">HR: 72 bpm • 25 mm/s • Lead II • ST: Isoelectric</span>
               </div>
             </div>
 
-            <Link href="/ecg">
-              <button className="text-[12px] font-[700] text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition-colors">
+            {/* SVG ECG Strip Animation */}
+            <div className="hidden md:block flex-1 max-w-xs h-8 overflow-hidden opacity-75">
+              <svg viewBox="0 0 300 40" className="w-full h-full stroke-emerald-400 fill-none stroke-[1.5]">
+                <path d="M 0 20 L 30 20 L 35 15 L 40 20 L 60 20 L 65 24 L 70 4 L 75 30 L 80 20 L 95 20 L 105 12 L 120 20 L 170 20 L 175 15 L 180 20 L 200 20 L 205 24 L 210 4 L 215 30 L 220 20 L 235 20 L 245 12 L 260 20 L 300 20" />
+              </svg>
+            </div>
+
+            <Link href="/ecg" className="z-10 shrink-0">
+              <motion.button 
+                whileTap={{ scale: 0.95 }}
+                className="text-[12px] font-[700] text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition-colors"
+              >
                 <span>{language === 'en' ? 'Launch 12-Lead Simulator' : 'Buka Simulator 12-Lead'}</span>
                 <ChevronRight className="w-4 h-4" />
-              </button>
+              </motion.button>
             </Link>
           </div>
         </div>

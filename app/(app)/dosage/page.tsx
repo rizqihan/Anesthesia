@@ -3,7 +3,7 @@
 import React, { useState, Suspense } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Syringe, WifiOff, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { Syringe, WifiOff, AlertTriangle, ArrowLeft, Copy, Check, Plus, Minus } from 'lucide-react';
 import db from '@/lib/db';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { motion, AnimatePresence } from 'motion/react';
@@ -26,6 +26,7 @@ function DosageCalculatorContent() {
   const [weight, setWeight] = useState(activeCase.patientWeight || '');
   const [selectedDrug, setSelectedDrug] = useState('');
   const [result, setResult] = useState<{ dose: number; maxReached: boolean } | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const actualSelectedDrug = selectedDrug || bestInitialDrug;
   const drug = calculableDrugs.find(d => d.id === actualSelectedDrug);
@@ -40,13 +41,30 @@ function DosageCalculatorContent() {
     }
   };
 
+  const adjustWeight = (delta: number) => {
+    const current = parseFloat(weight) || 70;
+    const nextVal = Math.max(1, Math.min(300, +(current + delta).toFixed(1)));
+    setWeight(nextVal.toString());
+  };
+
+  const handleCopy = () => {
+    if (result && drug?.dosing) {
+      navigator.clipboard.writeText(`${result.dose.toFixed(1)} ${drug.dosing.unit} (${drug.genericName})`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
+
   return (
     <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
         <Link href="/dashboard">
-          <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
+            className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0"
+          >
             <ArrowLeft className="w-4 h-4" />
-          </button>
+          </motion.button>
         </Link>
         <div className="icon-box" style={{ background: 'linear-gradient(135deg,#0369a1,#0ea5e9)', boxShadow: '0 0 16px rgba(14,165,233,0.35)' }}>
           <Syringe className="w-5 h-5 text-white" />
@@ -78,21 +96,58 @@ function DosageCalculatorContent() {
               )}
             </div>
             <div>
-              <label className="form-label">{t.patient_weight}</label>
-              <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="glass-input w-full px-3 py-2.5 text-[13px]" placeholder="e.g. 20" />
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="form-label mb-0">{t.patient_weight}</label>
+                <div className="flex items-center gap-1">
+                  {[-5, -1, 1, 5].map((delta) => (
+                    <motion.button
+                      key={delta}
+                      whileTap={{ scale: 0.9 }}
+                      type="button"
+                      onClick={() => adjustWeight(delta)}
+                      className="px-2 py-0.5 rounded text-[10px] font-mono font-[700] bg-white/[0.04] hover:bg-white/10 border border-white/10 text-slate-300"
+                    >
+                      {delta > 0 ? `+${delta}` : delta}
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+              <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="glass-input w-full px-3 py-2.5 text-[14px] font-mono font-[700]" placeholder="e.g. 70" />
             </div>
-            <button type="button" onClick={handleCalculate} disabled={!weight} className="btn-primary w-full py-2.5 text-[13px]">{t.calculate}</button>
+            <motion.button 
+              whileTap={{ scale: 0.97 }}
+              type="button" 
+              onClick={handleCalculate} 
+              disabled={!weight} 
+              className="btn-primary w-full py-2.5 text-[13px]"
+            >
+              {t.calculate}
+            </motion.button>
           </div>
         </div>
 
         <div className="flex flex-col gap-4">
           <AnimatePresence>
             {result && (
-              <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="glass-card-static p-6 text-center">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.96 }} 
+                animate={{ opacity: 1, scale: 1 }} 
+                exit={{ opacity: 0 }} 
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="glass-card-static p-6 text-center relative group"
+              >
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={handleCopy}
+                  className="absolute top-3 right-3 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+                  title="Copy dose to clipboard"
+                >
+                  {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </motion.button>
                 <div className="text-[10px] font-[700] uppercase tracking-[1.5px] mb-2" style={{ color: 'var(--text-muted)' }}>
                   {language === 'en' ? 'Recommended Dose' : 'Dosis Rekomendasi'}
                 </div>
-                <div className="text-[48px] font-[800] tracking-tight" style={{ color: '#38bdf8' }}>
+                <div className="text-[48px] font-[800] tracking-tight font-mono tabular-nums" style={{ color: '#38bdf8' }}>
                   {result.dose.toFixed(1)}
                   <span className="text-[18px] font-[400] ml-2" style={{ color: 'var(--text-secondary)' }}>{drug?.dosing?.unit}</span>
                 </div>

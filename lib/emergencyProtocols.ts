@@ -834,3 +834,168 @@ export const HS_AND_TS_LIST: HsAndTsItem[] = [
     bedsideTips: 'Over 70% of out-of-hospital VF arrests have underlying acute coronary plaque rupture.',
   },
 ];
+
+// ==========================================
+// ANAPHYLAXIS EMERGENCY PROTOCOLS
+// (IM First-Line vs Monitored IV Bolus & Infusions)
+// ==========================================
+
+export interface AnaphylaxisProtocols {
+  weightKg: number;
+  isPediatric: boolean;
+  imFirstLine: {
+    doseMg: number;
+    volumeMl: number; // 1:1,000 (1 mg/mL)
+    concentration: string;
+    route: string;
+    location: string;
+    instruction: string;
+  };
+  ivMonitored: {
+    indicationNote: string;
+    grade2Bolus: {
+      mcgDose: string;
+      volume1to10k: string; // 1:10,000 (100 mcg/mL)
+      volumePushDose10mcg: string; // 10 mcg/mL
+      clinicalState: string;
+    };
+    grade3Bolus: {
+      mcgDose: string;
+      volume1to10k: string; // 1:10,000 (100 mcg/mL)
+      clinicalState: string;
+    };
+    grade4Arrest: {
+      mgDose: string;
+      volume1to10k: string;
+      clinicalState: string;
+    };
+    infusion: {
+      mcgPerMinRange: string;
+      mLPerHrAt10mcgPerMl: string;
+      preparation: string;
+      titrationGoal: string;
+    };
+    pushDosePreparationRecipe: string[];
+    criticalBlackBoxWarning: string;
+    glucagonBetaBlockerRescue: string;
+  };
+  secondaryAdjuncts: {
+    crystalloidBolusMl: number;
+    diphenhydramineMg: number;
+    famotidineMg: number;
+    hydrocortisoneMg: number;
+    methylprednisoloneMg: number;
+    albuterolNebMg: string;
+  };
+}
+
+export function calculateAnaphylaxisProtocols(weightKg: number): AnaphylaxisProtocols {
+  const w = Math.max(1, Math.min(250, weightKg));
+  const isPediatric = w < 40;
+
+  // 1. IM First-line (WAO / Resuscitation Council / AAAAI)
+  const imMg = isPediatric
+    ? Math.min(0.3, +(w * 0.01).toFixed(2))
+    : Math.min(0.5, Math.max(0.3, +(w * 0.01).toFixed(2)));
+  const imMl = imMg; // 1:1,000 is 1 mg/mL
+
+  // 2. IV Monitored (Perioperative AAGBI / SFAR / ANZCA / Critical Care)
+  let grade2Mcg: string;
+  let grade2Vol10k: string;
+  let grade2PushDose: string;
+
+  let grade3Mcg: string;
+  let grade3Vol10k: string;
+
+  let grade4Mg: string;
+  let grade4Vol10k: string;
+
+  if (isPediatric) {
+    const lowG2 = Math.max(5, Math.round(w * 1));
+    const highG2 = Math.min(50, Math.round(w * 2));
+    grade2Mcg = `${lowG2}–${highG2} mcg (1–2 mcg/kg)`;
+    grade2Vol10k = `${(lowG2 / 100).toFixed(2)}–${(highG2 / 100).toFixed(2)} mL of 1:10,000`;
+    grade2PushDose = `${(lowG2 / 10).toFixed(1)}–${(highG2 / 10).toFixed(1)} mL of 10 mcg/mL push-dose`;
+
+    const lowG3 = Math.round(w * 5);
+    const highG3 = Math.min(200, Math.round(w * 10));
+    grade3Mcg = `${lowG3}–${highG3} mcg (5–10 mcg/kg)`;
+    grade3Vol10k = `${(lowG3 / 100).toFixed(2)}–${(highG3 / 100).toFixed(2)} mL of 1:10,000`;
+
+    const arrestMg = Math.min(1.0, +(w * 0.01).toFixed(2));
+    grade4Mg = `${arrestMg} mg (0.01 mg/kg)`;
+    grade4Vol10k = `${(arrestMg * 10).toFixed(1)} mL of 1:10,000`;
+  } else {
+    grade2Mcg = '20–50 mcg IV bolus';
+    grade2Vol10k = '0.2–0.5 mL of 1:10,000 (100 mcg/mL)';
+    grade2PushDose = '2–5 mL of 10 mcg/mL push-dose solution';
+
+    grade3Mcg = '100–200 mcg IV bolus';
+    grade3Vol10k = '1.0–2.0 mL of 1:10,000 (100 mcg/mL)';
+
+    grade4Mg = '1.0 mg IV push';
+    grade4Vol10k = '10 mL of 1:10,000 solution';
+  }
+
+  // Continuous Infusion: 0.05 - 0.1 mcg/kg/min (or 1 - 10 mcg/min in adults)
+  const lowInfMcgMin = +(w * 0.05).toFixed(1);
+  const highInfMcgMin = +(w * 0.1).toFixed(1);
+  const lowMlHr = +((lowInfMcgMin * 60) / 10).toFixed(1);
+  const highMlHr = +((highInfMcgMin * 60) / 10).toFixed(1);
+
+  return {
+    weightKg: w,
+    isPediatric,
+    imFirstLine: {
+      doseMg: imMg,
+      volumeMl: imMl,
+      concentration: '1:1,000 (1.0 mg/mL)',
+      route: 'Intramuscular (IM)',
+      location: 'Anterolateral mid-thigh (vastus lateralis)',
+      instruction: 'Immediate first-line whenever IV access is absent or in unmonitored settings. Repeat q5-15m as needed (max single dose 0.5 mg in adults, 0.3 mg in pediatrics).',
+    },
+    ivMonitored: {
+      indicationNote: 'Indicated ONLY with continuous ECG and blood pressure monitoring in the OR, ICU, or ED Resuscitation Bay with established IV access.',
+      grade2Bolus: {
+        mcgDose: grade2Mcg,
+        volume1to10k: grade2Vol10k,
+        volumePushDose10mcg: grade2PushDose,
+        clinicalState: 'Grade II: Cutaneous signs with moderate hypotension (SBP > 80 mmHg) or moderate bronchospasm. Repeat q1-2m titrated to MAP.',
+      },
+      grade3Bolus: {
+        mcgDose: grade3Mcg,
+        volume1to10k: grade3Vol10k,
+        clinicalState: 'Grade III: Severe shock, cardiovascular collapse (SBP < 80 mmHg), or life-threatening airway obstruction with palpable pulse.',
+      },
+      grade4Arrest: {
+        mgDose: grade4Mg,
+        volume1to10k: grade4Vol10k,
+        clinicalState: 'Grade IV: Cardiac arrest / pulseless electrical activity (PEA) / asystole. Initiate ACLS/PALS immediately.',
+      },
+      infusion: {
+        mcgPerMinRange: `${lowInfMcgMin}–${highInfMcgMin} mcg/min (0.05–0.1 mcg/kg/min)`,
+        mLPerHrAt10mcgPerMl: `${lowMlHr}–${highMlHr} mL/hr (10 mcg/mL solution)`,
+        preparation: 'Mix 1 mg Epinephrine in 100 mL Normal Saline or D5W (Concentration = 10 mcg/mL).',
+        titrationGoal: 'Titrate infusion to maintain MAP ≥ 65 mmHg and clear bronchospasm/wheeze.',
+      },
+      pushDosePreparationRecipe: [
+        '1. Take a 10 mL syringe containing 9 mL Normal Saline (0.9% NaCl).',
+        '2. Draw 1 mL of Epinephrine 1:10,000 (100 mcg) from a cardiac arrest syringe into the 9 mL NS syringe.',
+        '3. Agitate gently. Result: 10 mL of Push-Dose Epinephrine at 10 mcg/mL.',
+        '4. Administer 1–2 mL (10–20 mcg) every 2–5 minutes titrated to blood pressure.',
+      ],
+      criticalBlackBoxWarning: 'FATAL RISK: NEVER inject undiluted 1:1,000 (1 mg/mL) directly IV. Rapid undiluted IV push causes lethal ventricular fibrillation, acute myocardial infarction, and massive hypertensive intracranial hemorrhage.',
+      glucagonBetaBlockerRescue: isPediatric
+        ? `Glucagon ${Math.min(1.0, +(w * 0.025).toFixed(2))} mg IV (20–30 mcg/kg, max 1 mg) over 5 min, then 5–15 mcg/min if refractory on beta-blockers.`
+        : 'Glucagon 1–5 mg IV over 5 minutes, followed by 5–15 mcg/min continuous infusion if patient is taking beta-blockers and refractory to epinephrine (activates adenylate cyclase bypassing beta-receptors).',
+    },
+    secondaryAdjuncts: {
+      crystalloidBolusMl: Math.round(w * 20),
+      diphenhydramineMg: Math.min(50, Math.round(w * 1)),
+      famotidineMg: isPediatric ? Math.min(20, +(w * 0.5).toFixed(1)) : 20,
+      hydrocortisoneMg: Math.min(200, Math.round(w * 2)),
+      methylprednisoloneMg: Math.min(125, Math.round(w * 1)),
+      albuterolNebMg: isPediatric ? '2.5 mg nebulized' : '2.5–5.0 mg nebulized',
+    },
+  };
+}

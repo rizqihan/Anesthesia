@@ -317,7 +317,7 @@ export default function RiskScoresTab({ initialScore = 'wells_dvt' }: RiskScoreT
                 whileTap={{ scale: 0.97 }}
                 type="button"
                 onClick={() => setSelectedScore(item.id)}
-                className={`p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+                className={`p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between min-w-0 ${
                   isSelected
                     ? 'bg-blue-600/20 border-blue-500/50 text-white shadow-[0_0_15px_rgba(59,130,246,0.2)]'
                     : 'bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.05] text-slate-300'

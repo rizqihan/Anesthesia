@@ -120,38 +120,40 @@ export default function DiagnosticLabTab() {
   return (
     <div className="space-y-5">
       {/* Top Header Switcher: ABG Analyzer vs Electrolyte Engines */}
-      <div className="flex items-center justify-between pb-1">
-        <div className="flex rounded-xl p-1 bg-white/[0.03] border border-white/10 gap-1">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pb-1">
+        <div className="grid grid-cols-2 rounded-xl p-1 bg-white/[0.03] border border-white/10 gap-1">
           <button
             type="button"
             onClick={() => setActiveSubTab('abg')}
-            className={`px-3.5 py-1.5 rounded-lg text-[12px] font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-[12px] font-bold transition-all flex items-center justify-center gap-1.5 min-w-0 ${
               activeSubTab === 'abg'
                 ? 'bg-blue-600 text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            <Flame className="w-3.5 h-3.5" />
-            4-Step ABG Analyzer
+            <Flame className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate hidden sm:inline">4-Step ABG Analyzer</span>
+            <span className="truncate sm:hidden">4-Step ABG</span>
           </button>
           <button
             type="button"
             onClick={() => setActiveSubTab('electrolytes')}
-            className={`px-3.5 py-1.5 rounded-lg text-[12px] font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-[12px] font-bold transition-all flex items-center justify-center gap-1.5 min-w-0 ${
               activeSubTab === 'electrolytes'
                 ? 'bg-blue-600 text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            <Droplet className="w-3.5 h-3.5" />
-            Electrolyte Safety Engines
+            <Droplet className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate hidden sm:inline">Electrolyte Safety Engines</span>
+            <span className="truncate sm:hidden">Electrolytes</span>
           </button>
         </div>
 
         <button
           type="button"
           onClick={handleSaveLabsToProfile}
-          className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] text-[11px] font-semibold text-slate-300 hover:text-white transition-colors flex items-center gap-1.5"
+          className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] text-[11px] font-semibold text-slate-300 hover:text-white transition-colors flex items-center justify-center gap-1.5 shrink-0"
           title="Save entered electrolytes to patient store"
         >
           {syncedFeedback ? (
@@ -443,42 +445,42 @@ export default function DiagnosticLabTab() {
             className="space-y-4"
           >
             {/* Engine Sub-selector */}
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
               <button
                 type="button"
                 onClick={() => setElectrolyteEngine('corr_na')}
-                className={`p-2.5 rounded-xl border text-center transition-all ${
+                className={`p-2 sm:p-2.5 rounded-xl border text-center transition-all min-w-0 ${
                   electrolyteEngine === 'corr_na'
                     ? 'bg-blue-600/20 border-blue-500/50 text-white font-bold'
                     : 'bg-white/[0.02] border-white/[0.05] text-slate-400'
                 }`}
               >
-                <div className="text-[12px]">Corrected Sodium</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">Katz & Hillier</div>
+                <div className="text-[11px] sm:text-[12px] truncate">Corrected Na</div>
+                <div className="text-[9.5px] sm:text-[10px] text-slate-400 mt-0.5 truncate">Katz & Hillier</div>
               </button>
               <button
                 type="button"
                 onClick={() => setElectrolyteEngine('free_water')}
-                className={`p-2.5 rounded-xl border text-center transition-all ${
+                className={`p-2 sm:p-2.5 rounded-xl border text-center transition-all min-w-0 ${
                   electrolyteEngine === 'free_water'
                     ? 'bg-blue-600/20 border-blue-500/50 text-white font-bold'
                     : 'bg-white/[0.02] border-white/[0.05] text-slate-400'
                 }`}
               >
-                <div className="text-[12px]">Free Water Deficit</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">Hypernatremia</div>
+                <div className="text-[11px] sm:text-[12px] truncate">Free Water</div>
+                <div className="text-[9.5px] sm:text-[10px] text-slate-400 mt-0.5 truncate">Hypernatremia</div>
               </button>
               <button
                 type="button"
                 onClick={() => setElectrolyteEngine('k_repletion')}
-                className={`p-2.5 rounded-xl border text-center transition-all ${
+                className={`p-2 sm:p-2.5 rounded-xl border text-center transition-all min-w-0 ${
                   electrolyteEngine === 'k_repletion'
                     ? 'bg-blue-600/20 border-blue-500/50 text-white font-bold'
                     : 'bg-white/[0.02] border-white/[0.05] text-slate-400'
                 }`}
               >
-                <div className="text-[12px]">Potassium Repletion</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">IV Rate Limits</div>
+                <div className="text-[11px] sm:text-[12px] truncate">Potassium</div>
+                <div className="text-[9.5px] sm:text-[10px] text-slate-400 mt-0.5 truncate">IV Limits</div>
               </button>
             </div>
 

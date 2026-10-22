@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import {
   AlertOctagon,
+  AlertTriangle,
   ArrowLeft,
   Heart,
   Zap,
@@ -27,6 +28,7 @@ import ACLSCycleTimer from '@/components/emergency/ACLSCycleTimer';
 import BroselowTapePicker from '@/components/emergency/BroselowTapePicker';
 import StatusEpilepticusTimeline from '@/components/emergency/StatusEpilepticusTimeline';
 import HypertensiveCrisisEngine from '@/components/emergency/HypertensiveCrisisEngine';
+import { calculateAnaphylaxisProtocols } from '@/lib/emergencyProtocols';
 
 type EmergencyModuleTab =
   | 'push_doses'
@@ -50,6 +52,7 @@ function EmergencyContent() {
   const [pushDoseSubTab, setPushDoseSubTab] = useState<
     'cardiac' | 'hypotension' | 'anaphylaxis' | 'airway' | 'mh' | 'last'
   >('cardiac');
+  const [anaphylaxisRoute, setAnaphylaxisRoute] = useState<'im' | 'iv_bolus' | 'iv_infusion'>('im');
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -82,6 +85,7 @@ function EmergencyContent() {
 
   const lipidBolusMl = +(weight * 1.5).toFixed(1);
   const lipidInfusionMlPerHr = +((weight * 0.25) * 60).toFixed(0);
+  const anaphylaxisProtocols = calculateAnaphylaxisProtocols(weight);
 
   const moduleTabs = [
     {
@@ -376,31 +380,247 @@ function EmergencyContent() {
             )}
 
             {pushDoseSubTab === 'anaphylaxis' && (
-              <>
-                <div className="p-5 rounded-2xl bg-[#0e1424] border border-rose-500/30 relative">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[12px] font-[800] uppercase tracking-wider text-rose-400">
-                      Epinephrine 1:1,000 (IM)
-                    </span>
-                    <span className="text-[10px] font-mono text-slate-400">0.01 mg/kg IM</span>
-                  </div>
-                  <div className="flex items-baseline justify-between mb-1">
-                    <div className="text-[32px] font-[900] font-mono text-slate-100 tabular-nums">
-                      {epiAnaphylaxisIM} <span className="text-[16px] font-[500] text-slate-400">mg IM</span>
-                    </div>
-                    <motion.button
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => copyToClipboard(`${epiAnaphylaxisIM} mg IM Epinephrine`, 'epi-im')}
-                      className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
-                    >
-                      {copiedId === 'epi-im' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                    </motion.button>
-                  </div>
-                  <p className="text-[12px] text-slate-400 leading-relaxed">
-                    Inject immediately into anterolateral thigh. Repeat every 5–15 minutes if required (max single adult dose: 0.5 mg).
-                  </p>
+              <div className="space-y-4">
+                {/* Route & Setting Scenario Switcher */}
+                <div className="grid grid-cols-3 p-1 rounded-2xl bg-white/[0.03] border border-white/10 gap-1 shadow-inner">
+                  {[
+                    { id: 'im', label: 'IM Thigh (First-Line)', short: 'IM First-Line' },
+                    { id: 'iv_bolus', label: 'IV Bolus (Monitored Line)', short: 'IV Bolus Line' },
+                    { id: 'iv_infusion', label: 'IV Infusion (Refractory)', short: 'IV Infusion' },
+                  ].map((tab) => {
+                    const isActive = anaphylaxisRoute === tab.id;
+                    return (
+                      <button
+                        key={tab.id}
+                        type="button"
+                        onClick={() => setAnaphylaxisRoute(tab.id as any)}
+                        className={`py-2 px-2 rounded-xl text-[11px] sm:text-[12px] font-[700] transition-all relative flex items-center justify-center min-w-0 ${
+                          isActive
+                            ? 'bg-rose-600/30 text-rose-200 border border-rose-500/40 shadow-sm'
+                            : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                        }`}
+                      >
+                        <span className="truncate hidden sm:inline">{tab.label}</span>
+                        <span className="truncate sm:hidden">{tab.short}</span>
+                      </button>
+                    );
+                  })}
                 </div>
 
+                {/* Scenario 1: IM First-Line */}
+                {anaphylaxisRoute === 'im' && (
+                  <div className="p-5 rounded-2xl bg-[#0e1424] border border-rose-500/30 relative space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[12px] font-[800] uppercase tracking-wider text-rose-400">
+                        Epinephrine 1:1,000 (IM First-Line)
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-400">
+                        {anaphylaxisProtocols.isPediatric ? '0.01 mg/kg IM' : '0.3–0.5 mg IM'}
+                      </span>
+                    </div>
+
+                    <div className="flex items-start justify-between">
+                      <div className="flex flex-col">
+                        <div className="text-[32px] font-[900] font-mono text-slate-100 tabular-nums leading-tight">
+                          {anaphylaxisProtocols.imFirstLine.doseMg}{' '}
+                          <span className="text-[18px] font-[600] text-slate-400">mg IM</span>
+                        </div>
+                        <div className="text-[12px] font-mono text-rose-300/90 mt-0.5">
+                          Volume: <strong>{anaphylaxisProtocols.imFirstLine.volumeMl} mL</strong> of 1:1,000 solution
+                        </div>
+                      </div>
+                      <motion.button
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() =>
+                          copyToClipboard(
+                            `${anaphylaxisProtocols.imFirstLine.doseMg} mg IM (${anaphylaxisProtocols.imFirstLine.volumeMl} mL of 1:1,000) Epinephrine`,
+                            'epi-im'
+                          )
+                        }
+                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors shrink-0"
+                      >
+                        {copiedId === 'epi-im' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                      </motion.button>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] text-[12px] text-slate-300 space-y-1.5">
+                      <div className="font-[700] text-rose-300">
+                        Location: {anaphylaxisProtocols.imFirstLine.location}
+                      </div>
+                      <p className="text-slate-400 leading-relaxed text-[11.5px]">
+                        {anaphylaxisProtocols.imFirstLine.instruction}
+                      </p>
+                      <div className="text-[11px] text-emerald-400/90 font-mono">
+                        Clinical Rationale: Standard first-line for out-of-hospital / ward without continuous arterial/ECG monitoring. Rapid vastus lateralis absorption (peak 8 min) prevents lethal IV push arrhythmias.
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Scenario 2: IV Bolus (Monitored Line Available) */}
+                {anaphylaxisRoute === 'iv_bolus' && (
+                  <div className="space-y-3">
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-2.5">
+                      <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                      <div className="text-[11.5px] text-amber-200 leading-relaxed">
+                        <strong>Monitored Line Setting (OR / ICU / Resuscitation Bay):</strong>{' '}
+                        {anaphylaxisProtocols.ivMonitored.indicationNote}
+                      </div>
+                    </div>
+
+                    {/* Grade II */}
+                    <div className="p-4 rounded-xl bg-[#0e1424] border border-blue-500/30 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-[800] uppercase tracking-wider text-blue-400">
+                          Grade II: Moderate Hypotension / Bronchospasm (Pulse Present)
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-400">Titrated Bolus</span>
+                      </div>
+                      <div className="flex items-baseline justify-between">
+                        <div className="text-[24px] font-[800] font-mono text-slate-100 tabular-nums">
+                          {anaphylaxisProtocols.ivMonitored.grade2Bolus.mcgDose}
+                        </div>
+                        <motion.button
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() =>
+                            copyToClipboard(
+                              `${anaphylaxisProtocols.ivMonitored.grade2Bolus.mcgDose} Epinephrine IV (${anaphylaxisProtocols.ivMonitored.grade2Bolus.volume1to10k})`,
+                              'epi-g2'
+                            )
+                          }
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+                        >
+                          {copiedId === 'epi-g2' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        </motion.button>
+                      </div>
+                      <div className="text-[12px] text-slate-300">
+                        Volume: <strong>{anaphylaxisProtocols.ivMonitored.grade2Bolus.volume1to10k}</strong> or{' '}
+                        <strong>{anaphylaxisProtocols.ivMonitored.grade2Bolus.volumePushDose10mcg}</strong>.
+                      </div>
+                      <p className="text-[11px] text-slate-400">
+                        {anaphylaxisProtocols.ivMonitored.grade2Bolus.clinicalState}
+                      </p>
+                    </div>
+
+                    {/* Grade III */}
+                    <div className="p-4 rounded-xl bg-[#0e1424] border border-rose-500/30 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-[800] uppercase tracking-wider text-rose-400">
+                          Grade III: Severe Shock / Cardiovascular Collapse (Pulse Present)
+                        </span>
+                        <span className="text-[10px] font-mono text-rose-400">SBP &lt; 80 mmHg</span>
+                      </div>
+                      <div className="flex items-baseline justify-between">
+                        <div className="text-[24px] font-[800] font-mono text-slate-100 tabular-nums">
+                          {anaphylaxisProtocols.ivMonitored.grade3Bolus.mcgDose}
+                        </div>
+                        <motion.button
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() =>
+                            copyToClipboard(
+                              `${anaphylaxisProtocols.ivMonitored.grade3Bolus.mcgDose} Epinephrine IV (${anaphylaxisProtocols.ivMonitored.grade3Bolus.volume1to10k})`,
+                              'epi-g3'
+                            )
+                          }
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+                        >
+                          {copiedId === 'epi-g3' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        </motion.button>
+                      </div>
+                      <div className="text-[12px] text-slate-300">
+                        Volume: <strong>{anaphylaxisProtocols.ivMonitored.grade3Bolus.volume1to10k}</strong>.
+                      </div>
+                      <p className="text-[11px] text-slate-400">
+                        {anaphylaxisProtocols.ivMonitored.grade3Bolus.clinicalState}
+                      </p>
+                    </div>
+
+                    {/* Grade IV */}
+                    <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-500/40 space-y-1.5">
+                      <div className="text-[11px] font-[800] uppercase tracking-wider text-rose-300">
+                        Grade IV: Pulseless Arrest / PEA
+                      </div>
+                      <div className="text-[18px] font-[800] font-mono text-rose-200">
+                        {anaphylaxisProtocols.ivMonitored.grade4Arrest.mgDose} ({anaphylaxisProtocols.ivMonitored.grade4Arrest.volume1to10k})
+                      </div>
+                      <p className="text-[11px] text-rose-300/80">
+                        {anaphylaxisProtocols.ivMonitored.grade4Arrest.clinicalState}
+                      </p>
+                    </div>
+
+                    {/* Push-Dose Recipe Box */}
+                    <div className="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/30 space-y-2">
+                      <div className="text-[11px] font-[800] uppercase tracking-wider text-cyan-300 flex items-center justify-between">
+                        <span>Push-Dose Epinephrine Recipe (10 mcg/mL &quot;Stick Epi&quot;)</span>
+                        <motion.button
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() =>
+                            copyToClipboard(
+                              anaphylaxisProtocols.ivMonitored.pushDosePreparationRecipe.join('\n'),
+                              'recipe'
+                            )
+                          }
+                          className="p-1 rounded bg-white/5 hover:bg-white/10 text-cyan-400"
+                        >
+                          {copiedId === 'recipe' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        </motion.button>
+                      </div>
+                      <div className="text-[11.5px] text-slate-300 space-y-1">
+                        {anaphylaxisProtocols.ivMonitored.pushDosePreparationRecipe.map((step, idx) => (
+                          <div key={idx}>{step}</div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Fatal Warning */}
+                    <div className="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/60 text-[11px] text-rose-200 font-semibold leading-relaxed">
+                      ⚠️ {anaphylaxisProtocols.ivMonitored.criticalBlackBoxWarning}
+                    </div>
+
+                    {/* Beta-Blocker Rescue */}
+                    <div className="p-3.5 rounded-xl bg-purple-950/20 border border-purple-500/30 text-[11.5px] text-purple-200 leading-relaxed">
+                      <strong>Refractory on Beta-Blockers (Glucagon):</strong> {anaphylaxisProtocols.ivMonitored.glucagonBetaBlockerRescue}
+                    </div>
+                  </div>
+                )}
+
+                {/* Scenario 3: Continuous IV Infusion */}
+                {anaphylaxisRoute === 'iv_infusion' && (
+                  <div className="p-5 rounded-2xl bg-[#0e1424] border border-indigo-500/30 relative space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[12px] font-[800] uppercase tracking-wider text-indigo-400">
+                        Epinephrine Continuous IV Infusion (Refractory Shock)
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-400">0.05–0.1 mcg/kg/min</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+                        <div className="text-[10px] font-mono uppercase text-slate-400 mb-1">Dose Rate (mcg/min)</div>
+                        <div className="text-[22px] font-[800] font-mono text-indigo-300">
+                          {anaphylaxisProtocols.ivMonitored.infusion.mcgPerMinRange}
+                        </div>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+                        <div className="text-[10px] font-mono uppercase text-slate-400 mb-1">Volumetric Pump (mL/hr)</div>
+                        <div className="text-[22px] font-[800] font-mono text-emerald-300">
+                          {anaphylaxisProtocols.ivMonitored.infusion.mLPerHrAt10mcgPerMl}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] text-[12px] text-slate-300 space-y-1.5">
+                      <div>
+                        <strong>Standard Preparation:</strong> {anaphylaxisProtocols.ivMonitored.infusion.preparation}
+                      </div>
+                      <div className="text-slate-400 text-[11.5px]">
+                        <strong>Goal:</strong> {anaphylaxisProtocols.ivMonitored.infusion.titrationGoal}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Secondary Adjuncts */}
                 <div className="p-5 rounded-2xl bg-[#0e1424] border border-slate-800">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[12px] font-[800] uppercase tracking-wider text-blue-400">
@@ -408,12 +628,14 @@ function EmergencyContent() {
                     </span>
                   </div>
                   <ul className="text-[12px] text-slate-300 space-y-2 mt-2">
-                    <li>• <strong>Diphenhydramine:</strong> {Math.min(50, weight * 1)} mg IV push (H1 blocker)</li>
-                    <li>• <strong>Hydrocortisone:</strong> {Math.min(200, weight * 2)} mg IV push (Corticosteroid)</li>
-                    <li>• <strong>IV Fluids:</strong> Crystalloid bolus 20–30 mL/kg ({(weight * 20).toFixed(0)}–{(weight * 30).toFixed(0)} mL) for distributive shock</li>
+                    <li>• <strong>IV Fluids:</strong> Crystalloid bolus 20–30 mL/kg (<strong>{anaphylaxisProtocols.secondaryAdjuncts.crystalloidBolusMl} mL</strong> rapid push) for distributive vasodilation</li>
+                    <li>• <strong>Diphenhydramine (H1 blocker):</strong> {anaphylaxisProtocols.secondaryAdjuncts.diphenhydramineMg} mg IV push</li>
+                    <li>• <strong>Famotidine (H2 blocker):</strong> {anaphylaxisProtocols.secondaryAdjuncts.famotidineMg} mg IV slow push</li>
+                    <li>• <strong>Corticosteroids (Biphasic prevention):</strong> Hydrocortisone {anaphylaxisProtocols.secondaryAdjuncts.hydrocortisoneMg} mg IV OR Methylprednisolone {anaphylaxisProtocols.secondaryAdjuncts.methylprednisoloneMg} mg IV</li>
+                    <li>• <strong>Bronchospasm:</strong> {anaphylaxisProtocols.secondaryAdjuncts.albuterolNebMg}</li>
                   </ul>
                 </div>
-              </>
+              </div>
             )}
 
             {pushDoseSubTab === 'airway' && (

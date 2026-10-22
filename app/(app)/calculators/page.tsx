@@ -406,11 +406,26 @@ export default function CalculatorsPage() {
       </div>
 
       {/* Category Pills: Bedside vs Clinical Risk Scores vs Diagnostic Labs */}
-      <div className="flex p-1.5 rounded-2xl bg-white/[0.03] border border-white/10 gap-1.5 shadow-inner">
+      <div className="grid grid-cols-3 p-1 rounded-2xl bg-white/[0.03] border border-white/10 gap-1 shadow-inner">
         {[
-          { id: 'bedside', label: t.bedside_calculators || 'Bedside & Anesthesia', icon: Calculator },
-          { id: 'risk_scores', label: t.clinical_risk_scores || 'Clinical Risk Scores', icon: ShieldAlert },
-          { id: 'diagnostic_labs', label: t.diagnostic_labs_abg || 'Diagnostic Labs & ABG', icon: Activity },
+          { 
+            id: 'bedside', 
+            fullLabel: t.bedside_calculators || 'Bedside & Anesthesia', 
+            shortLabel: 'Bedside', 
+            icon: Calculator 
+          },
+          { 
+            id: 'risk_scores', 
+            fullLabel: t.clinical_risk_scores || 'Clinical Risk Scores', 
+            shortLabel: language === 'en' ? 'Risk Scores' : 'Skor Risiko', 
+            icon: ShieldAlert 
+          },
+          { 
+            id: 'diagnostic_labs', 
+            fullLabel: t.diagnostic_labs_abg || 'Diagnostic Labs & ABG', 
+            shortLabel: language === 'en' ? 'Labs & ABG' : 'Lab & AGD', 
+            icon: Activity 
+          },
         ].map((cat) => {
           const Icon = cat.icon;
           const isActive = category === cat.id;
@@ -420,7 +435,7 @@ export default function CalculatorsPage() {
               whileTap={{ scale: 0.97 }}
               type="button"
               onClick={() => setCategory(cat.id as any)}
-              className={`flex-1 py-2 px-2.5 rounded-xl text-[12px] font-[700] transition-all relative flex items-center justify-center gap-2 ${
+              className={`py-2 px-1.5 sm:px-2.5 rounded-xl text-[11px] sm:text-[12px] font-[700] transition-all relative flex items-center justify-center gap-1.5 min-w-0 ${
                 isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
               }`}
             >
@@ -432,7 +447,8 @@ export default function CalculatorsPage() {
                 />
               )}
               <Icon className="w-3.5 h-3.5 relative z-10 shrink-0" />
-              <span className="relative z-10 truncate">{cat.label}</span>
+              <span className="relative z-10 truncate hidden sm:inline">{cat.fullLabel}</span>
+              <span className="relative z-10 truncate sm:hidden">{cat.shortLabel}</span>
             </motion.button>
           );
         })}

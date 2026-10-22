@@ -265,7 +265,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* ─── Main Workspace Shell ─── */}
-      <div className="flex flex-1 overflow-hidden pt-[56px] md:pt-0 pb-[72px] md:pb-0 relative">
+      <div className="flex flex-1 overflow-hidden min-w-0 pt-[56px] md:pt-0 pb-[72px] md:pb-0 relative">
         {/* Desktop Sidebar */}
         <motion.nav
           initial={false}
@@ -341,18 +341,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </motion.nav>
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto w-full">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden min-w-0 w-full">
           {/* Active Case Mobile Bar */}
-          <div className="sm:hidden flex items-center justify-between px-3 py-1.5 bg-blue-950/20 border-b border-blue-500/20 text-[12px]">
+          <div className="sm:hidden flex items-center justify-between px-3 py-1.5 bg-blue-950/20 border-b border-blue-500/20 text-[12px] gap-2">
             <button
               onClick={() => setIsCaseModalOpen(true)}
-              className="min-h-[44px] flex items-center gap-2 text-blue-300 font-[700] px-2 py-1 rounded-lg hover:bg-blue-500/10 transition-colors"
+              className="min-h-[44px] flex items-center gap-2 text-blue-300 font-[700] px-2 py-1 rounded-lg hover:bg-blue-500/10 transition-colors min-w-0 flex-1"
               aria-label="Edit active patient case"
             >
-              <User className="w-4 h-4 text-blue-400" />
-              <span>{activeCase.patientWeight || '70'}kg • {activeCase.patientSex} • ASA {activeCase.asaClass}</span>
+              <User className="w-4 h-4 text-blue-400 shrink-0" />
+              <span className="truncate">{activeCase.patientWeight || '70'}kg • {activeCase.patientSex} • ASA {activeCase.asaClass}</span>
             </button>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 shrink-0">
               <button
                 onClick={() => {
                   exportBedsideRoundsPDF({

@@ -9,6 +9,7 @@ import {
   calculateNicardipineInfusion,
   calculateNitroprussideInfusion,
   calculateLabetalolDosing,
+  calculateAnaphylaxisProtocols,
   HS_AND_TS_LIST,
 } from '../lib/emergencyProtocols.ts';
 
@@ -192,4 +193,32 @@ test('ACLS Hs and Ts Completeness', () => {
   assert.ok(ids.includes('toxins'));
   assert.ok(ids.includes('thrombosis_pulmonary'));
   assert.ok(ids.includes('thrombosis_coronary'));
+});
+
+test('Anaphylaxis IM First-Line vs Monitored IV Protocol', () => {
+  // Adult 70 kg
+  const adult = calculateAnaphylaxisProtocols(70);
+  assert.equal(adult.isPediatric, false);
+  assert.equal(adult.imFirstLine.doseMg, 0.5); // 0.01 mg/kg capped at 0.5 mg
+  assert.equal(adult.imFirstLine.volumeMl, 0.5);
+  assert.equal(adult.imFirstLine.concentration, '1:1,000 (1.0 mg/mL)');
+  assert.equal(adult.imFirstLine.location.includes('thigh'), true);
+
+  // Adult IV Monitored
+  assert.equal(adult.ivMonitored.grade2Bolus.mcgDose, '20–50 mcg IV bolus');
+  assert.equal(adult.ivMonitored.grade3Bolus.mcgDose, '100–200 mcg IV bolus');
+  assert.equal(adult.ivMonitored.grade4Arrest.mgDose, '1.0 mg IV push');
+  assert.equal(adult.ivMonitored.infusion.mcgPerMinRange.includes('0.05–0.1 mcg/kg/min'), true);
+  assert.equal(adult.ivMonitored.criticalBlackBoxWarning.includes('NEVER inject undiluted 1:1,000'), true);
+  assert.equal(adult.ivMonitored.glucagonBetaBlockerRescue.includes('Glucagon'), true);
+
+  // Pediatric 15 kg child
+  const child = calculateAnaphylaxisProtocols(15);
+  assert.equal(child.isPediatric, true);
+  assert.equal(child.imFirstLine.doseMg, 0.15); // 0.01 * 15
+  assert.equal(child.imFirstLine.volumeMl, 0.15);
+  assert.equal(child.ivMonitored.grade2Bolus.mcgDose, '15–30 mcg (1–2 mcg/kg)');
+  assert.equal(child.ivMonitored.grade3Bolus.mcgDose, '75–150 mcg (5–10 mcg/kg)');
+  assert.equal(child.ivMonitored.grade4Arrest.mgDose, '0.15 mg (0.01 mg/kg)');
+  assert.equal(child.secondaryAdjuncts.crystalloidBolusMl, 300); // 20 mL/kg
 });

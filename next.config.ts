@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  output: 'standalone',
+  // output: 'standalone', // Disabled for Netlify OpenNext runtime compatibility
   transpilePackages: ['motion'],
   turbopack: {},
   webpack: (config, {dev}) => {

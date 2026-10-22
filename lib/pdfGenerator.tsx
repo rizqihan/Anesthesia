@@ -225,3 +225,26 @@ export const downloadAIResponsePDF = async (
   // 2. Generate and download PDF using browser native print
   printContentAsPDF(title, htmlString, filename);
 };
+
+// ==========================================
+// BEDSIDE ROUNDS SBAR CLINICAL HANDOFF PDF
+// ==========================================
+
+import {
+  generateBedsideRoundsSbarHtml,
+  type BedsideRoundsSbarInput,
+} from './antimicrobialData';
+
+export { generateBedsideRoundsSbarHtml, type BedsideRoundsSbarInput };
+
+/**
+ * Triggers native browser print for Bedside Rounds SBAR Clinical Handoff Sheet.
+ */
+export function exportBedsideRoundsPDF(data: BedsideRoundsSbarInput, filename?: string): void {
+  const patientWeight = data.activeCase.patientWeight || '70';
+  const targetFilename = filename || `SBAR_Bedside_Rounds_${patientWeight}kg_${Date.now()}.pdf`;
+  const html = generateBedsideRoundsSbarHtml(data);
+  printContentAsPDF('Bedside Rounds SBAR Clinical Handoff Sheet', html, targetFilename);
+}
+
+

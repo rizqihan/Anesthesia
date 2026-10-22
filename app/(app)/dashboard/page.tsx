@@ -7,7 +7,7 @@ import { translations } from '@/lib/i18n';
 import { 
   Calculator, Pill, Activity, Syringe, BookOpen, WifiOff, Book, 
   ArrowRight, Stethoscope, AlertOctagon, Heart, User, Clock,
-  Cpu, Droplet, Sparkles, ShieldCheck
+  Cpu, Droplet, Sparkles, ShieldCheck, ShieldAlert
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -69,6 +69,13 @@ export default function DashboardPage() {
       sectionTitle: language === 'en' ? 'Clinical Assessment, Guidelines & Pharmacology' : 'Penilaian Klinis, Panduan Praktik & Farmakologi',
       sectionDesc: language === 'en' ? 'Airway examination, multi-drug interactions, and clinical practice guidelines' : 'Pemeriksaan jalan napas, interaksi obat, dan panduan praktik klinis',
       items: [
+        {
+          title: language === 'en' ? 'Antimicrobial Stewardship & SBAR Rounds' : 'Penatagunaan Antimikroba & Visite SBAR',
+          icon: ShieldAlert,
+          href: '/antimicrobial',
+          desc: language === 'en' ? 'Syndromic antibiotic regimens, live CrCl renal cutoffs, and hospital-grade SBAR PDF handoff' : 'Regimen antibiotik sindromik, batas klirens ginjal CrCl & ekspor PDF SBAR',
+          badge: 'NEW (PHASE 3)',
+        },
         {
           title: language === 'en' ? 'Interactive Physical Exam Map' : 'Peta Pemeriksaan Fisik Interaktif',
           icon: Stethoscope,

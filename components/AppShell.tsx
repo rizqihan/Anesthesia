@@ -8,11 +8,12 @@ import { translations } from '@/lib/i18n';
 import { 
   LayoutDashboard, Settings, ChevronLeft, WifiOff, Activity, Database, 
   RefreshCw, X, BookOpen, AlertOctagon, Calculator, Syringe, Pill, 
-  Stethoscope, Book, Search, User, Globe
+  Stethoscope, Book, Search, User, Globe, ShieldAlert, Printer
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ActiveCaseModal from '@/components/ActiveCaseModal';
 import CommandPalette from '@/components/CommandPalette';
+import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const store = useAppStore();
@@ -118,6 +119,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const navItems = [
     { name: language === 'en' ? 'Dashboard' : 'Dasbor', href: '/dashboard', icon: LayoutDashboard },
     { name: language === 'en' ? 'OR Crisis Card' : 'Kartu Krisis', href: '/emergency', icon: AlertOctagon, badge: 'CRISIS' },
+    { name: language === 'en' ? 'Antimicrobial & SBAR' : 'Antimikroba & SBAR', href: '/antimicrobial', icon: ShieldAlert },
     { name: t.calculators, href: '/calculators', icon: Calculator },
     { name: t.dosage, href: '/dosage', icon: Syringe },
     { name: '12-Lead ECG', href: '/ecg', icon: Activity },
@@ -188,6 +190,21 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <span>{language === 'en' ? 'Crisis Dose' : 'Dosis Krisis'}</span>
             </button>
           </Link>
+
+          {/* 1-Tap SBAR Rounds PDF Button */}
+          <button
+            onClick={() => {
+              exportBedsideRoundsPDF({
+                activeCase: store.activeCase,
+                patientLabs: store.patientLabs,
+              });
+            }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600/20 border border-blue-500/40 hover:bg-blue-600/30 text-blue-300 transition-all text-[12px] font-[700]"
+            title="Export Bedside Rounds SBAR Clinical Handoff Sheet"
+          >
+            <Printer className="w-3.5 h-3.5 text-blue-400" />
+            <span>{language === 'en' ? 'SBAR PDF' : 'PDF SBAR'}</span>
+          </button>
         </div>
 
         {/* Right controls */}
@@ -334,14 +351,29 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <User className="w-4 h-4 text-blue-400" />
               <span>{activeCase.patientWeight || '70'}kg • {activeCase.patientSex} • ASA {activeCase.asaClass}</span>
             </button>
-            <Link
-              href="/emergency"
-              className="min-h-[44px] px-3 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-300 font-[800] flex items-center gap-1.5 transition-colors"
-              aria-label="Open emergency crisis protocols"
-            >
-              <AlertOctagon className="w-4 h-4 text-rose-400" />
-              <span>Crisis</span>
-            </Link>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => {
+                  exportBedsideRoundsPDF({
+                    activeCase: store.activeCase,
+                    patientLabs: store.patientLabs,
+                  });
+                }}
+                className="min-h-[44px] px-2.5 rounded-xl bg-blue-600/20 border border-blue-500/40 text-blue-300 font-[800] flex items-center gap-1 transition-colors text-[11px]"
+                aria-label="Export SBAR rounds PDF"
+              >
+                <Printer className="w-3.5 h-3.5 text-blue-400" />
+                <span>SBAR</span>
+              </button>
+              <Link
+                href="/emergency"
+                className="min-h-[44px] px-3 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-300 font-[800] flex items-center gap-1.5 transition-colors"
+                aria-label="Open emergency crisis protocols"
+              >
+                <AlertOctagon className="w-4 h-4 text-rose-400" />
+                <span>Crisis</span>
+              </Link>
+            </div>
           </div>
 
           <div className="p-4 md:p-6 w-full max-w-7xl mx-auto">

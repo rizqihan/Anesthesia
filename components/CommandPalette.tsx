@@ -5,9 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import { 
   Search, Calculator, Syringe, Activity, Pill, BookOpen, Stethoscope, 
-  AlertOctagon, Book, Settings, User, ArrowRight, X 
+  AlertOctagon, Book, Settings, User, ArrowRight, X, ShieldAlert, Printer
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -42,6 +43,29 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal }: Com
       href: '/emergency',
       icon: AlertOctagon,
       category: 'Emergency',
+    },
+    {
+      id: 'antimicrobial',
+      title: language === 'en' ? 'Antimicrobial Stewardship & Renal Dosing' : 'Penatagunaan Antimikroba & Klirens Ginjal',
+      subtitle: language === 'en' ? 'Syndromic regimens, CrCl cutoffs, Cefepime neurotoxicity, nomograms' : 'Regimen sindromik, batas CrCl, penyesuaian dosis ginjal',
+      href: '/antimicrobial',
+      icon: ShieldAlert,
+      category: 'Pharmacology',
+    },
+    {
+      id: 'export-sbar',
+      title: language === 'en' ? '📄 Export Bedside Rounds SBAR PDF' : '📄 Ekspor PDF SBAR Visite Pasien',
+      subtitle: language === 'en' ? 'One-tap hospital-grade SBAR handoff sheet with CrCl & crisis doses' : 'Lembar handoff klinis SBAR dengan klirens ginjal & dosis krisis',
+      action: () => {
+        onClose();
+        const state = useAppStore.getState();
+        exportBedsideRoundsPDF({
+          activeCase: state.activeCase,
+          patientLabs: state.patientLabs,
+        });
+      },
+      icon: Printer,
+      category: 'Patient',
     },
     {
       id: 'active-case',

@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Calculator, WifiOff, ArrowLeft, Copy, Check } from 'lucide-react';
+import { Calculator, WifiOff, ArrowLeft, Copy, Check, ShieldAlert, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
+import RiskScoresTab from '@/components/calculators/RiskScoresTab';
+import DiagnosticLabTab from '@/components/calculators/DiagnosticLabTab';
 
 const inputClass = "glass-input w-full px-3 py-2.5 text-[13px] font-[500]";
 const labelClass = "form-label";
@@ -65,6 +67,7 @@ export default function CalculatorsPage() {
   const { language, activeCase } = useAppStore();
   const t = translations[language] as any;
 
+  const [category, setCategory] = useState<'bedside' | 'risk_scores' | 'diagnostic_labs'>('bedside');
   const [activeTab, setActiveTab] = useState('bmi');
 
   // BMI State
@@ -402,8 +405,44 @@ export default function CalculatorsPage() {
         </div>
       </div>
 
-      {/* Tab Selector: Dropdown on Mobile, Animated Pill Strip on Tablet/Desktop */}
-      <div className="space-y-1.5">
+      {/* Category Pills: Bedside vs Clinical Risk Scores vs Diagnostic Labs */}
+      <div className="flex p-1.5 rounded-2xl bg-white/[0.03] border border-white/10 gap-1.5 shadow-inner">
+        {[
+          { id: 'bedside', label: t.bedside_calculators || 'Bedside & Anesthesia', icon: Calculator },
+          { id: 'risk_scores', label: t.clinical_risk_scores || 'Clinical Risk Scores', icon: ShieldAlert },
+          { id: 'diagnostic_labs', label: t.diagnostic_labs_abg || 'Diagnostic Labs & ABG', icon: Activity },
+        ].map((cat) => {
+          const Icon = cat.icon;
+          const isActive = category === cat.id;
+          return (
+            <motion.button
+              key={cat.id}
+              whileTap={{ scale: 0.97 }}
+              type="button"
+              onClick={() => setCategory(cat.id as any)}
+              className={`flex-1 py-2 px-2.5 rounded-xl text-[12px] font-[700] transition-all relative flex items-center justify-center gap-2 ${
+                isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+              }`}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="calc-category-pill"
+                  className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-md"
+                  transition={{ type: 'spring', bounce: 0.15, duration: 0.3 }}
+                />
+              )}
+              <Icon className="w-3.5 h-3.5 relative z-10 shrink-0" />
+              <span className="relative z-10 truncate">{cat.label}</span>
+            </motion.button>
+          );
+        })}
+      </div>
+
+      {/* Bedside Mode */}
+      {category === 'bedside' && (
+        <div className="space-y-5">
+          {/* Tab Selector: Dropdown on Mobile, Animated Pill Strip on Tablet/Desktop */}
+          <div className="space-y-1.5">
         <label className={labelClass}>{t.select_calculator}</label>
 
         {/* Mobile Dropdown */}
@@ -831,5 +870,17 @@ export default function CalculatorsPage() {
         </div>
       </motion.div>
     </div>
-  );
+  )}
+
+  {/* Clinical Risk Scores Suite */}
+  {category === 'risk_scores' && (
+    <RiskScoresTab />
+  )}
+
+  {/* Diagnostic Lab Interpreters Suite */}
+  {category === 'diagnostic_labs' && (
+    <DiagnosticLabTab />
+  )}
+</div>
+);
 }

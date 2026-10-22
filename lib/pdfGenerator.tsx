@@ -45,9 +45,8 @@ export const printContentAsPDF = (
       <head>
         <title>${title}</title>
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
           body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
             color: #0f172a;
             line-height: 1.6;
             padding: 30px;

@@ -26,6 +26,20 @@ export interface ActiveCase {
   mallampati: 'I' | 'II' | 'III' | 'IV';
 }
 
+export interface PatientLabs {
+  serumCreatinine: string;
+  bloodUreaNitrogen: string;
+  sodium: string;
+  potassium: string;
+  chloride: string;
+  bicarbonate: string;
+  glucose: string;
+  albumin: string;
+  totalBilirubin: string;
+  platelets: string;
+  inr: string;
+}
+
 interface AppState {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -36,6 +50,11 @@ interface AppState {
   activeCase: ActiveCase;
   setActiveCase: (caseData: Partial<ActiveCase>) => void;
   clearActiveCase: () => void;
+
+  // Patient Laboratory Profile
+  patientLabs: PatientLabs;
+  updatePatientLabs: (labs: Partial<PatientLabs>) => void;
+  clearPatientLabs: () => void;
   
   aiProvider: AIProvider;
   setAiProvider: (provider: AIProvider) => void;
@@ -104,6 +123,40 @@ export const useAppStore = create<AppState>()(
             mallampati: 'I',
           },
         }),
+
+      patientLabs: {
+        serumCreatinine: '',
+        bloodUreaNitrogen: '',
+        sodium: '',
+        potassium: '',
+        chloride: '',
+        bicarbonate: '',
+        glucose: '',
+        albumin: '',
+        totalBilirubin: '',
+        platelets: '',
+        inr: '',
+      },
+      updatePatientLabs: (labs) =>
+        set((state) => ({
+          patientLabs: { ...state.patientLabs, ...labs },
+        })),
+      clearPatientLabs: () =>
+        set({
+          patientLabs: {
+            serumCreatinine: '',
+            bloodUreaNitrogen: '',
+            sodium: '',
+            potassium: '',
+            chloride: '',
+            bicarbonate: '',
+            glucose: '',
+            albumin: '',
+            totalBilirubin: '',
+            platelets: '',
+            inr: '',
+          },
+        }),
       
       aiProvider: 'default_groq',
       setAiProvider: (provider) => set({ aiProvider: provider }),
@@ -163,6 +216,7 @@ export const useAppStore = create<AppState>()(
         interactionHistory: state.interactionHistory,
         symptomHistory: state.symptomHistory,
         activeCase: state.activeCase,
+        patientLabs: state.patientLabs,
       }),
     }
   )

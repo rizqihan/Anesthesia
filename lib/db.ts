@@ -63,12 +63,37 @@ export interface PhysicalExamRecord {
   lastGenerated?: string;
 }
 
+export interface POCUSMeasurement {
+  type: 'distance' | 'ellipse' | 'bladder_volume' | 'ivc_collapsibility' | 'ivc_distensibility' | 'm_mode';
+  d1_mm?: number;
+  d2_mm?: number;
+  d3_mm?: number;
+  volume_ml?: number;
+  area_cm2?: number;
+  ivc_max_cm?: number;
+  ivc_min_cm?: number;
+  ivc_index_pct?: number;
+  label?: string;
+}
+
+export interface POCUSCaptureRecord {
+  id?: number;
+  timestamp: number;
+  protocol: string;
+  windowId: string;
+  diagnosis?: string;
+  notes?: string;
+  imageDataUri?: string;
+  measurements?: POCUSMeasurement[];
+}
+
 const db = new Dexie('ClinicalAppDB') as Dexie & {
   drugs: EntityTable<Drug, 'id'>;
   icd10: EntityTable<ICD10Record, 'code'>;
   guidelines: EntityTable<GuidelineRecord, 'id'>;
   physicalExams: EntityTable<PhysicalExamRecord, 'id'>;
   ecgDiagnoses: EntityTable<ECGDiagnosisRecord, 'id'>;
+  pocusCaptures: EntityTable<POCUSCaptureRecord, 'id'>;
 };
 
 // Schema declaration
@@ -114,6 +139,15 @@ db.version(5).stores({
   guidelines: '++id, title.en, title.id, category, isStructured',
   physicalExams: '++id, title.en, title.id, category',
   ecgDiagnoses: 'id, title.en, title.id, category'
+});
+
+db.version(6).stores({
+  drugs: 'id, genericName, drugClass, *brandNames',
+  icd10: 'code, name, indonesian, chapter, block',
+  guidelines: '++id, title.en, title.id, category, isStructured',
+  physicalExams: '++id, title.en, title.id, category',
+  ecgDiagnoses: 'id, title.en, title.id, category',
+  pocusCaptures: '++id, timestamp, protocol, windowId, diagnosis'
 });
 
 export default db;

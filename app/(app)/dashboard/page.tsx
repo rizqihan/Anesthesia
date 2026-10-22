@@ -7,7 +7,7 @@ import { translations } from '@/lib/i18n';
 import { 
   Calculator, Pill, Activity, Syringe, BookOpen, WifiOff, Book, 
   ArrowRight, Stethoscope, AlertOctagon, Heart, User, Clock,
-  Cpu, Droplet, Sparkles, ShieldCheck, ShieldAlert
+  Cpu, Droplet, Sparkles, ShieldCheck, ShieldAlert, Radio
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -62,6 +62,13 @@ export default function DashboardPage() {
           href: '/ecg',
           desc: language === 'en' ? 'Interactive programmatic SVG waveforms for STEMI, Wellens, Brugada & quiz' : 'Gelombang SVG programatik untuk STEMI, Wellens, Brugada & latihan kuis',
           badge: 'SIMULATOR',
+        },
+        {
+          title: language === 'en' ? 'POCUS Point-of-Care Ultrasound Suite' : 'POCUS Modul USG Bedside',
+          icon: Radio,
+          href: '/pocus',
+          desc: language === 'en' ? 'eFAST trauma, BLUE lung protocol, FOCUS cardiac hemodynamics, live probe calipers & DICOM cine' : 'eFAST trauma, protokol BLUE paru, hemodinamik FOCUS jantung, kaliper & penampil DICOM',
+          badge: 'PHASE 4 & 5',
         },
       ],
     },

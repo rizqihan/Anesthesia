@@ -8,7 +8,7 @@ import { translations } from '@/lib/i18n';
 import { 
   LayoutDashboard, Settings, ChevronLeft, WifiOff, Activity, Database, 
   RefreshCw, X, BookOpen, AlertOctagon, Calculator, Syringe, Pill, 
-  Stethoscope, Book, Search, User, Globe, ShieldAlert, Printer
+  Stethoscope, Book, Search, User, Globe, ShieldAlert, Printer, Radio
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ActiveCaseModal from '@/components/ActiveCaseModal';
@@ -123,6 +123,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     { name: t.calculators, href: '/calculators', icon: Calculator },
     { name: t.dosage, href: '/dosage', icon: Syringe },
     { name: '12-Lead ECG', href: '/ecg', icon: Activity },
+    { name: language === 'en' ? 'POCUS Ultrasound' : 'USG POCUS', href: '/pocus', icon: Radio, badge: 'POCUS' },
     { name: language === 'en' ? 'Formulary' : 'Formularium', href: '/formulary', icon: Pill },
     { name: language === 'en' ? 'Guidelines' : 'Panduan', href: '/guidelines', icon: BookOpen },
     { name: language === 'en' ? 'Physical Exam' : 'Pemeriksaan Fisik', href: '/physical-exam', icon: Stethoscope },

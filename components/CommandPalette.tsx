@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import { 
   Search, Calculator, Syringe, Activity, Pill, BookOpen, Stethoscope, 
-  AlertOctagon, Book, Settings, User, ArrowRight, X, ShieldAlert, Printer
+  AlertOctagon, Book, Settings, User, ArrowRight, X, ShieldAlert, Printer, Radio
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
@@ -100,6 +100,14 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal }: Com
       subtitle: language === 'en' ? 'Interactive waveforms: STEMI, Wellens, Brugada, rhythm strips' : 'Gelombang interaktif: STEMI, Wellens, Brugada',
       href: '/ecg',
       icon: Activity,
+      category: 'Diagnostics',
+    },
+    {
+      id: 'pocus',
+      title: language === 'en' ? 'POCUS Point-of-Care Ultrasound Suite' : 'Modul USG POCUS Bedside',
+      subtitle: language === 'en' ? 'eFAST, BLUE protocol, FOCUS cardiac, vascular access & DICOM cine' : 'eFAST trauma, protokol BLUE, fokus jantung FOCUS, akses vaskular & penampil DICOM',
+      href: '/pocus',
+      icon: Radio,
       category: 'Diagnostics',
     },
     {

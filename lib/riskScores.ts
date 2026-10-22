@@ -952,3 +952,230 @@ export function calculateCkdEpi2021(input: CkdEpi2021Input): CkdEpi2021Result {
     dosingRecommendation,
   };
 }
+
+
+// ==========================================
+// 13. HAS-BLED BLEEDING RISK SCORE
+// ==========================================
+export interface HasBledInput {
+  hypertension?: boolean; // SBP > 160 (+1)
+  abnormalRenal?: boolean; // Dialysis, transplant, Cr > 2.26 mg/dL (+1)
+  abnormalLiver?: boolean; // Cirrhosis, bili > 2x ULN + AST/ALT > 3x ULN (+1)
+  strokeHistory?: boolean; // (+1)
+  bleedingHistoryOrPredisposition?: boolean; // (+1)
+  labileInr?: boolean; // TTR < 60% (+1)
+  elderly?: boolean; // Age > 65 (+1)
+  drugsAntiplateletOrNsaid?: boolean; // (+1)
+  alcoholExcess?: boolean; // > 8 drinks/week (+1)
+}
+
+export interface HasBledResult {
+  score: number;
+  riskTier: 'Low' | 'Moderate' | 'High';
+  bleedsPer100PtYears: string;
+  recommendation: string;
+}
+
+export function calculateHasBled(input: HasBledInput): HasBledResult {
+  let score = 0;
+  if (input.hypertension) score += 1;
+  if (input.abnormalRenal) score += 1;
+  if (input.abnormalLiver) score += 1;
+  if (input.strokeHistory) score += 1;
+  if (input.bleedingHistoryOrPredisposition) score += 1;
+  if (input.labileInr) score += 1;
+  if (input.elderly) score += 1;
+  if (input.drugsAntiplateletOrNsaid) score += 1;
+  if (input.alcoholExcess) score += 1;
+
+  let riskTier: HasBledResult['riskTier'] = 'Low';
+  let bleedsPer100PtYears = '1.13 bleeds / 100 patient-years';
+  let recommendation = 'Low bleeding risk. Standard anticoagulation monitoring without specific dosage adjustment.';
+
+  if (score >= 3) {
+    riskTier = 'High';
+    bleedsPer100PtYears = score === 3 ? '3.74' : score === 4 ? '8.70' : '12.50+';
+    bleedsPer100PtYears += ' bleeds / 100 patient-years';
+    recommendation = 'High bleeding risk (Score ≥ 3). Anticoagulation is NOT contraindicated, but warrants close clinical surveillance, correction of modifiable risk factors (BP control, NSAID discontinuation, alcohol cessation), and frequent INR review.';
+  } else if (score >= 1) {
+    riskTier = 'Moderate';
+    bleedsPer100PtYears = score === 1 ? '1.02' : '1.88';
+    bleedsPer100PtYears += ' bleeds / 100 patient-years';
+    recommendation = 'Moderate bleeding risk. Counsel patient on bleeding signs and monitor renal function and antiplatelet co-medications.';
+  }
+
+  return {
+    score,
+    riskTier,
+    bleedsPer100PtYears,
+    recommendation,
+  };
+}
+
+// ==========================================
+// 14. HEART SCORE FOR MACE IN CHEST PAIN
+// ==========================================
+export interface HeartScoreInput {
+  history: 0 | 1 | 2; // 0=Slightly, 1=Moderately, 2=Highly suspicious
+  ecg: 0 | 1 | 2; // 0=Normal, 1=Non-specific repolarization, 2=Significant ST deviation
+  age: 0 | 1 | 2; // 0=<45, 1=45-64, 2=≥65
+  riskFactors: 0 | 1 | 2; // 0=None, 1=1-2 factors, 2=≥3 factors or known CAD/PVD
+  troponin: 0 | 1 | 2; // 0=≤Normal limit, 1=1-3x normal limit, 2=>3x normal limit
+}
+
+export interface HeartScoreResult {
+  score: number;
+  riskTier: 'Low' | 'Moderate' | 'High';
+  maceRiskPercent: string;
+  managementAction: string;
+}
+
+export function calculateHeartScore(input: HeartScoreInput): HeartScoreResult {
+  const score = (input.history || 0) + (input.ecg || 0) + (input.age || 0) + (input.riskFactors || 0) + (input.troponin || 0);
+
+  let riskTier: HeartScoreResult['riskTier'] = 'Low';
+  let maceRiskPercent = '0.9 – 1.7%';
+  let managementAction = 'Low risk for 6-week MACE. Early discharge from emergency department is considered safe without urgent inpatient admission.';
+
+  if (score >= 7) {
+    riskTier = 'High';
+    maceRiskPercent = '50.0 – 65.0%';
+    managementAction = 'High risk of acute coronary syndrome/MACE. Immediate admission, continuous cardiac telemetry, urgent cardiology consult, and consideration of early invasive coronary angiography.';
+  } else if (score >= 4) {
+    riskTier = 'Moderate';
+    maceRiskPercent = '12.0 – 16.6%';
+    managementAction = 'Moderate risk for MACE. Hospital admission or observation unit protocol indicated. Serial troponin sampling (0h, 2-3h) and non-invasive ischemia testing before discharge.';
+  }
+
+  return {
+    score,
+    riskTier,
+    maceRiskPercent,
+    managementAction,
+  };
+}
+
+// ==========================================
+// 15. GLASGOW-BLATCHFORD UPPER GI BLEED SCORE (GBS)
+// ==========================================
+export interface GlasgowBlatchfordInput {
+  bunMgDl?: number;
+  hemoglobinGDl?: number;
+  isFemale?: boolean;
+  systolicBp?: number;
+  pulseBpm?: number;
+  syncope?: boolean; // +2
+  melena?: boolean; // +1
+  liverDisease?: boolean; // +2
+  heartFailure?: boolean; // +2
+}
+
+export interface GlasgowBlatchfordResult {
+  score: number;
+  riskTier: 'Low Risk' | 'High Risk';
+  urgentInterventionProbability: string;
+  clinicalAction: string;
+}
+
+export function calculateGlasgowBlatchford(input: GlasgowBlatchfordInput): GlasgowBlatchfordResult {
+  let score = 0;
+
+  // BUN
+  const bun = input.bunMgDl ?? 15;
+  if (bun >= 70) score += 6;
+  else if (bun >= 28) score += 4;
+  else if (bun >= 22.4) score += 3;
+  else if (bun >= 18.2) score += 2;
+
+  // Hemoglobin
+  const hb = input.hemoglobinGDl ?? 14;
+  if (input.isFemale) {
+    if (hb < 10) score += 6;
+    else if (hb < 12) score += 1;
+  } else {
+    if (hb < 10) score += 6;
+    else if (hb < 12) score += 3;
+    else if (hb < 13) score += 1;
+  }
+
+  // Systolic BP
+  const sbp = input.systolicBp ?? 120;
+  if (sbp < 90) score += 3;
+  else if (sbp < 100) score += 2;
+  else if (sbp < 110) score += 1;
+
+  // Pulse
+  if ((input.pulseBpm ?? 80) >= 100) score += 1;
+
+  // Presentation & Co-morbidities
+  if (input.syncope) score += 2;
+  if (input.melena) score += 1;
+  if (input.liverDisease) score += 2;
+  if (input.heartFailure) score += 2;
+
+  const isLowRisk = score === 0;
+
+  return {
+    score,
+    riskTier: isLowRisk ? 'Low Risk' : 'High Risk',
+    urgentInterventionProbability: isLowRisk ? '< 0.5% need for transfusion/endoscopy' : 'High likelihood of transfusion, endoscopic therapy, or surgical intervention',
+    clinicalAction: isLowRisk
+      ? 'Score 0: Low risk of adverse outcome. Patient can be safely evaluated for outpatient endoscopy without emergency hospital admission.'
+      : 'Score ≥ 1: Inpatient admission required. Resuscitate with IV crystalloids / PRBCs, start IV PPI infusion, and arrange urgent esophagogastroduodenoscopy (EGD) within 24 hours.',
+  };
+}
+
+// ==========================================
+// 16. SHOCK INDEX & MODIFIED SHOCK INDEX
+// ==========================================
+export interface ShockIndexInput {
+  heartRate: number;
+  systolicBp: number;
+  diastolicBp?: number;
+}
+
+export interface ShockIndexResult {
+  shockIndex: number;
+  modifiedShockIndex?: number;
+  interpretation: string;
+  mortalityRisk: 'Normal' | 'Elevated' | 'Critical';
+  clinicalGuidance: string;
+}
+
+export function calculateShockIndex(input: ShockIndexInput): ShockIndexResult {
+  const hr = Math.max(1, input.heartRate);
+  const sbp = Math.max(1, input.systolicBp);
+  const si = parseFloat((hr / sbp).toFixed(2));
+
+  let msi: number | undefined;
+  if (input.diastolicBp && input.diastolicBp > 0) {
+    const map = (sbp + 2 * input.diastolicBp) / 3;
+    msi = parseFloat((hr / map).toFixed(2));
+  }
+
+  let interpretation = 'Normal hemodynamic tone (SI 0.5 – 0.7)';
+  let mortalityRisk: ShockIndexResult['mortalityRisk'] = 'Normal';
+  let clinicalGuidance = 'Patient displays adequate compensated cardiac output. Continue routine vital sign surveillance.';
+
+  if (si >= 1.0) {
+    interpretation = 'Marked occult hypoperfusion / Uncompensated Shock (SI ≥ 1.0)';
+    mortalityRisk = 'Critical';
+    clinicalGuidance = 'High risk of massive transfusion protocol (MTP) activation, ICU admission, and arrest. Prepare immediate blood products, rapid infusion catheter, and initiate vasopressor/inotropic support.';
+  } else if (si >= 0.9) {
+    interpretation = 'Elevated Shock Index / Compensated Hypoperfusion (SI 0.9 – 0.99)';
+    mortalityRisk = 'Elevated';
+    clinicalGuidance = 'Early warning of occult hemorrhage, sepsis, or myocardial dysfunction. Check lactate, send type & screen, and challenge with balanced crystalloid bolus.';
+  } else if (si >= 0.7) {
+    interpretation = 'Mildly elevated Shock Index (SI 0.7 – 0.89)';
+    mortalityRisk = 'Elevated';
+    clinicalGuidance = 'Monitor vital sign trends closely. Tachycardia relative to blood pressure may reflect dehydration, pain, or early systemic response.';
+  }
+
+  return {
+    shockIndex: si,
+    modifiedShockIndex: msi,
+    interpretation,
+    mortalityRisk,
+    clinicalGuidance,
+  };
+}

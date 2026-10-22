@@ -13,6 +13,10 @@ import {
   calculateMeldNa,
   calculateChildPugh,
   calculateCkdEpi2021,
+  calculateHasBled,
+  calculateHeartScore,
+  calculateGlasgowBlatchford,
+  calculateShockIndex,
 } from '../lib/riskScores.ts';
 import {
   analyzeAbg,
@@ -327,4 +331,105 @@ test('Electrolyte Safety Engines', () => {
     currentPotassium: 3.2,
   });
   assert.equal(kRepletion.estimatedDeficitMeq, 80);
+});
+
+
+test('HAS-BLED Bleeding Risk Calculation', () => {
+  // Zero risk
+  const zero = calculateHasBled({});
+  assert.equal(zero.score, 0);
+  assert.equal(zero.riskTier, 'Low');
+
+  // Moderate risk (score 1 or 2)
+  const mod = calculateHasBled({ hypertension: true, elderly: true });
+  assert.equal(mod.score, 2);
+  assert.equal(mod.riskTier, 'Moderate');
+
+  // High risk (score >= 3)
+  const high = calculateHasBled({
+    hypertension: true,
+    abnormalRenal: true,
+    abnormalLiver: true,
+    strokeHistory: true,
+  });
+  assert.equal(high.score, 4);
+  assert.equal(high.riskTier, 'High');
+  assert.match(high.recommendation, /High bleeding risk/);
+});
+
+test('HEART Score Calculation for Chest Pain', () => {
+  // Low risk (0-3)
+  const low = calculateHeartScore({
+    history: 0,
+    ecg: 0,
+    age: 1,
+    riskFactors: 1,
+    troponin: 0,
+  });
+  assert.equal(low.score, 2);
+  assert.equal(low.riskTier, 'Low');
+  assert.match(low.managementAction, /Early discharge/);
+
+  // Moderate risk (4-6)
+  const mod = calculateHeartScore({
+    history: 1,
+    ecg: 1,
+    age: 1,
+    riskFactors: 2,
+    troponin: 0,
+  });
+  assert.equal(mod.score, 5);
+  assert.equal(mod.riskTier, 'Moderate');
+
+  // High risk (7-10)
+  const high = calculateHeartScore({
+    history: 2,
+    ecg: 2,
+    age: 2,
+    riskFactors: 2,
+    troponin: 1,
+  });
+  assert.equal(high.score, 9);
+  assert.equal(high.riskTier, 'High');
+  assert.match(high.managementAction, /Immediate admission/);
+});
+
+test('Glasgow-Blatchford Score (GBS) Calculation', () => {
+  // Low risk (score 0)
+  const low = calculateGlasgowBlatchford({
+    bunMgDl: 15,
+    hemoglobinGDl: 14,
+    systolicBp: 120,
+    pulseBpm: 75,
+  });
+  assert.equal(low.score, 0);
+  assert.equal(low.riskTier, 'Low Risk');
+  assert.match(low.clinicalAction, /outpatient/);
+
+  // High risk (elevated BUN, melena, tachycardia)
+  const high = calculateGlasgowBlatchford({
+    bunMgDl: 32, // +4
+    hemoglobinGDl: 9.5, // <10 -> +6
+    systolicBp: 95, // +2
+    pulseBpm: 110, // +1
+    melena: true, // +1
+    liverDisease: true, // +2
+  });
+  // 4 + 6 + 2 + 1 + 1 + 2 = 16
+  assert.equal(high.score, 16);
+  assert.equal(high.riskTier, 'High Risk');
+  assert.match(high.clinicalAction, /Inpatient admission/);
+});
+
+test('Shock Index & Modified Shock Index Calculation', () => {
+  // Normal SI (HR 70, SBP 120 -> 0.58)
+  const normal = calculateShockIndex({ heartRate: 70, systolicBp: 120, diastolicBp: 80 });
+  assert.equal(normal.shockIndex, 0.58);
+  assert.equal(normal.mortalityRisk, 'Normal');
+
+  // Critical Shock Index (HR 120, SBP 85 -> 1.41)
+  const critical = calculateShockIndex({ heartRate: 120, systolicBp: 85, diastolicBp: 50 });
+  assert.equal(critical.shockIndex, 1.41);
+  assert.equal(critical.mortalityRisk, 'Critical');
+  assert.match(critical.clinicalGuidance, /massive transfusion protocol/);
 });

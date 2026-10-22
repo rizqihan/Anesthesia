@@ -30,6 +30,10 @@ import {
   calculateMeldNa,
   calculateChildPugh,
   calculateCkdEpi2021,
+  calculateHasBled,
+  calculateHeartScore,
+  calculateGlasgowBlatchford,
+  calculateShockIndex,
   WellsDvtInput,
   WellsPeInput,
   Cha2ds2VascInput,
@@ -43,6 +47,10 @@ import {
   MeldNaInput,
   ChildPughInput,
   CkdEpi2021Input,
+  HasBledInput,
+  HeartScoreInput,
+  GlasgowBlatchfordInput,
+  ShockIndexInput,
 } from '@/lib/riskScores';
 
 const inputClass = "glass-input w-full px-3 py-2 text-[12.5px] font-[500]";
@@ -288,15 +296,69 @@ export default function RiskScoresTab({ initialScore = 'wells_dvt' }: RiskScoreT
     sex: activeCase.patientSex || 'M',
   });
 
+  // ==========================================
+  // 10. HAS-BLED STATE
+  // ==========================================
+  const [hasBled, setHasBled] = useState<HasBledInput>({
+    hypertension: false,
+    abnormalRenal: false,
+    abnormalLiver: false,
+    strokeHistory: false,
+    bleedingHistoryOrPredisposition: false,
+    labileInr: false,
+    elderly: (parseInt(activeCase.patientAge, 10) || 50) > 65,
+    drugsAntiplateletOrNsaid: false,
+    alcoholExcess: false,
+  });
+
+  // ==========================================
+  // 11. HEART SCORE STATE
+  // ==========================================
+  const [heartScore, setHeartScore] = useState<HeartScoreInput>({
+    history: 1,
+    ecg: 0,
+    age: (parseInt(activeCase.patientAge, 10) || 50) >= 65 ? 2 : (parseInt(activeCase.patientAge, 10) || 50) >= 45 ? 1 : 0,
+    riskFactors: 1,
+    troponin: 0,
+  });
+
+  // ==========================================
+  // 12. GLASGOW-BLATCHFORD STATE
+  // ==========================================
+  const [gbs, setGbs] = useState<GlasgowBlatchfordInput>({
+    bunMgDl: parseFloat(patientLabs.bloodUreaNitrogen) || 15,
+    hemoglobinGDl: 14,
+    isFemale: activeCase.patientSex === 'F',
+    systolicBp: 120,
+    pulseBpm: 80,
+    syncope: false,
+    melena: false,
+    liverDisease: false,
+    heartFailure: false,
+  });
+
+  // ==========================================
+  // 13. SHOCK INDEX STATE
+  // ==========================================
+  const [shockIndexInput, setShockIndexInput] = useState<ShockIndexInput>({
+    heartRate: 85,
+    systolicBp: 120,
+    diastolicBp: 80,
+  });
+
   const scoreOptions = [
     { id: 'wells_dvt', label: 'Wells DVT', icon: Activity, tag: 'VTE' },
     { id: 'wells_pe', label: 'Wells PE + PERC', icon: AlertTriangle, tag: 'Pulmonary' },
     { id: 'cha2ds2_vasc', label: 'CHA₂DS₂-VASc', icon: HeartPulse, tag: 'Cardiology' },
+    { id: 'has_bled', label: 'HAS-BLED', icon: ShieldAlert, tag: 'Bleeding' },
+    { id: 'heart_score', label: 'HEART Score', icon: HeartPulse, tag: 'Cardiology' },
     { id: 'curb_psi', label: 'CURB-65 & PSI', icon: FileText, tag: 'Pulmonary' },
     { id: 'sepsis', label: 'qSOFA & SOFA', icon: ShieldAlert, tag: 'Critical Care' },
     { id: 'gcs', label: 'GCS & GCS-P', icon: Brain, tag: 'Neuro' },
     { id: 'nihss', label: 'NIHSS + TNK/tPA', icon: Stethoscope, tag: 'Stroke' },
     { id: 'hepatic', label: 'MELD-Na / Child-Pugh', icon: Activity, tag: 'Hepatology' },
+    { id: 'gbs', label: 'Glasgow-Blatchford', icon: FileText, tag: 'GI Bleed' },
+    { id: 'shock_index', label: 'Shock Index', icon: AlertTriangle, tag: 'Hemodynamics' },
     { id: 'ckd_epi', label: 'CKD-EPI 2021', icon: RefreshCw, tag: 'Nephrology' },
   ];
 
@@ -2000,6 +2062,533 @@ export default function RiskScoresTab({ initialScore = 'wells_dvt' }: RiskScoreT
 
                     <div className="p-3 rounded-lg bg-purple-950/30 border border-purple-500/20 text-[11.5px] text-purple-200 leading-relaxed">
                       💊 <strong>Anesthesia & Medication Stewardship:</strong> {res.dosingRecommendation}
+                    </div>
+                  </div>
+                );
+              })()}
+            </motion.div>
+          )}
+
+          {/* =========================================================
+              10. HAS-BLED
+             ========================================================= */}
+          {selectedScore === 'has_bled' && (
+            <motion.div
+              key="has_bled"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="space-y-4"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-white/[0.07]">
+                <div>
+                  <h3 className="text-[15px] font-[800] text-slate-100 flex items-center gap-2">
+                    <ShieldAlert className="w-4 h-4 text-rose-400" />
+                    HAS-BLED Bleeding Risk Score
+                  </h3>
+                  <p className="text-[11.5px] text-slate-400 mt-0.5">
+                    Assesses 1-year major bleeding risk in atrial fibrillation patients on anticoagulation
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setHasBled({
+                      hypertension: false,
+                      abnormalRenal: false,
+                      abnormalLiver: false,
+                      strokeHistory: false,
+                      bleedingHistoryOrPredisposition: false,
+                      labileInr: false,
+                      elderly: (parseInt(activeCase.patientAge, 10) || 50) > 65,
+                      drugsAntiplateletOrNsaid: false,
+                      alcoholExcess: false,
+                    })
+                  }
+                  className="text-[11px] text-slate-400 hover:text-slate-200 underline"
+                >
+                  Reset
+                </button>
+              </div>
+
+              <div className="space-y-2">
+                {[
+                  { key: 'hypertension', label: 'H — Hypertension (Uncontrolled SBP > 160 mmHg)', points: '+1' },
+                  { key: 'abnormalRenal', label: 'A — Abnormal Renal Function (Dialysis, transplant, or Cr > 2.26 mg/dL)', points: '+1' },
+                  { key: 'abnormalLiver', label: 'A — Abnormal Liver Function (Cirrhosis, or Bilirubin > 2x with AST/ALT > 3x)', points: '+1' },
+                  { key: 'strokeHistory', label: 'S — Stroke History (Prior ischemic or hemorrhagic stroke)', points: '+1' },
+                  { key: 'bleedingHistoryOrPredisposition', label: 'B — Bleeding History or Predisposition (Major bleed or anemia)', points: '+1' },
+                  { key: 'labileInr', label: 'L — Labile INRs (Unstable, time in therapeutic range < 60%)', points: '+1' },
+                  { key: 'elderly', label: 'E — Elderly (Age > 65 years)', points: '+1' },
+                  { key: 'drugsAntiplateletOrNsaid', label: 'D — Drugs (Concomitant antiplatelet agents or regular NSAIDs)', points: '+1' },
+                  { key: 'alcoholExcess', label: 'D — Alcohol Excess (≥ 8 alcoholic drinks per week)', points: '+1' },
+                ].map((item) => (
+                  <label
+                    key={item.key}
+                    className={`flex items-center justify-between p-2.5 rounded-xl border cursor-pointer transition-colors ${
+                      hasBled[item.key as keyof HasBledInput]
+                        ? 'bg-rose-600/15 border-rose-500/40 text-rose-200'
+                        : 'bg-white/[0.02] border-white/[0.05] hover:bg-white/[0.04] text-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <input
+                        type="checkbox"
+                        checked={!!hasBled[item.key as keyof HasBledInput]}
+                        onChange={(e) =>
+                          setHasBled((prev) => ({ ...prev, [item.key]: e.target.checked }))
+                        }
+                        className="w-4 h-4 rounded accent-rose-600"
+                      />
+                      <span className="text-[12px]">{item.label}</span>
+                    </div>
+                    <span className="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded bg-white/5 text-slate-300 ml-2 shrink-0">
+                      {item.points}
+                    </span>
+                  </label>
+                ))}
+              </div>
+
+              {(() => {
+                const res = calculateHasBled(hasBled);
+                const badgeColor =
+                  res.riskTier === 'High'
+                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                    : res.riskTier === 'Moderate'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                    : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+
+                return (
+                  <div className="p-4 rounded-xl bg-slate-900/90 border border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[11px] font-[700] uppercase text-slate-400">HAS-BLED Score</span>
+                        <span className="text-[28px] font-[800] font-mono text-rose-400 tabular-nums">
+                          {res.score}
+                        </span>
+                        <span className="text-[12px] text-slate-400">/ 9</span>
+                      </div>
+                      <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${badgeColor}`}>
+                        {res.riskTier} Risk ({res.bleedsPer100PtYears})
+                      </span>
+                    </div>
+                    <div className="p-3 rounded-lg bg-rose-950/30 border border-rose-500/20 text-[11.5px] text-rose-200 leading-relaxed">
+                      📋 <strong>Clinical Stewardship:</strong> {res.recommendation}
+                    </div>
+                  </div>
+                );
+              })()}
+            </motion.div>
+          )}
+
+          {/* =========================================================
+              11. HEART SCORE
+             ========================================================= */}
+          {selectedScore === 'heart_score' && (
+            <motion.div
+              key="heart_score"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="space-y-4"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-white/[0.07]">
+                <div>
+                  <h3 className="text-[15px] font-[800] text-slate-100 flex items-center gap-2">
+                    <HeartPulse className="w-4 h-4 text-rose-400" />
+                    HEART Score for Chest Pain (MACE)
+                  </h3>
+                  <p className="text-[11.5px] text-slate-400 mt-0.5">
+                    Emergency department risk stratification for 6-week major adverse cardiac events
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setHeartScore({
+                      history: 0,
+                      ecg: 0,
+                      age: 0,
+                      riskFactors: 0,
+                      troponin: 0,
+                    })
+                  }
+                  className="text-[11px] text-slate-400 hover:text-slate-200 underline"
+                >
+                  Reset
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  {
+                    key: 'history',
+                    title: 'History Suspicious for ACS',
+                    options: [
+                      { val: 0, label: 'Slightly suspicious' },
+                      { val: 1, label: 'Moderately suspicious' },
+                      { val: 2, label: 'Highly suspicious (typical angina)' },
+                    ],
+                  },
+                  {
+                    key: 'ecg',
+                    title: 'ECG Findings',
+                    options: [
+                      { val: 0, label: 'Normal' },
+                      { val: 1, label: 'Non-specific repol / LBBB / pacing' },
+                      { val: 2, label: 'Significant ST depression / T-inversion' },
+                    ],
+                  },
+                  {
+                    key: 'age',
+                    title: 'Patient Age',
+                    options: [
+                      { val: 0, label: '< 45 years' },
+                      { val: 1, label: '45 – 64 years' },
+                      { val: 2, label: '≥ 65 years' },
+                    ],
+                  },
+                  {
+                    key: 'riskFactors',
+                    title: 'CAD Risk Factors (HTN, Lipids, DM, Smoke, FamHx, Obesity)',
+                    options: [
+                      { val: 0, label: 'No known risk factors' },
+                      { val: 1, label: '1 – 2 risk factors' },
+                      { val: 2, label: '≥ 3 factors or known CAD / PVD' },
+                    ],
+                  },
+                  {
+                    key: 'troponin',
+                    title: 'Initial Serum Troponin',
+                    options: [
+                      { val: 0, label: '≤ Normal limit (negative)' },
+                      { val: 1, label: '1 – 3× normal limit' },
+                      { val: 2, label: '> 3× normal limit' },
+                    ],
+                  },
+                ].map((item) => (
+                  <div key={item.key} className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-2">
+                    <span className="text-[11.5px] font-[700] text-slate-300 block">{item.title}</span>
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {item.options.map((opt) => {
+                        const isSel = heartScore[item.key as keyof HeartScoreInput] === opt.val;
+                        return (
+                          <button
+                            key={opt.val}
+                            type="button"
+                            onClick={() =>
+                              setHeartScore((prev) => ({
+                                ...prev,
+                                [item.key]: opt.val as 0 | 1 | 2,
+                              }))
+                            }
+                            className={`p-2 rounded-lg text-left border text-[11px] transition-all ${
+                              isSel
+                                ? 'bg-rose-600/20 border-rose-500/50 text-white font-bold'
+                                : 'bg-white/[0.02] border-white/[0.05] text-slate-400 hover:text-slate-200'
+                            }`}
+                          >
+                            <span className="block font-mono text-[9.5px] text-rose-400 mb-0.5">+{opt.val} pts</span>
+                            <span className="leading-tight block">{opt.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {(() => {
+                const res = calculateHeartScore(heartScore);
+                const badgeColor =
+                  res.riskTier === 'High'
+                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                    : res.riskTier === 'Moderate'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                    : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+
+                return (
+                  <div className="p-4 rounded-xl bg-slate-900/90 border border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[11px] font-[700] uppercase text-slate-400">HEART Score</span>
+                        <span className="text-[28px] font-[800] font-mono text-rose-400 tabular-nums">
+                          {res.score}
+                        </span>
+                        <span className="text-[12px] text-slate-400">/ 10</span>
+                      </div>
+                      <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${badgeColor}`}>
+                        {res.riskTier} Risk ({res.maceRiskPercent} 6w MACE)
+                      </span>
+                    </div>
+                    <div className="p-3 rounded-lg bg-rose-950/30 border border-rose-500/20 text-[11.5px] text-rose-200 leading-relaxed">
+                      🚑 <strong>ED Disposition:</strong> {res.managementAction}
+                    </div>
+                  </div>
+                );
+              })()}
+            </motion.div>
+          )}
+
+          {/* =========================================================
+              12. GLASGOW-BLATCHFORD (GBS)
+             ========================================================= */}
+          {selectedScore === 'gbs' && (
+            <motion.div
+              key="gbs"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="space-y-4"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-white/[0.07]">
+                <div>
+                  <h3 className="text-[15px] font-[800] text-slate-100 flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-amber-400" />
+                    Glasgow-Blatchford Score (GBS)
+                  </h3>
+                  <p className="text-[11.5px] text-slate-400 mt-0.5">
+                    Identifies upper GI bleed patients requiring blood transfusion or emergent endoscopic intervention
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setGbs({
+                      bunMgDl: 15,
+                      hemoglobinGDl: 14,
+                      isFemale: activeCase.patientSex === 'F',
+                      systolicBp: 120,
+                      pulseBpm: 80,
+                      syncope: false,
+                      melena: false,
+                      liverDisease: false,
+                      heartFailure: false,
+                    })
+                  }
+                  className="text-[11px] text-slate-400 hover:text-slate-200 underline"
+                >
+                  Reset
+                </button>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className={labelClass}>BUN (mg/dL)</label>
+                  <input
+                    type="number"
+                    value={gbs.bunMgDl ?? ''}
+                    onChange={(e) => setGbs((prev) => ({ ...prev, bunMgDl: parseFloat(e.target.value) || 0 }))}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Hemoglobin (g/dL)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={gbs.hemoglobinGDl ?? ''}
+                    onChange={(e) => setGbs((prev) => ({ ...prev, hemoglobinGDl: parseFloat(e.target.value) || 0 }))}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Systolic BP (mmHg)</label>
+                  <input
+                    type="number"
+                    value={gbs.systolicBp ?? ''}
+                    onChange={(e) => setGbs((prev) => ({ ...prev, systolicBp: parseFloat(e.target.value) || 0 }))}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Pulse (bpm)</label>
+                  <input
+                    type="number"
+                    value={gbs.pulseBpm ?? ''}
+                    onChange={(e) => setGbs((prev) => ({ ...prev, pulseBpm: parseFloat(e.target.value) || 0 }))}
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                {[
+                  { key: 'syncope', label: 'Presentation with Syncope', points: '+2' },
+                  { key: 'melena', label: 'Presentation with Melena', points: '+1' },
+                  { key: 'liverDisease', label: 'Known Hepatic Disease / Cirrhosis', points: '+2' },
+                  { key: 'heartFailure', label: 'Known Heart Failure History', points: '+2' },
+                ].map((item) => (
+                  <label
+                    key={item.key}
+                    className={`flex items-center justify-between p-2.5 rounded-xl border cursor-pointer transition-colors ${
+                      gbs[item.key as keyof GlasgowBlatchfordInput]
+                        ? 'bg-amber-600/15 border-amber-500/40 text-amber-200'
+                        : 'bg-white/[0.02] border-white/[0.05] hover:bg-white/[0.04] text-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <input
+                        type="checkbox"
+                        checked={!!gbs[item.key as keyof GlasgowBlatchfordInput]}
+                        onChange={(e) =>
+                          setGbs((prev) => ({ ...prev, [item.key]: e.target.checked }))
+                        }
+                        className="w-4 h-4 rounded accent-amber-600"
+                      />
+                      <span className="text-[12px]">{item.label}</span>
+                    </div>
+                    <span className="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded bg-white/5 text-slate-300 ml-2 shrink-0">
+                      {item.points}
+                    </span>
+                  </label>
+                ))}
+              </div>
+
+              {(() => {
+                const res = calculateGlasgowBlatchford(gbs);
+                const badgeColor =
+                  res.riskTier === 'High Risk'
+                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                    : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+
+                return (
+                  <div className="p-4 rounded-xl bg-slate-900/90 border border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[11px] font-[700] uppercase text-slate-400">GBS Score</span>
+                        <span className="text-[28px] font-[800] font-mono text-amber-400 tabular-nums">
+                          {res.score}
+                        </span>
+                      </div>
+                      <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${badgeColor}`}>
+                        {res.riskTier}
+                      </span>
+                    </div>
+                    <div className="p-3 rounded-lg bg-amber-950/30 border border-amber-500/20 text-[11.5px] text-amber-200 leading-relaxed">
+                      🩺 <strong>Endoscopy Guidance:</strong> {res.clinicalAction}
+                    </div>
+                  </div>
+                );
+              })()}
+            </motion.div>
+          )}
+
+          {/* =========================================================
+              13. SHOCK INDEX
+             ========================================================= */}
+          {selectedScore === 'shock_index' && (
+            <motion.div
+              key="shock_index"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="space-y-4"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-white/[0.07]">
+                <div>
+                  <h3 className="text-[15px] font-[800] text-slate-100 flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4 text-cyan-400" />
+                    Shock Index & Modified Shock Index
+                  </h3>
+                  <p className="text-[11.5px] text-slate-400 mt-0.5">
+                    Uncovers occult hypoperfusion, trauma hemorrhage, and circulatory collapse before hypotension occurs
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShockIndexInput({
+                      heartRate: 85,
+                      systolicBp: 120,
+                      diastolicBp: 80,
+                    })
+                  }
+                  className="text-[11px] text-slate-400 hover:text-slate-200 underline"
+                >
+                  Reset
+                </button>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className={labelClass}>Heart Rate (bpm)</label>
+                  <input
+                    type="number"
+                    value={shockIndexInput.heartRate || ''}
+                    onChange={(e) => setShockIndexInput((prev) => ({ ...prev, heartRate: parseFloat(e.target.value) || 0 }))}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Systolic BP (mmHg)</label>
+                  <input
+                    type="number"
+                    value={shockIndexInput.systolicBp || ''}
+                    onChange={(e) => setShockIndexInput((prev) => ({ ...prev, systolicBp: parseFloat(e.target.value) || 0 }))}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Diastolic BP (mmHg)</label>
+                  <input
+                    type="number"
+                    value={shockIndexInput.diastolicBp || ''}
+                    onChange={(e) => setShockIndexInput((prev) => ({ ...prev, diastolicBp: parseFloat(e.target.value) || 0 }))}
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+
+              {(() => {
+                const res = calculateShockIndex(shockIndexInput);
+                const badgeColor =
+                  res.mortalityRisk === 'Critical'
+                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                    : res.mortalityRisk === 'Elevated'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                    : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+
+                return (
+                  <div className="p-4 rounded-xl bg-slate-900/90 border border-white/10 space-y-3">
+                    <div className="grid grid-cols-2 gap-3 pb-3 border-b border-white/10">
+                      <div>
+                        <span className="text-[10.5px] uppercase font-[700] text-slate-400 block mb-0.5">
+                          Shock Index (HR / SBP)
+                        </span>
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-[26px] font-[800] font-mono text-cyan-400 tabular-nums">
+                            {res.shockIndex}
+                          </span>
+                          <span className="text-[11px] text-slate-400 font-mono">Norm: 0.5–0.7</span>
+                        </div>
+                      </div>
+                      {res.modifiedShockIndex !== undefined && (
+                        <div>
+                          <span className="text-[10.5px] uppercase font-[700] text-slate-400 block mb-0.5">
+                            Modified SI (HR / MAP)
+                          </span>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-[26px] font-[800] font-mono text-indigo-400 tabular-nums">
+                              {res.modifiedShockIndex}
+                            </span>
+                            <span className="text-[11px] text-slate-400 font-mono">Norm: 0.7–1.3</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-[12px] font-bold text-slate-200">
+                        {res.interpretation}
+                      </span>
+                      <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${badgeColor}`}>
+                        {res.mortalityRisk} Risk
+                      </span>
+                    </div>
+
+                    <div className="p-3 rounded-lg bg-cyan-950/30 border border-cyan-500/20 text-[11.5px] text-cyan-200 leading-relaxed">
+                      ⚡ <strong>Hemodynamic Action:</strong> {res.clinicalGuidance}
                     </div>
                   </div>
                 );

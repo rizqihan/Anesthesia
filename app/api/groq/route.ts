@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
-const ALLOWED_MODELS = new Set([
-  'llama-3.1-8b-instant',
-  'llama-3.3-70b-versatile',
-  'llama-3.1-70b-versatile',
-  'mixtral-8x7b-32768',
-  'gemma2-9b-it',
-]);
+
+// Model identifier format: alphanumeric, dots, dashes, underscores, slashes (1-100 chars)
+// Supports all available models on Groq dynamically (e.g. Llama 3.3, DeepSeek R1 Distill, Qwen, GPT-OSS)
+const SAFE_MODEL_REGEX = /^[a-zA-Z0-9._\-/]{1,100}$/;
 const ALLOWED_ROLES = new Set(['user', 'assistant', 'system']);
 
 // In-memory sliding window rate limiter (max 20 requests/min per IP)
@@ -81,9 +78,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Model validation (fall back safely if not in allowed set)
-    const model = typeof body.model === 'string' && ALLOWED_MODELS.has(body.model)
-      ? body.model
+    // Model validation: allow any model browsed or configured by the user matching safe identifier pattern
+    const model = typeof body.model === 'string' && SAFE_MODEL_REGEX.test(body.model.trim())
+      ? body.model.trim()
       : 'llama-3.1-8b-instant';
 
     const response = await fetch(GROQ_ENDPOINT, {

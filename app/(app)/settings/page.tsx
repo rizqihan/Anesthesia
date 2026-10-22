@@ -90,8 +90,10 @@ export default function SettingsPage() {
   const [groqModelsError, setGroqModelsError] = useState<string | null>(null);
 
   const RECOMMENDED_GROQ_MODELS = [
-    'llama-3.1-8b-instant',
     'llama-3.3-70b-versatile',
+    'llama-3.1-8b-instant',
+    'deepseek-r1-distill-llama-70b',
+    'qwen-2.5-32b',
     'openai/gpt-oss-20b',
     'openai/gpt-oss-120b',
   ];
@@ -282,8 +284,10 @@ export default function SettingsPage() {
                   <label className={labelClass}>{t.groq_model}</label>
                   <select value={store.groqModel} onChange={(e) => store.setGroqModel(e.target.value)} className={inputClass}>
                     <optgroup label={store.language === 'en' ? 'Recommended' : 'Rekomendasi'}>
-                      <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant</option>
                       <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile</option>
+                      <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant</option>
+                      <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 Distill Llama 70B</option>
+                      <option value="qwen-2.5-32b">Qwen 2.5 32B</option>
                       <option value="openai/gpt-oss-20b">GPT-OSS 20B</option>
                       <option value="openai/gpt-oss-120b">GPT-OSS 120B</option>
                     </optgroup>

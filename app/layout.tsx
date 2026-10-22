@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Anesthesia — Clinical Decision Support & Acute Care Suite',
-  description: 'Offline-capable suite of intelligent clinical tools, 12-lead ECG simulation, crisis dosing, and reference apps for anesthesiologists and healthcare professionals.',
+  title: 'Anesthesia — Point-of-Care Clinical Suite for Medical Professionals',
+  description: 'Offline-first point-of-care medical suite, clinical decision calculators, 12-lead ECG simulation, acute resuscitation dosing, and practice guidelines for physicians, residents, and healthcare professionals.',
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.png',

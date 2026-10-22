@@ -19,7 +19,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             </div>
             <div>
               <span className="font-[900] text-[17px] tracking-tight text-white block leading-none">Anesthesia</span>
-              <span className="text-[10px] text-slate-400 font-[500] block mt-1">Clinical Decision Support</span>
+              <span className="text-[10px] text-slate-400 font-[500] block mt-1">Point-of-Care Medical Suite</span>
             </div>
           </Link>
 

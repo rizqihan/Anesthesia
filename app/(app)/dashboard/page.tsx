@@ -29,10 +29,10 @@ export default function DashboardPage() {
       sectionDesc: language === 'en' ? 'Immediate weight-calculated resuscitation and emergency push doses' : 'Dosis resusitasi darurat berbasis berat badan',
       items: [
         {
-          title: language === 'en' ? '🚨 Emergency OR Crisis Card' : '🚨 Kartu Krisis Anestesi',
+          title: language === 'en' ? '🚨 Emergency & Resuscitation Crisis Card' : '🚨 Kartu Resusitasi & Krisis Akut',
           icon: AlertOctagon,
           href: '/emergency',
-          desc: language === 'en' ? 'Malignant Hyperthermia, LAST lipid rescue, arrest epinephrine & amiodarone' : 'Hipertermia maligna, intoksikasi anestesi lokal, henti jantung',
+          desc: language === 'en' ? 'ACLS arrest doses, anaphylaxis, shock pressors, Malignant Hyperthermia, LAST lipid rescue' : 'Dosis henti jantung ACLS, anafilaksis, syok, hipertermia maligna, lipid rescue',
           highlight: 'urgent',
           badge: 'CRISIS READY',
         },
@@ -46,8 +46,8 @@ export default function DashboardPage() {
       ],
     },
     {
-      sectionTitle: language === 'en' ? 'Intra-Operative & Critical Calculators' : 'Kalkulator Intra-Operasi & Kritis',
-      sectionDesc: language === 'en' ? 'Fluid deficit, renal dosing, hemodynamic indices, and endotracheal tube sizing' : 'Defisit cairan, klirens ginjal, indeks hemodinamik, dan ukuran ETT',
+      sectionTitle: language === 'en' ? 'Critical Care & Bedside Calculators' : 'Kalkulator Klinis & Perawatan Kritis',
+      sectionDesc: language === 'en' ? 'Fluid deficit, renal clearance (CrCl/eGFR), hemodynamic indices, and airway formulas' : 'Defisit cairan, klirens ginjal (CrCl/eGFR), indeks hemodinamik, dan formula jalan napas',
       items: [
         {
           title: t.medical_calculators,
@@ -66,8 +66,8 @@ export default function DashboardPage() {
       ],
     },
     {
-      sectionTitle: language === 'en' ? 'Pre-Operative Assessment & Pharmacology' : 'Penilaian Pra-Operasi & Farmakologi',
-      sectionDesc: language === 'en' ? 'Airway examination, multi-drug interactions, and clinical guidelines' : 'Pemeriksaan jalan napas, interaksi obat, dan panduan klinis',
+      sectionTitle: language === 'en' ? 'Clinical Assessment, Guidelines & Pharmacology' : 'Penilaian Klinis, Panduan Praktik & Farmakologi',
+      sectionDesc: language === 'en' ? 'Airway examination, multi-drug interactions, and clinical practice guidelines' : 'Pemeriksaan jalan napas, interaksi obat, dan panduan praktik klinis',
       items: [
         {
           title: language === 'en' ? 'Interactive Physical Exam Map' : 'Peta Pemeriksaan Fisik Interaktif',
@@ -135,8 +135,8 @@ export default function DashboardPage() {
             </h1>
             <p className="text-[13px] text-slate-400 max-w-2xl mt-1">
               {language === 'en'
-                ? 'Mission-critical acute care calculators, 12-lead ECG waveforms, and crisis pharmacopeia tailored for operating rooms and ICUs.'
-                : 'Kalkulator perawatan akut, gelombang EKG 12-lead, dan farmakope krisis untuk kamar operasi dan ICU.'}
+                ? 'Mission-critical acute care calculators, 12-lead ECG waveforms, and crisis pharmacopeia tailored for physicians, emergency teams, ICUs, and acute hospital wards.'
+                : 'Kalkulator perawatan akut, gelombang EKG 12-lead, dan farmakope krisis untuk dokter, tim IGD, ICU, dan ruang perawatan.'}
             </p>
           </div>
 

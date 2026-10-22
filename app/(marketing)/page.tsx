@@ -41,8 +41,8 @@ export default function LandingPage() {
             <Sparkles className="w-3.5 h-3.5 text-blue-400" />
             <span>
               {language === 'en'
-                ? 'Precision Clinical Decision Support for Acute Care & Anesthesia'
-                : 'Dukungan Keputusan Klinis Presisi untuk Anestesi & Perawatan Akut'}
+                ? 'Intelligent Point-of-Care Clinical Suite for Medical Professionals'
+                : 'Sistem Pendukung Keputusan Klinis untuk Tenaga Medis'}
             </span>
           </div>
 
@@ -50,11 +50,11 @@ export default function LandingPage() {
           <h1 className="text-[36px] sm:text-[52px] md:text-[62px] font-[900] tracking-tight text-white leading-[1.08]">
             {language === 'en' ? (
               <>
-                Engineered for <span className="text-blue-400">Zero Latency</span> in the Operating Room.
+                Engineered for <span className="text-blue-400">Zero Latency</span> at Bedside, Clinic &amp; ER.
               </>
             ) : (
               <>
-                Dirancang untuk <span className="text-blue-400">Nol Latensi</span> di Kamar Operasi.
+                Dirancang untuk <span className="text-blue-400">Nol Latensi</span> di Ruang Perawatan &amp; IGD.
               </>
             )}
           </h1>
@@ -62,8 +62,8 @@ export default function LandingPage() {
           {/* Subtitle */}
           <p className="text-[16px] sm:text-[19px] text-slate-300 max-w-2xl mx-auto leading-relaxed">
             {language === 'en'
-              ? '100% offline-first clinical calculations, 12-lead ECG waveform simulation, weight-calculated crisis push doses, and AI-assisted differential diagnosis for MDs and anesthesiologists.'
-              : 'Perhitungan klinis 100% offline-first, simulasi gelombang EKG 12-lead, dosis darurat krisis berbasis berat badan, dan diagnosis banding berbantuan AI untuk dokter spesialis dan residen.'}
+              ? '100% offline-first clinical calculators, 12-lead ECG waveform simulation, acute resuscitation dosing, multi-drug interaction safety, and structured clinical practice guidelines for physicians, residents, and healthcare teams.'
+              : 'Kalkulator klinis 100% offline-first, simulasi gelombang EKG 12-lead, dosis resusitasi akut, keamanan interaksi multi-obat, dan panduan praktik klinis terstruktur untuk dokter, residen, dan tenaga kesehatan.'}
           </p>
 
           {/* CTAs */}
@@ -78,7 +78,7 @@ export default function LandingPage() {
             <Link href="/emergency" className="w-full sm:w-auto">
               <button className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-rose-600/20 border border-rose-500/40 hover:bg-rose-600/30 text-rose-200 transition-all text-[15px] font-[700] flex items-center justify-center gap-2">
                 <AlertOctagon className="w-4 h-4 text-rose-400" />
-                <span>{language === 'en' ? 'OR Crisis Card' : 'Kartu Krisis Anestesi'}</span>
+                <span>{language === 'en' ? 'Emergency Crisis Card' : 'Kartu Resusitasi Darurat'}</span>
               </button>
             </Link>
 
@@ -237,8 +237,8 @@ export default function LandingPage() {
           </h2>
           <p className="text-[14px] text-slate-400">
             {language === 'en'
-              ? 'Designed specifically for high-stress operating room, intensive care, and acute resuscitation environments.'
-              : 'Dirancang khusus untuk kamar operasi, perawatan intensif, dan situasi resusitasi akut.'}
+              ? 'Designed specifically for high-stress bedside rounds, intensive care, emergency departments, and acute care settings.'
+              : 'Dirancang khusus untuk ruang perawatan, IGD, perawatan intensif, dan penanganan akut.'}
           </p>
         </div>
 
@@ -250,7 +250,7 @@ export default function LandingPage() {
                 <AlertOctagon className="w-5 h-5 text-rose-400" />
               </div>
               <h3 className="text-[17px] font-[800] text-slate-100 group-hover:text-rose-200 transition-colors mb-2">
-                {language === 'en' ? 'OR Crisis Card & Resuscitation' : 'Kartu Krisis Kamar Operasi'}
+                {language === 'en' ? 'Acute Resuscitation & Crisis Protocols' : 'Protokol Resusitasi & Krisis Akut'}
               </h3>
               <p className="text-[13px] text-slate-400 leading-relaxed">
                 {language === 'en'
@@ -376,8 +376,8 @@ export default function LandingPage() {
         <div className="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-blue-950/40 via-blue-900/20 to-[#0c1424] border border-blue-500/30 text-center space-y-6">
           <h2 className="text-[28px] sm:text-[36px] font-[900] text-slate-100 tracking-tight">
             {language === 'en'
-              ? 'Ready to Elevate Your Operating Room Workflow?'
-              : 'Siap Mengoptimalkan Alur Kerja Kamar Operasi Anda?'}
+              ? 'Ready to Elevate Your Point-of-Care Clinical Workflow?'
+              : 'Siap Mengoptimalkan Alur Kerja Klinis Anda?'}
           </h2>
           <p className="text-[15px] text-slate-300 max-w-xl mx-auto leading-relaxed">
             {language === 'en'

@@ -8,7 +8,8 @@ import { translations } from '@/lib/i18n';
 import { 
   LayoutDashboard, Settings, ChevronLeft, WifiOff, Activity, Database, 
   RefreshCw, X, BookOpen, AlertOctagon, Calculator, Syringe, Pill, 
-  Stethoscope, Book, Search, User, Globe, ShieldAlert, Printer, Radio, FileText
+  Stethoscope, Book, Search, User, Globe, ShieldAlert, Printer, Radio, FileText,
+  Sun, Moon, Monitor
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ActiveCaseModal from '@/components/ActiveCaseModal';
@@ -120,6 +121,37 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  // Synchronize theme with <html> class, data-theme attribute, and color-scheme
+  useEffect(() => {
+    const applyTheme = (theme: 'dark' | 'light' | 'system') => {
+      const isLight =
+        theme === 'light' ||
+        (theme === 'system' && typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
+
+      const root = document.documentElement;
+      if (isLight) {
+        root.classList.add('light');
+        root.classList.remove('dark');
+        root.setAttribute('data-theme', 'light');
+        root.style.colorScheme = 'light';
+      } else {
+        root.classList.add('dark');
+        root.classList.remove('light');
+        root.setAttribute('data-theme', 'dark');
+        root.style.colorScheme = 'dark';
+      }
+    };
+
+    applyTheme(store.theme);
+
+    if (store.theme === 'system' && typeof window !== 'undefined' && window.matchMedia) {
+      const mql = window.matchMedia('(prefers-color-scheme: light)');
+      const handler = () => applyTheme('system');
+      mql.addEventListener('change', handler);
+      return () => mql.removeEventListener('change', handler);
+    }
+  }, [store.theme]);
 
   const navItems = [
     { name: language === 'en' ? 'Dashboard' : 'Dasbor', href: '/dashboard', icon: LayoutDashboard },
@@ -269,6 +301,49 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Theme switcher */}
+            <div className="flex rounded-lg p-[2px] bg-white/[0.04] border border-white/10" title={language === 'en' ? 'Appearance / Theme' : 'Tema Tampilan'}>
+              <button
+                type="button"
+                onClick={() => store.setTheme('dark')}
+                className={`p-1 rounded-md text-[11px] transition-all ${
+                  store.theme === 'dark'
+                    ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 shadow-sm'
+                    : 'text-slate-400 border border-transparent hover:text-slate-200'
+                }`}
+                title={language === 'en' ? 'Dark Mode (OR / Acute Care)' : 'Mode Gelap (Kamar Operasi / ICU)'}
+                aria-label="Dark mode"
+              >
+                <Moon className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => store.setTheme('light')}
+                className={`p-1 rounded-md text-[11px] transition-all ${
+                  store.theme === 'light'
+                    ? 'bg-amber-500/25 text-amber-500 border border-amber-500/40 shadow-sm'
+                    : 'text-slate-400 border border-transparent hover:text-slate-200'
+                }`}
+                title={language === 'en' ? 'Light Mode (Pre-Op / Clinic)' : 'Mode Terang (Poliklinik / Bangsal)'}
+                aria-label="Light mode"
+              >
+                <Sun className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => store.setTheme('system')}
+                className={`p-1 rounded-md text-[11px] transition-all ${
+                  store.theme === 'system'
+                    ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 shadow-sm'
+                    : 'text-slate-400 border border-transparent hover:text-slate-200'
+                }`}
+                title={language === 'en' ? 'System Theme' : 'Sesuai Sistem'}
+                aria-label="System theme"
+              >
+                <Monitor className="w-3.5 h-3.5" />
+              </button>
+            </div>
 
             {/* Language toggle */}
             <div className="flex rounded-lg p-[2px] bg-white/[0.04] border border-white/10">

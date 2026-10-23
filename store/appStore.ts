@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 
 type Language = 'en' | 'id';
 type AIProvider = 'default_groq' | 'custom_gemini' | 'openai_compatible';
+export type Theme = 'dark' | 'light' | 'system';
 
 export interface HistoryItem {
   id: string;
@@ -43,6 +44,8 @@ export interface PatientLabs {
 interface AppState {
   language: Language;
   setLanguage: (lang: Language) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
   isOffline: boolean;
   setOfflineStatus: (status: boolean) => void;
   
@@ -100,6 +103,8 @@ export const useAppStore = create<AppState>()(
     (set) => ({
       language: 'en', // Default to English
       setLanguage: (lang) => set({ language: lang }),
+      theme: 'dark', // Default to Dark mode (OR / Acute Care standard)
+      setTheme: (theme) => set({ theme }),
       isOffline: false,
       setOfflineStatus: (status) => set({ isOffline: status }),
       

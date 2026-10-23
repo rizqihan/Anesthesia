@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
-import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope, ArrowLeft, RotateCw, Zap, Tag, Printer, User } from 'lucide-react';
+import { Settings, Cpu, Wifi, WifiOff, AlertTriangle, Database, RefreshCw, Book, Pill, FileText, Sparkles, Loader2, Stethoscope, ArrowLeft, RotateCw, Zap, Tag, Printer, User, Palette, Moon, Sun, Monitor } from 'lucide-react';
 import db from '@/lib/db';
 import { ICD10_DB } from '@/lib/icd10';
 import { DRUG_DB } from '@/lib/drugs';
@@ -331,6 +331,109 @@ export default function SettingsPage() {
               </div>
             </div>
           </button>
+        </div>
+      </div>
+
+      {/* Appearance & Theme Mode */}
+      <div className="glass-card-static overflow-hidden">
+        <div className="section-header justify-between">
+          <div className="flex items-center gap-2">
+            <Palette className="w-4 h-4 text-amber-400" />
+            <span className="section-header-label">{t.appearance_theme}</span>
+          </div>
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold">
+            {store.theme.toUpperCase()}
+          </span>
+        </div>
+        <div className="p-4 sm:p-5 space-y-4">
+          <p className="text-[12px]" style={{ color: 'var(--text-muted)' }}>
+            {t.appearance_desc}
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {/* Dark Mode */}
+            <button
+              type="button"
+              onClick={() => store.setTheme('dark')}
+              className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
+                store.theme === 'dark'
+                  ? 'bg-purple-600/15 border-purple-500/50 shadow-[0_0_15px_rgba(168,85,247,0.15)] ring-1 ring-purple-500/40'
+                  : 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/20'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${store.theme === 'dark' ? 'bg-purple-500/20 text-purple-300' : 'bg-white/5 text-slate-400'}`}>
+                  <Moon className="w-4 h-4" />
+                </div>
+                {store.theme === 'dark' && (
+                  <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                )}
+              </div>
+              <div>
+                <div className="text-[12.5px] font-[800]" style={{ color: 'var(--text-primary)' }}>
+                  {t.theme_dark}
+                </div>
+                <div className="text-[11px] mt-0.5 leading-snug" style={{ color: 'var(--text-muted)' }}>
+                  {t.theme_dark_desc}
+                </div>
+              </div>
+            </button>
+
+            {/* Light Mode */}
+            <button
+              type="button"
+              onClick={() => store.setTheme('light')}
+              className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
+                store.theme === 'light'
+                  ? 'bg-amber-500/15 border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.15)] ring-1 ring-amber-500/40'
+                  : 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/20'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${store.theme === 'light' ? 'bg-amber-500/20 text-amber-500' : 'bg-white/5 text-slate-400'}`}>
+                  <Sun className="w-4 h-4" />
+                </div>
+                {store.theme === 'light' && (
+                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                )}
+              </div>
+              <div>
+                <div className="text-[12.5px] font-[800]" style={{ color: 'var(--text-primary)' }}>
+                  {t.theme_light}
+                </div>
+                <div className="text-[11px] mt-0.5 leading-snug" style={{ color: 'var(--text-muted)' }}>
+                  {t.theme_light_desc}
+                </div>
+              </div>
+            </button>
+
+            {/* System Auto */}
+            <button
+              type="button"
+              onClick={() => store.setTheme('system')}
+              className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
+                store.theme === 'system'
+                  ? 'bg-blue-600/15 border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.15)] ring-1 ring-blue-500/40'
+                  : 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/20'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${store.theme === 'system' ? 'bg-blue-500/20 text-blue-400' : 'bg-white/5 text-slate-400'}`}>
+                  <Monitor className="w-4 h-4" />
+                </div>
+                {store.theme === 'system' && (
+                  <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                )}
+              </div>
+              <div>
+                <div className="text-[12.5px] font-[800]" style={{ color: 'var(--text-primary)' }}>
+                  {t.theme_system}
+                </div>
+                <div className="text-[11px] mt-0.5 leading-snug" style={{ color: 'var(--text-muted)' }}>
+                  {t.theme_system_desc}
+                </div>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 

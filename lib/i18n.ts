@@ -271,7 +271,15 @@ export const translations = {
     ecg_sim_cat_conduction: 'Conduction',
     ecg_sim_cat_emergency: 'Emergency',
     ecg_sim_cat_structural: 'Structural',
-    ecg_sim_all_categories: 'All Categories'
+    ecg_sim_all_categories: 'All Categories',
+    appearance_theme: 'Appearance & Display Mode',
+    appearance_desc: 'Customize the visual theme for high-contrast clinic workflows or dark OR environments',
+    theme_dark: 'Dark Mode (OR & ICU)',
+    theme_dark_desc: 'Deep dark palette optimized for dim operating rooms and critical care displays',
+    theme_light: 'Light Mode (Clinic & Wards)',
+    theme_light_desc: 'High-contrast crisp daylight palette for pre-op clinics, wards, and documentation',
+    theme_system: 'System Default',
+    theme_system_desc: 'Automatically mirrors your device OS light/dark schedule'
   },
   id: {
     app_name: 'Anesthesia',
@@ -545,7 +553,15 @@ export const translations = {
     ecg_sim_cat_conduction: 'Konduksi',
     ecg_sim_cat_emergency: 'Darurat',
     ecg_sim_cat_structural: 'Struktural',
-    ecg_sim_all_categories: 'Semua Kategori'
+    ecg_sim_all_categories: 'Semua Kategori',
+    appearance_theme: 'Tampilan & Mode Layar',
+    appearance_desc: 'Sesuaikan tema visual untuk lingkungan klinik terang atau ruang operasi (OK) gelap',
+    theme_dark: 'Mode Gelap (OK & ICU)',
+    theme_dark_desc: 'Palet gelap pekat dioptimalkan untuk ruang operasi redup dan monitor perawatan kritis',
+    theme_light: 'Mode Terang (Klinik & Bangsal)',
+    theme_light_desc: 'Palet terang kontras tinggi untuk klinik pra-operasi, bangsal, dan dokumentasi',
+    theme_system: 'Ikuti Sistem',
+    theme_system_desc: 'Mengikuti pengaturan mode terang/gelap pada perangkat OS Anda secara otomatis'
   }
 };
 

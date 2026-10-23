@@ -6,17 +6,28 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.4.1';
-export const BUILD_DATE = '2026-10-22';
+export const APP_VERSION = '2.4.2';
+export const BUILD_DATE = '2026-10-23';
 export const DB_SCHEMA_VERSION = 6;
-export const RELEASE_NAME = 'Mobile Resilience & Clinical CPPT Localization';
+export const RELEASE_NAME = 'Clinical Light Mode & Daylight Accessibility';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.4.2',
+    date: '2026-10-23',
+    title: 'Clinical Light Mode, 3-Way Theme Switcher & Daylight Accessibility',
+    highlight: true,
+    features: [
+      'Comprehensive Light Mode: Hospital-grade, high-contrast daylight theme (#f8fafc slate background, #ffffff elevated cards, #0f172a deep typography) for pre-op clinics, wards, and documentation',
+      'Preserved Medical Displays: Authentic black monitor screens (#030712) for real-time ECG rhythm strips, simulated monitors, and POCUS ultrasound cine-loops',
+      '3-Mode Segmented Selector: Quick-toggle between Dark (OR/ICU), Light (Clinic/Wards), and System Auto from Top Navigation, Settings Hub, and Command Palette (Cmd+K)',
+      'Anti-Flicker Pre-Hydration: Instant zero-flash CSS injection matching user theme preference before DOM rendering',
+    ],
+  },
   {
     version: '2.4.1',
     date: '2026-10-22',
     title: 'Mobile Persistent HUD & Indonesian (id) SOAP/CPPT Localization',
-    highlight: true,
     features: [
       'Mobile Persistent Clinical HUD: Fixed header sub-bar on phones keeping Patient Parameters, SOAP Note, SBAR PDF, and Crisis buttons visible at all times across all scroll positions',
       'Indonesian SOAP / CPPT Generator: Full bilingual clinical localization ([SUBJEKTIF], [OBJEKTIF], [ASESMEN], [RENCANA / TATALAKSANA]) with PERDATIN/IDI terminology',

@@ -40,6 +40,45 @@
 }
 
 /* ===========================
+   LIGHT MODE DESIGN TOKENS
+   =========================== */
+html.light,
+[data-theme="light"] {
+  --bg-base: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.98);
+  --bg-card-hover: #ffffff;
+  --bg-input: #ffffff;
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-card: rgba(15, 23, 42, 0.12);
+  --border-card-hover: rgba(37, 99, 235, 0.5);
+  --border-input: rgba(15, 23, 42, 0.2);
+  --border-input-focus: rgba(37, 99, 235, 0.8);
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-accent: #0284c7;
+
+  --accent-blue: #2563eb;
+  --accent-blue-glow: rgba(37, 99, 235, 0.15);
+  --accent-blue-subtle: rgba(37, 99, 235, 0.08);
+  --accent-emerald: #059669;
+  --accent-emerald-subtle: rgba(5, 150, 105, 0.08);
+  --accent-rose: #e11d48;
+  --accent-rose-subtle: rgba(225, 29, 72, 0.08);
+  --accent-amber: #d97706;
+  --accent-amber-subtle: rgba(217, 119, 6, 0.08);
+  --accent-violet: #7c3aed;
+  --accent-violet-subtle: rgba(124, 58, 237, 0.08);
+
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(15, 23, 42, 0.06);
+  --shadow-card-hover: 0 4px 20px -2px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(37, 99, 235, 0.3);
+  --shadow-glow-blue: 0 0 20px rgba(37, 99, 235, 0.15);
+  --shadow-input-focus: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* ===========================
    BASE STYLES
    =========================== */
 *, *::before, *::after {
@@ -126,7 +165,7 @@ body {
 }
 
 .glass-input option {
-  background: #111827;
+  background: var(--bg-surface);
   color: var(--text-primary);
 }
 
@@ -471,3 +510,192 @@ body {
 .cat-obste { background: rgba(236,72,153,0.1); border-color: rgba(236,72,153,0.25); color: #f472b6; }
 .cat-endo { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.25); color: #fbbf24; }
 .cat-default { background: rgba(139,92,246,0.1); border-color: rgba(139,92,246,0.25); color: #a78bfa; }
+
+/* ==========================================================================
+   LIGHT MODE COMPONENT & STRUCTURAL OVERRIDES
+   ========================================================================== */
+html.light body,
+[data-theme="light"] body {
+  background-color: var(--bg-base) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Background Shells & Nav Bars */
+html.light .bg-\[\#080c15\],
+[data-theme="light"] .bg-\[\#080c15\] {
+  background-color: var(--bg-base) !important;
+}
+
+html.light .bg-\[\#0a0f1d\],
+html.light .bg-\[\#090e1a\],
+html.light .bg-\[\#070c17\],
+html.light .bg-\[\#070b13\],
+html.light .bg-\[\#070b14\],
+[data-theme="light"] .bg-\[\#0a0f1d\],
+[data-theme="light"] .bg-\[\#090e1a\],
+[data-theme="light"] .bg-\[\#070c17\],
+[data-theme="light"] .bg-\[\#070b13\],
+[data-theme="light"] .bg-\[\#070b14\] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Card Surfaces */
+html.light .bg-\[\#0e1424\],
+html.light .bg-\[\#0c121e\],
+html.light .bg-\[\#0b1019\],
+html.light .bg-\[\#0b101d\],
+html.light .bg-\[\#0d1424\],
+html.light .bg-\[\#0c111b\],
+html.light .bg-\[\#0b0e14\],
+html.light .bg-\[\#0a101f\],
+html.light .bg-\[\#0b1220\],
+html.light .bg-\[\#0b1222\],
+html.light .bg-\[\#0c1222\],
+html.light .bg-\[\#0c1322\],
+html.light .bg-\[\#111a30\],
+[data-theme="light"] .bg-\[\#0e1424\],
+[data-theme="light"] .bg-\[\#0c121e\],
+[data-theme="light"] .bg-\[\#0b1019\],
+[data-theme="light"] .bg-\[\#0b101d\],
+[data-theme="light"] .bg-\[\#0d1424\],
+[data-theme="light"] .bg-\[\#0c111b\],
+[data-theme="light"] .bg-\[\#0b0e14\],
+[data-theme="light"] .bg-\[\#0a101f\],
+[data-theme="light"] .bg-\[\#0b1220\],
+[data-theme="light"] .bg-\[\#0b1222\],
+[data-theme="light"] .bg-\[\#0c1222\],
+[data-theme="light"] .bg-\[\#0c1322\],
+[data-theme="light"] .bg-\[\#111a30\] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+}
+
+/* Text & Contrast */
+html.light .text-white,
+html.light .text-slate-100,
+html.light .text-slate-200,
+[data-theme="light"] .text-white,
+[data-theme="light"] .text-slate-100,
+[data-theme="light"] .text-slate-200 {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-300,
+[data-theme="light"] .text-slate-300 {
+  color: #1e293b !important;
+}
+
+html.light .text-slate-400,
+[data-theme="light"] .text-slate-400 {
+  color: #475569 !important;
+}
+
+/* Borders */
+html.light .border-white\/10,
+html.light .border-white\/\[0\.08\],
+html.light .border-white\/\[0\.07\],
+html.light .border-white\/\[0\.06\],
+html.light .border-white\/\[0\.05\],
+html.light .border-white\/\[0\.04\],
+html.light .border-white\/\[0\.02\],
+[data-theme="light"] .border-white\/10,
+[data-theme="light"] .border-white\/\[0\.08\],
+[data-theme="light"] .border-white\/\[0\.07\],
+[data-theme="light"] .border-white\/\[0\.06\],
+[data-theme="light"] .border-white\/\[0\.05\],
+[data-theme="light"] .border-white\/\[0\.04\],
+[data-theme="light"] .border-white\/\[0\.02\] {
+  border-color: #e2e8f0 !important;
+}
+
+/* Semi-transparent Whites */
+html.light .bg-white\/\[0\.04\],
+html.light .bg-white\/\[0\.03\],
+html.light .bg-white\/\[0\.02\],
+html.light .bg-white\/\[0\.01\],
+[data-theme="light"] .bg-white\/\[0\.04\],
+[data-theme="light"] .bg-white\/\[0\.03\],
+[data-theme="light"] .bg-white\/\[0\.02\],
+[data-theme="light"] .bg-white\/\[0\.01\] {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .hover\:bg-white\/5:hover,
+html.light .hover\:bg-white\/10:hover,
+html.light .hover\:bg-white\/\[0\.08\]:hover,
+[data-theme="light"] .hover\:bg-white\/5:hover,
+[data-theme="light"] .hover\:bg-white\/10:hover,
+[data-theme="light"] .hover\:bg-white\/\[0\.08\]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Modal Backdrops & Containers */
+html.light .bg-black\/80,
+html.light .bg-black\/75,
+html.light .bg-black\/60,
+[data-theme="light"] .bg-black\/80,
+[data-theme="light"] .bg-black\/75,
+[data-theme="light"] .bg-black\/60 {
+  background-color: rgba(15, 23, 42, 0.45) !important;
+}
+
+html.light pre.bg-black\/40,
+[data-theme="light"] pre.bg-black\/40 {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Form inputs & headers */
+html.light .section-header,
+[data-theme="light"] .section-header {
+  background: rgba(15, 23, 42, 0.02) !important;
+  border-bottom-color: var(--border-subtle) !important;
+}
+
+html.light .divide-y > * + *,
+[data-theme="light"] .divide-y > * + * {
+  border-color: #e2e8f0 !important;
+}
+
+html.light .gender-toggle,
+[data-theme="light"] .gender-toggle {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light .gender-btn,
+[data-theme="light"] .gender-btn {
+  color: #475569 !important;
+}
+
+html.light .gender-btn-active,
+[data-theme="light"] .gender-btn-active {
+  background: #ffffff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+}
+
+html.light .tab-pill-inactive,
+[data-theme="light"] .tab-pill-inactive {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light .tab-pill-inactive:hover,
+[data-theme="light"] .tab-pill-inactive:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* ECG and POCUS medical monitor screens retain authentic dark display */
+html.light [data-preserve-dark],
+html.light [data-preserve-dark] *,
+[data-theme="light"] [data-preserve-dark],
+[data-theme="light"] [data-preserve-dark] * {
+  /* Retain authentic dark canvas styling */
+}
+

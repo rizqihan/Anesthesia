@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/store/appStore';
 import { 
   Search, Calculator, Syringe, Activity, Pill, BookOpen, Stethoscope, 
-  AlertOctagon, Book, Settings, User, ArrowRight, X, ShieldAlert, Printer, Radio, FileText
+  AlertOctagon, Book, Settings, User, ArrowRight, X, ShieldAlert, Printer, Radio, FileText,
+  Sun, Moon, Monitor
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
@@ -90,6 +91,39 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpe
       },
       icon: User,
       category: 'Patient',
+    },
+    {
+      id: 'theme-light',
+      title: language === 'en' ? '☀️ Switch to Light Mode' : '☀️ Beralih ke Mode Terang',
+      subtitle: language === 'en' ? 'High-contrast theme for outpatient clinics & daytime rounds' : 'Tema kontras tinggi untuk poliklinik & visite siang hari',
+      action: () => {
+        onClose();
+        useAppStore.getState().setTheme('light');
+      },
+      icon: Sun,
+      category: 'System',
+    },
+    {
+      id: 'theme-dark',
+      title: language === 'en' ? '🌙 Switch to Dark Mode' : '🌙 Beralih ke Mode Gelap',
+      subtitle: language === 'en' ? 'Dim-room theme for Operating Room (OR) & night on-call' : 'Tema redup untuk Kamar Operasi (OK) & jaga malam',
+      action: () => {
+        onClose();
+        useAppStore.getState().setTheme('dark');
+      },
+      icon: Moon,
+      category: 'System',
+    },
+    {
+      id: 'theme-system',
+      title: language === 'en' ? '💻 Use System Theme' : '💻 Ikuti Tema Sistem Otomatis',
+      subtitle: language === 'en' ? 'Automatically match OS device appearance' : 'Otomatis sesuaikan dengan pengaturan tampilan perangkat',
+      action: () => {
+        onClose();
+        useAppStore.getState().setTheme('system');
+      },
+      icon: Monitor,
+      category: 'System',
     },
     {
       id: 'calculators',

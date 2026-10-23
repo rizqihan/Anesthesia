@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 360" width="540" height="360">
+  <defs>
+    <filter id="speckle" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="3" result="noise" />
+      <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 0.18 0" result="speckle" />
+      <feComposite in2="SourceGraphic" in="speckle" operator="over" />
+    </filter>
+    <linearGradient id="sectorCone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a1220" stop-opacity="0.95" />
+      <stop offset="60%" stop-color="#050a14" stop-opacity="0.98" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="liverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#243044" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="thrombusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="50%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="stomachFull" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="40%" stop-color="#64748b" />
+      <stop offset="80%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Monitor Frame -->
+  <rect width="540" height="360" fill="#030712" />
+
+  <!-- Ultrasound Machine Header HUD -->
+  <g font-family="monospace, ui-monospace, sans-serif" font-size="11" fill="#94a3b8">
+    <rect x="0" y="0" width="540" height="32" fill="#090d16" />
+    <text x="14" y="20" font-weight="bold" fill="#38bdf8">FOCUS/eFAST Subxiphoid - Normal 4-Chamber</text>
+    <text x="300" y="20" fill="#cbd5e1">Phased Array (2.5 MHz)</text>
+    <text x="450" y="20" fill="#94a3b8">FPS: 38Hz</text>
+  </g>
+
+  <!-- Main Scan Viewport Area -->
+  <g transform="translate(0, 32)">
+    
+    <path d="M 270 10 L 490 310 A 300 300 0 0 1 50 310 Z" fill="url(#sectorCone)" stroke="#1e293b" stroke-width="1.5" />
+    <!-- Liver Acoustic Window -->
+    <path d="M 140 45 Q 270 30 400 50 L 390 95 Q 270 80 150 90 Z" fill="url(#liverGrad)" stroke="#475569" stroke-width="1" />
+    <text x="245" y="70" fill="#cbd5e1" font-family="sans-serif" font-size="10" font-weight="bold">LIVER WINDOW</text>
+    <!-- Pericardium Outer Hyperechoic Fibrous Band -->
+    <path d="M 130 95 Q 270 85 410 105 L 420 250 Q 270 275 120 250 Z" fill="#0b1120" stroke="#f8fafc" stroke-width="2.5" />
+    <!-- Right Ventricle (Directly under liver, thin wall) -->
+    <path d="M 145 105 Q 270 95 395 115 L 375 175 Q 270 160 160 170 Z" fill="#020617" stroke="#64748b" stroke-width="1.5" />
+    <text x="260" y="145" fill="#e2e8f0" font-family="sans-serif" font-size="12" font-weight="bold">RV</text>
+    <!-- Left Ventricle (Thick muscular wall) -->
+    <path d="M 175 175 Q 270 165 370 175 L 350 240 Q 270 255 185 240 Z" fill="#020617" stroke="#94a3b8" stroke-width="2" />
+    <text x="260" y="215" fill="#e2e8f0" font-family="sans-serif" font-size="12" font-weight="bold">LV</text>
+    <!-- Interventricular Septum -->
+    <line x1="200" y1="165" x2="340" y2="165" stroke="#cbd5e1" stroke-width="4" />
+    <text x="180" y="280" fill="#34d399" font-family="sans-serif" font-size="11" font-weight="bold">NORMAL: INTIMATE CONTACT, NO PERICARDIAL FLUID</text>
+  
+  </g>
+
+  <!-- Depth Scale Calibration Ruler (Right Margin) -->
+  <g font-family="monospace, sans-serif" font-size="9" fill="#64748b" text-anchor="end">
+    <line x1="524" y1="45" x2="524" y2="335" stroke="#334155" stroke-width="1.5" />
+    <line x1="518" y1="45" x2="524" y2="45" stroke="#94a3b8" stroke-width="1.5" />
+    <text x="514" y="48">0</text>
+    <line x1="520" y1="100" x2="524" y2="100" stroke="#64748b" stroke-width="1" />
+    <text x="514" y="103">4</text>
+    <line x1="518" y1="155" x2="524" y2="155" stroke="#94a3b8" stroke-width="1.5" />
+    <text x="514" y="158">8</text>
+    <line x1="520" y1="210" x2="524" y2="210" stroke="#64748b" stroke-width="1" />
+    <text x="514" y="213">12</text>
+    <line x1="518" y1="265" x2="524" y2="265" stroke="#94a3b8" stroke-width="1.5" />
+    <text x="514" y="268">18cm</text>
+  </g>
+
+  <!-- Status Bar Footer -->
+  <g font-family="monospace, sans-serif" font-size="9" fill="#64748b">
+    <text x="14" y="352">GAIN: 58dB • MI: 1.1 • TIS: 0.3 • CLINICAL POCUS REFERENCE</text>
+  </g>
+</svg>

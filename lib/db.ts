@@ -150,5 +150,17 @@ db.version(6).stores({
   pocusCaptures: '++id, timestamp, protocol, windowId, diagnosis'
 });
 
+db.version(7).stores({
+  drugs: 'id, genericName, drugClass, *brandNames, highRisk',
+  icd10: 'code, name, indonesian, chapter, block',
+  guidelines: '++id, title.en, title.id, category, isStructured',
+  physicalExams: '++id, title.en, title.id, category',
+  ecgDiagnoses: 'id, title.en, title.id, category',
+  pocusCaptures: '++id, timestamp, protocol, windowId, diagnosis'
+}).upgrade(async tx => {
+  const { DRUG_DB } = await import('./drugs');
+  await tx.table('drugs').bulkPut(DRUG_DB);
+});
+
 export default db;
 

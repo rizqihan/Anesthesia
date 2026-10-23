@@ -21,6 +21,15 @@ export interface MannequinTarget {
   lockRadiusPx?: number; // default 18px
 }
 
+export interface POCUSPhoto {
+  url: string;
+  caption: string;
+  label: string;
+  modality: 'B-Mode' | 'M-Mode' | 'Color Doppler' | '2D Sector';
+  signName?: string;
+  annotations?: { x: number; y: number; text: string }[];
+}
+
 export interface POCUSCase {
   id: string;
   protocol: POCUSProtocolId;
@@ -34,10 +43,12 @@ export interface POCUSCase {
   acousticLandmarks: AcousticLandmark[];
   normalDescription: string;
   normalFindings: string[];
+  normalPhoto?: POCUSPhoto;
   pathologyTitle: string;
   pathologyDescription: string;
   pathologySignName: string;
   pathologyFindings: string[];
+  pathologyPhoto?: POCUSPhoto;
   clinicalPearls: string[];
   pitfalls: string[];
   proceduralSteps: string[];
@@ -89,7 +100,7 @@ export const POCUS_PROTOCOLS: POCUSProtocolMeta[] = [
     title: 'Vascular Access & DVT Compression',
     shortDesc: 'Real-time central line guidance and lower extremity deep vein thrombosis screening',
     defaultProbe: 'Linear',
-    caseIds: ['vasc-ijv', 'vasc-femoral', 'vasc-dvt'],
+    caseIds: ['vasc-ijv', 'vasc-femoral', 'vasc-dvt', 'vasc-gastric'],
     clinicalObjective: 'Zero-failure cannulation under real-time dynamic needle guidance and bedside rule-out of proximal deep vein thrombosis.'
   }
 ];
@@ -128,6 +139,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Normal mirror image artifact of liver tissue visible above the diaphragmatic dome',
       'Absence of spine sign (vertebral bodies cease abruptly above the diaphragm due to lung air)'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/efast_ruq_normal.jpg",
+          "caption": "Normal Morison's pouch in right upper quadrant (RUQ). Direct intimate apposition of liver parenchyma and right kidney with bright specular peritoneal line and absence of anechoic fluid.",
+          "label": "Normal Hepatorenal Interface",
+          "modality": "B-Mode",
+          "signName": "No Free Fluid (Normal Morison's)"
+    },
     pathologyTitle: 'Positive Free Fluid (Hemoperitoneum)',
     pathologyDescription: 'Anechoic (jet black) stripe or triangular collection separating the liver and right kidney. Most commonly collects at the inferior tip of the liver or the inferior renal pole.',
     pathologySignName: 'Anechoic Stripe in Morison\'s Pouch',
@@ -137,6 +155,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Blunting of the hepatorenal angle',
       'Hemothorax if anechoic fluid is noted superior to the diaphragm (accompanied by positive Spine Sign)'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/efast_ruq_pathology.jpg",
+          "caption": "Positive hemoperitoneum in Morison's pouch. Distinct jet-black anechoic stripe separating visceral peritoneum of liver from right renal capsule, collecting in dependent hepatorenal recess.",
+          "label": "Hemoperitoneum (Morison's Pouch)",
+          "modality": "B-Mode",
+          "signName": "Anechoic Stripe in Morison's Pouch"
+    },
     clinicalPearls: [
       'Morison\'s pouch can detect as little as 150-250 mL of free intraperitoneal fluid in a supine patient.',
       'Always sweep through the entire kidney from superior pole to inferior pole; free fluid often gathers first at the inferior liver tip.',
@@ -191,6 +216,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Clean hyperechoic diaphragm superior to spleen',
       'No fluid collection in the subphrenic space'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/efast_luq_normal.svg",
+          "caption": "Normal splenorenal view (LUQ). Intact apposition of spleen and left kidney capsule with diaphragmatic mirror image artifact and no fluid in the subphrenic space.",
+          "label": "Normal Splenorenal Recess",
+          "modality": "B-Mode",
+          "signName": "No Free Fluid (Normal LUQ)"
+    },
     pathologyTitle: 'Positive LUQ Free Fluid / Splenic Laceration',
     pathologyDescription: 'Anechoic fluid collection found primarily in the subdiaphragmatic space above the spleen, or between spleen and left kidney.',
     pathologySignName: 'Subphrenic / Splenorenal Free Fluid',
@@ -199,6 +231,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Free fluid pooling around inferior splenic tip',
       'Possible heterogeneous hematoma in splenic parenchyma if fractured'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/efast_luq_pathology.jpg",
+          "caption": "Positive free fluid in LUQ. Anechoic hemoperitoneum pooling in both the subdiaphragmatic space and splenorenal recess separating spleen and left kidney.",
+          "label": "LUQ Hemoperitoneum",
+          "modality": "B-Mode",
+          "signName": "Splenorenal Free Fluid Stripe"
+    },
     clinicalPearls: [
       'Unlike the RUQ where fluid pools between liver and kidney, in the LUQ fluid pools FIRST between the spleen and the diaphragm!',
       'The left kidney is positioned more posterior and superior than the right; place your knuckles directly on the stretcher mattress to obtain the view.',
@@ -251,6 +290,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'No secondary anechoic fluid pockets outside the bladder wall',
       'Intact pelvic fascial planes'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/efast_pelvis_normal.svg",
+          "caption": "Normal suprapubic pelvic view. Full distended urinary bladder with crisp muscular walls and clear anechoic urine without posterior fluid collections.",
+          "label": "Normal Distended Bladder",
+          "modality": "B-Mode",
+          "signName": "No Pelvic Free Fluid"
+    },
     pathologyTitle: 'Pelvic Hemoperitoneum',
     pathologyDescription: 'Free fluid pooling in the rectovesical pouch (males) or rectouterine pouch of Douglas (females), or lateral to the bladder wings.',
     pathologySignName: 'Free Fluid Posterior to Bladder',
@@ -259,6 +305,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Free fluid capping the fundus of the uterus',
       'Fluid tracking into bilateral paravesical gutters'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/efast_pelvis_pathology.jpg",
+          "caption": "Positive pelvic hemoperitoneum. Anechoic free fluid pooling posterior and superior to the urinary bladder in the rectovesical pouch / pouch of Douglas.",
+          "label": "Pelvic Hemoperitoneum",
+          "modality": "B-Mode",
+          "signName": "Free Fluid in Rectovesical Pouch / Douglas"
+    },
     clinicalPearls: [
       'Perform pelvic ultrasound BEFORE placing a Foley catheter; an empty bladder collapses the acoustic window completely.',
       'Scan in BOTH transverse and sagittal planes to verify whether fluid is truly intraperitoneal versus an intraluminal Foley balloon.',
@@ -312,6 +365,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Vigorous biventricular contraction without chamber collapse',
       'No anechoic space anterior to RV or posterior to LV'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/efast_subxiphoid_normal.svg",
+          "caption": "Normal subxiphoid 4-chamber view via left lobe of liver window. Visceral and parietal pericardium are closely apposed with no intervening fluid space.",
+          "label": "Normal Pericardial Space",
+          "modality": "2D Sector",
+          "signName": "No Pericardial Effusion"
+    },
     pathologyTitle: 'Hemopericardium / Cardiac Tamponade',
     pathologyDescription: 'Anechoic fluid band separating the pericardial layers. Diastolic right ventricular anterior wall collapse indicates tamponade physiology.',
     pathologySignName: 'Pericardial Effusion & RV Diastolic Inversion',
@@ -321,6 +381,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Right atrial inversion during ventricular systole (>33% of cardiac cycle)',
       'Plethoric IVC with 0% respiratory collapse'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/efast_subxiphoid_pathology.jpg",
+          "caption": "Severe pericardial effusion and cardiac tamponade. Large circumferential dark anechoic fluid ring surrounding right and left ventricles with early diastolic right ventricular free wall collapse.",
+          "label": "Cardiac Tamponade",
+          "modality": "2D Sector",
+          "signName": "Pericardial Tamponade & RV Diastolic Collapse"
+    },
     clinicalPearls: [
       'Lay the probe almost parallel with the patient\'s abdominal wall to direct the beam under the ribs.',
       'In cardiac tamponade, hemodynamic collapse occurs due to intrapericardial pressure exceeding RV diastolic filling pressure.',
@@ -375,6 +442,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'M-mode shows classic Seashore Sign (waves on beach)',
       'Pneumothorax 100% ruled out at this specific intercostal space'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/efast_lung_ant_normal.jpg",
+          "caption": "Normal lung sliding on M-mode demonstrating the pathognomonic Seashore sign: parallel horizontal waves above the pleural line and a homogeneous sandy granular texture below.",
+          "label": "Normal Lung Sliding (Seashore Sign)",
+          "modality": "M-Mode",
+          "signName": "Seashore Sign (Normal Aeration)"
+    },
     pathologyTitle: 'Pneumothorax (Absent Lung Sliding)',
     pathologyDescription: 'Complete absence of pleural sliding due to air separating the visceral and parietal pleura. In M-mode: Barcode Sign (Stratosphere Sign).',
     pathologySignName: 'Barcode Sign & Lung Point',
@@ -384,6 +458,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Absent B-lines and absent lung pulse',
       'Pathognomonic Lung Point at transition boundary where sliding intermittently appears'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/efast_lung_ant_pathology.jpg",
+          "caption": "Traumatic pneumothorax on M-mode demonstrating the Stratosphere sign (Barcode sign): uniform parallel horizontal lines above and below the pleural line caused by air preventing visceral sliding.",
+          "label": "Pneumothorax (Barcode Sign)",
+          "modality": "M-Mode",
+          "signName": "Stratosphere / Barcode Sign"
+    },
     clinicalPearls: [
       'Lung ultrasound is significantly more sensitive (90-95%) than supine anterior chest radiograph (50%) for traumatic pneumothorax.',
       'The presence of lung sliding rules out pneumothorax at that probe location with 100% negative predictive value.',
@@ -439,6 +520,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Horizontal A-lines repeating at intervals equal to skin-to-pleura distance',
       '< 3 B-lines per rib space'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/blue_a_lines_normal.svg",
+          "caption": "Normal A-profile (dry aerated lung). Regular, horizontal reverberation A-lines spaced at exact equidistant intervals matching the skin-to-pleura distance, with preserved lung sliding.",
+          "label": "Normal A-Line Profile",
+          "modality": "B-Mode",
+          "signName": "A-Profile (Dry Aerated Lung)"
+    },
     pathologyTitle: 'A-Profile in Respiratory Distress',
     pathologyDescription: 'When accompanied by normal sliding: COPD or asthma exacerbation. When accompanied by DVT: Pulmonary Embolism (A-profile with DVT).',
     pathologySignName: 'A-Profile (COPD/Asthma vs PE)',
@@ -447,6 +535,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'No interstitial fluid or consolidation in anterior fields',
       'Indication to screen lower extremity veins for DVT in suspected pulmonary embolism'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/blue_a_lines_normal.svg",
+          "caption": "A-profile in acute respiratory distress: indicates obstructive airway disease (severe asthma / COPD exacerbation) or pulmonary embolism (A-profile with normal sliding, requires DVT rule-out).",
+          "label": "A-Profile with Dyspnea (COPD/PE)",
+          "modality": "B-Mode",
+          "signName": "A-Profile in Respiratory Failure"
+    },
     clinicalPearls: [
       'In the BLUE protocol, an A-profile with normal sliding warrants immediate venous compression screening; positive DVT confirms PE with 99% specificity.',
       'If venous compression is negative in A-profile, consider acute bronchospasm (Asthma/COPD).'
@@ -495,6 +590,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Normal aeration with <= 2 isolated B-lines per acoustic window',
       'Preserved horizontal A-lines'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/blue_a_lines_normal.svg",
+          "caption": "Normal aerated lung profile without significant vertical artifacts (< 3 B-lines per intercostal space).",
+          "label": "Normal Aeration (No B-Lines)",
+          "modality": "B-Mode",
+          "signName": "Dry Lung Profile"
+    },
     pathologyTitle: 'Alveolar-Interstitial Syndrome (B-Profile)',
     pathologyDescription: '3 or more B-lines per intercostal space, arising from the pleural line, extending to the bottom of the screen without fading, moving synchronously with lung sliding, and erasing A-lines.',
     pathologySignName: 'B-Profile (Pulmonary Edema / ARDS)',
@@ -504,6 +606,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Confluent B-lines ("white lung") in severe alveolar flooding',
       'Irregular thickened pleural line with subpleural consolidations suggests ARDS/pneumonitis'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/blue_b_lines_pathology.jpg",
+          "caption": "Alveolar-interstitial syndrome / Cardiogenic pulmonary edema (B-profile). Multiple bright hyperechoic vertical laser-like B-lines (>= 3 per space) arising from pleural line and reaching the bottom of the screen.",
+          "label": "Pulmonary Edema (B-Lines / Lung Rockets)",
+          "modality": "B-Mode",
+          "signName": "Confluent B-Lines (\"Lung Rockets\")"
+    },
     clinicalPearls: [
       'Bilateral anterior B-profile has 97% sensitivity and 95% specificity for cardiogenic pulmonary edema in acute dyspnea.',
       'B-lines clear rapidly (within hours) following successful diuresis or dialysis, making them an excellent dynamic titration tool.',
@@ -555,6 +664,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Normal Seashore Sign on M-Mode strip',
       'Normal lung pulse (cardiac transmission to pleura)'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/blue_sliding_normal.jpg",
+          "caption": "Normal lung sliding on M-mode showing classic Seashore sign (granular beach appearance below pleura). Visceral and parietal pleura glide dynamically against each other.",
+          "label": "Normal Pleural Sliding",
+          "modality": "M-Mode",
+          "signName": "Seashore Sign"
+    },
     pathologyTitle: 'Abolished Lung Sliding (Barcode / Stratosphere Sign)',
     pathologyDescription: 'No movement at pleural line. M-mode reveals rigid horizontal parallel lines extending throughout all depths of the image.',
     pathologySignName: 'Barcode / Stratosphere Sign',
@@ -563,6 +679,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Uniform horizontal lines across whole M-mode depth',
       'Absent lung pulse in pneumothorax'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/blue_sliding_pathology.jpg",
+          "caption": "Abolished lung sliding with classic Barcode sign (Stratosphere sign) on M-mode. Air in the pleural space prevents ultrasound transmission to visceral pleura.",
+          "label": "Abolished Sliding (Pneumothorax)",
+          "modality": "M-Mode",
+          "signName": "Stratosphere / Barcode Sign"
+    },
     clinicalPearls: [
       'Normal lung sliding has 100% negative predictive value for pneumothorax at that exact intercostal location.',
       'In cardiac arrest, absent lung sliding + absent lung pulse helps confirm tension pneumothorax or bilateral mainstem intubation.',
@@ -612,6 +735,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Uniform sliding across all contiguous intercostal spaces',
       'No alternating or intermittent patterns on M-mode'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/blue_sliding_normal.jpg",
+          "caption": "Normal continuous lung sliding without boundary transition.",
+          "label": "Continuous Normal Sliding",
+          "modality": "M-Mode",
+          "signName": "Continuous Seashore Sign"
+    },
     pathologyTitle: 'Pathognomonic Lung Point Confirmed',
     pathologyDescription: 'On 2D ultrasound, sudden periodic replacement of absent sliding by normal lung sliding with respiration. On M-mode, alternating Seashore and Barcode signs in the same sweep.',
     pathologySignName: 'Lung Point (100% Pneumothorax Specificity)',
@@ -620,6 +750,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       '100% specificity for confirming pneumothorax',
       'Location of lung point correlates directly with size of pneumothorax (anterior = small, midaxillary = moderate, posterior = large)'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/blue_lung_point_pathology.svg",
+          "caption": "Pathognomonic Lung Point on M-mode: distinct focal transition boundary between normal sliding seashore pattern (left) and non-sliding barcode pattern (right) during respiratory excursion. 100% specific for pneumothorax.",
+          "label": "Lung Point (100% Specific for PTX)",
+          "modality": "M-Mode",
+          "signName": "Lung Point Boundary Sign"
+    },
     clinicalPearls: [
       'The lung point is absent in complete total lung collapse (as no lung contacts the chest wall); look for absent sliding everywhere.',
       'Quantify pneumothorax size by charting the anatomic position of the lung point: anterior to midaxillary line is typically manageable conservatively if patient is asymptomatic.'
@@ -671,6 +808,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Absence of quad sign',
       'Vertebrae shadow cut off at diaphragm (negative spine sign)'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/efast_lung_ant_normal.jpg",
+          "caption": "Normal posterolateral lung base showing normal diaphragmatic excursion and curtain sign.",
+          "label": "Normal Costophrenic Recess",
+          "modality": "B-Mode",
+          "signName": "Normal Curtain Sign"
+    },
     pathologyTitle: 'Pleural Effusion (Hemothorax / Hydrothorax)',
     pathologyDescription: '2D: Quad sign (anechoic fluid pocket bounded by upper rib, lower rib, parietal pleura, and visceral lung line). M-mode: Sinusoid sign (respiratory movement of visceral pleura toward parietal pleura).',
     pathologySignName: 'Quad Sign & Sinusoid Sign',
@@ -681,6 +825,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Positive Spine Sign: thoracic vertebral bodies visible above diaphragm through fluid',
       'Sinusoid wave on M-mode representing respiratory undulation'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/blue_effusion_pathology.jpg",
+          "caption": "Pleural effusion at the PLAPS point. Anechoic fluid collection forming the Quad sign (bounded by ribs, parietal pleura, and visceral pleura) with floating compressed lung parenchyma (Jellyfish sign).",
+          "label": "Pleural Effusion (Quad Sign)",
+          "modality": "B-Mode",
+          "signName": "Quad Sign & Floating Jellyfish Lung"
+    },
     clinicalPearls: [
       'Ultrasound is superior to chest radiography for detecting minimal pleural effusions (detects as little as 20 mL).',
       'Internal septations or echogenic debris indicate exudate, empyema, or hemothorax; simple transudate is completely anechoic.',
@@ -731,6 +882,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Clean pleural line with normal A-lines or physiological B-lines',
       'No parenchymal liver-like tissue visible'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/efast_lung_ant_normal.jpg",
+          "caption": "Normal aerated lung base without parenchymal hepatization.",
+          "label": "Normal Aerated Lung",
+          "modality": "B-Mode",
+          "signName": "Normal Aeration"
+    },
     pathologyTitle: 'Lobar Pneumonia / Lung Consolidation',
     pathologyDescription: 'Loss of aeration converts lung into solid tissue-like organ (Hepatization). Irregular ragged deep border creates the Shred Sign. Punctate bright echoes represent Air Bronchograms.',
     pathologySignName: 'Hepatization & Shred Sign (Air Bronchograms)',
@@ -740,6 +898,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Dynamic air bronchograms (bright linear echoes that move with respiration, confirming patent airways in pneumonia)',
       'Static air bronchograms (associated with obstructive resorption atelectasis)'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/blue_consolidation_pathology.jpg",
+          "caption": "Lobar lung consolidation in severe pneumonia. Hepatization (solid liver-like tissue echotexture) with multiple bright branching dynamic air bronchograms and irregular deep shred sign.",
+          "label": "Lung Consolidation (Hepatization)",
+          "modality": "B-Mode",
+          "signName": "Hepatization & Dynamic Air Bronchograms"
+    },
     clinicalPearls: [
       'Dynamic air bronchograms have 90% positive predictive value for infectious pneumonia over compressive atelectasis.',
       'Ultrasound has 94% sensitivity for pneumonia compared to 65% for standard supine portable CXR.',
@@ -797,6 +962,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'No pericardial effusion anterior to descending aorta',
       'Symmetric aortic valve leaflet excursion'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/focus_plax_normal.svg",
+          "caption": "Normal parasternal long axis (PLAX) view. Normal LV contractility, anterior mitral leaflet touching the septum in early diastole (EPSS < 7mm), normal aortic valve opening.",
+          "label": "Normal PLAX View",
+          "modality": "2D Sector",
+          "signName": "Normal LV Function (EPSS < 7mm)"
+    },
     pathologyTitle: 'Severe LV Systolic Dysfunction / Dilated Cardiomyopathy',
     pathologyDescription: 'Hypokinetic or akinetic LV walls with minimal systolic thickening (<10%). Dilated spherical left ventricle with markedly increased EPSS (>10-15 mm) indicating severely depressed ejection fraction.',
     pathologySignName: 'Severely Depressed LVEF & Increased EPSS',
@@ -806,6 +978,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Global hypokinesis with dilated LV cavity',
       'Possible spontaneous echo contrast (smoke) in LA/LV'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/focus_plax_pathology.jpg",
+          "caption": "Severe left ventricular systolic failure on PLAX view. Markedly dilated LV cavity with global hypokinesia, anterior mitral leaflet failing to coapt near the septum (EPSS = 18.3 mm), and small pericardial fluid stripe.",
+          "label": "Severe LV Failure (EPSS 18.3mm)",
+          "modality": "2D Sector",
+          "signName": "Increased EPSS (>12mm) & Poor EF"
+    },
     clinicalPearls: [
       'EPSS (E-point septal separation) measured on M-mode through the anterior mitral valve leaflet correlates strongly with left ventricular ejection fraction: EPSS < 7 mm = normal EF; EPSS > 10 mm = reduced EF (<40%).',
       'Pericardial fluid tracks ANTERIOR to the descending aorta; pleural fluid tracks POSTERIOR to the descending aorta.',
@@ -859,6 +1038,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'RV smaller than LV (RV:LV area ratio < 0.6)',
       'Curved interventricular septum projecting into RV'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/focus_psax_normal.svg",
+          "caption": "Normal parasternal short axis (PSAX) view at mid-papillary level. Circular doughnut-shaped LV cavity with symmetric concentric systolic contraction and two distinct papillary muscles.",
+          "label": "Normal PSAX Doughnut LV",
+          "modality": "2D Sector",
+          "signName": "Normal Concentric LV Contraction"
+    },
     pathologyTitle: 'RV Strain / Cor Pulmonale ("D-Shaped" Left Ventricle)',
     pathologyDescription: 'Flattening of the interventricular septum creating a "D-shaped" LV. Diastolic flattening indicates volume overload; systolic flattening indicates pressure overload (e.g. massive pulmonary embolism).',
     pathologySignName: 'D-Sign (RV Pressure / Volume Overload)',
@@ -868,6 +1054,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Paradoxical septal bounce',
       'Severe pulmonary hypertension or massive pulmonary embolism physiology'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/focus_psax_pathology.jpg",
+          "caption": "Acute right ventricular pressure overload / Pulmonary Embolism on PSAX view. Dilated RV compresses and flattens the interventricular septum, creating the classic \"D-shaped\" left ventricle (D-sign).",
+          "label": "RV Strain / D-Sign (Pulmonary Embolism)",
+          "modality": "2D Sector",
+          "signName": "D-Shaped LV (\"D-Sign\")"
+    },
     clinicalPearls: [
       'The D-sign at the papillary level in an unstable patient with sudden shock is highly indicative of acute massive pulmonary embolism or RV failure.',
       'Diastolic flattening only = RV volume overload (ASD, tricuspid regurgitation).',
@@ -921,6 +1114,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Normal TAPSE (> 17 mm) indicating preserved RV longitudinal function',
       'No McConnell\'s sign'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/focus_a4c_normal.svg",
+          "caption": "Normal apical 4-chamber (A4C) view. Apex formed by the left ventricle; RV is triangular and <= 2/3 of LV cavity size; symmetric mitral and tricuspid valve excursions.",
+          "label": "Normal Apical 4-Chamber",
+          "modality": "2D Sector",
+          "signName": "Normal Chamber Proportions (RV < 2/3 LV)"
+    },
     pathologyTitle: 'Acute Cor Pulmonale / McConnell\'s Sign',
     pathologyDescription: 'Severe RV enlargement with RV diameter exceeding LV diameter (RV/LV ratio > 1.0). McConnell\'s Sign: Akinesia of RV mid-free wall with preserved hyperdynamic apical contraction.',
     pathologySignName: 'McConnell\'s Sign & RV:LV Ratio > 1.0',
@@ -930,6 +1130,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Severe tricuspid regurgitation jet',
       'TAPSE < 16 mm indicating depressed RV systolic function'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/focus_a4c_pathology.svg",
+          "caption": "Severe acute RV failure / Cor Pulmonale on A4C view. Markedly dilated right ventricle (RV > LV) with McConnell's sign: akinesia of the mid-RV free wall with preserved hyperdynamic contraction at the RV apex.",
+          "label": "RV Dilatation & McConnell Sign",
+          "modality": "2D Sector",
+          "signName": "McConnell's Sign & Severe RV Dilation"
+    },
     clinicalPearls: [
       'In a normal heart, the LV forms the apex. If the RV forms the cardiac apex, the RV is pathologically dilated.',
       'TAPSE (Tricuspid Annular Plane Systolic Excursion): Place M-mode cursor through the lateral tricuspid annulus; normal excursion is > 17 mm. < 16 mm signifies RV failure.',
@@ -984,6 +1191,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'No pericardial fluid collection',
       'Normal RV wall thickness (< 5 mm in diastole)'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/efast_subxiphoid_normal.svg",
+          "caption": "Normal subcostal 4-chamber view. Visceral pericardium closely adherent to myocardium without fluid separation.",
+          "label": "Normal Subcostal View",
+          "modality": "2D Sector",
+          "signName": "No Pericardial Collection"
+    },
     pathologyTitle: 'Pericardial Tamponade / Interatrial Septal Bowing',
     pathologyDescription: 'Circumferential anechoic fluid with diastolic RV collapse and right atrial inversion.',
     pathologySignName: 'Pericardial Tamponade in Subcostal View',
@@ -992,6 +1206,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Diastolic indentation of RV free wall',
       'Systolic inversion of right atrial wall lasting > 1/3 of cardiac cycle'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/efast_subxiphoid_pathology.jpg",
+          "caption": "Cardiac tamponade on subcostal echocardiogram. Circumferential anechoic pericardial fluid stripe causing right ventricular diastolic collapse and hemodynamic compromise.",
+          "label": "Pericardial Tamponade",
+          "modality": "2D Sector",
+          "signName": "Pericardial Effusion & RV Diastolic Inversion"
+    },
     clinicalPearls: [
       'Subcostal view does not require stopping chest compressions during CPR for more than 5-10 seconds.',
       'Best view for assessing pericardial effusion thickness and guiding emergency pericardiocentesis.',
@@ -1042,6 +1263,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Normal inspiratory collapse (50 - 75%)',
       'Estimated central venous pressure (CVP) ~ 5-8 mmHg'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/focus_ivc_normal.svg",
+          "caption": "Normal inferior vena cava (IVC) longitudinal view. Caliber 1.6 cm with > 50% inspiratory collapse, indicating low central venous pressure (0-5 mmHg) and high likelihood of fluid responsiveness.",
+          "label": "Normal Collapsible IVC",
+          "modality": "B-Mode",
+          "signName": "Collapsibility Index > 50% (Fluid Responsive)"
+    },
     pathologyTitle: 'Plethoric Non-Collapsing IVC vs Flat Collapsing IVC',
     pathologyDescription: 'Plethoric: IVC > 2.1 cm with < 50% inspiratory collapse (CVP 10-20 mmHg, indicates fluid overload, RV failure, tamponade, or PE). Flat: IVC < 1.5 cm with complete 100% collapse (CVP 0-5 mmHg, indicates severe hypovolemia).',
     pathologySignName: 'IVC Collapsibility / Distensibility Index',
@@ -1051,6 +1279,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Plethoric IVC (> 2.1 cm, < 50% collapse): high CVP (10-20 mmHg)',
       'Flat IVC (< 1.5 cm, > 50% collapse): low CVP (0-5 mmHg)'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/focus_ivc_pathology.svg",
+          "caption": "Plethoric non-collapsing IVC on longitudinal view. Caliber 2.6 cm with < 15% inspiratory collapse, reflecting elevated right atrial pressure / CVP (15-20 mmHg) in tamponade, RV failure, or severe volume overload.",
+          "label": "Plethoric Non-Collapsing IVC",
+          "modality": "B-Mode",
+          "signName": "Plethoric IVC (> 2.1 cm, Collapse < 15%)"
+    },
     clinicalPearls: [
       'Measure IVC diameter 1.5 - 2.0 cm caudal to the cavoatrial junction (or immediately caudal to hepatic vein insertion).',
       'In spontaneous breathing, inspiration creates NEGATIVE intrathoracic pressure -> IVC collapses.',
@@ -1109,6 +1344,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'No intraluminal echogenic thrombus',
       'IJV caliber increases > 20% in Trendelenburg position'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/vasc_ijv_normal.svg",
+          "caption": "Normal internal jugular vein (IJV) transverse view. Large, oval, thin-walled IJV lateral to round pulsatile carotid artery; collapses completely and easily under gentle transducer compression.",
+          "label": "Normal Compressible IJV",
+          "modality": "B-Mode",
+          "signName": "Complete Compression / Coaptation"
+    },
     pathologyTitle: 'IJV Thrombosis / Anatomical Overlap with Carotid',
     pathologyDescription: 'Non-compressible IJV with internal echogenic thrombus, or severe anatomical medial displacement directly anterior or medial to carotid artery (high puncture risk).',
     pathologySignName: 'Non-Compressible Vein / High-Risk Overlap',
@@ -1117,6 +1359,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Intraluminal echogenic clot',
       'Direct anterior-posterior overlap of IJV over carotid artery (carotid immediately posterior to vein puncture path)'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/vasc_ijv_pathology.svg",
+          "caption": "Internal jugular vein thrombosis on transverse linear ultrasound. Vein lumen fails to coapt under probe pressure and contains an echogenic intraluminal thrombus adjacent to the carotid artery.",
+          "label": "IJV Thrombosis (Non-Compressible)",
+          "modality": "B-Mode",
+          "signName": "Intraluminal Thrombus & Non-Compressibility"
+    },
     clinicalPearls: [
       'Central line placement without real-time ultrasound guidance is no longer standard of care (ASA & NICE guidelines).',
       'Short axis provides view of adjacent carotid to prevent inadvertent arterial puncture; long axis allows tracking the needle tip along its entire course.',
@@ -1169,6 +1418,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Saphenofemoral junction visible medially',
       'Artery remains patent and round under compression'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/vasc_femoral_normal.svg",
+          "caption": "Normal common femoral vein (CFV) transverse view at groin crease. Medial to the common femoral artery; demonstrates 100% complete coaptation of anterior and posterior walls under light probe pressure.",
+          "label": "Normal Compressible CFV",
+          "modality": "B-Mode",
+          "signName": "Complete Femoral Wall Coaptation"
+    },
     pathologyTitle: 'Femoral Vein Thrombosis / Anatomical Variants',
     pathologyDescription: 'Non-compressible femoral vein lumen or visible intraluminal clot. Duplication of femoral vein.',
     pathologySignName: 'Non-Compressible Common Femoral Vein',
@@ -1177,6 +1433,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Echogenic intraluminal material representing deep vein thrombosis',
       'Loss of normal venous respiratory variation and augmentation'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/vasc_femoral_pathology.svg",
+          "caption": "Acute deep vein thrombosis of the common femoral vein. Dilated vein fails to compress under direct downward probe pressure, with visible intraluminal hypoechoic to echogenic thrombus.",
+          "label": "Femoral Vein DVT",
+          "modality": "B-Mode",
+          "signName": "Femoral DVT Non-Compressibility"
+    },
     clinicalPearls: [
       'In CPR, femoral vein catheterization does not interfere with chest compressions.',
       'Remember the "Mickey Mouse sign" at the saphenofemoral junction: CFV is the face, CFA is the lateral ear, GSV is the medial ear.',
@@ -1228,6 +1491,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       '100% complete compression of popliteal vein in popliteal fossa',
       'Absence of intraluminal echogenic mass'
     ],
+    normalPhoto: {
+          "url": "/images/pocus/vasc_dvt_normal.svg",
+          "caption": "Normal popliteal vein compression test. Popliteal vein located superficial to popliteal artery in the popliteal fossa; collapses completely to a thin line upon direct transducer compression.",
+          "label": "Normal Popliteal Compression",
+          "modality": "B-Mode",
+          "signName": "Complete Popliteal Coaptation"
+    },
     pathologyTitle: 'Deep Vein Thrombosis (DVT) Confirmed',
     pathologyDescription: 'Non-compressible vein: persistent lumen under probe pressure sufficient to deform the adjacent artery. Hypoechoic or echogenic thrombus in lumen.',
     pathologySignName: 'Non-Compressible Vein (Diagnostic for DVT)',
@@ -1237,6 +1507,13 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Vein distended larger than accompanying artery',
       'Absent Doppler flow or absent flow augmentation with distal calf squeeze'
     ],
+    pathologyPhoto: {
+          "url": "/images/pocus/vasc_dvt_pathology.svg",
+          "caption": "Acute popliteal deep vein thrombosis. Popliteal vein is dilated, fails to collapse under firm probe compression, and contains an occlusive intraluminal thrombus superficial to the popliteal artery.",
+          "label": "Popliteal Deep Vein Thrombosis",
+          "modality": "B-Mode",
+          "signName": "Non-Compressible Popliteal DVT"
+    },
     clinicalPearls: [
       '2-point compression ultrasonography (CFV + Popliteal) has 99% sensitivity for clinically significant proximal deep vein thrombosis in symptomatic patients.',
       'Compression must be done in the TRANSVERSE plane; in longitudinal view, the probe can slip off the vein and give a false impression of collapse.',
@@ -1260,6 +1537,82 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       negativeAction: 'Proximal lower extremity DVT ruled out with high confidence.'
     }
   }
+,
+  'vasc-gastric': {
+    id: 'vasc-gastric',
+    protocol: 'vascular',
+    windowId: 'gastric',
+    title: 'Gastric Ultrasound - Antrum & Aspiration Risk',
+    subtitle: 'Bedside qualitative & quantitative assessment of gastric volume and pulmonary aspiration risk',
+    probeType: 'Curvilinear',
+    frequencyRange: '2.5 - 5.0 MHz',
+    probeOrientation: 'Transducer in sagittal or parasagittal orientation in epigastrium / subxiphoid region, marker pointing cephalad (upward). Patient in supine then Right Lateral Decubitus (RLD) for maximum sensitivity.',
+    mannequinPosition: {
+      x: 50,
+      y: 38,
+      view: 'anterior',
+      angleDeg: 0,
+      lockRadiusPx: 18,
+    },
+    acousticLandmarks: [
+      { id: 'liver-left', name: 'Left Lobe of Liver', x: 45, y: 30, description: 'Acoustic window anterior to gastric antrum', echogenicity: 'isoechoic' },
+      { id: 'antrum', name: 'Gastric Antrum', x: 50, y: 55, description: 'Target structure between liver and pancreas/aorta with multi-layered wall', echogenicity: 'hypoechoic' },
+      { id: 'pancreas', name: 'Pancreas Body', x: 50, y: 68, description: 'Retroperitoneal parenchymal landmark posterior to antrum', echogenicity: 'isoechoic' },
+      { id: 'aorta', name: 'Abdominal Aorta / SMA', x: 50, y: 82, description: 'Pulsatile vascular reference in far field', echogenicity: 'anechoic' }
+    ],
+    normalDescription: 'Empty gastric antrum (Perlas Grade 0): small, flat, collapsed lumen with "bull\'s eye" target appearance. Cross-sectional area < 3.5 cm², representing baseline gastric secretions (< 1.5 mL/kg). Safe for standard induction of anesthesia.',
+    normalFindings: [
+      'Collapsed antrum with round or flat "bull\'s eye" target appearance between liver and pancreas',
+      'No clear fluid or particulate matter inside the antral lumen',
+      'Cross-sectional area (CSA) < 3.5 - 4.0 cm² in Right Lateral Decubitus',
+      'Perlas Grade 0 (empty in both supine and RLD) or Grade 1 (< 1.5 mL/kg clear fluid in RLD only)'
+    ],
+    normalPhoto: {
+      url: '/images/pocus/vasc_gastric_normal.svg',
+      caption: 'Normal empty gastric antrum (Perlas Grade 0). Small collapsed lumen with distinct 5-layer gut wall ("bull\'s eye" target sign) positioned between the left liver lobe and the aorta.',
+      label: 'Empty Antrum (Perlas 0)',
+      modality: 'B-Mode',
+      signName: "Bull's Eye Sign (Empty Antrum)"
+    },
+    pathologyTitle: 'Full Stomach / High Pulmonary Aspiration Risk (Perlas Grade 2)',
+    pathologyDescription: 'Distended gastric antrum filled with mixed solid food or thick particulate liquid. Displays a classic "frosted glass" appearance with bright hyperechoic echoes from air/solid debris and acoustic shadowing, or large fluid volume (> 1.5 mL/kg, Perlas Grade 2). Indicates high risk of regurgitation and pulmonary aspiration upon induction of anesthesia.',
+    pathologySignName: 'Full Stomach / Frosted Glass Sign',
+    pathologyFindings: [
+      'Markedly distended gastric antrum with thinned walls (> 5.4 cm² CSA in RLD)',
+      'Mixed echogenic particulate content and air bubbles ("frosted glass" appearance after solid meal)',
+      'Gastric fluid volume estimate > 1.5 mL/kg using Perlas formula: Volume (mL) = 27.0 + (14.6 * CSA cm²) - (1.28 * Age)',
+      'Perlas Grade 2 (fluid/solids visible in BOTH supine and right lateral decubitus positions)'
+    ],
+    pathologyPhoto: {
+      url: '/images/pocus/vasc_gastric_pathology.svg',
+      caption: 'Full stomach (Perlas Grade 2). Markedly distended gastric antrum containing echogenic particulate food with "frosted glass" reverberations, indicating critical pulmonary aspiration risk requiring Rapid Sequence Induction (RSI) or case postponement.',
+      label: 'Full Stomach (High Aspiration Risk)',
+      modality: 'B-Mode',
+      signName: 'Frosted Glass Particulate Sign'
+    },
+    clinicalPearls: [
+      'Examining the patient in the Right Lateral Decubitus (RLD) position shifts fluid into the dependent antrum, dramatically increasing sensitivity compared to supine alone.',
+      'Perlas qualitative grading: Grade 0 = empty in supine and RLD (no risk); Grade 1 = fluid visible in RLD only (< 1.5 mL/kg, low risk); Grade 2 = fluid/solids visible in BOTH supine and RLD (high aspiration risk).',
+      'Solid meals can be identified immediately after ingestion as an echogenic "frosted glass" pattern with posterior shadowing; clear liquids appear uniformly anechoic.'
+    ],
+    pitfalls: [
+      'Do not mistake the transverse colon for the gastric antrum; the colon has haustrations and irregular air acoustic shadowing.',
+      'A completely empty antrum can be compressed and difficult to locate; identify the left hepatic lobe and abdominal aorta first, then look immediately in between.'
+    ],
+    proceduralSteps: [
+      'Place curvilinear probe (2-5 MHz) in epigastric sagittal plane just inferior to xiphoid process.',
+      'Identify left lobe of liver anteriorly, abdominal aorta/IVC posteriorly, and pancreas.',
+      'Locate gastric antrum directly between the liver and pancreas, noting its characteristic 5-layer gut signature.',
+      'Measure outer serosa-to-serosa cross-sectional area (CSA) in Right Lateral Decubitus during gastric quiescence.'
+    ],
+    decisionTree: {
+      question: 'Is gastric antrum distended with particulate matter/fluid in both supine and RLD (Perlas Grade 2)?',
+      positiveFinding: 'Distended antrum with solid debris / CSA > 5.4 cm²',
+      positiveAction: 'Full stomach: delay elective surgery by 6-8 hrs or perform Rapid Sequence Induction (RSI) with cricoid pressure and videolaryngoscopy if emergency.',
+      negativeFinding: 'Collapsed antrum (Perlas 0) or minimal clear fluid in RLD only (<1.5 mL/kg)',
+      negativeAction: 'Low aspiration risk: proceed with standard anesthetic induction protocol.'
+    }
+  },
 };
 
 // ─────────────────────────────────────────────────────────────

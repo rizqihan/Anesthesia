@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 360" width="540" height="360">
+  <defs>
+    <filter id="speckle" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="3" result="noise" />
+      <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 0.18 0" result="speckle" />
+      <feComposite in2="SourceGraphic" in="speckle" operator="over" />
+    </filter>
+    <linearGradient id="sectorCone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a1220" stop-opacity="0.95" />
+      <stop offset="60%" stop-color="#050a14" stop-opacity="0.98" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="liverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#243044" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="thrombusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="50%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="stomachFull" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="40%" stop-color="#64748b" />
+      <stop offset="80%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Monitor Frame -->
+  <rect width="540" height="360" fill="#030712" />
+
+  <!-- Ultrasound Machine Header HUD -->
+  <g font-family="monospace, ui-monospace, sans-serif" font-size="11" fill="#94a3b8">
+    <rect x="0" y="0" width="540" height="32" fill="#090d16" />
+    <text x="14" y="20" font-weight="bold" fill="#38bdf8">Vascular - Acute Common Femoral Vein DVT</text>
+    <text x="300" y="20" fill="#cbd5e1">L12-4 Linear (10.0 MHz)</text>
+    <text x="450" y="20" fill="#94a3b8">FPS: 38Hz</text>
+  </g>
+
+  <!-- Main Scan Viewport Area -->
+  <g transform="translate(0, 32)">
+    
+    <rect x="40" y="20" width="460" height="280" fill="#030712" stroke="#1e293b" stroke-width="1.5" />
+    <circle cx="200" cy="165" r="40" fill="#050a14" stroke="#f43f5e" stroke-width="3.5" />
+    <text x="185" y="170" fill="#fda4af" font-family="sans-serif" font-size="13" font-weight="bold">CFA</text>
+    <!-- Dilated Non-Compressible CFV with Thrombus -->
+    <ellipse cx="325" cy="165" rx="60" ry="50" fill="#0f172a" stroke="#ef4444" stroke-width="3.5" />
+    <ellipse cx="325" cy="165" rx="38" ry="28" fill="url(#thrombusGrad)" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="285" y="165" fill="#fca5a5" font-family="sans-serif" font-size="12" font-weight="bold">FEMORAL DVT</text>
+    <text x="145" y="255" fill="#ef4444" font-family="sans-serif" font-size="11" font-weight="bold">ACUTE FEMORAL DVT: NON-COMPRESSIBLE UNDER FIRM TRANSDUCER PRESSURE</text>
+  
+  </g>
+
+  <!-- Depth Scale Calibration Ruler (Right Margin) -->
+  <g font-family="monospace, sans-serif" font-size="9" fill="#64748b" text-anchor="end">
+    <line x1="524" y1="45" x2="524" y2="335" stroke="#334155" stroke-width="1.5" />
+    <line x1="518" y1="45" x2="524" y2="45" stroke="#94a3b8" stroke-width="1.5" />
+    <text x="514" y="48">0</text>
+    <line x1="520" y1="100" x2="524" y2="100" stroke="#64748b" stroke-width="1" />
+    <text x="514" y="103">4</text>
+    <line x1="518" y1="155" x2="524" y2="155" stroke="#94a3b8" stroke-width="1.5" />
+    <text x="514" y="158">8</text>
+    <line x1="520" y1="210" x2="524" y2="210" stroke="#64748b" stroke-width="1" />
+    <text x="514" y="213">12</text>
+    <line x1="518" y1="265" x2="524" y2="265" stroke="#94a3b8" stroke-width="1.5" />
+    <text x="514" y="268">4cm</text>
+  </g>
+
+  <!-- Status Bar Footer -->
+  <g font-family="monospace, sans-serif" font-size="9" fill="#64748b">
+    <text x="14" y="352">GAIN: 58dB • MI: 1.1 • TIS: 0.3 • CLINICAL POCUS REFERENCE</text>
+  </g>
+</svg>

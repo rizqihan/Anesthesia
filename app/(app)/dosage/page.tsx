@@ -130,11 +130,33 @@ function DosageCalculatorContent() {
                   {calculableDrugs.map(d => (<option key={d.id} value={d.id}>{d.genericName} ({d.dosing?.dosePerKg} {d.dosing?.unit}/kg)</option>))}
                 </select>
                 {drug?.dosing && (
-                  <div className="mt-2 p-3 rounded-lg text-[11px]" style={{ background: 'rgba(14,165,233,0.08)', border: '1px solid rgba(14,165,233,0.15)' }}>
-                    <span className="font-[600]" style={{ color: '#38bdf8' }}>Info: </span>
-                    <span style={{ color: 'var(--text-secondary)' }}>{language === 'en' ? drug.dosing.notes.en : drug.dosing.notes.id}</span>
-                    <br />
-                    <span style={{ color: 'var(--text-muted)' }}>Freq: {drug.dosing.frequency} | Max: {drug.dosing.maxDose} {drug.dosing.unit}</span>
+                  <div className="mt-2 p-3 rounded-lg text-[11px] space-y-1.5" style={{ background: 'rgba(14,165,233,0.08)', border: '1px solid rgba(14,165,233,0.15)' }}>
+                    <div>
+                      <span className="font-[600]" style={{ color: '#38bdf8' }}>Info: </span>
+                      <span style={{ color: 'var(--text-secondary)' }}>{language === 'en' ? drug.dosing.notes.en : drug.dosing.notes.id}</span>
+                    </div>
+                    {(drug.dosing.bolusDose || drug.dosing.infusionDose) && (
+                      <div className="text-[10.5px] border-t border-sky-500/20 pt-1 space-y-0.5">
+                        {drug.dosing.bolusDose && (
+                          <div>
+                            <span className="font-bold text-sky-300">💉 Bolus: </span>
+                            <span className="text-slate-300">{drug.dosing.bolusDose}</span>
+                          </div>
+                        )}
+                        {drug.dosing.infusionDose && (
+                          <div>
+                            <span className="font-bold text-indigo-300">💧 Infusion: </span>
+                            <span className="text-slate-300">{drug.dosing.infusionDose}</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-slate-400 text-[10px] pt-0.5 border-t border-white/[0.04]">
+                      <span>Freq: {drug.dosing.frequency}</span>
+                      <span>Max: {drug.dosing.maxDose} {drug.dosing.unit}</span>
+                      {drug.onset && <span>⚡ Onset: {drug.onset}</span>}
+                      {drug.duration && <span>⏱️ Duration: {drug.duration}</span>}
+                    </div>
                   </div>
                 )}
               </div>

@@ -9,6 +9,9 @@ import {
   AcousticLandmark 
 } from '@/lib/pocusData';
 import { 
+  Camera,
+  Maximize2,
+  X,
   Eye, 
   Layers, 
   AlertCircle, 
@@ -37,6 +40,16 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
   const [activeLandmark, setActiveLandmark] = useState<AcousticLandmark | null>(null);
   const [isSaved, setIsSaved] = useState(false);
   const [compressionSlider, setCompressionSlider] = useState(0); // 0 = no compression, 100 = full probe pressure
+  const [displayMode, setDisplayMode] = useState<'real' | 'schematic'>('real');
+  const [fullscreenPhoto, setFullscreenPhoto] = useState<{
+    url: string;
+    title: string;
+    subtitle: string;
+    caption: string;
+    signName?: string;
+    modality: string;
+    isPathology: boolean;
+  } | null>(null); // 0 = no compression, 100 = full probe pressure
 
   const [prevSelectedCaseId, setPrevSelectedCaseId] = useState(selectedCaseId);
 
@@ -211,8 +224,36 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
             )}
           </div>
 
-          {/* View Mode Toggle */}
-          <div className="flex items-center gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/10 text-[11px]">
+          {/* Display & View Mode Toggles */}
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Real USG vs Schematic Toggle */}
+            <div className="flex items-center gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/10 text-[11px]">
+              <button
+                onClick={() => setDisplayMode('real')}
+                className={`px-3 py-1 rounded-lg font-[800] flex items-center gap-1.5 transition-all ${
+                  displayMode === 'real'
+                    ? 'bg-cyan-600 text-white shadow-md shadow-cyan-950/60'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Camera className="w-3.5 h-3.5 text-cyan-200" />
+                <span>Real USG Photos</span>
+              </button>
+              <button
+                onClick={() => setDisplayMode('schematic')}
+                className={`px-3 py-1 rounded-lg font-[800] flex items-center gap-1.5 transition-all ${
+                  displayMode === 'schematic'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-950/60'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Layers className="w-3.5 h-3.5 text-blue-200" />
+                <span>Vector Schematics</span>
+              </button>
+            </div>
+
+            {/* View Mode Toggle */}
+            <div className="flex items-center gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/10 text-[11px]">
             <button
               onClick={() => setViewMode('comparison')}
               className={`px-2.5 py-1 rounded-lg font-[700] transition-colors ${
@@ -237,6 +278,7 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
             >
               Pathology Only
             </button>
+          </div>
           </div>
         </div>
 
@@ -280,19 +322,61 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
                 <span className="text-[10px] font-mono text-slate-400">FPS: 30 • GAIN: 68dB</span>
               </div>
 
-              {/* Ultrasound Screen Simulator */}
-              <div className="relative aspect-[4/3] bg-black flex items-center justify-center p-3 select-none">
-                <UltrasoundScreenGraphic 
-                  caseData={currentCase} 
-                  isPathology={false} 
-                  compressionPct={compressionSlider}
-                  showLandmarks={showLandmarks}
-                  activeLandmark={activeLandmark}
-                  onSelectLandmark={setActiveLandmark}
-                />
+              {/* Ultrasound Screen Simulator / Real USG Capture */}
+              <div className="relative aspect-[4/3] bg-black flex items-center justify-center p-2 select-none overflow-hidden">
+                {displayMode === 'real' && currentCase.normalPhoto ? (
+                  <div
+                    onClick={() => setFullscreenPhoto({
+                      url: currentCase.normalPhoto!.url,
+                      title: currentCase.title,
+                      subtitle: currentCase.subtitle,
+                      caption: currentCase.normalPhoto!.caption,
+                      signName: currentCase.normalPhoto!.signName,
+                      modality: currentCase.normalPhoto!.modality,
+                      isPathology: false
+                    })}
+                    className="w-full h-full relative group cursor-pointer flex items-center justify-center"
+                    title="Click to view full-resolution ultrasound capture"
+                  >
+                    <img
+                      src={currentCase.normalPhoto.url}
+                      alt={currentCase.normalPhoto.caption}
+                      className="w-full h-full object-contain rounded-lg shadow-inner"
+                    />
+                    <div className="absolute top-3 right-3 bg-black/75 hover:bg-black/90 text-cyan-300 px-2.5 py-1 rounded-lg text-[11px] font-[700] border border-cyan-500/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow-lg backdrop-blur">
+                      <Maximize2 className="w-3.5 h-3.5" />
+                      <span>Full Resolution</span>
+                    </div>
+                    <div className="absolute bottom-3 left-3 bg-black/80 text-white px-2.5 py-1 rounded-lg text-[10px] font-mono border border-white/20 backdrop-blur flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                      <span className="font-[800] text-emerald-300">{currentCase.normalPhoto.modality}</span>
+                      {currentCase.normalPhoto.signName && (
+                        <span className="text-slate-300 border-l border-white/20 pl-2">{currentCase.normalPhoto.signName}</span>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <UltrasoundScreenGraphic 
+                    caseData={currentCase} 
+                    isPathology={false} 
+                    compressionPct={compressionSlider}
+                    showLandmarks={showLandmarks}
+                    activeLandmark={activeLandmark}
+                    onSelectLandmark={setActiveLandmark}
+                  />
+                )}
               </div>
 
               <div className="p-4 bg-[#070c17] border-t border-white/5 space-y-2">
+                {displayMode === 'real' && currentCase.normalPhoto && (
+                  <div className="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-[11px] text-emerald-200 flex items-start gap-2">
+                    <Camera className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div className="leading-relaxed">
+                      <span className="font-[800] text-emerald-300">Real USG Capture: </span>
+                      <span>{currentCase.normalPhoto.caption}</span>
+                    </div>
+                  </div>
+                )}
                 <h4 className="text-[13px] font-[800] text-slate-200">Normal Acoustic Characteristics:</h4>
                 <p className="text-[12px] text-slate-400 leading-relaxed">{currentCase.normalDescription}</p>
                 <div className="space-y-1 pt-1">
@@ -322,19 +406,59 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
                 </span>
               </div>
 
-              {/* Ultrasound Screen Simulator */}
-              <div className="relative aspect-[4/3] bg-black flex items-center justify-center p-3 select-none">
-                <UltrasoundScreenGraphic 
-                  caseData={currentCase} 
-                  isPathology={true} 
-                  compressionPct={compressionSlider}
-                  showLandmarks={showLandmarks}
-                  activeLandmark={activeLandmark}
-                  onSelectLandmark={setActiveLandmark}
-                />
+              {/* Ultrasound Screen Simulator / Real USG Capture */}
+              <div className="relative aspect-[4/3] bg-black flex items-center justify-center p-2 select-none overflow-hidden">
+                {displayMode === 'real' && currentCase.pathologyPhoto ? (
+                  <div
+                    onClick={() => setFullscreenPhoto({
+                      url: currentCase.pathologyPhoto!.url,
+                      title: currentCase.pathologyTitle,
+                      subtitle: currentCase.title,
+                      caption: currentCase.pathologyPhoto!.caption,
+                      signName: currentCase.pathologySignName,
+                      modality: currentCase.pathologyPhoto!.modality,
+                      isPathology: true
+                    })}
+                    className="w-full h-full relative group cursor-pointer flex items-center justify-center"
+                    title="Click to view full-resolution ultrasound capture"
+                  >
+                    <img
+                      src={currentCase.pathologyPhoto.url}
+                      alt={currentCase.pathologyPhoto.caption}
+                      className="w-full h-full object-contain rounded-lg shadow-inner"
+                    />
+                    <div className="absolute top-3 right-3 bg-black/75 hover:bg-black/90 text-rose-300 px-2.5 py-1 rounded-lg text-[11px] font-[700] border border-rose-500/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow-lg backdrop-blur">
+                      <Maximize2 className="w-3.5 h-3.5" />
+                      <span>Full Resolution</span>
+                    </div>
+                    <div className="absolute bottom-3 left-3 bg-black/80 text-white px-2.5 py-1 rounded-lg text-[10px] font-mono border border-white/20 backdrop-blur flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+                      <span className="font-[800] text-rose-300">{currentCase.pathologyPhoto.modality}</span>
+                      <span className="text-rose-200 border-l border-white/20 pl-2 font-[800]">{currentCase.pathologySignName}</span>
+                    </div>
+                  </div>
+                ) : (
+                  <UltrasoundScreenGraphic 
+                    caseData={currentCase} 
+                    isPathology={true} 
+                    compressionPct={compressionSlider}
+                    showLandmarks={showLandmarks}
+                    activeLandmark={activeLandmark}
+                    onSelectLandmark={setActiveLandmark}
+                  />
+                )}
               </div>
 
               <div className="p-4 bg-[#070c17] border-t border-white/5 space-y-2">
+                {displayMode === 'real' && currentCase.pathologyPhoto && (
+                  <div className="p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/40 text-[11px] text-rose-200 flex items-start gap-2">
+                    <Camera className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" />
+                    <div className="leading-relaxed">
+                      <span className="font-[800] text-rose-300">Pathognomonic USG Sign: </span>
+                      <span>{currentCase.pathologyPhoto.caption}</span>
+                    </div>
+                  </div>
+                )}
                 <h4 className="text-[13px] font-[800] text-rose-200">{currentCase.pathologyTitle}</h4>
                 <p className="text-[12px] text-slate-400 leading-relaxed">{currentCase.pathologyDescription}</p>
                 <div className="space-y-1 pt-1">
@@ -439,6 +563,72 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
           )}
         </div>
       </div>
+      {/* ─── Fullscreen High-Resolution Lightbox Modal ─── */}
+      {fullscreenPhoto && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 md:p-6 animate-in fade-in duration-200"
+          onClick={() => setFullscreenPhoto(null)}
+        >
+          <div
+            className="relative max-w-5xl w-full max-h-[92vh] flex flex-col rounded-2xl bg-[#03060c] border border-white/20 shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="px-5 py-3.5 bg-[#090e1a] border-b border-white/10 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-[800] uppercase ${
+                  fullscreenPhoto.isPathology 
+                    ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40' 
+                    : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                }`}>
+                  {fullscreenPhoto.modality}
+                </span>
+                <div>
+                  <h3 className="text-[15px] font-[900] text-white tracking-tight">
+                    {fullscreenPhoto.title}
+                  </h3>
+                  {fullscreenPhoto.signName && (
+                    <span className={`text-[11px] font-[700] ${fullscreenPhoto.isPathology ? 'text-rose-400' : 'text-emerald-400'}`}>
+                      {fullscreenPhoto.signName}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <button
+                onClick={() => setFullscreenPhoto(null)}
+                className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                title="Close (Esc)"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Main Image Viewport */}
+            <div className="flex-1 bg-black flex items-center justify-center p-4 overflow-hidden min-h-[300px]">
+              <img
+                src={fullscreenPhoto.url}
+                alt={fullscreenPhoto.caption}
+                className="max-h-[65vh] w-auto max-w-full object-contain rounded-lg shadow-2xl"
+              />
+            </div>
+
+            {/* Educational Footer Legend */}
+            <div className="p-4 bg-[#070c17] border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-3 text-[12px]">
+              <div className="text-slate-300 leading-relaxed max-w-3xl">
+                <span className="font-[800] text-cyan-300">Bedside Clinical Interpretation: </span>
+                <span>{fullscreenPhoto.caption}</span>
+              </div>
+              <button
+                onClick={() => setFullscreenPhoto(null)}
+                className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-[700] text-[12px] shrink-0"
+              >
+                Close Full View
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1230,6 +1420,42 @@ function UltrasoundScreenGraphic({
                 <text x="125" y="155" fill="#7dd3fc" fontSize="11" fontWeight="800">
                   {compressionPct > 70 ? 'COLLAPSED' : 'IJV'}
                 </text>
+              </g>
+            )}
+          </g>
+        )}
+
+        {id === 'vasc-gastric' && (
+          <g>
+            {/* Left Lobe of Liver Acoustic Window */}
+            <path d="M 80 40 Q 200 28 320 50 L 305 95 Q 200 75 90 85 Z" fill="#1e293b" stroke="#334155" strokeWidth="1" opacity="0.8" />
+            <text x="160" y="65" fill="#94a3b8" fontSize="10" fontWeight="700">LIVER (L-LOBE)</text>
+
+            {/* Abdominal Aorta far field */}
+            <circle cx="200" cy="245" r="24" fill="#020617" stroke="#f43f5e" strokeWidth="2.5" />
+            <text x="180" y="250" fill="#fda4af" fontSize="10" fontWeight="800">AORTA</text>
+
+            {/* Pancreas */}
+            <ellipse cx="200" cy="190" rx="36" ry="12" fill="#1e293b" stroke="#64748b" />
+            <text x="175" y="194" fill="#94a3b8" fontSize="9">PANCREAS</text>
+
+            {/* Gastric Antrum */}
+            {isPathology ? (
+              // Distended Full Stomach with Frosted Glass particulate food
+              <g>
+                <ellipse cx="200" cy="135" rx="68" ry="40" fill="#1e293b" stroke="#ef4444" strokeWidth="3" className="animate-pulse" />
+                <line x1="150" y1="125" x2="250" y2="125" stroke="#ffffff" strokeWidth="2" strokeDasharray="4 2" />
+                <line x1="145" y1="140" x2="255" y2="140" stroke="#ffffff" strokeWidth="2" strokeDasharray="4 2" />
+                <text x="135" y="130" fill="#fca5a5" fontSize="11" fontWeight="900">FULL STOMACH (FROSTED GLASS)</text>
+                <text x="145" y="150" fill="#fbbf24" fontSize="9" fontWeight="700">PERLAS 2 (HIGH ASPIRATION RISK)</text>
+              </g>
+            ) : (
+              // Collapsed Empty Antrum (Bull's Eye Target Sign)
+              <g>
+                <ellipse cx="200" cy="130" rx="30" ry="16" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
+                <ellipse cx="200" cy="130" rx="16" ry="8" fill="#334155" stroke="#94a3b8" />
+                <text x="178" y="134" fill="#7dd3fc" fontSize="9" fontWeight="800">ANTRUM</text>
+                <text x="140" y="155" fill="#34d399" fontSize="9" fontWeight="700">EMPTY (BULL&apos;S EYE SIGN)</text>
               </g>
             )}
           </g>

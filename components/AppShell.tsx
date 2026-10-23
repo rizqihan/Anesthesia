@@ -122,6 +122,25 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Ensure expanded drug formulary is seeded to local IndexedDB
+  useEffect(() => {
+    async function ensureDrugsSeeded() {
+      try {
+        const db = (await import('@/lib/db')).default;
+        const { DRUG_DB } = await import('@/lib/drugs');
+        const count = await db.drugs.count();
+        if (count < DRUG_DB.length) {
+          await db.drugs.bulkPut(DRUG_DB as any);
+          const now = new Date().toISOString();
+          store.updateSyncMeta('drugs', { lastSynced: now, count: DRUG_DB.length });
+        }
+      } catch (err) {
+        console.error('Error ensuring expanded drugs seeded:', err);
+      }
+    }
+    ensureDrugsSeeded();
+  }, [store]);
+
   // Synchronize theme with <html> class, data-theme attribute, and color-scheme
   useEffect(() => {
     const applyTheme = (theme: 'dark' | 'light' | 'system') => {

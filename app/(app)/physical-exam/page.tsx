@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import db, { type PhysicalExamRecord } from '@/lib/db';
+import { PHYSICAL_EXAMS_DB } from '@/lib/physicalExamsData';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
 import { generatePhysicalExamGuideline } from '@/lib/syncAgent';
@@ -26,11 +27,18 @@ export default function PhysicalExamPage() {
   const [activePartId, setActivePartId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'steps' | 'map'>('steps');
   
-  // Mounted status for portal
+  // Mounted status for portal and auto-seed database
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
+
+    // Auto-seed or update default physical exams database
+    db.physicalExams.count().then(count => {
+      if (count < PHYSICAL_EXAMS_DB.length) {
+        db.physicalExams.bulkPut(PHYSICAL_EXAMS_DB);
+      }
+    }).catch(err => console.error('Failed to auto-seed physical exams:', err));
   }, []);
 
   // AI Generator state

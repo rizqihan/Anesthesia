@@ -6,17 +6,29 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.4.2';
+export const APP_VERSION = '2.5.0';
 export const BUILD_DATE = '2026-10-23';
-export const DB_SCHEMA_VERSION = 6;
-export const RELEASE_NAME = 'Clinical Light Mode & Daylight Accessibility';
+export const DB_SCHEMA_VERSION = 7;
+export const RELEASE_NAME = 'Real POCUS Ultrasound Atlas & Comprehensive 104-Drug Formulary';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.5.0',
+    date: '2026-10-23',
+    title: 'Real USG Pathology Atlas, Mannequin Previews & 104-Drug Anesthesia Formulary',
+    highlight: true,
+    features: [
+      'Real USG Pathology Atlas & Lightbox: Clinical high-resolution ultrasound captures across eFAST (Morison pouch hemoperitoneum, splenorenal, cardiac tamponade), BLUE (lung sliding vs barcode sign, B-lines, consolidation), FOCUS (tamponade, RV strain), vascular & gastric ultrasound (Perlas classification)',
+      'Side-by-Side USG vs Schematic View: Instant toggle comparing real ultrasound scans with labeled anatomical schematics and probe acoustic windows',
+      'Massive 104-Drug Formulary Expansion: Expanded from 15 to 104 evidence-based medications spanning intravenous induction, volatiles, paralytics & reversal, opioids, local anesthetics, vasoactives, emergency ACLS, and antiemetics',
+      'Enhanced Dosage Calculator & High-Risk Indicators: Integrated dosing parameters (bolus, infusion, max dose) across all 104 drugs with safety alerts and black-box warnings',
+      'Physical Exam Atlas Expansion: 12 comprehensive preoperative clinical guides including airway, cardiovascular, neurologic, and regional exams with Dexie v7 auto-migration',
+    ],
+  },
   {
     version: '2.4.2',
     date: '2026-10-23',
     title: 'Clinical Light Mode, 3-Way Theme Switcher & Daylight Accessibility',
-    highlight: true,
     features: [
       'Comprehensive Light Mode: Hospital-grade, high-contrast daylight theme (#f8fafc slate background, #ffffff elevated cards, #0f172a deep typography) for pre-op clinics, wards, and documentation',
       'Preserved Medical Displays: Authentic black monitor screens (#030712) for real-time ECG rhythm strips, simulated monitors, and POCUS ultrasound cine-loops',

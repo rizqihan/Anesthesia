@@ -199,3 +199,31 @@ test('Dexie Version 6 Schema Integrity for POCUS Captures', () => {
   assert.ok(dbContent.includes('export interface POCUSCaptureRecord'), 'POCUSCaptureRecord must be exported');
   assert.ok(dbContent.includes('pocusCaptures: EntityTable<POCUSCaptureRecord, \'id\'>'), 'Dexie table must be typed');
 });
+
+test('POCUS Photos & Assets Integrity Across All Cases', () => {
+  const cases = Object.values(POCUS_CASES);
+  assert.equal(cases.length, 20, 'Should have exactly 20 comprehensive POCUS cases across 4 protocols');
+
+  for (const c of cases) {
+    // 1. Verify normalPhoto
+    assert.ok(c.normalPhoto, `Case ${c.id} must have normalPhoto`);
+    assert.ok(c.normalPhoto.url && c.normalPhoto.url.startsWith('/images/pocus/'), `Case ${c.id} normalPhoto url must point to /images/pocus/`);
+    assert.ok(c.normalPhoto.caption && c.normalPhoto.caption.length > 10, `Case ${c.id} normalPhoto caption must be descriptive`);
+    assert.ok(c.normalPhoto.modality, `Case ${c.id} normalPhoto must have modality`);
+
+    const normalFilePath = path.resolve(process.cwd(), 'public', c.normalPhoto.url.replace(/^\//, ''));
+    assert.ok(fs.existsSync(normalFilePath), `Normal photo asset must exist at ${normalFilePath}`);
+    assert.ok(fs.statSync(normalFilePath).size > 100, `Normal photo asset must not be empty at ${normalFilePath}`);
+
+    // 2. Verify pathologyPhoto
+    assert.ok(c.pathologyPhoto, `Case ${c.id} must have pathologyPhoto`);
+    assert.ok(c.pathologyPhoto.url && c.pathologyPhoto.url.startsWith('/images/pocus/'), `Case ${c.id} pathologyPhoto url must point to /images/pocus/`);
+    assert.ok(c.pathologyPhoto.caption && c.pathologyPhoto.caption.length > 10, `Case ${c.id} pathologyPhoto caption must be descriptive`);
+    assert.ok(c.pathologyPhoto.modality, `Case ${c.id} pathologyPhoto must have modality`);
+
+    const pathologyFilePath = path.resolve(process.cwd(), 'public', c.pathologyPhoto.url.replace(/^\//, ''));
+    assert.ok(fs.existsSync(pathologyFilePath), `Pathology photo asset must exist at ${pathologyFilePath}`);
+    assert.ok(fs.statSync(pathologyFilePath).size > 100, `Pathology photo asset must not be empty at ${pathologyFilePath}`);
+  }
+});
+

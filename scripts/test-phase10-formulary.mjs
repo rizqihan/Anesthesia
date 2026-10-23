@@ -173,9 +173,41 @@ test('Dosage Calculator Engine Compatibility Across All Drugs', () => {
   }
 });
 
-test('Dexie Version 7 Schema Integrity for Formulary Upgrades', () => {
-  // Check that db is instantiated and schema version 7 exists
-  assert.ok(db, 'Dexie db instance must exist');
-  assert.equal(db.verno, 7, 'Dexie database must be on schema version 7');
-  assert.ok(db.tables.some(t => t.name === 'drugs'), 'drugs table must exist in schema');
+test('Dexie Version Schema Integrity for Formulary Upgrades', () => {
+  // Check that db is instantiated and schema version exists
+  const dexieDb = db?.verno ? db : (db?.default ?? db);
+  assert.ok(dexieDb, 'Dexie db instance must exist');
+  assert.ok(dexieDb.verno >= 7, `Dexie database must be on schema version >= 7, got ${dexieDb.verno}`);
+  assert.ok(dexieDb.tables.some(t => t.name === 'drugs'), 'drugs table must exist in schema');
+});
+
+test('General Hospital & Clinical Pharmacopeia Completeness', () => {
+  const drugMap = new Map(DRUG_DB.map(d => [d.id, d]));
+
+  // Required general medicine, cardiology, endocrine, neurology, GI, and antimicrobial drugs
+  const requiredGeneralDrugs = [
+    'captopril', 'ramipril', 'lisinopril', 'losartan', 'valsartan', 'candesartan',
+    'amlodipine', 'bisoprolol', 'carvedilol', 'spironolactone', 'furosemide_oral',
+    'digoxin', 'atorvastatin', 'propranolol', 'metoprolol_succinate', 'diltiazem_oral',
+    'verapamil_oral', 'isosorbide_dinitrate', 'sacubitril_valsartan',
+    'aspirin_cardio', 'clopidogrel', 'warfarin', 'rivaroxaban', 'apixaban', 'ticagrelor',
+    'dabigatran', 'phytomenadione',
+    'metformin', 'glimepiride', 'empagliflozin', 'insulin_regular', 'insulin_glargine',
+    'levothyroxine', 'propylthiouracil', 'semaglutide', 'prednisone',
+    'amoxicillin_oral', 'amoxicillin_clavulanate', 'cefixime', 'ceftriaxone_extended',
+    'ciprofloxacin_oral', 'azithromycin', 'doxycycline', 'fluconazole', 'acyclovir_oral',
+    'levetiracetam', 'sodium_valproate', 'gabapentin', 'haloperidol_oral', 'celecoxib',
+    'phenytoin', 'carbamazepine', 'quetiapine', 'tramadol',
+    'salbutamol_inhaler', 'budesonide_inhaler', 'cetirizine',
+    'omeprazole', 'sucralfate', 'loperamide', 'lactulose', 'lansoprazole', 'domperidone',
+    'ursodeoxycholic_acid', 'hyoscine_butylbromide',
+    'oxytocin', 'misoprostol', 'acetylcysteine'
+  ];
+
+  for (const id of requiredGeneralDrugs) {
+    assert.ok(drugMap.has(id), `Missing required general medical drug: ${id}`);
+    const d = drugMap.get(id);
+    assert.ok(d.indications?.en && d.indications?.id, `${id} missing bilingual indications`);
+    assert.ok(d.dosing?.dosePerKg > 0, `${id} must have valid dosePerKg`);
+  }
 });

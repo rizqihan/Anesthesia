@@ -6,17 +6,31 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.5.0';
+export const APP_VERSION = '2.6.0';
 export const BUILD_DATE = '2026-10-23';
-export const DB_SCHEMA_VERSION = 7;
-export const RELEASE_NAME = 'Real POCUS Ultrasound Atlas & Comprehensive 104-Drug Formulary';
+export const DB_SCHEMA_VERSION = 8;
+export const RELEASE_NAME = 'General Hospital Pharmacopeia & 163-Drug Multi-Specialty Formulary';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.6.0',
+    date: '2026-10-23',
+    title: 'Hospital Pharmacopeia Expansion: 163 Multi-Specialty Clinical Drugs',
+    highlight: true,
+    features: [
+      'Comprehensive 163-Drug Hospital Pharmacopeia: Expanded from perioperative anesthesia to full inpatient, outpatient, ICU, and emergency medicine formulary',
+      'Cardiovascular & Hypertension Suite: ACE inhibitors (captopril, ramipril, lisinopril), ARBs (losartan, valsartan, candesartan), beta-blockers (propranolol, bisoprolol, carvedilol, metoprolol succinate), CCBs (amlodipine, diltiazem, verapamil), loop/thiazide diuretics (furosemide, spironolactone), ARNI (sacubitril/valsartan), and statins (atorvastatin)',
+      'Antithrombotic & Anticoagulant Suite: Antiplatelets (aspirin, clopidogrel, ticagrelor), DOACs (rivaroxaban, apixaban, dabigatran), warfarin, and specific reversal antidotes (phytomenadione/Vit K, idarucizumab)',
+      'Endocrine, Diabetes & Thyroid: Insulins (regular, glargine), oral hypoglycemics (metformin, glimepiride, empagliflozin, semaglutide), thyroid management (levothyroxine, propylthiouracil), and systemic glucocorticoids (prednisone)',
+      'Broad-Spectrum Antimicrobial Suite: Inpatient and outpatient penicillins, 3rd/4th gen cephalosporins (cefixime, ceftriaxone), fluoroquinolones (ciprofloxacin), macrolides (azithromycin), tetracyclines (doxycycline), antifungals (fluconazole), and antivirals (acyclovir)',
+      'Neurology, Psych & Gastroenterology: Anticonvulsants (levetiracetam, valproate, phenytoin, carbamazepine), neuropathic agents (gabapentin), atypical antipsychotics (quetiapine, haloperidol), analgesics (celecoxib, tramadol), PPIs (omeprazole, lansoprazole), cytoprotectives (sucralfate), prokinetics, antispasmodics, and antidotes (N-acetylcysteine)',
+      'Multi-Specialty Formulary Filtering & Dexie v8: 17 specialty filter categories with automated client-side IndexedDB migration',
+    ],
+  },
   {
     version: '2.5.0',
     date: '2026-10-23',
     title: 'Real USG Pathology Atlas, Mannequin Previews & 104-Drug Anesthesia Formulary',
-    highlight: true,
     features: [
       'Real USG Pathology Atlas & Lightbox: Clinical high-resolution ultrasound captures across eFAST (Morison pouch hemoperitoneum, splenorenal, cardiac tamponade), BLUE (lung sliding vs barcode sign, B-lines, consolidation), FOCUS (tamponade, RV strain), vascular & gastric ultrasound (Perlas classification)',
       'Side-by-Side USG vs Schematic View: Instant toggle comparing real ultrasound scans with labeled anatomical schematics and probe acoustic windows',

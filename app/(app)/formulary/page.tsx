@@ -29,18 +29,21 @@ import Link from 'next/link';
 const QUICK_FILTER_CLASSES = [
   { id: 'all', en: 'All Drugs', idLang: 'Semua Obat' },
   { id: 'high_risk', en: '⚠️ High-Alert', idLang: '⚠️ Risiko Tinggi' },
+  { id: 'Cardiovascular', en: 'Cardiovascular & BP', idLang: 'Kardiovaskular & TD' },
+  { id: 'Antithrombotic', en: 'Antithrombotics & Blood', idLang: 'Antitrombotik & Darah' },
+  { id: 'Endocrine', en: 'Endocrine & Diabetes', idLang: 'Endokrin & Diabetes' },
+  { id: 'Antibiotic', en: 'Antimicrobials & Antivirals', idLang: 'Antimikroba & Antivirus' },
+  { id: 'NeuroPsych', en: 'Neuro, Psych & Pain', idLang: 'Saraf, Psikiatri & Nyeri' },
+  { id: 'Respiratory', en: 'Respiratory & Allergy', idLang: 'Respirasi & Alergi' },
+  { id: 'GI_Hepatic', en: 'GI & Hepatology', idLang: 'Saluran Cerna & Hepar' },
+  { id: 'Obstetrics', en: 'Obstetrics & Gyn', idLang: 'Obstetri & Ginekologi' },
   { id: 'IV Hypnotic', en: 'IV Hypnotics', idLang: 'Hipnotik IV' },
-  { id: 'Neuromuscular', en: 'Neuromuscular', idLang: 'Pelemas Otot' },
+  { id: 'Neuromuscular', en: 'Neuromuscular & Reversal', idLang: 'Pelemas Otot' },
   { id: 'Volatile', en: 'Inhalational', idLang: 'Anestesi Inhalasi' },
-  { id: 'Opioid', en: 'Opioids & Pain', idLang: 'Opioid & Nyeri' },
+  { id: 'Opioid', en: 'Opioids & Analgesics', idLang: 'Opioid & Analgesik' },
   { id: 'Local Anesthetic', en: 'Local Anesthetics', idLang: 'Anestesi Lokal' },
-  { id: 'Vasopressor', en: 'Vasopressors / Inotropes', idLang: 'Vasopresor / Inotropik' },
-  { id: 'Cardiovascular', en: 'Antiarrhythmic / BP', idLang: 'Antiaritmia / TD' },
-  { id: 'Emergency', en: 'Emergency / Electrolytes', idLang: 'Darurat & Elektrolit' },
-  { id: 'Sedative', en: 'Sedatives / Amnestic', idLang: 'Sedasi & Ansiolitik' },
-  { id: 'Antiemetic', en: 'Antiemetic / PONV', idLang: 'Antiemetik / PONV' },
-  { id: 'Hemostasis', en: 'Hemostasis & Reversal', idLang: 'Hemostasis & Reversal' },
-  { id: 'Antibiotic', en: 'Antimicrobials', idLang: 'Antimikroba' }
+  { id: 'Vasopressor', en: 'Vasopressors & Inotropes', idLang: 'Vasopresor & Inotropik' },
+  { id: 'Emergency', en: 'Emergency & Antidotes', idLang: 'Darurat & Antidotum' }
 ];
 
 export default function FormularyPage() {
@@ -84,6 +87,30 @@ export default function FormularyPage() {
     // 3. Quick filter pill
     if (quickFilter === 'high_risk') {
       return Boolean(item.highRisk);
+    } else if (quickFilter === 'Cardiovascular') {
+      const c = item.drugClass.toLowerCase();
+      return c.includes('ace inhibitor') || c.includes('receptor blocker') || c.includes('arb') || c.includes('calcium channel') || c.includes('beta-blocker') || c.includes('beta-adrenergic') || c.includes('antiarrhythmic') || c.includes('nitrate') || c.includes('vasodilator') || c.includes('statin') || c.includes('cardiac glycoside') || c.includes('arni') || c.includes('diuretic');
+    } else if (quickFilter === 'Antithrombotic') {
+      const c = item.drugClass.toLowerCase();
+      return c.includes('antiplatelet') || c.includes('anticoagulant') || c.includes('factor xa') || c.includes('thrombin inhibitor') || c.includes('vitamin k') || c.includes('heparin') || c.includes('thienopyridine');
+    } else if (quickFilter === 'Endocrine') {
+      const c = item.drugClass.toLowerCase();
+      return c.includes('insulin') || c.includes('sulfonylurea') || c.includes('biguanide') || c.includes('sglt2') || c.includes('glp-1') || c.includes('thyroid') || c.includes('glucocorticoid') || c.includes('thioamide') || c.includes('antidiabetic');
+    } else if (quickFilter === 'Antibiotic') {
+      const c = item.drugClass.toLowerCase();
+      return c.includes('antibiotic') || c.includes('antibacterial') || c.includes('antifungal') || c.includes('antiviral') || c.includes('cephalosporin') || c.includes('penicillin') || c.includes('carbapenem') || c.includes('fluoroquinolone') || c.includes('macrolide') || c.includes('tetracycline');
+    } else if (quickFilter === 'NeuroPsych') {
+      const c = item.drugClass.toLowerCase();
+      return c.includes('antiepileptic') || c.includes('anticonvulsant') || c.includes('antipsychotic') || c.includes('neuropathic') || c.includes('antidepressant') || c.includes('hydantoin') || c.includes('iminostilbene') || c.includes('sv2a');
+    } else if (quickFilter === 'Respiratory') {
+      const c = item.drugClass.toLowerCase();
+      return c.includes('bronchodilator') || c.includes('beta-2 agonist') || c.includes('corticosteroid') || c.includes('antihistamine') || c.includes('leukotriene') || c.includes('respiratory') || c.includes('methylxanthine');
+    } else if (quickFilter === 'GI_Hepatic') {
+      const c = item.drugClass.toLowerCase();
+      return c.includes('proton pump') || c.includes('cytoprotective') || c.includes('prokinetic') || c.includes('laxative') || c.includes('antidiarrheal') || c.includes('bile acid') || c.includes('antispasmodic') || c.includes('antiemetic');
+    } else if (quickFilter === 'Obstetrics') {
+      const c = item.drugClass.toLowerCase();
+      return c.includes('uterotonic') || c.includes('prostaglandin') || c.includes('oxytocin') || c.includes('ergot') || c.includes('tocolytic');
     } else if (quickFilter === 'IV Hypnotic') {
       return item.drugClass.toLowerCase().includes('hypnotic') || item.drugClass.toLowerCase().includes('general anesthetic');
     } else if (quickFilter === 'Neuromuscular') {
@@ -96,18 +123,8 @@ export default function FormularyPage() {
       return item.drugClass.toLowerCase().includes('local anesthetic') || item.drugClass.toLowerCase().includes('last antidote');
     } else if (quickFilter === 'Vasopressor') {
       return item.drugClass.toLowerCase().includes('vasopressor') || item.drugClass.toLowerCase().includes('inotrope') || item.drugClass.toLowerCase().includes('inodilator');
-    } else if (quickFilter === 'Cardiovascular') {
-      return item.drugClass.toLowerCase().includes('antiarrhythmic') || item.drugClass.toLowerCase().includes('vasodilator') || item.drugClass.toLowerCase().includes('blocker') || item.drugClass.toLowerCase().includes('arb');
     } else if (quickFilter === 'Emergency') {
-      return item.drugClass.toLowerCase().includes('electrolyte') || item.drugClass.toLowerCase().includes('alkalinizing') || item.drugClass.toLowerCase().includes('carbohydrate');
-    } else if (quickFilter === 'Sedative') {
-      return item.drugClass.toLowerCase().includes('benzodiazepine') || item.drugClass.toLowerCase().includes('alpha-2') || item.drugClass.toLowerCase().includes('sedative');
-    } else if (quickFilter === 'Antiemetic') {
-      return item.drugClass.toLowerCase().includes('antiemetic') || item.drugClass.toLowerCase().includes('prokinetic') || item.drugClass.toLowerCase().includes('proton pump') || item.drugClass.toLowerCase().includes('corticosteroid');
-    } else if (quickFilter === 'Hemostasis') {
-      return item.drugClass.toLowerCase().includes('antifibrinolytic') || item.drugClass.toLowerCase().includes('heparin antidote') || item.drugClass.toLowerCase().includes('hemostatic') || item.drugClass.toLowerCase().includes('antiplatelet');
-    } else if (quickFilter === 'Antibiotic') {
-      return item.drugClass.toLowerCase().includes('antibiotic') || item.drugClass.toLowerCase().includes('antibacterial') || item.drugClass.toLowerCase().includes('antifungal') || item.drugClass.toLowerCase().includes('antiviral');
+      return item.drugClass.toLowerCase().includes('electrolyte') || item.drugClass.toLowerCase().includes('alkalinizing') || item.drugClass.toLowerCase().includes('carbohydrate') || item.drugClass.toLowerCase().includes('antidote');
     }
 
     return true;

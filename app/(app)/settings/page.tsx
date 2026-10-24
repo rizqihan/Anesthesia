@@ -242,7 +242,7 @@ export default function SettingsPage() {
     <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center gap-3">
         <Link href="/dashboard">
-          <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+          <button className="p-2 rounded-xl border border-slate-200 dark:border-white/[0.06] bg-white dark:bg-[#0c121e]/80 hover:bg-slate-100 dark:hover:bg-white/5 transition-all text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white shrink-0 cursor-pointer">
             <ArrowLeft className="w-4 h-4" />
           </button>
         </Link>
@@ -259,12 +259,12 @@ export default function SettingsPage() {
       <div className="glass-card-static overflow-hidden">
         <div className="section-header justify-between">
           <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-purple-400" />
+            <FileText className="w-4 h-4 text-purple-600 dark:text-purple-400" />
             <span className="section-header-label">
               {store.language === 'en' ? 'Clinical Documentation & Handoff' : 'Dokumentasi Klinis & Handoff'}
             </span>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200 dark:bg-purple-500/15 dark:text-purple-300 dark:border-purple-500/30 font-bold">
             {store.language === 'en' ? '1-TAP ACTIONS' : 'AKSI CEPAT'}
           </span>
         </div>
@@ -273,16 +273,16 @@ export default function SettingsPage() {
           <button
             type="button"
             onClick={() => setIsSoapModalOpen(true)}
-            className="flex items-center gap-3 p-3 rounded-xl bg-purple-600/10 hover:bg-purple-600/20 border border-purple-500/20 hover:border-purple-500/40 text-left transition-all group"
+            className="flex items-center gap-3 p-3 rounded-xl bg-purple-50 dark:bg-purple-600/10 hover:bg-purple-100 dark:hover:bg-purple-600/20 border border-purple-200 dark:border-purple-500/20 hover:border-purple-300 dark:hover:border-purple-500/40 text-left transition-all group cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center text-purple-700 dark:text-purple-400 group-hover:scale-105 transition-transform shrink-0">
               <FileText className="w-4 h-4" />
             </div>
             <div className="min-w-0">
-              <div className="text-[12px] font-[800] text-purple-200">
+              <div className="text-[12px] font-[800] text-purple-900 dark:text-purple-200">
                 {store.language === 'en' ? 'Structured SOAP Note' : 'Catatan SOAP Terstruktur'}
               </div>
-              <div className="text-[10px] text-slate-400 truncate">
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
                 {store.language === 'en' ? 'Compile EHR-ready note' : 'Susun CPPT siap-EHR'}
               </div>
             </div>
@@ -298,16 +298,16 @@ export default function SettingsPage() {
                 language: store.language,
               });
             }}
-            className="flex items-center gap-3 p-3 rounded-xl bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 text-left transition-all group"
+            className="flex items-center gap-3 p-3 rounded-xl bg-blue-50 dark:bg-blue-600/10 hover:bg-blue-100 dark:hover:bg-blue-600/20 border border-blue-200 dark:border-blue-500/20 hover:border-blue-300 dark:hover:border-blue-500/40 text-left transition-all group cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-500/20 flex items-center justify-center text-blue-700 dark:text-blue-400 group-hover:scale-105 transition-transform shrink-0">
               <Printer className="w-4 h-4" />
             </div>
             <div className="min-w-0">
-              <div className="text-[12px] font-[800] text-blue-200">
+              <div className="text-[12px] font-[800] text-blue-900 dark:text-blue-200">
                 {store.language === 'en' ? 'Bedside SBAR PDF' : 'PDF SBAR Ronde Pasien'}
               </div>
-              <div className="text-[10px] text-slate-400 truncate">
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
                 {store.language === 'en' ? 'Print or export handoff' : 'Cetak handoff klinis'}
               </div>
             </div>
@@ -317,16 +317,16 @@ export default function SettingsPage() {
           <button
             type="button"
             onClick={() => setIsCaseModalOpen(true)}
-            className="flex items-center gap-3 p-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 border border-emerald-500/20 hover:border-emerald-500/40 text-left transition-all group"
+            className="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-600/10 hover:bg-emerald-100 dark:hover:bg-emerald-600/20 border border-emerald-200 dark:border-emerald-500/20 hover:border-emerald-300 dark:hover:border-emerald-500/40 text-left transition-all group cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center text-emerald-700 dark:text-emerald-400 group-hover:scale-105 transition-transform shrink-0">
               <User className="w-4 h-4" />
             </div>
             <div className="min-w-0">
-              <div className="text-[12px] font-[800] text-emerald-200">
+              <div className="text-[12px] font-[800] text-emerald-900 dark:text-emerald-200">
                 {store.language === 'en' ? 'Active Patient Session' : 'Sesi Pasien Aktif'}
               </div>
-              <div className="text-[10px] text-slate-400 truncate">
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
                 {store.activeCase.patientWeight || '70'}kg • {store.activeCase.patientSex} • ASA {store.activeCase.asaClass}
               </div>
             </div>
@@ -338,10 +338,10 @@ export default function SettingsPage() {
       <div className="glass-card-static overflow-hidden">
         <div className="section-header justify-between">
           <div className="flex items-center gap-2">
-            <Palette className="w-4 h-4 text-amber-400" />
+            <Palette className="w-4 h-4 text-amber-500 dark:text-amber-400" />
             <span className="section-header-label">{t.appearance_theme}</span>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 font-bold">
             {store.theme.toUpperCase()}
           </span>
         </div>
@@ -356,23 +356,23 @@ export default function SettingsPage() {
               onClick={() => store.setTheme('dark')}
               className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
                 store.theme === 'dark'
-                  ? 'bg-purple-600/15 border-purple-500/50 shadow-[0_0_15px_rgba(168,85,247,0.15)] ring-1 ring-purple-500/40'
-                  : 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/20'
+                  ? 'bg-purple-50 dark:bg-purple-600/15 border-purple-400 dark:border-purple-500/50 shadow-sm dark:shadow-[0_0_15px_rgba(168,85,247,0.15)] ring-1 ring-purple-400 dark:ring-purple-500/40'
+                  : 'bg-white dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.08] hover:bg-slate-50 dark:hover:bg-white/[0.05] hover:border-slate-300 dark:hover:border-white/20'
               }`}
             >
               <div className="flex items-center justify-between">
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${store.theme === 'dark' ? 'bg-purple-500/20 text-purple-300' : 'bg-white/5 text-slate-400'}`}>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${store.theme === 'dark' ? 'bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300' : 'bg-slate-100 text-slate-500 dark:bg-white/5 dark:text-slate-400'}`}>
                   <Moon className="w-4 h-4" />
                 </div>
                 {store.theme === 'dark' && (
-                  <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-purple-500 dark:bg-purple-400 animate-pulse" />
                 )}
               </div>
               <div>
-                <div className="text-[12.5px] font-[800]" style={{ color: 'var(--text-primary)' }}>
+                <div className="text-[12.5px] font-[800] text-slate-900 dark:text-[var(--text-primary)]">
                   {t.theme_dark}
                 </div>
-                <div className="text-[11px] mt-0.5 leading-snug" style={{ color: 'var(--text-muted)' }}>
+                <div className="text-[11px] mt-0.5 leading-snug text-slate-600 dark:text-[var(--text-muted)]">
                   {t.theme_dark_desc}
                 </div>
               </div>
@@ -384,23 +384,23 @@ export default function SettingsPage() {
               onClick={() => store.setTheme('light')}
               className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
                 store.theme === 'light'
-                  ? 'bg-amber-500/15 border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.15)] ring-1 ring-amber-500/40'
-                  : 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/20'
+                  ? 'bg-amber-50 dark:bg-amber-500/15 border-amber-400 dark:border-amber-500/50 shadow-sm dark:shadow-[0_0_15px_rgba(245,158,11,0.15)] ring-1 ring-amber-400 dark:ring-amber-500/40'
+                  : 'bg-white dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.08] hover:bg-slate-50 dark:hover:bg-white/[0.05] hover:border-slate-300 dark:hover:border-white/20'
               }`}
             >
               <div className="flex items-center justify-between">
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${store.theme === 'light' ? 'bg-amber-500/20 text-amber-500' : 'bg-white/5 text-slate-400'}`}>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${store.theme === 'light' ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-500' : 'bg-slate-100 text-slate-500 dark:bg-white/5 dark:text-slate-400'}`}>
                   <Sun className="w-4 h-4" />
                 </div>
                 {store.theme === 'light' && (
-                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400 animate-pulse" />
                 )}
               </div>
               <div>
-                <div className="text-[12.5px] font-[800]" style={{ color: 'var(--text-primary)' }}>
+                <div className="text-[12.5px] font-[800] text-slate-900 dark:text-[var(--text-primary)]">
                   {t.theme_light}
                 </div>
-                <div className="text-[11px] mt-0.5 leading-snug" style={{ color: 'var(--text-muted)' }}>
+                <div className="text-[11px] mt-0.5 leading-snug text-slate-600 dark:text-[var(--text-muted)]">
                   {t.theme_light_desc}
                 </div>
               </div>
@@ -412,23 +412,23 @@ export default function SettingsPage() {
               onClick={() => store.setTheme('system')}
               className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
                 store.theme === 'system'
-                  ? 'bg-blue-600/15 border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.15)] ring-1 ring-blue-500/40'
-                  : 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/20'
+                  ? 'bg-blue-50 dark:bg-blue-600/15 border-blue-400 dark:border-blue-500/50 shadow-sm dark:shadow-[0_0_15px_rgba(59,130,246,0.15)] ring-1 ring-blue-400 dark:ring-blue-500/40'
+                  : 'bg-white dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.08] hover:bg-slate-50 dark:hover:bg-white/[0.05] hover:border-slate-300 dark:hover:border-white/20'
               }`}
             >
               <div className="flex items-center justify-between">
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${store.theme === 'system' ? 'bg-blue-500/20 text-blue-400' : 'bg-white/5 text-slate-400'}`}>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${store.theme === 'system' ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400' : 'bg-slate-100 text-slate-500 dark:bg-white/5 dark:text-slate-400'}`}>
                   <Monitor className="w-4 h-4" />
                 </div>
                 {store.theme === 'system' && (
-                  <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400 animate-pulse" />
                 )}
               </div>
               <div>
-                <div className="text-[12.5px] font-[800]" style={{ color: 'var(--text-primary)' }}>
+                <div className="text-[12.5px] font-[800] text-slate-900 dark:text-[var(--text-primary)]">
                   {t.theme_system}
                 </div>
-                <div className="text-[11px] mt-0.5 leading-snug" style={{ color: 'var(--text-muted)' }}>
+                <div className="text-[11px] mt-0.5 leading-snug text-slate-600 dark:text-[var(--text-muted)]">
                   {t.theme_system_desc}
                 </div>
               </div>
@@ -496,8 +496,7 @@ export default function SettingsPage() {
                   type="button"
                   onClick={fetchGroqModels}
                   disabled={loadingGroqModels}
-                  className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-[12px] font-[600] transition-all"
-                  style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)', color: '#93c5fd' }}
+                  className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-[12px] font-[700] transition-all bg-blue-50 dark:bg-blue-600/10 border border-blue-200 dark:border-blue-500/20 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-600/20 cursor-pointer"
                 >
                   {loadingGroqModels ? (
                     <><Loader2 className="w-3.5 h-3.5 animate-spin" />{store.language === 'en' ? 'Fetching models...' : 'Mengambil model...'}</>
@@ -689,22 +688,22 @@ export default function SettingsPage() {
       </div>
 
       {/* About & Versioning Card */}
-      <div className="glass-card-static p-5 border border-white/10 rounded-2xl space-y-4">
+      <div className="glass-card-static p-5 border border-slate-200 dark:border-white/10 rounded-2xl space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+            <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 flex items-center justify-center text-purple-700 dark:text-purple-400">
               <Tag className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-[14px] font-[800] text-white">
+                <h3 className="text-[14px] font-[800] text-slate-900 dark:text-white">
                   Anesthesia Acute Care Suite
                 </h3>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 font-bold">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/40 font-bold">
                   v{APP_VERSION}
                 </span>
               </div>
-              <p className="text-[11.5px] text-slate-400">
+              <p className="text-[11.5px] text-slate-500 dark:text-slate-400">
                 {RELEASE_NAME} • Released {BUILD_DATE}
               </p>
             </div>
@@ -713,29 +712,29 @@ export default function SettingsPage() {
           <button
             type="button"
             onClick={() => setIsReleaseModalOpen(true)}
-            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-[12px] font-[700] bg-blue-600/20 border border-blue-500/40 text-blue-300 hover:bg-blue-600/30 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-[12px] font-[700] bg-blue-50 dark:bg-blue-600/20 border border-blue-200 dark:border-blue-500/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-600/30 transition-all cursor-pointer"
           >
-            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+            <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span>{store.language === 'en' ? 'View Release Notes' : 'Lihat Catatan Rilis'}</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-white/[0.06] text-[11px] font-mono text-slate-400">
-          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-200 dark:border-white/[0.06] text-[11px] font-mono text-slate-600 dark:text-slate-400">
+          <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04]">
             <div className="text-[10px] uppercase text-slate-500 font-sans font-bold">Core Stack</div>
-            <div className="text-slate-200 mt-0.5">Next 16 • React 19</div>
+            <div className="text-slate-800 dark:text-slate-200 mt-0.5 font-bold">Next 16 • React 19</div>
           </div>
-          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+          <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04]">
             <div className="text-[10px] uppercase text-slate-500 font-sans font-bold">Local Storage</div>
-            <div className="text-slate-200 mt-0.5">Dexie DB v{DB_SCHEMA_VERSION}</div>
+            <div className="text-slate-800 dark:text-slate-200 mt-0.5 font-bold">Dexie DB v{DB_SCHEMA_VERSION}</div>
           </div>
-          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+          <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04]">
             <div className="text-[10px] uppercase text-slate-500 font-sans font-bold">Clinical Units</div>
-            <div className="text-slate-200 mt-0.5">50 Auto-Tests ✔</div>
+            <div className="text-emerald-700 dark:text-emerald-400 mt-0.5 font-bold">50 Auto-Tests ✔</div>
           </div>
-          <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+          <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04]">
             <div className="text-[10px] uppercase text-slate-500 font-sans font-bold">License</div>
-            <div className="text-slate-200 mt-0.5">Open Source</div>
+            <div className="text-slate-800 dark:text-slate-200 mt-0.5 font-bold">Open Source</div>
           </div>
         </div>
       </div>

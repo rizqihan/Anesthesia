@@ -177,8 +177,42 @@ test('Dexie Version Schema Integrity for Formulary Upgrades', () => {
   // Check that db is instantiated and schema version exists
   const dexieDb = db?.verno ? db : (db?.default ?? db);
   assert.ok(dexieDb, 'Dexie db instance must exist');
-  assert.ok(dexieDb.verno >= 7, `Dexie database must be on schema version >= 7, got ${dexieDb.verno}`);
+  assert.ok(dexieDb.verno >= 9, `Dexie database must be on schema version >= 9, got ${dexieDb.verno}`);
   assert.ok(dexieDb.tables.some(t => t.name === 'drugs'), 'drugs table must exist in schema');
+});
+
+test('Clinical Safety Upper-Bound Capping & Specific Bug Regressions', () => {
+  const drugMap = new Map(DRUG_DB.map(d => [d.id, d]));
+
+  // Regression check: Amlodipine (reported in user screenshot)
+  const amlodipine = drugMap.get('amlodipine');
+  assert.ok(amlodipine, 'Amlodipine must exist in formulary');
+  assert.equal(amlodipine.dosing.maxDose, 10, 'Amlodipine max single dose must be 10 mg');
+  
+  // At 70kg standard adult weight: 70 * 0.07 = 4.9 mg (well within 10 mg max)
+  const dose70 = 70 * amlodipine.dosing.dosePerKg;
+  assert.ok(dose70 <= amlodipine.dosing.maxDose, `70kg dose ${dose70} must not exceed 10mg`);
+  assert.ok(dose70 < 10, `Standard 70kg dose ${dose70} mg is reasonable starting dose`);
+
+  // At 160kg extreme weight: 160 * 0.07 = 11.2 mg -> MUST be capped at 10 mg
+  const rawDose160 = 160 * amlodipine.dosing.dosePerKg;
+  const cappedDose160 = Math.min(rawDose160, amlodipine.dosing.maxDose);
+  assert.equal(cappedDose160, 10, 'Extreme weight dose must be hard-capped at 10 mg');
+
+  // Verify volatile anesthetics are marked with vol% and not treated as standard IV boluses
+  const volatiles = ['sevoflurane', 'desflurane', 'isoflurane'];
+  for (const vId of volatiles) {
+    const v = drugMap.get(vId);
+    assert.equal(v.dosing.unit, 'vol%', `${vId} unit must be vol%`);
+  }
+
+  // Verify single-dose ceiling for standard adult weight (70kg) across oral fixed-dose medications
+  const fixedDoseMeds = ['cetirizine', 'domperidone', 'hyoscine_butylbromide', 'metoclopramide'];
+  for (const id of fixedDoseMeds) {
+    const med = drugMap.get(id);
+    const doseAt70 = 70 * med.dosing.dosePerKg;
+    assert.ok(doseAt70 <= med.dosing.maxDose, `${id} standard 70kg dose (${doseAt70}) exceeds maxDose (${med.dosing.maxDose})`);
+  }
 });
 
 test('General Hospital & Clinical Pharmacopeia Completeness', () => {

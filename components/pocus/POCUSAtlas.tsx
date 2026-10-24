@@ -656,7 +656,7 @@ function UltrasoundScreenGraphic({
   const { id } = caseData;
 
   return (
-    <div className="w-full h-full relative overflow-hidden rounded-lg bg-[#000000] border border-white/10 flex items-center justify-center">
+    <div data-preserve-dark className="w-full h-full relative overflow-hidden rounded-lg bg-[#000000] border border-white/10 flex items-center justify-center">
       {/* Ultrasound Sector / Cone Mask */}
       <svg
         viewBox="0 0 400 300"

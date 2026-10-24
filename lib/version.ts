@@ -6,12 +6,26 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.6.0';
-export const BUILD_DATE = '2026-10-23';
-export const DB_SCHEMA_VERSION = 8;
-export const RELEASE_NAME = 'General Hospital Pharmacopeia & 163-Drug Multi-Specialty Formulary';
+export const APP_VERSION = '2.6.1';
+export const BUILD_DATE = '2026-10-24';
+export const DB_SCHEMA_VERSION = 9;
+export const RELEASE_NAME = 'Clinical Dosage Safety Capping & Dual-Theme Light Mode Overhaul';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.6.1',
+    date: '2026-10-24',
+    title: 'Clinical Dosage Safety Capping, Reactive State Sync & Pristine Dual-Theme Light Mode',
+    highlight: true,
+    features: [
+      'Strict Clinical Dosage Safety Capping: Enforced hard upper-bound capping at drug.dosing.maxDose across all 163 medications in the pharmacopeia, eliminating overdose risks for extreme patient weights',
+      'Reactive Calculation Engine: Real-time dynamic recalculation whenever switching drugs or editing weight, preventing stale calculation carryover from previous medications',
+      'Clinical Safety Alert & Formula Breakdown: High-visibility amber warning banner and transparent mathematical step-by-step formula breakdown (Weight × Dose/kg → Capped at Max Dose) when ceiling limits are applied',
+      'Pristine Dual-Theme Light Mode Overhaul: Full daylight compatibility across Global App Navigation, Top Header, Patient HUD, Sidebar, Mobile Bottom Bar, Quick Action cards, and all 5 Modal Dialogs (Active Case, Release Notes, SOAP Notes, Command Palette, Result Modal)',
+      'Preserved Dark Monitors: Uncompromised clinical authenticity for ECG rhythm strips, simulated telemetry waveforms, and POCUS ultrasound cine-loops via dedicated medical monitor isolation',
+      'Dexie Schema v9 Auto-Migration: Seamless client-side IndexedDB auto-migration guaranteeing instantaneous formulary safety parity on all connected devices',
+    ],
+  },
   {
     version: '2.6.0',
     date: '2026-10-23',

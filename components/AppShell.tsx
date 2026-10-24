@@ -194,27 +194,27 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const statusLabel = aiStatus === 'ready' ? t.ready : aiStatus === 'missing' ? t.missing_config : t.offline;
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col bg-[#080c15] text-[#f8fafc]">
+    <div className="h-screen overflow-hidden flex flex-col bg-[var(--bg-base)] text-[var(--text-primary)]">
       {/* ─── Top Bar ─── */}
       <header
-        className="shrink-0 z-30 w-full fixed md:static top-0 bg-[#0a0f1d]/95 backdrop-blur-md border-b border-white/[0.08]"
+        className="shrink-0 z-30 w-full fixed md:static top-0 bg-white/95 dark:bg-[#0a0f1d]/95 backdrop-blur-md border-b border-slate-200 dark:border-white/[0.08]"
       >
         {/* Main Row */}
         <div className="h-[52px] sm:h-[56px] flex items-center justify-between px-3 md:px-4">
           {/* Left: Mobile Branding / Logo */}
           <div className="flex items-center gap-3">
             <Link href="/dashboard" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center shrink-0">
-                <Activity className="w-4 h-4 text-blue-400" />
+              <div className="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-600/30 border border-blue-200 dark:border-blue-500/40 flex items-center justify-center shrink-0">
+                <Activity className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-[900] text-[15px] tracking-tight text-white leading-none">Anesthesia</span>
-                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-bold">
+                  <span className="font-[900] text-[15px] tracking-tight text-slate-900 dark:text-white leading-none">Anesthesia</span>
+                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-blue-100 text-blue-800 border border-blue-200 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30 font-bold">
                     v{APP_VERSION}
                   </span>
                 </div>
-                <span className="text-[10px] text-slate-400 font-[500] leading-none mt-1">Acute Care Suite</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-[500] leading-none mt-1">Acute Care Suite</span>
               </div>
             </Link>
           </div>
@@ -223,25 +223,25 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <div className="hidden sm:flex items-center gap-2">
             <button
               onClick={() => setIsCaseModalOpen(true)}
-              className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-blue-500/40 hover:bg-blue-500/10 transition-all text-[12px] group"
+              className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-800 dark:bg-white/[0.04] dark:border-white/10 dark:hover:border-blue-500/40 dark:hover:bg-blue-500/10 dark:text-slate-300 transition-all text-[12px] group"
               title="Click to edit active patient parameters"
             >
-              <div className="w-5 h-5 rounded-md bg-blue-500/20 flex items-center justify-center text-blue-400">
+              <div className="w-5 h-5 rounded-md bg-blue-100 dark:bg-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
                 <User className="w-3 h-3" />
               </div>
-              <div className="flex items-center gap-2 text-slate-300">
-                <span className="font-[600]">
+              <div className="flex items-center gap-2">
+                <span className="font-[600] text-slate-600 dark:text-slate-300">
                   {language === 'en' ? 'Active Case' : 'Pasien'}:
                 </span>
-                <span className="font-mono font-[700] text-blue-300">
+                <span className="font-mono font-[700] text-blue-600 dark:text-blue-300">
                   {activeCase.patientWeight || '70'} kg
                 </span>
-                <span className="text-slate-500">•</span>
-                <span className="font-mono text-slate-300">
+                <span className="text-slate-400 dark:text-slate-500">•</span>
+                <span className="font-mono text-slate-700 dark:text-slate-300">
                   {activeCase.patientSex} / {activeCase.patientAge || '45'}y
                 </span>
-                <span className="text-slate-500">•</span>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-[800] bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                <span className="text-slate-400 dark:text-slate-500">•</span>
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-[800] bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30">
                   ASA {activeCase.asaClass}
                 </span>
               </div>
@@ -249,8 +249,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
             {/* Quick Emergency Button */}
             <Link href="/emergency">
-              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600/20 border border-rose-500/40 hover:bg-rose-600/30 text-rose-300 transition-all text-[12px] font-[700]">
-                <AlertOctagon className="w-3.5 h-3.5 text-rose-400" />
+              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 dark:bg-rose-600/20 dark:border-rose-500/40 dark:hover:bg-rose-600/30 dark:text-rose-300 transition-all text-[12px] font-[700]">
+                <AlertOctagon className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                 <span>{language === 'en' ? 'Crisis Dose' : 'Dosis Krisis'}</span>
               </button>
             </Link>
@@ -264,20 +264,20 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   language: store.language,
                 });
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600/20 border border-blue-500/40 hover:bg-blue-600/30 text-blue-300 transition-all text-[12px] font-[700]"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200 hover:bg-blue-100 text-blue-700 dark:bg-blue-600/20 dark:border-blue-500/40 dark:hover:bg-blue-600/30 dark:text-blue-300 transition-all text-[12px] font-[700]"
               title="Export Bedside Rounds SBAR Clinical Handoff Sheet"
             >
-              <Printer className="w-3.5 h-3.5 text-blue-400" />
+              <Printer className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
               <span>{language === 'en' ? 'SBAR PDF' : 'PDF SBAR'}</span>
             </button>
 
             {/* 1-Tap Structured SOAP Progress Note */}
             <button
               onClick={() => setIsSoapModalOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600/20 border border-purple-500/40 hover:bg-purple-600/30 text-purple-300 transition-all text-[12px] font-[700]"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-50 border border-purple-200 hover:bg-purple-100 text-purple-700 dark:bg-purple-600/20 dark:border-purple-500/40 dark:hover:bg-purple-600/30 dark:text-purple-300 transition-all text-[12px] font-[700]"
               title="Generate Structured Clinical SOAP Note"
             >
-              <FileText className="w-3.5 h-3.5 text-purple-400" />
+              <FileText className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
               <span>SOAP Note</span>
             </button>
           </div>
@@ -287,7 +287,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             {/* Cmd+K Search trigger */}
             <button
               onClick={() => setIsCmdPaletteOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 text-slate-400 hover:text-slate-200 transition-all text-[12px]"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 border border-slate-200 hover:border-slate-300 text-slate-600 hover:text-slate-900 dark:bg-white/[0.04] dark:border-white/10 dark:hover:border-white/20 dark:text-slate-400 dark:hover:text-slate-200 transition-all text-[12px]"
               title="Search commands, calculators, drugs (Cmd+K)"
               aria-label="Search commands"
             >
@@ -301,7 +301,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               target="_blank"
               rel="noopener noreferrer"
               title="LoLyeah Topic Showcase"
-              className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/10 text-slate-400 hover:text-slate-200 transition-colors"
+              className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/10 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
             >
               <Globe className="w-4 h-4" />
             </a>
@@ -322,14 +322,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </AnimatePresence>
 
             {/* Theme switcher */}
-            <div className="flex rounded-lg p-[2px] bg-white/[0.04] border border-white/10" title={language === 'en' ? 'Appearance / Theme' : 'Tema Tampilan'}>
+            <div className="flex rounded-lg p-[2px] bg-slate-100 border border-slate-200 dark:bg-white/[0.04] dark:border-white/10" title={language === 'en' ? 'Appearance / Theme' : 'Tema Tampilan'}>
               <button
                 type="button"
                 onClick={() => store.setTheme('dark')}
                 className={`p-1 rounded-md text-[11px] transition-all ${
                   store.theme === 'dark'
-                    ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 shadow-sm'
-                    : 'text-slate-400 border border-transparent hover:text-slate-200'
+                    ? 'bg-blue-600 text-white dark:bg-blue-600/30 dark:text-blue-300 border border-blue-600 dark:border-blue-500/40 shadow-sm'
+                    : 'text-slate-500 dark:text-slate-400 border border-transparent hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
                 title={language === 'en' ? 'Dark Mode (OR / Acute Care)' : 'Mode Gelap (Kamar Operasi / ICU)'}
                 aria-label="Dark mode"
@@ -341,8 +341,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 onClick={() => store.setTheme('light')}
                 className={`p-1 rounded-md text-[11px] transition-all ${
                   store.theme === 'light'
-                    ? 'bg-amber-500/25 text-amber-500 border border-amber-500/40 shadow-sm'
-                    : 'text-slate-400 border border-transparent hover:text-slate-200'
+                    ? 'bg-amber-500 text-white dark:bg-amber-500/25 dark:text-amber-400 border border-amber-500 dark:border-amber-500/40 shadow-sm'
+                    : 'text-slate-500 dark:text-slate-400 border border-transparent hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
                 title={language === 'en' ? 'Light Mode (Pre-Op / Clinic)' : 'Mode Terang (Poliklinik / Bangsal)'}
                 aria-label="Light mode"
@@ -354,8 +354,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 onClick={() => store.setTheme('system')}
                 className={`p-1 rounded-md text-[11px] transition-all ${
                   store.theme === 'system'
-                    ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 shadow-sm'
-                    : 'text-slate-400 border border-transparent hover:text-slate-200'
+                    ? 'bg-blue-600 text-white dark:bg-blue-600/30 dark:text-blue-300 border border-blue-600 dark:border-blue-500/40 shadow-sm'
+                    : 'text-slate-500 dark:text-slate-400 border border-transparent hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
                 title={language === 'en' ? 'System Theme' : 'Sesuai Sistem'}
                 aria-label="System theme"
@@ -365,15 +365,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </div>
 
             {/* Language toggle */}
-            <div className="flex rounded-lg p-[2px] bg-white/[0.04] border border-white/10">
+            <div className="flex rounded-lg p-[2px] bg-slate-100 border border-slate-200 dark:bg-white/[0.04] dark:border-white/10">
               {(['en', 'id'] as const).map((lang) => (
                 <button
                   key={lang}
                   onClick={() => setLanguage(lang)}
                   className={`px-2 py-1 rounded-md text-[11px] font-[700] transition-all ${
                     language === lang
-                      ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 shadow-sm'
-                      : 'text-slate-400 border border-transparent hover:text-slate-200'
+                      ? 'bg-blue-600 text-white dark:bg-blue-600/30 dark:text-blue-300 border border-blue-600 dark:border-blue-500/40 shadow-sm'
+                      : 'text-slate-500 dark:text-slate-400 border border-transparent hover:text-slate-900 dark:hover:text-slate-200'
                   }`}
                 >
                   {lang.toUpperCase()}
@@ -384,15 +384,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Mobile Row 2: Persistent Clinical Action & Patient HUD */}
-        <div className="sm:hidden h-[42px] px-3 flex items-center justify-between gap-1.5 border-t border-white/[0.06] bg-[#070c17]/95">
+        <div className="sm:hidden h-[42px] px-3 flex items-center justify-between gap-1.5 border-t border-slate-200 dark:border-white/[0.06] bg-slate-50/95 dark:bg-[#070c17]/95">
           {/* Active Patient Pill */}
           <button
             onClick={() => setIsCaseModalOpen(true)}
-            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white/[0.04] border border-white/10 hover:border-blue-500/40 text-blue-300 font-[700] min-w-0 flex-1 truncate transition-colors text-[11px]"
+            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 hover:border-blue-500/40 text-slate-800 dark:text-blue-300 font-[700] min-w-0 flex-1 truncate transition-colors text-[11px] shadow-sm dark:shadow-none"
             title={language === 'en' ? 'Click to edit active patient parameters' : 'Klik untuk edit data pasien aktif'}
             aria-label="Edit active patient case"
           >
-            <User className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+            <User className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
             <span className="truncate">
               {activeCase.patientWeight || '70'}kg • {activeCase.patientSex} • ASA {activeCase.asaClass}
             </span>
@@ -403,11 +403,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             {/* SOAP Note Button */}
             <button
               onClick={() => setIsSoapModalOpen(true)}
-              className="px-2 py-1 rounded-lg bg-purple-600/25 border border-purple-500/40 text-purple-200 hover:bg-purple-600/35 active:scale-95 font-[800] flex items-center gap-1 transition-all text-[11px]"
+              className="px-2 py-1 rounded-lg bg-purple-100/80 hover:bg-purple-200/80 border border-purple-200 text-purple-700 dark:bg-purple-600/25 dark:border-purple-500/40 dark:text-purple-200 dark:hover:bg-purple-600/35 active:scale-95 font-[800] flex items-center gap-1 transition-all text-[11px]"
               title="Generate Structured SOAP Note"
               aria-label="Generate SOAP progress note"
             >
-              <FileText className="w-3.5 h-3.5 text-purple-300" />
+              <FileText className="w-3.5 h-3.5 text-purple-600 dark:text-purple-300" />
               <span>SOAP</span>
             </button>
 
@@ -420,22 +420,22 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   language: store.language,
                 });
               }}
-              className="px-2 py-1 rounded-lg bg-blue-600/25 border border-blue-500/40 text-blue-200 hover:bg-blue-600/35 active:scale-95 font-[800] flex items-center gap-1 transition-all text-[11px]"
+              className="px-2 py-1 rounded-lg bg-blue-100/80 hover:bg-blue-200/80 border border-blue-200 text-blue-700 dark:bg-blue-600/25 dark:border-blue-500/40 dark:text-blue-200 dark:hover:bg-blue-600/35 active:scale-95 font-[800] flex items-center gap-1 transition-all text-[11px]"
               title="Export Bedside Rounds SBAR Clinical Handoff Sheet"
               aria-label="Export SBAR rounds PDF"
             >
-              <Printer className="w-3.5 h-3.5 text-blue-300" />
+              <Printer className="w-3.5 h-3.5 text-blue-600 dark:text-blue-300" />
               <span>SBAR</span>
             </button>
 
             {/* Crisis Button */}
             <Link
               href="/emergency"
-              className="px-2 py-1 rounded-lg bg-rose-600/25 border border-rose-500/40 text-rose-200 hover:bg-rose-600/35 active:scale-95 font-[800] flex items-center gap-1 transition-all text-[11px]"
+              className="px-2 py-1 rounded-lg bg-rose-100/80 hover:bg-rose-200/80 border border-rose-200 text-rose-700 dark:bg-rose-600/25 dark:border-rose-500/40 dark:text-rose-200 dark:hover:bg-rose-600/35 active:scale-95 font-[800] flex items-center gap-1 transition-all text-[11px]"
               title="Open Emergency Crisis Protocols"
               aria-label="Open emergency crisis protocols"
             >
-              <AlertOctagon className="w-3.5 h-3.5 text-rose-300" />
+              <AlertOctagon className="w-3.5 h-3.5 text-rose-600 dark:text-rose-300" />
               <span>{language === 'en' ? 'Crisis' : 'Krisis'}</span>
             </Link>
           </div>
@@ -449,16 +449,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           initial={false}
           animate={{ width: isCollapsed ? '68px' : '230px' }}
           transition={{ type: 'tween', ease: 'easeInOut', duration: 0.2 }}
-          className="hidden md:flex flex-col shrink-0 overflow-hidden relative bg-[#090e1a] border-r border-white/[0.07]"
+          className="hidden md:flex flex-col shrink-0 overflow-hidden relative bg-white dark:bg-[#090e1a] border-r border-slate-200 dark:border-white/[0.07]"
         >
           {/* Collapse header */}
-          <div className="flex items-center justify-between px-4 h-[48px] border-b border-white/[0.05]">
-            <span className={`text-[10px] uppercase tracking-[1.5px] font-[800] text-slate-400 truncate ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>
+          <div className="flex items-center justify-between px-4 h-[48px] border-b border-slate-200 dark:border-white/[0.05]">
+            <span className={`text-[10px] uppercase tracking-[1.5px] font-[800] text-slate-500 dark:text-slate-400 truncate ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>
               Clinical Suite
             </span>
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+              className="p-1 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
             >
               <ChevronLeft className={`w-4 h-4 transition-transform ${isCollapsed ? 'rotate-180' : ''}`} />
             </button>
@@ -480,11 +480,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                     className={`flex items-center px-3 py-2 rounded-xl text-[13px] font-[600] transition-all ${
                       isActive
                         ? isEmergency
-                          ? 'bg-rose-600/25 text-rose-200 border border-rose-500/40 shadow-[0_0_15px_rgba(244,63,94,0.15)]'
-                          : 'bg-blue-600/20 text-blue-300 border border-blue-500/30 shadow-[0_0_15px_rgba(37,99,235,0.15)]'
+                          ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-600/25 dark:text-rose-200 dark:border-rose-500/40 shadow-sm'
+                          : 'bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-600/20 dark:text-blue-300 dark:border-blue-500/30 shadow-sm'
                         : isEmergency
-                        ? 'text-rose-400/90 hover:bg-rose-500/10 hover:text-rose-300'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
+                        ? 'text-rose-600 hover:bg-rose-50 dark:text-rose-400/90 dark:hover:bg-rose-500/10 dark:hover:text-rose-300'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.04]'
                     }`}
                   >
                     <item.icon className="w-4 h-4 shrink-0" />
@@ -492,7 +492,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                       <span className="ml-3 truncate flex-1">{item.name}</span>
                     )}
                     {!isCollapsed && item.badge && (
-                      <span className="ml-auto text-[9px] font-[800] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                      <span className="ml-auto text-[9px] font-[800] px-1.5 py-0.2 rounded bg-rose-100 text-rose-700 border border-rose-200 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/40">
                         {item.badge}
                       </span>
                     )}
@@ -503,13 +503,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* AI / Offline & Version Footer */}
-          <div className="p-3 border-t border-white/[0.05] bg-[#070b14]/60 space-y-2">
+          <div className="p-3 border-t border-slate-200 dark:border-white/[0.05] bg-slate-50 dark:bg-[#070b14]/60 space-y-2">
             <div className="flex items-center gap-2.5">
               <span className={statusDotClass} />
               {!isCollapsed && (
                 <div className="text-[11px] truncate leading-tight flex-1">
-                  <div className="text-slate-400">{getProviderName()} Engine</div>
-                  <div className={`font-[700] ${aiStatus === 'ready' ? 'text-emerald-400' : 'text-amber-400'}`}>
+                  <div className="text-slate-500 dark:text-slate-400">{getProviderName()} Engine</div>
+                  <div className={`font-[700] ${aiStatus === 'ready' ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
                     {statusLabel}
                   </div>
                 </div>
@@ -519,17 +519,17 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <button
                 type="button"
                 onClick={() => setIsReleaseModalOpen(true)}
-                className="w-full flex items-center justify-between px-2 py-1 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] text-[10px] font-mono text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between px-2 py-1 rounded-lg bg-white dark:bg-white/[0.03] hover:bg-slate-100 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/[0.06] text-[10px] font-mono text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors cursor-pointer"
                 title="View Release Notes & Changelog"
               >
                 <span>v{APP_VERSION}</span>
-                <span className="text-[9px] text-blue-400 font-sans font-bold">Changelog →</span>
+                <span className="text-[9px] text-blue-600 dark:text-blue-400 font-sans font-bold">Changelog →</span>
               </button>
             ) : (
               <button
                 type="button"
                 onClick={() => setIsReleaseModalOpen(true)}
-                className="w-full text-center text-[9px] font-mono text-slate-400 hover:text-blue-400 py-0.5 cursor-pointer"
+                className="w-full text-center text-[9px] font-mono text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 py-0.5 cursor-pointer"
                 title={`v${APP_VERSION} (Click for changelog)`}
               >
                 v{APP_VERSION}
@@ -547,7 +547,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Mobile Bottom Navigation Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-[64px] bg-[#090e1a]/95 backdrop-blur-lg border-t border-white/10 flex items-center justify-around px-2 z-30">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-[64px] bg-white/95 dark:bg-[#090e1a]/95 backdrop-blur-lg border-t border-slate-200 dark:border-white/10 flex items-center justify-around px-2 z-30 shadow-lg">
         {[
           { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
           { name: 'Crisis', href: '/emergency', icon: AlertOctagon, highlight: true },
@@ -563,8 +563,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               href={item.href}
               className={`flex flex-col items-center justify-center flex-1 py-1 transition-colors ${
                 isActive
-                  ? item.highlight ? 'text-rose-400' : 'text-blue-400'
-                  : item.highlight ? 'text-rose-400/70' : 'text-slate-400'
+                  ? item.highlight ? 'text-rose-600 dark:text-rose-400 font-[700]' : 'text-blue-600 dark:text-blue-400 font-[700]'
+                  : item.highlight ? 'text-rose-500/80 dark:text-rose-400/70' : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
               }`}
             >
               <item.icon className="w-5 h-5 mb-0.5" />

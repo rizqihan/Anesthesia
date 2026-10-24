@@ -183,7 +183,7 @@ export default function POCUSMannequin({ activeCaseId, onSelectCase }: POCUSMann
         </div>
 
         {/* Mannequin SVG Viewport */}
-        <div className="relative w-full aspect-[400/580] bg-[#020409] rounded-xl border border-white/5 overflow-hidden select-none touch-none">
+        <div data-preserve-dark className="relative w-full aspect-[400/580] bg-[#020409] rounded-xl border border-white/5 overflow-hidden select-none touch-none">
           <svg
             ref={svgRef}
             viewBox="0 0 400 600"

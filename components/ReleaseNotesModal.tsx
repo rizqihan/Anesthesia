@@ -40,24 +40,24 @@ export default function ReleaseNotesModal({ isOpen, onClose, language }: Release
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-2xl bg-[#0b1220] border border-white/10 rounded-2xl shadow-2xl flex flex-col max-h-[88vh] overflow-hidden z-10"
+          className="relative w-full max-w-2xl bg-white dark:bg-[#0b1220] border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl flex flex-col max-h-[88vh] overflow-hidden z-10"
         >
           {/* Header */}
-          <div className="p-4 sm:p-5 border-b border-white/[0.08] flex items-center justify-between bg-gradient-to-r from-blue-950/40 via-purple-950/20 to-transparent">
+          <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-white/[0.08] flex items-center justify-between bg-gradient-to-r from-blue-50/80 via-purple-50/50 to-transparent dark:from-blue-950/40 dark:via-purple-950/20 dark:to-transparent">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
                 <Tag className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-[16px] sm:text-[18px] font-[800] text-white">
+                  <h2 className="text-[16px] sm:text-[18px] font-[800] text-slate-900 dark:text-white">
                     {language === 'en' ? 'Version & Release Notes' : 'Versi & Catatan Rilis'}
                   </h2>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 font-bold">
                     v{APP_VERSION}
                   </span>
                 </div>
-                <p className="text-[11.5px] text-slate-400 font-medium">
+                <p className="text-[11.5px] text-slate-600 dark:text-slate-400 font-medium">
                   {RELEASE_NAME} • {BUILD_DATE}
                 </p>
               </div>
@@ -65,7 +65,7 @@ export default function ReleaseNotesModal({ isOpen, onClose, language }: Release
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5 transition-colors cursor-pointer"
               aria-label="Close release notes"
             >
               <X className="w-5 h-5" />
@@ -73,17 +73,17 @@ export default function ReleaseNotesModal({ isOpen, onClose, language }: Release
           </div>
 
           {/* System Spec Subheader */}
-          <div className="px-5 py-2.5 bg-white/[0.02] border-b border-white/[0.06] flex flex-wrap items-center justify-between text-[11px] font-mono text-slate-400 gap-2">
+          <div className="px-5 py-2.5 bg-slate-50 dark:bg-white/[0.02] border-b border-slate-200 dark:border-white/[0.06] flex flex-wrap items-center justify-between text-[11px] font-mono text-slate-600 dark:text-slate-400 gap-2">
             <div className="flex items-center gap-1.5">
-              <Database className="w-3.5 h-3.5 text-blue-400" />
+              <Database className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
               <span>Storage: Dexie IndexedDB v{DB_SCHEMA_VERSION}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>Offline-First Clinical PWA</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+              <Sparkles className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
               <span>React 19 • Next.js 16</span>
             </div>
           </div>
@@ -95,32 +95,32 @@ export default function ReleaseNotesModal({ isOpen, onClose, language }: Release
                 key={rel.version}
                 className={`p-4 rounded-xl border transition-all ${
                   rel.highlight
-                    ? 'bg-blue-950/20 border-blue-500/30 shadow-[0_0_20px_rgba(59,130,246,0.1)]'
-                    : 'bg-white/[0.02] border-white/[0.06]'
+                    ? 'bg-blue-50/70 border-blue-200 dark:bg-blue-950/20 dark:border-blue-500/30 shadow-sm dark:shadow-[0_0_20px_rgba(59,130,246,0.1)]'
+                    : 'bg-slate-50/50 border-slate-200 dark:bg-white/[0.02] dark:border-white/[0.06]'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-[13px] font-[800] text-blue-400">
+                    <span className="font-mono text-[13px] font-[800] text-blue-600 dark:text-blue-400">
                       v{rel.version}
                     </span>
                     {rel.highlight && (
-                      <span className="text-[9px] font-[800] tracking-wide px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                      <span className="text-[9px] font-[800] tracking-wide px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/40">
                         {language === 'en' ? 'LATEST' : 'TERBARU'}
                       </span>
                     )}
                   </div>
-                  <span className="text-[11px] font-mono text-slate-400">{rel.date}</span>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{rel.date}</span>
                 </div>
 
-                <h3 className="text-[13px] font-[700] text-slate-200 mb-2.5">
+                <h3 className="text-[13px] font-[700] text-slate-800 dark:text-slate-200 mb-2.5">
                   {rel.title}
                 </h3>
 
                 <ul className="space-y-1.5">
                   {rel.features.map((feat, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-[12px] text-slate-300 leading-relaxed">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <li key={idx} className="flex items-start gap-2 text-[12px] text-slate-700 dark:text-slate-300 leading-relaxed">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                       <span>{feat}</span>
                     </li>
                   ))}
@@ -130,8 +130,8 @@ export default function ReleaseNotesModal({ isOpen, onClose, language }: Release
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-white/[0.08] bg-[#070c16] flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">
+          <div className="p-4 border-t border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-[#070c16] flex items-center justify-between">
+            <span className="text-[11px] text-slate-500 dark:text-slate-400">
               © 2026 Anesthesia Clinical Assistant
             </span>
             <button

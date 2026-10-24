@@ -234,11 +234,11 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpe
         initial={{ opacity: 0, scale: 0.95, y: -10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: -10 }}
-        className="w-full max-w-xl bg-[#0c1322] border border-white/10 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[75vh]"
+        className="w-full max-w-xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[75vh]"
       >
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3.5 border-b border-white/10 gap-3">
-          <Search className="w-5 h-5 text-blue-400 shrink-0" />
+        <div className="flex items-center px-4 py-3.5 border-b border-slate-200 dark:border-white/10 gap-3 bg-slate-50/70 dark:bg-transparent">
+          <Search className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />
           <input
             type="text"
             autoFocus
@@ -249,17 +249,17 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpe
                 ? 'Type to search tools, calculators, crisis doses, or drugs...'
                 : 'Ketik untuk mencari alat, kalkulator, dosis krisis, atau obat...'
             }
-            className="w-full bg-transparent text-[14px] text-slate-100 placeholder-slate-500 focus:outline-none"
+            className="w-full bg-transparent text-[14px] text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
           />
           {query ? (
             <button
               onClick={() => setQuery('')}
-              className="p-1 rounded text-slate-400 hover:text-slate-100"
+              className="p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-100 cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           ) : (
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">
               ESC
             </span>
           )}
@@ -268,7 +268,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpe
         {/* Results List */}
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
           {filtered.length === 0 ? (
-            <div className="p-8 text-center text-slate-400 text-[13px]">
+            <div className="p-8 text-center text-slate-500 dark:text-slate-400 text-[13px]">
               {language === 'en' ? 'No matching clinical tools found.' : 'Tidak ada alat klinis yang cocok.'}
             </div>
           ) : (
@@ -278,22 +278,22 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpe
                 <button
                   key={cmd.id}
                   onClick={() => handleSelect(cmd)}
-                  className="w-full text-left flex items-center justify-between p-3 rounded-xl hover:bg-white/[0.06] transition-all group"
+                  className="w-full text-left flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all group cursor-pointer"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 group-hover:text-blue-400 group-hover:border-blue-500/30 transition-colors shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:border-blue-400/50 dark:group-hover:border-blue-500/30 transition-colors flex items-center justify-center shrink-0">
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <div className="text-[13px] font-[700] text-slate-200 group-hover:text-white truncate">
+                      <div className="text-[13px] font-[700] text-slate-900 group-hover:text-blue-700 dark:text-slate-200 dark:group-hover:text-white truncate">
                         {cmd.title}
                       </div>
-                      <div className="text-[11px] text-slate-400 truncate">
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
                         {cmd.subtitle}
                       </div>
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-blue-400 transition-colors shrink-0 ml-2" />
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 dark:text-slate-500 dark:group-hover:text-blue-400 transition-colors shrink-0 ml-2" />
                 </button>
               );
             })
@@ -301,7 +301,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpe
         </div>
 
         {/* Footer info */}
-        <div className="p-3 border-t border-white/10 bg-black/30 flex items-center justify-between text-[11px] text-slate-500">
+        <div className="p-3 border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black/30 flex items-center justify-between text-[11px] text-slate-500">
           <span>Navigation Quick Tray</span>
           <span className="font-mono">Anesthesia Acute Care Suite</span>
         </div>

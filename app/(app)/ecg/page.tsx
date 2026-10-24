@@ -608,7 +608,7 @@ function ECGWaveform({ type, label, size = 'small' }: { type: string; label?: st
   };
 
   return (
-    <div className="relative rounded-xl overflow-hidden border border-white/[0.07] bg-[#0c121e]">
+    <div data-preserve-dark className="relative rounded-xl overflow-hidden border border-white/[0.07] bg-[#0c121e]">
       {/* simulated pink ECG paper grid background */}
       <svg className="w-full h-full block" style={{ height: `${height}px` }} xmlns="http://www.w3.org/2000/svg">
         <defs>

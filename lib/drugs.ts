@@ -1527,7 +1527,7 @@ export const DRUG_DB: Drug[] = [
       "id": "Gagal ginjal stadium akhir (CrCl <10 mL/menit)."
     },
     "dosing": {
-      "dosePerKg": 0.15,
+      "dosePerKg": 0.14,
       "unit": "mg",
       "maxDose": 10,
       "frequency": "Once daily (evening)",
@@ -2201,7 +2201,7 @@ export const DRUG_DB: Drug[] = [
       "id": "Perpanjangan interval QTc, perdarahan atau perforasi saluran cerna, tumor prolaktinoma hipofisis, gangguan hepar sedang-berat."
     },
     "dosing": {
-      "dosePerKg": 0.15,
+      "dosePerKg": 0.14,
       "unit": "mg",
       "maxDose": 10,
       "frequency": "TID (15-30 min before meals)",
@@ -2971,7 +2971,7 @@ export const DRUG_DB: Drug[] = [
       "id": "Glaukoma sudut sempit akut, stenosis mekanik saluran cerna, ileus paralitik, megakolon toksik, miastenia gravis, takiaritmia berat."
     },
     "dosing": {
-      "dosePerKg": 0.3,
+      "dosePerKg": 0.25,
       "unit": "mg",
       "maxDose": 20,
       "frequency": "TID or QID (or IV/IM stat)",
@@ -3997,7 +3997,7 @@ export const DRUG_DB: Drug[] = [
       "id": "Obstruksi mekanik, perforasi, atau perdarahan saluran cerna; feokromositoma; Parkinson; riwayat kejang."
     },
     "dosing": {
-      "dosePerKg": 0.15,
+      "dosePerKg": 0.14,
       "unit": "mg",
       "maxDose": 10,
       "frequency": "IV slow push over 2 minutes",

@@ -590,80 +590,131 @@ html.light [class*="bg-[#0f172a]"]:not([data-preserve-dark]):not([data-preserve-
 /* ==========================================================================
    SOLID ACCENT & BUTTON CONTRAST PROTECTION (LIGHT & DARK MODES)
    High-saturation solid backgrounds MUST ALWAYS retain pure #ffffff text & icons.
+   Target ONLY actual solid button/badge elements, never substring-matched containers.
    ========================================================================== */
 html.light .btn-primary,
 html.light .btn-primary *,
 html.light .icon-box,
 html.light .icon-box *,
-html.light [class*="bg-blue-600"],
-html.light [class*="bg-blue-600"] *,
-html.light [class*="bg-blue-500"],
-html.light [class*="bg-blue-500"] *,
-html.light [class*="bg-rose-600"],
-html.light [class*="bg-rose-600"] *,
-html.light [class*="bg-rose-500"],
-html.light [class*="bg-rose-500"] *,
-html.light [class*="bg-red-600"],
-html.light [class*="bg-red-600"] *,
-html.light [class*="bg-emerald-600"],
-html.light [class*="bg-emerald-600"] *,
-html.light [class*="bg-emerald-500"],
-html.light [class*="bg-emerald-500"] *,
-html.light [class*="bg-cyan-600"],
-html.light [class*="bg-cyan-600"] *,
-html.light [class*="bg-purple-600"],
-html.light [class*="bg-purple-600"] *,
-html.light [class*="bg-purple-500"],
-html.light [class*="bg-purple-500"] *,
-html.light [class*="bg-violet-600"],
-html.light [class*="bg-violet-600"] *,
-html.light [class*="bg-amber-600"],
-html.light [class*="bg-amber-600"] *,
-html.light [class*="bg-indigo-600"],
-html.light [class*="bg-indigo-600"] *,
+html.light button[class~="bg-blue-600"],
+html.light button[class~="bg-blue-600"] *,
+html.light a[class~="bg-blue-600"],
+html.light a[class~="bg-blue-600"] *,
+html.light button[class~="bg-blue-500"],
+html.light button[class~="bg-blue-500"] *,
+html.light a[class~="bg-blue-500"],
+html.light a[class~="bg-blue-500"] *,
+html.light button[class~="bg-rose-600"],
+html.light button[class~="bg-rose-600"] *,
+html.light a[class~="bg-rose-600"],
+html.light a[class~="bg-rose-600"] *,
+html.light button[class~="bg-red-600"],
+html.light button[class~="bg-red-600"] *,
+html.light a[class~="bg-red-600"],
+html.light a[class~="bg-red-600"] *,
+html.light button[class~="bg-emerald-600"],
+html.light button[class~="bg-emerald-600"] *,
+html.light a[class~="bg-emerald-600"],
+html.light a[class~="bg-emerald-600"] *,
+html.light button[class~="bg-cyan-600"],
+html.light button[class~="bg-cyan-600"] *,
+html.light a[class~="bg-cyan-600"],
+html.light a[class~="bg-cyan-600"] *,
+html.light button[class~="bg-purple-600"],
+html.light button[class~="bg-purple-600"] *,
+html.light a[class~="bg-purple-600"],
+html.light a[class~="bg-purple-600"] *,
+html.light button[class~="bg-violet-600"],
+html.light button[class~="bg-violet-600"] *,
+html.light a[class~="bg-violet-600"],
+html.light a[class~="bg-violet-600"] *,
+html.light button[class~="bg-amber-600"],
+html.light button[class~="bg-amber-600"] *,
+html.light a[class~="bg-amber-600"],
+html.light a[class~="bg-amber-600"] *,
+html.light [class~="bg-blue-600"].text-white,
+html.light [class~="bg-blue-600"].text-white *,
+html.light [class~="bg-rose-600"].text-white,
+html.light [class~="bg-rose-600"].text-white *,
+html.light [class~="bg-emerald-600"].text-white,
+html.light [class~="bg-emerald-600"].text-white *,
+html.light [class~="bg-cyan-600"].text-white,
+html.light [class~="bg-cyan-600"].text-white *,
+html.light [class~="bg-purple-600"].text-white,
+html.light [class~="bg-purple-600"].text-white *,
 [data-theme="light"] .btn-primary,
 [data-theme="light"] .btn-primary *,
 [data-theme="light"] .icon-box,
 [data-theme="light"] .icon-box *,
-[data-theme="light"] [class*="bg-blue-600"],
-[data-theme="light"] [class*="bg-blue-600"] *,
-[data-theme="light"] [class*="bg-rose-600"],
-[data-theme="light"] [class*="bg-rose-600"] *,
-[data-theme="light"] [class*="bg-red-600"],
-[data-theme="light"] [class*="bg-red-600"] *,
-[data-theme="light"] [class*="bg-emerald-600"],
-[data-theme="light"] [class*="bg-emerald-600"] *,
-[data-theme="light"] [class*="bg-cyan-600"],
-[data-theme="light"] [class*="bg-cyan-600"] *,
-[data-theme="light"] [class*="bg-purple-600"],
-[data-theme="light"] [class*="bg-purple-600"] * {
+[data-theme="light"] button[class~="bg-blue-600"],
+[data-theme="light"] button[class~="bg-blue-600"] *,
+[data-theme="light"] a[class~="bg-blue-600"],
+[data-theme="light"] a[class~="bg-blue-600"] *,
+[data-theme="light"] button[class~="bg-rose-600"],
+[data-theme="light"] button[class~="bg-rose-600"] *,
+[data-theme="light"] a[class~="bg-rose-600"],
+[data-theme="light"] a[class~="bg-rose-600"] *,
+[data-theme="light"] button[class~="bg-red-600"],
+[data-theme="light"] button[class~="bg-red-600"] *,
+[data-theme="light"] a[class~="bg-red-600"],
+[data-theme="light"] a[class~="bg-red-600"] *,
+[data-theme="light"] button[class~="bg-emerald-600"],
+[data-theme="light"] button[class~="bg-emerald-600"] *,
+[data-theme="light"] a[class~="bg-emerald-600"],
+[data-theme="light"] a[class~="bg-emerald-600"] *,
+[data-theme="light"] button[class~="bg-cyan-600"],
+[data-theme="light"] button[class~="bg-cyan-600"] *,
+[data-theme="light"] a[class~="bg-cyan-600"],
+[data-theme="light"] a[class~="bg-cyan-600"] *,
+[data-theme="light"] button[class~="bg-purple-600"],
+[data-theme="light"] button[class~="bg-purple-600"] *,
+[data-theme="light"] a[class~="bg-purple-600"],
+[data-theme="light"] a[class~="bg-purple-600"] *,
+[data-theme="light"] [class~="bg-blue-600"].text-white,
+[data-theme="light"] [class~="bg-blue-600"].text-white *,
+[data-theme="light"] [class~="bg-rose-600"].text-white,
+[data-theme="light"] [class~="bg-rose-600"].text-white *,
+[data-theme="light"] [class~="bg-emerald-600"].text-white,
+[data-theme="light"] [class~="bg-emerald-600"].text-white * {
   color: #ffffff !important;
 }
 
 html.light .btn-primary svg,
 html.light .icon-box svg,
-html.light [class*="bg-blue-600"] svg,
-html.light [class*="bg-rose-600"] svg,
-html.light [class*="bg-red-600"] svg,
-html.light [class*="bg-emerald-600"] svg,
-html.light [class*="bg-cyan-600"] svg,
-html.light [class*="bg-purple-600"] svg,
+html.light button[class~="bg-blue-600"] svg,
+html.light a[class~="bg-blue-600"] svg,
+html.light button[class~="bg-rose-600"] svg,
+html.light a[class~="bg-rose-600"] svg,
+html.light button[class~="bg-red-600"] svg,
+html.light a[class~="bg-red-600"] svg,
+html.light button[class~="bg-emerald-600"] svg,
+html.light a[class~="bg-emerald-600"] svg,
+html.light button[class~="bg-cyan-600"] svg,
+html.light a[class~="bg-cyan-600"] svg,
+html.light button[class~="bg-purple-600"] svg,
+html.light a[class~="bg-purple-600"] svg,
 [data-theme="light"] .btn-primary svg,
 [data-theme="light"] .icon-box svg,
-[data-theme="light"] [class*="bg-blue-600"] svg,
-[data-theme="light"] [class*="bg-rose-600"] svg,
-[data-theme="light"] [class*="bg-red-600"] svg,
-[data-theme="light"] [class*="bg-emerald-600"] svg,
-[data-theme="light"] [class*="bg-cyan-600"] svg,
-[data-theme="light"] [class*="bg-purple-600"] svg {
+[data-theme="light"] button[class~="bg-blue-600"] svg,
+[data-theme="light"] a[class~="bg-blue-600"] svg,
+[data-theme="light"] button[class~="bg-rose-600"] svg,
+[data-theme="light"] a[class~="bg-rose-600"] svg,
+[data-theme="light"] button[class~="bg-red-600"] svg,
+[data-theme="light"] a[class~="bg-red-600"] svg,
+[data-theme="light"] button[class~="bg-emerald-600"] svg,
+[data-theme="light"] a[class~="bg-emerald-600"] svg,
+[data-theme="light"] button[class~="bg-cyan-600"] svg,
+[data-theme="light"] a[class~="bg-cyan-600"] svg,
+[data-theme="light"] button[class~="bg-purple-600"] svg,
+[data-theme="light"] a[class~="bg-purple-600"] svg {
   color: #ffffff !important;
   stroke: currentColor !important;
 }
 
 /* Un-themed dark containers remapped to high-contrast light surfaces */
-html.light [class*="bg-slate-900"]:not([data-preserve-dark]):not([data-preserve-dark] *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
+html.light [class*="bg-slate-900"]:not([data-preserve-dark]):not([data-preserve-dark] *):not(button):not(button *):not(a):not(a *),
 html.light [class*="bg-slate-950"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-slate-900"]:not([data-preserve-dark]):not([data-preserve-dark] *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
+[data-theme="light"] [class*="bg-slate-900"]:not([data-preserve-dark]):not([data-preserve-dark] *):not(button):not(button *):not(a):not(a *),
 [data-theme="light"] [class*="bg-slate-950"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
   background-color: #f1f5f9 !important;
   border-color: #cbd5e1 !important;
@@ -680,12 +731,12 @@ html.light [class*="bg-black/20"]:not([data-preserve-dark]):not([data-preserve-d
 }
 
 /* Text & Contrast (White, Slates, Grays) */
-html.light .text-white:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.icon-box):not(.btn-primary):not(.btn-primary *):not([class*="bg-blue-600"]):not([class*="bg-blue-600"] *):not([class*="bg-blue-500"]):not([class*="bg-blue-500"] *):not([class*="bg-rose-600"]):not([class*="bg-rose-600"] *):not([class*="bg-rose-500"]):not([class*="bg-rose-500"] *):not([class*="bg-red-600"]):not([class*="bg-red-600"] *):not([class*="bg-emerald-600"]):not([class*="bg-emerald-600"] *):not([class*="bg-emerald-500"]):not([class*="bg-emerald-500"] *):not([class*="bg-cyan-600"]):not([class*="bg-cyan-600"] *):not([class*="bg-purple-600"]):not([class*="bg-purple-600"] *):not([class*="bg-violet-600"]):not([class*="bg-violet-600"] *):not([class*="bg-amber-600"]):not([class*="bg-amber-600"] *):not([class*="bg-indigo-600"]):not([class*="bg-indigo-600"] *),
-html.light .text-slate-100:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
-html.light .text-slate-200:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
-[data-theme="light"] .text-white:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.icon-box):not(.btn-primary):not(.btn-primary *):not([class*="bg-blue-600"]):not([class*="bg-blue-600"] *):not([class*="bg-blue-500"]):not([class*="bg-blue-500"] *):not([class*="bg-rose-600"]):not([class*="bg-rose-600"] *):not([class*="bg-rose-500"]):not([class*="bg-rose-500"] *):not([class*="bg-red-600"]):not([class*="bg-red-600"] *):not([class*="bg-emerald-600"]):not([class*="bg-emerald-600"] *):not([class*="bg-emerald-500"]):not([class*="bg-emerald-500"] *):not([class*="bg-cyan-600"]):not([class*="bg-cyan-600"] *):not([class*="bg-purple-600"]):not([class*="bg-purple-600"] *):not([class*="bg-violet-600"]):not([class*="bg-violet-600"] *):not([class*="bg-amber-600"]):not([class*="bg-amber-600"] *):not([class*="bg-indigo-600"]):not([class*="bg-indigo-600"] *),
-[data-theme="light"] .text-slate-100:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
-[data-theme="light"] .text-slate-200:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *) {
+html.light .text-white:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.icon-box):not(.btn-primary):not(.btn-primary *):not(button[class~="bg-blue-600"]):not(button[class~="bg-blue-600"] *):not(button[class~="bg-blue-500"]):not(button[class~="bg-blue-500"] *):not(button[class~="bg-rose-600"]):not(button[class~="bg-rose-600"] *):not(button[class~="bg-emerald-600"]):not(button[class~="bg-emerald-600"] *):not(a[class~="bg-blue-600"]):not(a[class~="bg-blue-600"] *):not(a[class~="bg-rose-600"]):not(a[class~="bg-rose-600"] *):not(a[class~="bg-emerald-600"]):not(a[class~="bg-emerald-600"] *),
+html.light .text-slate-100:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not(button *):not(a *),
+html.light .text-slate-200:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not(button *):not(a *),
+[data-theme="light"] .text-white:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.icon-box):not(.btn-primary):not(.btn-primary *):not(button[class~="bg-blue-600"]):not(button[class~="bg-blue-600"] *):not(button[class~="bg-blue-500"]):not(button[class~="bg-blue-500"] *):not(button[class~="bg-rose-600"]):not(button[class~="bg-rose-600"] *):not(button[class~="bg-emerald-600"]):not(button[class~="bg-emerald-600"] *):not(a[class~="bg-blue-600"]):not(a[class~="bg-blue-600"] *):not(a[class~="bg-rose-600"]):not(a[class~="bg-rose-600"] *):not(a[class~="bg-emerald-600"]):not(a[class~="bg-emerald-600"] *),
+[data-theme="light"] .text-slate-100:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not(button *):not(a *),
+[data-theme="light"] .text-slate-200:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not(button *):not(a *) {
   color: #0f172a !important;
 }
 
@@ -784,63 +835,6 @@ html.light .text-sky-300:not([data-preserve-dark]):not([data-preserve-dark] *),
 html.light .text-sky-400:not([data-preserve-dark]):not([data-preserve-dark] *),
 [data-theme="light"] .text-sky-400:not([data-preserve-dark]):not([data-preserve-dark] *) {
   color: #0284c7 !important;
-}
-
-/* Badge/Tag Tinted Backgrounds in Light Mode */
-html.light [class*="bg-amber-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-html.light [class*="bg-amber-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-amber-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-amber-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
-  background-color: #fef3c7 !important;
-  border-color: #fcd34d !important;
-}
-
-html.light [class*="bg-blue-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-html.light [class*="bg-blue-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-blue-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-blue-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
-  background-color: #eff6ff !important;
-  border-color: #bfdbfe !important;
-}
-
-html.light [class*="bg-purple-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-html.light [class*="bg-purple-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-purple-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-purple-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
-  background-color: #f5f3ff !important;
-  border-color: #ddd6fe !important;
-}
-
-html.light [class*="bg-emerald-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-html.light [class*="bg-emerald-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-emerald-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-emerald-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
-  background-color: #ecfdf5 !important;
-  border-color: #a7f3d0 !important;
-}
-
-html.light [class*="bg-rose-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-html.light [class*="bg-rose-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-rose-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-rose-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
-  background-color: #fff1f2 !important;
-  border-color: #fecdd3 !important;
-}
-
-html.light [class*="bg-cyan-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-html.light [class*="bg-cyan-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-cyan-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-cyan-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
-  background-color: #ecfeff !important;
-  border-color: #a5f3fc !important;
-}
-
-html.light [class*="bg-sky-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-html.light [class*="bg-sky-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-sky-500/"]:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] [class*="bg-sky-600/"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
-  background-color: #f0f9ff !important;
-  border-color: #bae6fd !important;
 }
 
 /* Borders in Light Mode */

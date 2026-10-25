@@ -64,7 +64,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="antialiased min-h-screen text-[var(--text-primary)] bg-[var(--bg-base)] selection:bg-blue-500/20 selection:text-blue-200"
+        className="antialiased min-h-screen text-[var(--text-primary)] bg-[var(--bg-base)]"
         suppressHydrationWarning
       >
         {children}

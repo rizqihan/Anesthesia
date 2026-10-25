@@ -53,6 +53,7 @@ function EmergencyContent() {
     'cardiac' | 'hypotension' | 'anaphylaxis' | 'airway' | 'mh' | 'last'
   >('cardiac');
   const [anaphylaxisRoute, setAnaphylaxisRoute] = useState<'im' | 'iv_bolus' | 'iv_infusion'>('im');
+  const [epiRecipeMethod, setEpiRecipeMethod] = useState<'ampule_bag' | 'ampule_double_dilution' | 'cardiac_syringe'>('ampule_bag');
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -549,26 +550,106 @@ function EmergencyContent() {
                     </div>
 
                     {/* Push-Dose Recipe Box */}
-                    <div className="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/30 space-y-2">
-                      <div className="text-[11px] font-[800] uppercase tracking-wider text-cyan-300 flex items-center justify-between">
-                        <span>Push-Dose Epinephrine Recipe (10 mcg/mL &quot;Stick Epi&quot;)</span>
+                    <div className="p-4 rounded-xl bg-cyan-50/70 dark:bg-cyan-950/20 border border-cyan-200 dark:border-cyan-500/30 space-y-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                          <div className="text-[11px] font-[800] uppercase tracking-wider text-cyan-800 dark:text-cyan-300">
+                            Push-Dose Epinephrine Recipe (10 mcg/mL &quot;Stick Epi&quot;)
+                          </div>
+                          <div className="text-[10.5px] text-slate-600 dark:text-slate-400">
+                            Select preparation method based on hospital stock availability:
+                          </div>
+                        </div>
                         <motion.button
                           whileTap={{ scale: 0.9 }}
-                          onClick={() =>
-                            copyToClipboard(
-                              anaphylaxisProtocols.ivMonitored.pushDosePreparationRecipe.join('\n'),
-                              'recipe'
-                            )
-                          }
-                          className="p-1 rounded bg-white/5 hover:bg-white/10 text-cyan-400"
+                          onClick={() => {
+                            const activeSteps =
+                              epiRecipeMethod === 'ampule_bag'
+                                ? anaphylaxisProtocols.ivMonitored.pushDoseRecipes?.from1to1000AmpuleBag ?? []
+                                : epiRecipeMethod === 'ampule_double_dilution'
+                                ? anaphylaxisProtocols.ivMonitored.pushDoseRecipes?.from1to1000AmpuleDoubleDilution ?? []
+                                : anaphylaxisProtocols.ivMonitored.pushDoseRecipes?.from1to10000CardiacSyringe ?? [];
+                            copyToClipboard(activeSteps.join('\n'), 'recipe');
+                          }}
+                          className="px-2 py-1 rounded-md bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/10 text-cyan-700 dark:text-cyan-400 text-[11px] font-[700] flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
                         >
-                          {copiedId === 'recipe' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                          {copiedId === 'recipe' ? (
+                            <>
+                              <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                              <span>Copied Recipe</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3.5 h-3.5" />
+                              <span>Copy Recipe</span>
+                            </>
+                          )}
                         </motion.button>
                       </div>
-                      <div className="text-[11.5px] text-slate-300 space-y-1">
-                        {anaphylaxisProtocols.ivMonitored.pushDosePreparationRecipe.map((step, idx) => (
-                          <div key={idx}>{step}</div>
+
+                      {/* Method Selection Pills */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 p-1 rounded-lg bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-white/5">
+                        <button
+                          type="button"
+                          onClick={() => setEpiRecipeMethod('ampule_bag')}
+                          className={`px-2.5 py-2 rounded-md text-[11px] font-[700] text-left transition-all cursor-pointer ${
+                            epiRecipeMethod === 'ampule_bag'
+                              ? 'bg-cyan-600 text-white shadow-sm'
+                              : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+                          }`}
+                        >
+                          1:1,000 Ampule (100 mL Bag)
+                          <span className="block text-[9.5px] font-normal opacity-90">Safest & Recommended</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEpiRecipeMethod('ampule_double_dilution')}
+                          className={`px-2.5 py-2 rounded-md text-[11px] font-[700] text-left transition-all cursor-pointer ${
+                            epiRecipeMethod === 'ampule_double_dilution'
+                              ? 'bg-cyan-600 text-white shadow-sm'
+                              : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+                          }`}
+                        >
+                          1:1,000 Ampule (10 mL Syringe)
+                          <span className="block text-[9.5px] font-normal opacity-90">Two-Step Serial Dilution</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEpiRecipeMethod('cardiac_syringe')}
+                          className={`px-2.5 py-2 rounded-md text-[11px] font-[700] text-left transition-all cursor-pointer ${
+                            epiRecipeMethod === 'cardiac_syringe'
+                              ? 'bg-cyan-600 text-white shadow-sm'
+                              : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+                          }`}
+                        >
+                          1:10,000 Cardiac Syringe
+                          <span className="block text-[9.5px] font-normal opacity-90">US / ACLS Crash Cart</span>
+                        </button>
+                      </div>
+
+                      {/* Step-by-Step Display */}
+                      <div className="p-3.5 rounded-lg bg-white dark:bg-slate-900/50 border border-cyan-200 dark:border-cyan-500/20 text-[11.5px] text-slate-800 dark:text-slate-200 space-y-2 font-mono">
+                        {(epiRecipeMethod === 'ampule_bag'
+                          ? anaphylaxisProtocols.ivMonitored.pushDoseRecipes?.from1to1000AmpuleBag ?? []
+                          : epiRecipeMethod === 'ampule_double_dilution'
+                          ? anaphylaxisProtocols.ivMonitored.pushDoseRecipes?.from1to1000AmpuleDoubleDilution ?? []
+                          : anaphylaxisProtocols.ivMonitored.pushDoseRecipes?.from1to10000CardiacSyringe ?? []
+                        ).map((step, idx) => (
+                          <div key={idx} className="leading-relaxed flex items-start gap-2">
+                            <span className="text-cyan-600 dark:text-cyan-400 font-bold shrink-0">Step {idx + 1}:</span>
+                            <span>{step.replace(/^[0-9]+\.\s*/, '')}</span>
+                          </div>
                         ))}
+                      </div>
+
+                      {/* Vital Pharmacology Trap Callout */}
+                      <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-500/40 text-[11px] text-amber-950 dark:text-amber-200 leading-relaxed">
+                        <strong className="text-amber-900 dark:text-amber-100 flex items-center gap-1.5 font-[800]">
+                          <span>⚠️</span> Clinical Pharmacology Note: Why NOT draw 1 mL of 1:1,000 directly into 9 mL Saline?
+                        </strong>
+                        <p className="mt-1 text-amber-900/90 dark:text-amber-200/90">
+                          A standard 1:1,000 ampule is <strong>1,000 mcg/mL</strong>. Injecting 1 mL into 9 mL NS yields <strong>100 mcg/mL</strong> (1:10,000 cardiac arrest strength). Bolusing 1–2 mL of that delivers <strong>100–200 mcg (a 10-fold overdose)</strong> instead of the intended 10–20 mcg, triggering lethal ventricular tachyarrhythmias or hypertensive intracranial hemorrhage in non-arrest patients.
+                        </p>
                       </div>
                     </div>
 

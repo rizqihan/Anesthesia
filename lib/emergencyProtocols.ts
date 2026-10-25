@@ -876,6 +876,12 @@ export interface AnaphylaxisProtocols {
       titrationGoal: string;
     };
     pushDosePreparationRecipe: string[];
+    pushDoseRecipes: {
+      from1to1000AmpuleBag: string[];
+      from1to1000AmpuleDoubleDilution: string[];
+      from1to10000CardiacSyringe: string[];
+      dilutionSafetyTrap: string;
+    };
     criticalBlackBoxWarning: string;
     glucagonBetaBlockerRescue: string;
   };
@@ -979,11 +985,38 @@ export function calculateAnaphylaxisProtocols(weightKg: number): AnaphylaxisProt
         titrationGoal: 'Titrate infusion to maintain MAP ≥ 65 mmHg and clear bronchospasm/wheeze.',
       },
       pushDosePreparationRecipe: [
-        '1. Take a 10 mL syringe containing 9 mL Normal Saline (0.9% NaCl).',
-        '2. Draw 1 mL of Epinephrine 1:10,000 (100 mcg) from a cardiac arrest syringe into the 9 mL NS syringe.',
-        '3. Agitate gently. Result: 10 mL of Push-Dose Epinephrine at 10 mcg/mL.',
-        '4. Administer 1–2 mL (10–20 mcg) every 2–5 minutes titrated to blood pressure.',
+        '📌 METHOD 1 (From 1 mg/mL [1:1,000] Ampule — Standard Hospital & OR Practice):',
+        '• 100 mL Bag: Inject 1 mL Epinephrine 1:1,000 (1 mg) into a 100 mL NS bag → 10 mcg/mL. Draw into 10 mL syringe as needed.',
+        '• Syringe Double-Dilution: Draw 1 mL 1:1,000 + 9 mL NS (yields 100 mcg/mL) → DISCARD 9 mL (leaving 1 mL = 100 mcg) → Draw 9 mL NS → 10 mL at 10 mcg/mL.',
+        '',
+        '📌 METHOD 2 (From 1:10,000 [100 mcg/mL] Cardiac Arrest Syringe — ACLS Crash Cart):',
+        '• Draw 1 mL of Epinephrine 1:10,000 (100 mcg) into a syringe containing 9 mL NS → 10 mL at 10 mcg/mL.',
+        '',
+        '⚠️ FATAL 10x OVERDOSE TRAP: NEVER draw 1 mL of 1:1,000 directly into 9 mL NS without the discard step! 1 mL of 1:1,000 contains 1,000 mcg — diluting to 10 mL yields 100 mcg/mL (cardiac arrest strength), delivering a 10-fold overdose (100–200 mcg bolus instead of 10–20 mcg) that triggers fatal ventricular tachycardia or cerebral hemorrhage in non-arrest patients.',
+        '💉 Push-Dose Administration: Inject 1–2 mL (10–20 mcg) IV every 2–5 minutes titrated to MAP ≥ 65 mmHg.',
       ],
+      pushDoseRecipes: {
+        from1to1000AmpuleBag: [
+          '1. Take a 100 mL bag of Normal Saline (0.9% NaCl).',
+          '2. Inject 1 mL of Epinephrine 1:1,000 (1 mg = 1,000 mcg) directly into the bag.',
+          '3. Agitate bag gently. Result: 100 mL of Epinephrine at 10 mcg/mL.',
+          '4. Draw 10 mL into syringe. Administer 1–2 mL (10–20 mcg) IV q2–5m titrated to MAP ≥ 65 mmHg.',
+        ],
+        from1to1000AmpuleDoubleDilution: [
+          '1. Draw 1 mL of Epinephrine 1:1,000 (1 mg) + 9 mL Normal Saline in a 10 mL syringe (concentration = 100 mcg/mL).',
+          '2. DISCARD 9 mL into the sink, keeping exactly 1 mL (100 mcg) in the syringe.',
+          '3. Draw up 9 mL of Normal Saline into the same syringe (total volume 10 mL).',
+          '4. Agitate gently. Result: 10 mL of Push-Dose Epinephrine at 10 mcg/mL.',
+          '5. Administer 1–2 mL (10–20 mcg) IV q2–5m titrated to MAP ≥ 65 mmHg.',
+        ],
+        from1to10000CardiacSyringe: [
+          '1. Take a 10 mL syringe containing 9 mL Normal Saline (0.9% NaCl).',
+          '2. Draw 1 mL of Epinephrine 1:10,000 (100 mcg) from a prefilled cardiac arrest syringe into the 9 mL NS syringe.',
+          '3. Agitate gently. Result: 10 mL of Push-Dose Epinephrine at 10 mcg/mL.',
+          '4. Administer 1–2 mL (10–20 mcg) IV q2–5m titrated to MAP ≥ 65 mmHg.',
+        ],
+        dilutionSafetyTrap: 'FATAL 10-FOLD DILUTION TRAP: Drawing 1 mL of 1:1,000 directly into 9 mL NS yields 100 mcg/mL (1:10,000 cardiac arrest strength). Giving 1–2 mL delivers 100–200 mcg (10x overdose) instead of 10–20 mcg, risking lethal arrhythmias and stroke in non-arrest patients.',
+      },
       criticalBlackBoxWarning: 'FATAL RISK: NEVER inject undiluted 1:1,000 (1 mg/mL) directly IV. Rapid undiluted IV push causes lethal ventricular fibrillation, acute myocardial infarction, and massive hypertensive intracranial hemorrhage.',
       glucagonBetaBlockerRescue: isPediatric
         ? `Glucagon ${Math.min(1.0, +(w * 0.025).toFixed(2))} mg IV (20–30 mcg/kg, max 1 mg) over 5 min, then 5–15 mcg/min if refractory on beta-blockers.`

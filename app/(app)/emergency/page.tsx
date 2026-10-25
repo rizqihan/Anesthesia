@@ -118,32 +118,32 @@ function EmergencyContent() {
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
       {/* Top Header Card */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-rose-950/20 border border-rose-500/30">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-rose-50/80 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-500/30 shadow-xs dark:shadow-none">
         <div className="flex items-center gap-3.5">
           <Link href="/dashboard">
             <motion.button
               whileTap={{ scale: 0.95 }}
-              className="p-2 min-h-[44px] min-w-[44px] rounded-xl border border-white/10 bg-[#0c121e]/80 hover:bg-white/5 transition-all text-slate-300 hover:text-white shrink-0 flex items-center justify-center"
+              className="p-2 min-h-[44px] min-w-[44px] rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c121e]/80 hover:bg-slate-100 dark:hover:bg-white/5 transition-all text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white shrink-0 flex items-center justify-center shadow-xs dark:shadow-none"
               aria-label="Back to Dashboard"
             >
               <ArrowLeft className="w-4 h-4" />
             </motion.button>
           </Link>
-          <div className="w-10 h-10 rounded-xl bg-rose-600/30 border border-rose-500/50 flex items-center justify-center text-rose-300 shrink-0 shadow-[0_0_20px_rgba(244,63,94,0.3)]">
-            <AlertOctagon className="w-5 h-5 text-rose-400" />
+          <div className="w-10 h-10 rounded-xl bg-rose-500/15 dark:bg-rose-600/30 border border-rose-300 dark:border-rose-500/50 flex items-center justify-center text-rose-600 dark:text-rose-300 shrink-0 shadow-[0_0_20px_rgba(244,63,94,0.15)]">
+            <AlertOctagon className="w-5 h-5 text-rose-600 dark:text-rose-400" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-[20px] font-[900] tracking-tight text-rose-100">
+              <h1 className="text-[20px] font-[900] tracking-tight text-rose-950 dark:text-rose-100">
                 {language === 'en'
                   ? 'Resuscitation & Acute Emergency Suite'
                   : 'Pusat Resusitasi & Krisis Darurat Akut'}
               </h1>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-[800] bg-rose-500/20 text-rose-300 border border-rose-500/30 uppercase tracking-wider">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-[800] bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30 uppercase tracking-wider">
                 High Alert
               </span>
             </div>
-            <p className="text-[12px] text-rose-200/70">
+            <p className="text-[12px] text-rose-800/80 dark:text-rose-200/70">
               {language === 'en'
                 ? 'Rapid protocols, cycle timers, Broselow pediatric sizing, and emergency titrations'
                 : 'Protokol cepat, timer siklus, ukuran Broselow anak, dan titrasi darurat'}
@@ -152,15 +152,15 @@ function EmergencyContent() {
         </div>
 
         {/* Weight Controller pill with Steppers */}
-        <div className="flex items-center gap-2 self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-[#0a0f1d] border border-white/15">
-          <span className="text-[11px] font-[700] text-slate-400 uppercase tracking-wider">
+        <div className="flex items-center gap-2 self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-white dark:bg-[#0a0f1d] border border-slate-200 dark:border-white/15 shadow-xs dark:shadow-none">
+          <span className="text-[11px] font-[700] text-slate-600 dark:text-slate-400 uppercase tracking-wider">
             {language === 'en' ? 'Weight' : 'Berat'}:
           </span>
           <div className="flex items-center gap-1">
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => adjustWeight(-5)}
-              className="px-2 py-1 min-h-[44px] min-w-[44px] rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-slate-200 text-[12px] font-mono font-[700] flex items-center justify-center transition-colors"
+              className="px-2 py-1 min-h-[44px] min-w-[44px] rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 text-[12px] font-mono font-[700] flex items-center justify-center transition-colors border border-slate-200 dark:border-transparent"
               aria-label="Decrease weight by 5 kg"
             >
               -5
@@ -172,24 +172,24 @@ function EmergencyContent() {
               max="250"
               value={activeCase.patientWeight}
               onChange={(e) => setActiveCase({ patientWeight: e.target.value })}
-              className="w-14 bg-transparent text-center font-mono font-[800] text-[15px] text-blue-400 focus:outline-none"
+              className="w-14 bg-transparent text-center font-mono font-[800] text-[15px] text-blue-600 dark:text-blue-400 focus:outline-none"
               aria-label="Patient weight in kg"
             />
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => adjustWeight(5)}
-              className="px-2 py-1 min-h-[44px] min-w-[44px] rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-slate-200 text-[12px] font-mono font-[700] flex items-center justify-center transition-colors"
+              className="px-2 py-1 min-h-[44px] min-w-[44px] rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 text-[12px] font-mono font-[700] flex items-center justify-center transition-colors border border-slate-200 dark:border-transparent"
               aria-label="Increase weight by 5 kg"
             >
               +5
             </motion.button>
           </div>
-          <span className="text-[12px] font-[700] text-slate-400 font-mono">kg</span>
+          <span className="text-[12px] font-[700] text-slate-600 dark:text-slate-400 font-mono">kg</span>
         </div>
       </div>
 
       {/* Main Module Navigation Pills */}
-      <div className="flex flex-wrap gap-2 border-b border-white/10 pb-3">
+      <div className="flex flex-wrap gap-2 border-b border-slate-200 dark:border-white/10 pb-3">
         {moduleTabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = selectedModule === tab.id;
@@ -200,8 +200,8 @@ function EmergencyContent() {
               onClick={() => setSelectedModule(tab.id)}
               className={`flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-xl text-[13px] font-[700] transition-all relative ${
                 isActive
-                  ? 'bg-rose-600/25 border border-rose-500/50 text-rose-200 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
-                  : 'bg-white/[0.03] border border-white/10 text-slate-400 hover:text-slate-200 hover:bg-white/[0.06]'
+                  ? 'bg-rose-100 dark:bg-rose-600/25 border border-rose-300 dark:border-rose-500/50 text-rose-950 dark:text-rose-200 shadow-xs dark:shadow-[0_0_15px_rgba(244,63,94,0.2)]'
+                  : 'bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]'
               }`}
             >
               <Icon className="w-4 h-4 shrink-0" />

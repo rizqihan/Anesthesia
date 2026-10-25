@@ -136,7 +136,7 @@ export default function FormularyPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href="/dashboard">
-            <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+            <button className="p-2 rounded-xl border border-slate-200 dark:border-white/[0.06] bg-slate-100 dark:bg-[#0c121e]/80 hover:bg-slate-200 dark:hover:bg-white/5 transition-all text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white shrink-0">
               <ArrowLeft className="w-4 h-4" />
             </button>
           </Link>
@@ -154,7 +154,7 @@ export default function FormularyPage() {
               <h1 className="text-[18px] font-[800] tracking-tight" style={{ color: 'var(--text-primary)' }}>
                 {t.drug_formulary}
               </h1>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 font-bold">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-500/20 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-500/30 font-bold">
                 {allDrugs.length} {language === 'en' ? 'Drugs' : 'Obat'}
               </span>
             </div>
@@ -167,7 +167,7 @@ export default function FormularyPage() {
 
         <Link
           href="/dosage"
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-[12px] font-[600] bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 transition-all shadow-sm"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-[12px] font-[600] bg-blue-50 dark:bg-blue-600/20 hover:bg-blue-100 dark:hover:bg-blue-600/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 transition-all shadow-xs"
         >
           <Syringe className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">{language === 'en' ? 'Dosage Calculator' : 'Kalkulator Dosis'}</span>
@@ -314,15 +314,15 @@ export default function FormularyPage() {
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2.5">
                     <div>
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="font-[800] text-[16px] text-white tracking-tight">
+                        <h3 className="font-[800] text-[16px] text-slate-900 dark:text-white tracking-tight">
                           {item.genericName}
                         </h3>
                         {item.highRisk && (
                           <span
-                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-[800] tracking-wide uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40"
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-[800] tracking-wide uppercase bg-rose-100 text-rose-700 border border-rose-200 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/40"
                             title={language === 'en' ? 'High-Alert Medication: Exercise High Vigilance' : 'Obat Kewaspadaan Tinggi (High-Alert)'}
                           >
-                            <Flame className="w-2.5 h-2.5 text-rose-400" />
+                            <Flame className="w-2.5 h-2.5 text-rose-600 dark:text-rose-400" />
                             {language === 'en' ? 'High Alert' : 'Risiko Tinggi'}
                           </span>
                         )}
@@ -330,20 +330,15 @@ export default function FormularyPage() {
 
                       <div className="flex flex-wrap items-center gap-2 mt-1">
                         <span
-                          className="inline-block px-2 py-0.5 rounded-md text-[10px] font-[600]"
-                          style={{
-                            background: 'rgba(139,92,246,0.15)',
-                            color: '#c4b5fd',
-                            border: '1px solid rgba(139,92,246,0.25)'
-                          }}
+                          className="inline-block px-2 py-0.5 rounded-md text-[10px] font-[700] bg-violet-100 text-violet-800 border border-violet-200 dark:bg-violet-500/15 dark:text-violet-300 dark:border-violet-500/25"
                         >
                           {item.drugClass}
                         </span>
-                        <div className="text-[12px] text-slate-300">
-                          <span className="font-[600] text-slate-400">
+                        <div className="text-[12px] text-slate-600 dark:text-slate-300">
+                          <span className="font-[600] text-slate-500 dark:text-slate-400">
                             {language === 'en' ? 'Brands: ' : 'Merek: '}
                           </span>
-                          <span className="text-slate-200">{item.brandNames.join(', ')}</span>
+                          <span className="text-slate-800 dark:text-slate-200 font-[500]">{item.brandNames.join(', ')}</span>
                         </div>
                       </div>
                     </div>
@@ -351,7 +346,7 @@ export default function FormularyPage() {
                     {item.dosing && (
                       <Link
                         href={`/dosage?drug=${item.id}`}
-                        className="self-start shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-[600] transition-all bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300"
+                        className="self-start shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-[600] transition-all bg-sky-50 dark:bg-sky-500/15 hover:bg-sky-100 dark:hover:bg-sky-500/25 border border-sky-200 dark:border-sky-500/30 text-sky-700 dark:text-sky-300"
                       >
                         <Syringe className="w-3.5 h-3.5" />
                         <span>{language === 'en' ? 'Dosage Calculator' : 'Kalkulator Dosis'}</span>
@@ -361,40 +356,40 @@ export default function FormularyPage() {
 
                   {/* Pharmacokinetics Strip */}
                   {(item.onset || item.peak || item.duration || item.metabolism) && (
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.05] text-[11px]">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.05] text-[11px]">
                       {item.onset && (
                         <div className="flex items-start gap-1.5">
-                          <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                          <Zap className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                           <div>
-                            <span className="text-slate-400 block text-[9.5px] uppercase font-bold tracking-wider">Onset</span>
-                            <span className="text-slate-200 font-[500]">{item.onset}</span>
+                            <span className="text-slate-500 dark:text-slate-400 block text-[9.5px] uppercase font-bold tracking-wider">Onset</span>
+                            <span className="text-slate-800 dark:text-slate-200 font-[600]">{item.onset}</span>
                           </div>
                         </div>
                       )}
                       {item.peak && (
                         <div className="flex items-start gap-1.5">
-                          <Target className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                          <Target className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
                           <div>
-                            <span className="text-slate-400 block text-[9.5px] uppercase font-bold tracking-wider">Peak</span>
-                            <span className="text-slate-200 font-[500]">{item.peak}</span>
+                            <span className="text-slate-500 dark:text-slate-400 block text-[9.5px] uppercase font-bold tracking-wider">Peak</span>
+                            <span className="text-slate-800 dark:text-slate-200 font-[600]">{item.peak}</span>
                           </div>
                         </div>
                       )}
                       {item.duration && (
                         <div className="flex items-start gap-1.5">
-                          <Clock className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                          <Clock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                           <div>
-                            <span className="text-slate-400 block text-[9.5px] uppercase font-bold tracking-wider">Duration</span>
-                            <span className="text-slate-200 font-[500]">{item.duration}</span>
+                            <span className="text-slate-500 dark:text-slate-400 block text-[9.5px] uppercase font-bold tracking-wider">Duration</span>
+                            <span className="text-slate-800 dark:text-slate-200 font-[600]">{item.duration}</span>
                           </div>
                         </div>
                       )}
                       {item.metabolism && (
                         <div className="flex items-start gap-1.5 col-span-2 sm:col-span-1">
-                          <Dna className="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5" />
+                          <Dna className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
                           <div>
-                            <span className="text-slate-400 block text-[9.5px] uppercase font-bold tracking-wider">Metabolism</span>
-                            <span className="text-slate-200 font-[500] truncate block" title={item.metabolism}>
+                            <span className="text-slate-500 dark:text-slate-400 block text-[9.5px] uppercase font-bold tracking-wider">Metabolism</span>
+                            <span className="text-slate-800 dark:text-slate-200 font-[600] truncate block" title={item.metabolism}>
                               {item.metabolism}
                             </span>
                           </div>
@@ -406,44 +401,43 @@ export default function FormularyPage() {
                   {/* Dosing Section */}
                   {item.dosing && (
                     <div
-                      className="p-3 rounded-lg text-[12px] flex flex-col gap-1.5"
-                      style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)' }}
+                      className="p-3 rounded-lg text-[12px] flex flex-col gap-1.5 bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08]"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5">
-                          <Syringe className="w-3.5 h-3.5 text-sky-400" />
-                          <span className="font-[700] text-sky-300">
+                          <Syringe className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+                          <span className="font-[700] text-sky-800 dark:text-sky-300">
                             {language === 'en' ? 'Standard Dosing: ' : 'Dosis Standar: '}
                           </span>
-                          <span className="font-mono font-[700] text-white">
+                          <span className="font-mono font-[700] text-slate-900 dark:text-white">
                             {item.dosing.dosePerKg} {item.dosing.unit}/kg
                           </span>
-                          <span className="text-slate-400">({item.dosing.frequency})</span>
+                          <span className="text-slate-600 dark:text-slate-400">({item.dosing.frequency})</span>
                         </div>
-                        <span className="text-[11px] font-mono text-slate-400">
+                        <span className="text-[11px] font-mono text-slate-600 dark:text-slate-400 font-[600]">
                           Max: {item.dosing.maxDose} {item.dosing.unit}
                         </span>
                       </div>
 
                       {/* Bolus / Infusion Specific Callouts */}
                       {(item.dosing.bolusDose || item.dosing.infusionDose) && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1 pt-1.5 border-t border-white/[0.06]">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1 pt-1.5 border-t border-slate-200 dark:border-white/[0.06]">
                           {item.dosing.bolusDose && (
-                            <div className="text-[11.5px] text-cyan-200/90">
-                              <span className="font-bold text-cyan-400">💉 Bolus: </span>
+                            <div className="text-[11.5px] text-cyan-900 dark:text-cyan-200/90">
+                              <span className="font-bold text-cyan-700 dark:text-cyan-400">💉 Bolus: </span>
                               {item.dosing.bolusDose}
                             </div>
                           )}
                           {item.dosing.infusionDose && (
-                            <div className="text-[11.5px] text-indigo-200/90">
-                              <span className="font-bold text-indigo-400">💧 Infusion: </span>
+                            <div className="text-[11.5px] text-indigo-900 dark:text-indigo-200/90">
+                              <span className="font-bold text-indigo-700 dark:text-indigo-400">💧 Infusion: </span>
                               {item.dosing.infusionDose}
                             </div>
                           )}
                         </div>
                       )}
 
-                      <div className="text-[11.5px] text-slate-300 italic mt-0.5">
+                      <div className="text-[11.5px] text-slate-600 dark:text-slate-300 italic mt-0.5">
                         {language === 'en' ? item.dosing.notes.en : item.dosing.notes.id}
                       </div>
                     </div>
@@ -452,31 +446,29 @@ export default function FormularyPage() {
                   {/* Indications & Contraindications */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div
-                      className="p-3 rounded-lg"
-                      style={{ background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.15)' }}
+                      className="p-3 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-500/20"
                     >
                       <div className="flex items-center gap-1.5 mb-1.5">
-                        <BookOpen className="w-3.5 h-3.5" style={{ color: '#34d399' }} />
-                        <span className="text-[11px] font-[700]" style={{ color: '#34d399' }}>
+                        <BookOpen className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
+                        <span className="text-[11px] font-[800] text-emerald-800 dark:text-emerald-300">
                           {language === 'en' ? 'Indications' : 'Indikasi'}
                         </span>
                       </div>
-                      <p className="text-[12px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      <p className="text-[12px] leading-relaxed text-slate-700 dark:text-slate-300">
                         {language === 'en' ? item.indications.en : item.indications.id}
                       </p>
                     </div>
 
                     <div
-                      className="p-3 rounded-lg"
-                      style={{ background: 'rgba(244,63,94,0.07)', border: '1px solid rgba(244,63,94,0.15)' }}
+                      className="p-3 rounded-lg bg-rose-50/70 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-500/20"
                     >
                       <div className="flex items-center gap-1.5 mb-1.5">
-                        <AlertTriangle className="w-3.5 h-3.5" style={{ color: '#fb7185' }} />
-                        <span className="text-[11px] font-[700]" style={{ color: '#fb7185' }}>
+                        <AlertTriangle className="w-3.5 h-3.5 text-rose-700 dark:text-rose-400" />
+                        <span className="text-[11px] font-[800] text-rose-800 dark:text-rose-300">
                           {language === 'en' ? 'Contraindications & Safety Warnings' : 'Kontraindikasi & Peringatan Keamanan'}
                         </span>
                       </div>
-                      <p className="text-[12px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      <p className="text-[12px] leading-relaxed text-slate-700 dark:text-slate-300">
                         {language === 'en' ? item.contraindications.en : item.contraindications.id}
                       </p>
                     </div>
@@ -484,14 +476,14 @@ export default function FormularyPage() {
 
                   {/* Clinical & Anesthesia Pearls */}
                   {item.clinicalPearls && (
-                    <div className="p-3 rounded-lg bg-violet-950/20 border border-violet-500/20">
+                    <div className="p-3 rounded-lg bg-violet-50/70 dark:bg-violet-950/20 border border-violet-200 dark:border-violet-500/20">
                       <div className="flex items-center gap-1.5 mb-1">
-                        <Lightbulb className="w-3.5 h-3.5 text-amber-300" />
-                        <span className="text-[11px] font-[700] text-violet-300">
+                        <Lightbulb className="w-3.5 h-3.5 text-amber-600 dark:text-amber-300" />
+                        <span className="text-[11px] font-[800] text-violet-900 dark:text-violet-300">
                           {language === 'en' ? 'Anesthesia & Clinical Pearls' : 'Mutiara Klinis & Anestesi'}
                         </span>
                       </div>
-                      <p className="text-[12px] text-slate-300 leading-relaxed">
+                      <p className="text-[12px] text-slate-700 dark:text-slate-300 leading-relaxed font-[500]">
                         {language === 'en' ? item.clinicalPearls.en : item.clinicalPearls.id}
                       </p>
                     </div>

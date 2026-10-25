@@ -353,8 +353,8 @@ export default function ACLSCycleTimer() {
 
   return (
     <div className="space-y-6">
-      {/* CPR Control Center & Circular Ring */}
-      <div className="p-6 rounded-2xl bg-[#0e1424] border border-slate-800 shadow-xl relative overflow-hidden">
+      {/* CPR Control Center & Circular Ring (Protected Medical Monitor) */}
+      <div data-preserve-dark="true" className="p-6 rounded-2xl bg-[#0e1424] border border-slate-800 shadow-xl relative overflow-hidden">
         {/* Top bar with Cycle Number & Metronome Toggle */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div className="flex items-center gap-3">

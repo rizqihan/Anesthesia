@@ -235,7 +235,7 @@ export default function ECGSimulatorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#03070c] text-gray-100 flex flex-col pb-12 font-sans selection:bg-emerald-500/30 selection:text-white">
+    <div data-preserve-dark="true" className="min-h-screen bg-[#03070c] text-gray-100 flex flex-col pb-12 font-sans selection:bg-emerald-500/30 selection:text-white">
       {/* ─── Global Background Effects ─── */}
       <div className="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-emerald-500/[0.03] to-transparent pointer-events-none" />
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-500/[0.01] rounded-full blur-[150px] pointer-events-none" />

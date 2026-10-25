@@ -151,7 +151,7 @@ function DosageCalculatorContent() {
         <SyringePumpTitrator />
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="glass-card-static overflow-hidden">
+          <div className="bg-white dark:bg-[#0c1222] border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden shadow-xs dark:shadow-none">
             <div className="section-header">
               <span className="section-header-label">{language === 'en' ? 'Calculate Dosage' : 'Hitung Dosis'}</span>
             </div>
@@ -251,7 +251,7 @@ function DosageCalculatorContent() {
                   animate={{ opacity: 1, scale: 1 }} 
                   exit={{ opacity: 0 }} 
                   transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="glass-card-static p-6 text-center relative group"
+                  className="p-6 text-center relative group bg-white dark:bg-[#0c1222] border border-slate-200 dark:border-white/10 rounded-2xl shadow-xs dark:shadow-none"
                 >
                   <motion.button
                     whileTap={{ scale: 0.9 }}
@@ -310,7 +310,7 @@ function DosageCalculatorContent() {
             </AnimatePresence>
 
             {!displayedResult && (
-              <div className="glass-card-static p-6 flex items-center justify-center min-h-[160px] border border-dashed border-slate-200 dark:border-white/[0.08]">
+              <div className="p-6 flex items-center justify-center min-h-[160px] rounded-2xl bg-white dark:bg-[#0c1222] border border-dashed border-slate-200 dark:border-white/[0.08] shadow-xs dark:shadow-none">
                 <p className="text-[12px] text-slate-500 dark:text-[var(--text-muted)]">
                   {language === 'en' ? 'Enter patient weight to compute dose' : 'Masukkan berat pasien untuk menghitung dosis'}
                 </p>

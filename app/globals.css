@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ===========================
    CSS CUSTOM PROPERTIES
    =========================== */
@@ -585,13 +587,105 @@ html.light [class*="bg-[#0f172a]"]:not([data-preserve-dark]):not([data-preserve-
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
 }
 
+/* ==========================================================================
+   SOLID ACCENT & BUTTON CONTRAST PROTECTION (LIGHT & DARK MODES)
+   High-saturation solid backgrounds MUST ALWAYS retain pure #ffffff text & icons.
+   ========================================================================== */
+html.light .btn-primary,
+html.light .btn-primary *,
+html.light .icon-box,
+html.light .icon-box *,
+html.light [class*="bg-blue-600"],
+html.light [class*="bg-blue-600"] *,
+html.light [class*="bg-blue-500"],
+html.light [class*="bg-blue-500"] *,
+html.light [class*="bg-rose-600"],
+html.light [class*="bg-rose-600"] *,
+html.light [class*="bg-rose-500"],
+html.light [class*="bg-rose-500"] *,
+html.light [class*="bg-red-600"],
+html.light [class*="bg-red-600"] *,
+html.light [class*="bg-emerald-600"],
+html.light [class*="bg-emerald-600"] *,
+html.light [class*="bg-emerald-500"],
+html.light [class*="bg-emerald-500"] *,
+html.light [class*="bg-cyan-600"],
+html.light [class*="bg-cyan-600"] *,
+html.light [class*="bg-purple-600"],
+html.light [class*="bg-purple-600"] *,
+html.light [class*="bg-purple-500"],
+html.light [class*="bg-purple-500"] *,
+html.light [class*="bg-violet-600"],
+html.light [class*="bg-violet-600"] *,
+html.light [class*="bg-amber-600"],
+html.light [class*="bg-amber-600"] *,
+html.light [class*="bg-indigo-600"],
+html.light [class*="bg-indigo-600"] *,
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .btn-primary *,
+[data-theme="light"] .icon-box,
+[data-theme="light"] .icon-box *,
+[data-theme="light"] [class*="bg-blue-600"],
+[data-theme="light"] [class*="bg-blue-600"] *,
+[data-theme="light"] [class*="bg-rose-600"],
+[data-theme="light"] [class*="bg-rose-600"] *,
+[data-theme="light"] [class*="bg-red-600"],
+[data-theme="light"] [class*="bg-red-600"] *,
+[data-theme="light"] [class*="bg-emerald-600"],
+[data-theme="light"] [class*="bg-emerald-600"] *,
+[data-theme="light"] [class*="bg-cyan-600"],
+[data-theme="light"] [class*="bg-cyan-600"] *,
+[data-theme="light"] [class*="bg-purple-600"],
+[data-theme="light"] [class*="bg-purple-600"] * {
+  color: #ffffff !important;
+}
+
+html.light .btn-primary svg,
+html.light .icon-box svg,
+html.light [class*="bg-blue-600"] svg,
+html.light [class*="bg-rose-600"] svg,
+html.light [class*="bg-red-600"] svg,
+html.light [class*="bg-emerald-600"] svg,
+html.light [class*="bg-cyan-600"] svg,
+html.light [class*="bg-purple-600"] svg,
+[data-theme="light"] .btn-primary svg,
+[data-theme="light"] .icon-box svg,
+[data-theme="light"] [class*="bg-blue-600"] svg,
+[data-theme="light"] [class*="bg-rose-600"] svg,
+[data-theme="light"] [class*="bg-red-600"] svg,
+[data-theme="light"] [class*="bg-emerald-600"] svg,
+[data-theme="light"] [class*="bg-cyan-600"] svg,
+[data-theme="light"] [class*="bg-purple-600"] svg {
+  color: #ffffff !important;
+  stroke: currentColor !important;
+}
+
+/* Un-themed dark containers remapped to high-contrast light surfaces */
+html.light [class*="bg-slate-900"]:not([data-preserve-dark]):not([data-preserve-dark] *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
+html.light [class*="bg-slate-950"]:not([data-preserve-dark]):not([data-preserve-dark] *),
+[data-theme="light"] [class*="bg-slate-900"]:not([data-preserve-dark]):not([data-preserve-dark] *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
+[data-theme="light"] [class*="bg-slate-950"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light [class*="bg-black/40"]:not([data-preserve-dark]):not([data-preserve-dark] *),
+html.light [class*="bg-black/30"]:not([data-preserve-dark]):not([data-preserve-dark] *),
+html.light [class*="bg-black/20"]:not([data-preserve-dark]):not([data-preserve-dark] *),
+[data-theme="light"] [class*="bg-black/40"]:not([data-preserve-dark]):not([data-preserve-dark] *),
+[data-theme="light"] [class*="bg-black/30"]:not([data-preserve-dark]):not([data-preserve-dark] *),
+[data-theme="light"] [class*="bg-black/20"]:not([data-preserve-dark]):not([data-preserve-dark] *) {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
 /* Text & Contrast (White, Slates, Grays) */
-html.light .text-white:not([data-preserve-dark]):not([data-preserve-dark] *),
-html.light .text-slate-100:not([data-preserve-dark]):not([data-preserve-dark] *),
-html.light .text-slate-200:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] .text-white:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] .text-slate-100:not([data-preserve-dark]):not([data-preserve-dark] *),
-[data-theme="light"] .text-slate-200:not([data-preserve-dark]):not([data-preserve-dark] *) {
+html.light .text-white:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.icon-box):not(.btn-primary):not(.btn-primary *):not([class*="bg-blue-600"]):not([class*="bg-blue-600"] *):not([class*="bg-blue-500"]):not([class*="bg-blue-500"] *):not([class*="bg-rose-600"]):not([class*="bg-rose-600"] *):not([class*="bg-rose-500"]):not([class*="bg-rose-500"] *):not([class*="bg-red-600"]):not([class*="bg-red-600"] *):not([class*="bg-emerald-600"]):not([class*="bg-emerald-600"] *):not([class*="bg-emerald-500"]):not([class*="bg-emerald-500"] *):not([class*="bg-cyan-600"]):not([class*="bg-cyan-600"] *):not([class*="bg-purple-600"]):not([class*="bg-purple-600"] *):not([class*="bg-violet-600"]):not([class*="bg-violet-600"] *):not([class*="bg-amber-600"]):not([class*="bg-amber-600"] *):not([class*="bg-indigo-600"]):not([class*="bg-indigo-600"] *),
+html.light .text-slate-100:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
+html.light .text-slate-200:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
+[data-theme="light"] .text-white:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.icon-box):not(.btn-primary):not(.btn-primary *):not([class*="bg-blue-600"]):not([class*="bg-blue-600"] *):not([class*="bg-blue-500"]):not([class*="bg-blue-500"] *):not([class*="bg-rose-600"]):not([class*="bg-rose-600"] *):not([class*="bg-rose-500"]):not([class*="bg-rose-500"] *):not([class*="bg-red-600"]):not([class*="bg-red-600"] *):not([class*="bg-emerald-600"]):not([class*="bg-emerald-600"] *):not([class*="bg-emerald-500"]):not([class*="bg-emerald-500"] *):not([class*="bg-cyan-600"]):not([class*="bg-cyan-600"] *):not([class*="bg-purple-600"]):not([class*="bg-purple-600"] *):not([class*="bg-violet-600"]):not([class*="bg-violet-600"] *):not([class*="bg-amber-600"]):not([class*="bg-amber-600"] *):not([class*="bg-indigo-600"]):not([class*="bg-indigo-600"] *),
+[data-theme="light"] .text-slate-100:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *),
+[data-theme="light"] .text-slate-200:not([data-preserve-dark]):not([data-preserve-dark] *):not(.icon-box *):not(.btn-primary *):not([class*="bg-blue-600"] *):not([class*="bg-rose-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-purple-600"] *) {
   color: #0f172a !important;
 }
 
@@ -840,11 +934,47 @@ html.light .tab-pill-inactive:hover,
   color: #0f172a !important;
 }
 
-/* ECG and POCUS medical monitor screens retain authentic dark display */
+/* ==========================================================================
+   MEDICAL MONITOR DISPLAY ISOLATION (LIGHT & DARK MODES)
+   Preserves authentic scotopic black background and vivid vector leads
+   ========================================================================== */
 html.light [data-preserve-dark],
-html.light [data-preserve-dark] *,
+html.light [data-preserve-dark="true"],
+html.light .medical-monitor-dark,
 [data-theme="light"] [data-preserve-dark],
-[data-theme="light"] [data-preserve-dark] * {
-  /* Retain authentic dark canvas styling */
+[data-theme="light"] [data-preserve-dark="true"],
+[data-theme="light"] .medical-monitor-dark {
+  background-color: #030712 !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.light [data-preserve-dark] .text-white,
+html.light [data-preserve-dark="true"] .text-white,
+[data-theme="light"] [data-preserve-dark] .text-white,
+[data-theme="light"] [data-preserve-dark="true"] .text-white {
+  color: #ffffff !important;
+}
+
+html.light [data-preserve-dark] .text-slate-100,
+html.light [data-preserve-dark="true"] .text-slate-100,
+html.light [data-preserve-dark] .text-slate-200,
+html.light [data-preserve-dark="true"] .text-slate-200,
+[data-theme="light"] [data-preserve-dark] .text-slate-100,
+[data-theme="light"] [data-preserve-dark="true"] .text-slate-100,
+[data-theme="light"] [data-preserve-dark] .text-slate-200,
+[data-theme="light"] [data-preserve-dark="true"] .text-slate-200 {
+  color: #f1f5f9 !important;
+}
+
+html.light [data-preserve-dark] .text-slate-300,
+html.light [data-preserve-dark="true"] .text-slate-300,
+html.light [data-preserve-dark] .text-slate-400,
+html.light [data-preserve-dark="true"] .text-slate-400,
+[data-theme="light"] [data-preserve-dark] .text-slate-300,
+[data-theme="light"] [data-preserve-dark="true"] .text-slate-300,
+[data-theme="light"] [data-preserve-dark] .text-slate-400,
+[data-theme="light"] [data-preserve-dark="true"] .text-slate-400 {
+  color: #94a3b8 !important;
 }
 

@@ -111,19 +111,19 @@ export default function AntimicrobialPage() {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-16">
       {/* ─── Top Header Card ─── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-[#0e1424] border border-white/10 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-[#0e1424] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-xl">
         <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
+          <div className="w-11 h-11 rounded-xl bg-blue-500/10 dark:bg-blue-600/20 border border-blue-200 dark:border-blue-500/30 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
             <ShieldAlert className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-[20px] font-[900] tracking-tight text-white flex items-center gap-2">
+            <h1 className="text-[20px] font-[900] tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
               <span>Antimicrobial Stewardship & Renal Clearance</span>
-              <span className="text-[10px] font-[800] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 uppercase tracking-wider">
+              <span className="text-[10px] font-[800] px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 uppercase tracking-wider">
                 Phase 3
               </span>
             </h1>
-            <p className="text-[12px] text-slate-400 mt-0.5">
+            <p className="text-[12px] text-slate-600 dark:text-slate-400 mt-0.5">
               Evidence-based syndromic regimens, dynamic Cockcroft-Gault renal cutoffs, and hospital-grade SBAR rounds export
             </p>
           </div>
@@ -143,29 +143,29 @@ export default function AntimicrobialPage() {
       </div>
 
       {/* ─── Live Patient Renal Clearance HUD ─── */}
-      <div className="p-5 rounded-2xl bg-[#0b101d] border border-white/10 relative overflow-hidden shadow-lg">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
+      <div className="p-5 rounded-2xl bg-white dark:bg-[#0b101d] border border-slate-200 dark:border-white/10 relative overflow-hidden shadow-sm dark:shadow-lg">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-white/[0.08]">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-cyan-500/15 dark:bg-cyan-500/20 border border-cyan-300 dark:border-cyan-500/30 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shrink-0">
               <Droplet className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-[11px] font-[800] uppercase tracking-wider text-cyan-400">
+              <div className="text-[11px] font-[800] uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
                 Active Patient Renal Clearance HUD
               </div>
-              <div className="text-[13px] font-[600] text-slate-300 flex items-center gap-2">
-                <span>Weight: <strong className="font-mono text-white">{weight} kg</strong></span>
+              <div className="text-[13px] font-[600] text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <span>Weight: <strong className="font-mono text-slate-900 dark:text-white">{weight} kg</strong></span>
                 <span>•</span>
-                <span>Age: <strong className="font-mono text-white">{renal.age}y</strong></span>
+                <span>Age: <strong className="font-mono text-slate-900 dark:text-white">{renal.age}y</strong></span>
                 <span>•</span>
-                <span>Sex: <strong className="font-mono text-white">{renal.sex}</strong></span>
+                <span>Sex: <strong className="font-mono text-slate-900 dark:text-white">{renal.sex}</strong></span>
               </div>
             </div>
           </div>
 
           {/* Creatinine Quick-Adjuster Form */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-[700] text-slate-400">Serum Cr (mg/dL):</span>
+            <span className="text-[11px] font-[700] text-slate-600 dark:text-slate-400">Serum Cr (mg/dL):</span>
             <input
               type="number"
               step="0.1"
@@ -173,7 +173,7 @@ export default function AntimicrobialPage() {
               max="20"
               value={patientLabs.serumCreatinine || '1.0'}
               onChange={(e) => handleSetCreatinine(e.target.value)}
-              className="w-20 px-2.5 py-1.5 min-h-[44px] rounded-lg bg-white/[0.05] border border-white/15 text-white font-mono font-[700] text-[14px] text-center tabular-nums focus:outline-none focus:border-cyan-500"
+              className="w-20 px-2.5 py-1.5 min-h-[44px] rounded-lg bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/15 text-slate-900 dark:text-white font-mono font-[700] text-[14px] text-center tabular-nums focus:outline-none focus:border-cyan-500"
               aria-label="Serum Creatinine in mg/dL"
             />
             <div className="flex items-center gap-1">
@@ -184,8 +184,8 @@ export default function AntimicrobialPage() {
                   onClick={() => handleSetCreatinine(preset)}
                   className={`min-h-[38px] px-2 py-1 rounded text-[11px] font-mono font-[700] transition-colors border ${
                     (patientLabs.serumCreatinine || '1.0') === preset
-                      ? 'bg-cyan-500/25 border-cyan-500/40 text-cyan-300'
-                      : 'bg-white/[0.03] border-white/10 text-slate-400 hover:text-white hover:bg-white/10'
+                      ? 'bg-cyan-100 dark:bg-cyan-500/25 border-cyan-300 dark:border-cyan-500/40 text-cyan-800 dark:text-cyan-300'
+                      : 'bg-slate-100 dark:bg-white/[0.03] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10'
                   }`}
                 >
                   {preset}
@@ -198,15 +198,15 @@ export default function AntimicrobialPage() {
         {/* Live Clearance Metrics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4">
           {/* Cockcroft-Gault */}
-          <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 flex flex-col justify-between">
-            <div className="text-[11px] font-[800] uppercase tracking-wide text-slate-400">
+          <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 flex flex-col justify-between">
+            <div className="text-[11px] font-[800] uppercase tracking-wide text-slate-600 dark:text-slate-400">
               Cockcroft-Gault CrCl
             </div>
             <div className="my-1.5 flex items-baseline gap-1.5">
-              <span className="text-[26px] font-[900] font-mono text-cyan-300 tabular-nums">
+              <span className="text-[26px] font-[900] font-mono text-cyan-700 dark:text-cyan-300 tabular-nums">
                 {crcl}
               </span>
-              <span className="text-[11px] font-[600] text-slate-400">mL/min</span>
+              <span className="text-[11px] font-[600] text-slate-500 dark:text-slate-400">mL/min</span>
             </div>
             <div className="text-[11px] text-slate-400">
               Primary guideline metric for antibiotic renal cutoffs

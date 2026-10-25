@@ -87,41 +87,41 @@ export default function SyringePumpTitrator() {
   return (
     <div className="space-y-6">
       {/* ─── Top Strip: Weight & Mode Toggle ─── */}
-      <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-wrap items-center justify-between gap-3">
+      <div className="p-4 rounded-2xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 shadow-xs dark:shadow-none flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 flex items-center justify-center shrink-0">
             <Syringe className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-[15px] font-[800] text-slate-100 flex items-center gap-2">
+            <h2 className="text-[15px] font-[800] text-slate-900 dark:text-slate-100 flex items-center gap-2">
               Syringe Pump Titrator (50 mL)
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-500/20 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-500/30 font-[700]">
                 ICU / OR Standards
               </span>
             </h2>
-            <p className="text-[11.5px] text-slate-400">
+            <p className="text-[11.5px] text-slate-600 dark:text-slate-400">
               Bidirectional rate conversion between target dose and syringe pump mL/hr
             </p>
           </div>
         </div>
 
         {/* Weight Dial */}
-        <div className="flex items-center gap-2 bg-slate-900/80 p-1.5 rounded-xl border border-white/10">
-          <span className="text-[11px] font-[700] uppercase text-slate-400 px-1">Weight:</span>
+        <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900/80 p-1.5 rounded-xl border border-slate-200 dark:border-white/10">
+          <span className="text-[11px] font-[700] uppercase text-slate-600 dark:text-slate-400 px-1">Weight:</span>
           <button
             type="button"
             onClick={() => setWeightKg((w) => Math.max(1, w - 5))}
-            className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs"
+            className="w-7 h-7 rounded-lg bg-white dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 font-bold text-xs border border-slate-200 dark:border-transparent transition-colors"
           >
             -5
           </button>
-          <span className="font-mono font-[800] text-sm text-cyan-400 px-1.5 tabular-nums">
+          <span className="font-mono font-[800] text-sm text-cyan-700 dark:text-cyan-400 px-1.5 tabular-nums">
             {weightKg} kg
           </span>
           <button
             type="button"
             onClick={() => setWeightKg((w) => w + 5)}
-            className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs"
+            className="w-7 h-7 rounded-lg bg-white dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 font-bold text-xs border border-slate-200 dark:border-transparent transition-colors"
           >
             +5
           </button>
@@ -130,7 +130,7 @@ export default function SyringePumpTitrator() {
 
       {/* ─── Category & Protocol Selector Chips ─── */}
       <div className="space-y-2">
-        <label className="block text-[11px] font-[700] uppercase tracking-wider text-slate-400">
+        <label className="block text-[11px] font-[700] uppercase tracking-wider text-slate-600 dark:text-slate-400">
           Select Vasoactive / Anesthetic Agent
         </label>
         <div className="flex flex-wrap gap-1.5">
@@ -143,12 +143,12 @@ export default function SyringePumpTitrator() {
                 onClick={() => handleProtocolChange(p.id)}
                 className={`px-3 py-1.5 rounded-xl text-[12px] font-[700] transition-all flex items-center gap-1.5 border ${
                   isSel
-                    ? 'bg-cyan-600/25 border-cyan-500/60 text-cyan-200 shadow-[0_0_12px_rgba(6,182,212,0.25)]'
-                    : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
+                    ? 'bg-cyan-50 dark:bg-cyan-600/25 border-cyan-500/80 dark:border-cyan-500/60 text-cyan-950 dark:text-cyan-200 shadow-xs dark:shadow-[0_0_12px_rgba(6,182,212,0.25)]'
+                    : 'bg-white dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                 }`}
               >
                 <span>{p.name}</span>
-                <span className="text-[9.5px] font-mono opacity-70 px-1 rounded bg-white/5">
+                <span className="text-[9.5px] font-mono opacity-80 px-1 rounded bg-slate-100 dark:bg-white/5">
                   {p.doseUnit}
                 </span>
               </button>
@@ -158,8 +158,8 @@ export default function SyringePumpTitrator() {
       </div>
 
       {/* ─── Syringe Concentration Selector ─── */}
-      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/10 space-y-2">
-        <label className="block text-[11px] font-[700] uppercase tracking-wider text-slate-400">
+      <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-xs dark:shadow-none space-y-2">
+        <label className="block text-[11px] font-[700] uppercase tracking-wider text-slate-600 dark:text-slate-400">
           Syringe Dilution / Concentration Preset
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
@@ -172,12 +172,12 @@ export default function SyringePumpTitrator() {
                 onClick={() => setSelectedSyringeIndex(idx)}
                 className={`p-2.5 rounded-xl border text-left transition-all ${
                   isSel
-                    ? 'bg-cyan-500/20 border-cyan-500/50 text-white'
-                    : 'bg-white/[0.02] border-white/[0.05] text-slate-400 hover:text-slate-200'
+                    ? 'bg-cyan-50 dark:bg-cyan-500/20 border-cyan-500 text-cyan-950 dark:text-white shadow-xs'
+                    : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.05] text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
-                <div className="text-[12px] font-[700] text-slate-200">{s.label}</div>
-                <div className="text-[11px] font-mono text-cyan-400 mt-0.5">
+                <div className="text-[12px] font-[700] text-slate-900 dark:text-slate-200">{s.label}</div>
+                <div className="text-[11px] font-mono text-cyan-700 dark:text-cyan-400 mt-0.5">
                   {s.concentrationMcgPerMl} {protocol.doseUnit.includes('unit') ? 'units/mL' : protocol.doseUnit.includes('mg') ? 'mg/mL' : 'mcg/mL'}
                 </div>
               </button>
@@ -186,8 +186,8 @@ export default function SyringePumpTitrator() {
         </div>
       </div>
 
-      {/* ─── Interactive HUD / Rate Calculator ─── */}
-      <div className="p-5 rounded-2xl bg-gradient-to-br from-[#0c162c] to-[#070c18] border border-cyan-500/30 shadow-2xl space-y-5">
+      {/* ─── Interactive HUD / Rate Calculator (Protected Dark Medical Monitor) ─── */}
+      <div data-preserve-dark="true" className="p-5 rounded-2xl bg-gradient-to-br from-[#0c162c] to-[#070c18] border border-cyan-500/30 shadow-2xl space-y-5">
         <div className="flex items-center justify-between pb-3 border-b border-white/10">
           <div>
             <span className="text-[11px] font-[700] uppercase text-cyan-400 tracking-wider">
@@ -294,10 +294,10 @@ export default function SyringePumpTitrator() {
       </div>
 
       {/* ─── Titration Ladder Table ─── */}
-      <div className="p-4 rounded-xl bg-slate-900/60 border border-white/10 space-y-3">
+      <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-xs dark:shadow-none space-y-3">
         <div className="flex items-center gap-2">
-          <TrendingUp className="w-4 h-4 text-cyan-400" />
-          <h3 className="text-[13px] font-[800] text-slate-200">
+          <TrendingUp className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+          <h3 className="text-[13px] font-[800] text-slate-900 dark:text-slate-200">
             Quick Titration Reference Ladder ({weightKg} kg)
           </h3>
         </div>
@@ -314,14 +314,14 @@ export default function SyringePumpTitrator() {
                 }}
                 className={`p-2.5 rounded-xl border text-center transition-all ${
                   isCurrent
-                    ? 'bg-cyan-500/25 border-cyan-500 text-white shadow-md'
-                    : 'bg-white/[0.02] border-white/[0.05] hover:bg-white/[0.05] text-slate-300'
+                    ? 'bg-cyan-600 text-white border-cyan-700 dark:bg-cyan-500/25 dark:border-cyan-500 dark:text-white shadow-md'
+                    : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.05] hover:bg-slate-100 dark:hover:bg-white/[0.05] text-slate-700 dark:text-slate-300'
                 }`}
               >
-                <div className="text-[11px] font-mono text-slate-400">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                   {step.dose} {protocol.doseUnit.split('/')[0]}
                 </div>
-                <div className="text-[15px] font-[800] font-mono text-cyan-300 tabular-nums">
+                <div className={`text-[15px] font-[800] font-mono tabular-nums ${isCurrent ? 'text-white' : 'text-cyan-700 dark:text-cyan-300'}`}>
                   {step.rateMlHr}
                 </div>
                 <div className="text-[9px] font-mono text-slate-500">mL/hr</div>
@@ -332,17 +332,17 @@ export default function SyringePumpTitrator() {
       </div>
 
       {/* ─── Clinical Pearls & Titration Goals ─── */}
-      <div className="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/20 space-y-2 text-[12px] text-cyan-200/90 leading-relaxed">
+      <div className="p-4 rounded-xl bg-cyan-50 dark:bg-cyan-950/20 border border-cyan-200 dark:border-cyan-500/20 space-y-2 text-[12px] text-cyan-950 dark:text-cyan-200/90 leading-relaxed shadow-xs dark:shadow-none">
         <div className="flex items-start gap-2">
-          <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+          <Info className="w-4 h-4 text-cyan-700 dark:text-cyan-400 shrink-0 mt-0.5" />
           <div>
-            <strong className="text-cyan-300">Titration Goal:</strong> {protocol.titrationGoals}
+            <strong className="text-cyan-900 dark:text-cyan-300 font-[800]">Titration Goal:</strong> {protocol.titrationGoals}
           </div>
         </div>
-        <div className="flex items-start gap-2 pt-1 border-t border-cyan-500/10">
-          <Clock className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2 pt-1 border-t border-cyan-200/60 dark:border-cyan-500/10">
+          <Clock className="w-4 h-4 text-cyan-700 dark:text-cyan-400 shrink-0 mt-0.5" />
           <div>
-            <strong className="text-cyan-300">Clinical Pearls:</strong> {protocol.clinicalPearls}
+            <strong className="text-cyan-900 dark:text-cyan-300 font-[800]">Clinical Pearls:</strong> {protocol.clinicalPearls}
           </div>
         </div>
       </div>

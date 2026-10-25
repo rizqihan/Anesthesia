@@ -391,7 +391,7 @@ export default function CalculatorsPage() {
       <div>
         <div className="flex items-center gap-3 mb-1">
           <Link href="/dashboard">
-            <button className="p-2 rounded-xl border border-white/[0.06] bg-[#0c121e]/80 hover:bg-white/5 transition-all text-gray-400 hover:text-white shrink-0">
+            <button className="p-2 rounded-xl border border-slate-200 dark:border-white/[0.06] bg-slate-100 dark:bg-[#0c121e]/80 hover:bg-slate-200 dark:hover:bg-white/5 transition-all text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white shrink-0">
               <ArrowLeft className="w-4 h-4" />
             </button>
           </Link>
@@ -408,7 +408,7 @@ export default function CalculatorsPage() {
       </div>
 
       {/* Category Pills: Bedside vs Clinical Risk Scores vs Diagnostic Labs vs Pediatric vs ASRA Coags */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 p-1 rounded-2xl bg-white/[0.03] border border-white/10 gap-1 shadow-inner">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 p-1 rounded-2xl bg-slate-100 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 gap-1 shadow-inner">
         {[
           { 
             id: 'bedside', 
@@ -450,7 +450,7 @@ export default function CalculatorsPage() {
               type="button"
               onClick={() => setCategory(cat.id as any)}
               className={`py-2 px-1.5 sm:px-2.5 rounded-xl text-[11px] sm:text-[12px] font-[700] transition-all relative flex items-center justify-center gap-1.5 min-w-0 ${
-                isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                isActive ? 'text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-white/5'
               }`}
             >
               {isActive && (

@@ -6,12 +6,25 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.6.1';
-export const BUILD_DATE = '2026-10-24';
+export const APP_VERSION = '2.7.0';
+export const BUILD_DATE = '2026-10-25';
 export const DB_SCHEMA_VERSION = 9;
-export const RELEASE_NAME = 'Clinical Dosage Safety Capping & Dual-Theme Light Mode Overhaul';
+export const RELEASE_NAME = 'Argon-Audited Dual-Theme Precision & Medical Monitor Isolation';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.7.0',
+    date: '2026-10-25',
+    title: 'Argon-Audited Dual-Theme Contrast Precision, Solid Button Protection & Medical Monitor Isolation',
+    highlight: true,
+    features: [
+      'Argon Architectural Overhaul: Comprehensive codebase-wide audit by Gemini-4-Argon eliminating all dark-on-dark, white-on-white, and Frankenstein container regressions across all 14 clinical views',
+      'Solid-Accent & Button Contrast Immunity: Guaranteed pure #ffffff text and vector stroke on all solid action buttons (bg-blue-600, bg-rose-600, bg-emerald-600, bg-cyan-600, bg-purple-600), badges, and gradient icon boxes in both Light and Dark modes',
+      'Medical Monitor Isolation (data-preserve-dark): Dedicated scotopic black viewport isolation (#030712) for ECG 12-lead rhythm strips, real-time telemetry simulators, POCUS ultrasound cine-loops, and ACLS defibrillator countdown timers',
+      'High-Luminance Dual-Theme Dashboard & Emergency Suite: Re-engineered Clinical Command Strip, Active Patient Quick HUD, Crisis Resuscitation Banner, Syringe Pump Titrator, and Antimicrobial Stewardship panels with native light/dark utility pairs',
+      'Tailwind v4 @custom-variant dark Binding: Deterministic class-driven theme activation synchronized with user preference across all devices and screen sizes',
+    ],
+  },
   {
     version: '2.6.1',
     date: '2026-10-24',

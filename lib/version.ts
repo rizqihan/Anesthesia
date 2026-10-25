@@ -6,10 +6,10 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.7.0';
+export const APP_VERSION = '2.7.1';
 export const BUILD_DATE = '2026-10-25';
 export const DB_SCHEMA_VERSION = 9;
-export const RELEASE_NAME = 'Argon-Audited Dual-Theme Precision & Medical Monitor Isolation';
+export const RELEASE_NAME = 'Clinical Command Center Gradient Precision & Mobile Theming';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
   {

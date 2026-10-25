@@ -1,6 +1,6 @@
 {
   "name": "anesthesia",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "description": "AI-Powered Clinical Assistant and offline reference suite for medical professionals.",
   "private": true,
   "engines": {

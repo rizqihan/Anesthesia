@@ -283,11 +283,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Right controls */}
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 shrink-0">
             {/* Cmd+K Search trigger */}
             <button
               onClick={() => setIsCmdPaletteOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 border border-slate-200 hover:border-slate-300 text-slate-600 hover:text-slate-900 dark:bg-white/[0.04] dark:border-white/10 dark:hover:border-white/20 dark:text-slate-400 dark:hover:text-slate-200 transition-all text-[12px]"
+              className="p-1.5 sm:px-2.5 sm:py-1.5 min-w-[34px] min-h-[34px] flex items-center justify-center gap-1.5 rounded-xl bg-slate-100 border border-slate-200 hover:border-slate-300 text-slate-600 hover:text-slate-900 dark:bg-white/[0.04] dark:border-white/10 dark:hover:border-white/20 dark:text-slate-400 dark:hover:text-slate-200 transition-all text-[12px] shrink-0"
               title="Search commands, calculators, drugs (Cmd+K)"
               aria-label="Search commands"
             >
@@ -295,13 +295,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <span className="hidden lg:inline text-[11px] font-mono">⌘K</span>
             </button>
 
-            {/* LoLyeah Topic Showcase */}
+            {/* LoLyeah Topic Showcase (Desktop only to prevent mobile overflow) */}
             <a
               href="https://lolyeah.github.io/topics/anesthesia.html"
               target="_blank"
               rel="noopener noreferrer"
               title="LoLyeah Topic Showcase"
-              className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/10 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+              className="hidden sm:flex p-1.5 min-w-[36px] min-h-[36px] items-center justify-center rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/10 dark:text-slate-400 dark:hover:text-slate-200 transition-colors shrink-0"
             >
               <Globe className="w-4 h-4" />
             </a>
@@ -313,7 +313,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  className="badge-offline text-[10px] hidden sm:flex items-center gap-1"
+                  className="badge-offline text-[10px] hidden sm:flex items-center gap-1 shrink-0"
                 >
                   <WifiOff className="w-3 h-3" />
                   <span>OFFLINE</span>
@@ -321,8 +321,21 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               )}
             </AnimatePresence>
 
-            {/* Theme switcher */}
-            <div className="flex rounded-lg p-[2px] bg-slate-100 border border-slate-200 dark:bg-white/[0.04] dark:border-white/10" title={language === 'en' ? 'Appearance / Theme' : 'Tema Tampilan'}>
+            {/* Mobile: 1-Tap Theme Toggle */}
+            <button
+              type="button"
+              onClick={() => store.setTheme(store.theme === 'dark' ? 'light' : store.theme === 'light' ? 'system' : 'dark')}
+              className="sm:hidden p-1.5 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-xl bg-slate-100 border border-slate-200 text-slate-700 dark:bg-white/[0.04] dark:border-white/10 dark:text-slate-300 transition-colors shrink-0"
+              title={language === 'en' ? `Theme: ${store.theme} (Tap to switch)` : `Tema: ${store.theme} (Ketuk untuk ganti)`}
+              aria-label="Toggle theme"
+            >
+              {store.theme === 'dark' && <Moon className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+              {store.theme === 'light' && <Sun className="w-4 h-4 text-amber-500" />}
+              {store.theme === 'system' && <Monitor className="w-4 h-4 text-slate-500 dark:text-slate-400" />}
+            </button>
+
+            {/* Desktop: 3-Way Segmented Theme Switcher */}
+            <div className="hidden sm:flex rounded-lg p-[2px] bg-slate-100 border border-slate-200 dark:bg-white/[0.04] dark:border-white/10 shrink-0" title={language === 'en' ? 'Appearance / Theme' : 'Tema Tampilan'}>
               <button
                 type="button"
                 onClick={() => store.setTheme('dark')}
@@ -364,8 +377,19 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               </button>
             </div>
 
-            {/* Language toggle */}
-            <div className="flex rounded-lg p-[2px] bg-slate-100 border border-slate-200 dark:bg-white/[0.04] dark:border-white/10">
+            {/* Mobile: 1-Tap Language Toggle */}
+            <button
+              type="button"
+              onClick={() => setLanguage(language === 'en' ? 'id' : 'en')}
+              className="sm:hidden px-2 py-1 min-h-[34px] flex items-center justify-center rounded-xl bg-slate-100 border border-slate-200 text-slate-700 dark:bg-white/[0.04] dark:border-white/10 dark:text-slate-300 font-[800] text-[11px] transition-colors shrink-0"
+              title={language === 'en' ? 'Switch language to Bahasa Indonesia' : 'Switch language to English'}
+              aria-label="Toggle language"
+            >
+              <span className="text-blue-600 dark:text-blue-400">{language.toUpperCase()}</span>
+            </button>
+
+            {/* Desktop: Segmented Language Toggle */}
+            <div className="hidden sm:flex rounded-lg p-[2px] bg-slate-100 border border-slate-200 dark:bg-white/[0.04] dark:border-white/10 shrink-0">
               {(['en', 'id'] as const).map((lang) => (
                 <button
                   key={lang}

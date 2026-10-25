@@ -132,7 +132,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 pb-12">
       {/* ─── Hero Clinical Command Strip ─── */}
-      <div className="p-5 md:p-6 rounded-2xl bg-gradient-to-r from-blue-50/90 via-indigo-50/70 to-slate-50 dark:from-[#0d1629] dark:to-[#0a1020] border border-slate-200/80 dark:border-white/10 shadow-sm dark:shadow-xl relative overflow-hidden">
+      <div className="p-5 md:p-6 rounded-2xl bg-gradient-to-r from-blue-50/90 via-indigo-50/70 to-slate-50 dark:from-[#0d1629] dark:via-[#0e172e] dark:to-[#0a1020] border border-slate-200/80 dark:border-white/10 shadow-sm dark:shadow-xl relative overflow-hidden">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
@@ -198,7 +198,7 @@ export default function DashboardPage() {
                 <h3 className="text-[14px] font-[800] text-rose-950 dark:text-rose-100">
                   {language === 'en' ? 'Emergency OR Crisis Card' : 'Kartu Krisis Anestesi / Resusitasi'}
                 </h3>
-                <span className="px-2 py-0.2 rounded text-[10px] font-[800] bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30">
+                <span className="px-2 py-0.5 rounded text-[10px] font-[800] bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30">
                   RAPID PUSH DOSES
                 </span>
               </div>

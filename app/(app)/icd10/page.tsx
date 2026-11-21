@@ -5,6 +5,7 @@ import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
 import { Book, Search, WifiOff, ArrowLeft, ChevronDown, ChevronRight, Folder, Database, Info } from 'lucide-react';
 import db from '@/lib/db';
+import { ICD10_DB } from '@/lib/icd10';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
@@ -51,25 +52,42 @@ export default function Icd10Page() {
     if (!icdSearch) return [];
     const q = icdSearch.toLowerCase();
     
-    // Sort curated/matching codes first
-    return db.icd10.filter(item => {
+    // Query Dexie IndexedDB
+    const dbResults = await db.icd10.filter(item => {
       const codeMatch = item.code.toLowerCase().includes(q);
       const nameMatch = item.name.toLowerCase().includes(q);
       const indoMatch = item.indonesian ? item.indonesian.toLowerCase().includes(q) : false;
       return codeMatch || nameMatch || indoMatch;
     }).limit(100).toArray();
+
+    if (dbResults && dbResults.length > 0) {
+      return dbResults;
+    }
+
+    // In-memory fallback to curated ICD10_DB
+    return (ICD10_DB as unknown as import('@/lib/db').ICD10Record[]).filter(item => {
+      const codeMatch = item.code.toLowerCase().includes(q);
+      const nameMatch = item.name.toLowerCase().includes(q);
+      const indoMatch = item.indonesian ? item.indonesian.toLowerCase().includes(q) : false;
+      return codeMatch || nameMatch || indoMatch;
+    });
   }, [icdSearch]);
 
   // Get code count in DB
   const totalCodesCount = useLiveQuery(async () => {
-    if (typeof window === 'undefined') return 0;
-    return db.icd10.count();
+    if (typeof window === 'undefined') return ICD10_DB.length;
+    const count = await db.icd10.count();
+    return count > 0 ? count : ICD10_DB.length;
   }, []);
 
   // Fetch codes in selected chapter
   const chapterCodes = useLiveQuery(async () => {
     if (typeof window === 'undefined' || !expandedChapter) return [];
-    return db.icd10.where('chapter').equals(expandedChapter).toArray();
+    const fromDb = await db.icd10.where('chapter').equals(expandedChapter).toArray();
+    if (fromDb && fromDb.length > 0) {
+      return fromDb;
+    }
+    return (ICD10_DB as any[]).filter(item => item.chapter === expandedChapter);
   }, [expandedChapter]);
 
   // Group chapter codes by block

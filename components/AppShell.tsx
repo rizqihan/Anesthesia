@@ -28,13 +28,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isInitialSyncing, setIsInitialSyncing] = useState(false);
+  const [isAutoSeeding, setIsAutoSeeding] = useState(true);
   const [hasIgnoredSync, setHasIgnoredSync] = useState(false);
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
   const [isCmdPaletteOpen, setIsCmdPaletteOpen] = useState(false);
   const [isSoapModalOpen, setIsSoapModalOpen] = useState(false);
   const [isReleaseModalOpen, setIsReleaseModalOpen] = useState(false);
 
-  const isNotSynced = !store.lastSyncDate && 
+  const isNotSynced = !isAutoSeeding &&
+    !store.lastSyncDate && 
     !store.syncMeta?.icd10?.lastSynced && 
     !store.syncMeta?.drugs?.lastSynced && 
     !store.syncMeta?.guidelines?.lastSynced &&
@@ -122,23 +124,87 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Ensure expanded drug formulary is seeded to local IndexedDB
+  // Ensure all clinical offline datasets are seeded into local IndexedDB
   useEffect(() => {
-    async function ensureDrugsSeeded() {
+    let isCancelled = false;
+    async function ensureAllOfflineDataSeeded() {
       try {
         const db = (await import('@/lib/db')).default;
         const { DRUG_DB } = await import('@/lib/drugs');
-        const count = await db.drugs.count();
-        if (count < DRUG_DB.length) {
+        const { ICD10_DB, loadFullICD10 } = await import('@/lib/icd10');
+        const { GUIDELINES_DB } = await import('@/lib/guidelines');
+        const { PHYSICAL_EXAMS_DB } = await import('@/lib/physicalExamsData');
+        const { ECG_DIAGNOSES_DB } = await import('@/lib/ecgData');
+
+        const now = new Date().toISOString();
+
+        // 1. Drugs
+        const drugCount = await db.drugs.count();
+        if (drugCount < DRUG_DB.length) {
           await db.drugs.bulkPut(DRUG_DB as any);
-          const now = new Date().toISOString();
           store.updateSyncMeta('drugs', { lastSynced: now, count: DRUG_DB.length });
         }
+
+        // 2. Guidelines
+        const guidelineCount = await db.guidelines.count();
+        if (guidelineCount < GUIDELINES_DB.length) {
+          await db.guidelines.bulkPut(GUIDELINES_DB as any);
+          store.updateSyncMeta('guidelines', { lastSynced: now, count: GUIDELINES_DB.length });
+        }
+
+        // 3. Physical Exams
+        const peCount = await db.physicalExams.count();
+        if (peCount < PHYSICAL_EXAMS_DB.length) {
+          await db.physicalExams.bulkPut(PHYSICAL_EXAMS_DB as any);
+          store.updateSyncMeta('physicalExams', { lastSynced: now, count: PHYSICAL_EXAMS_DB.length });
+        }
+
+        // 4. ECG Diagnoses
+        const ecgCount = await db.ecgDiagnoses.count();
+        if (ecgCount < ECG_DIAGNOSES_DB.length) {
+          await db.ecgDiagnoses.bulkPut(ECG_DIAGNOSES_DB as any);
+          store.updateSyncMeta('ecgDiagnoses', { lastSynced: now, count: ECG_DIAGNOSES_DB.length });
+        }
+
+        // 5. ICD-10 Curated Database
+        const icdCount = await db.icd10.count();
+        if (icdCount === 0) {
+          await db.icd10.bulkPut(ICD10_DB as any);
+          store.updateSyncMeta('icd10', { lastSynced: now, count: ICD10_DB.length, fullLoaded: false });
+        }
+
+        if (!store.lastSyncDate) {
+          store.setLastSyncDate(now);
+        }
+
+        // 6. Attempt full ICD-10 loading in background (cached by SW or fetched from /data/icd10-full.json)
+        if (!store.syncMeta?.icd10?.fullLoaded || icdCount < 500) {
+          try {
+            const count = await loadFullICD10();
+            if (!isCancelled) {
+              store.updateSyncMeta('icd10', {
+                lastSynced: new Date().toISOString(),
+                count,
+                fullLoaded: true,
+              });
+            }
+          } catch {
+            // Gracefully ignore fetch failure when offline; curated ICD10_DB is already seeded
+          }
+        }
       } catch (err) {
-        console.error('Error ensuring expanded drugs seeded:', err);
+        console.error('Error auto-seeding offline datasets:', err);
+      } finally {
+        if (!isCancelled) {
+          setIsAutoSeeding(false);
+        }
       }
     }
-    ensureDrugsSeeded();
+
+    ensureAllOfflineDataSeeded();
+    return () => {
+      isCancelled = true;
+    };
   }, [store]);
 
   // Synchronize theme with <html> class, data-theme attribute, and color-scheme
@@ -313,7 +379,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  className="badge-offline text-[10px] hidden sm:flex items-center gap-1 shrink-0"
+                  className="badge-offline text-[10px] flex items-center gap-1 shrink-0"
                 >
                   <WifiOff className="w-3 h-3" />
                   <span>OFFLINE</span>

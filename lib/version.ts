@@ -6,12 +6,25 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.7.3';
-export const BUILD_DATE = '2026-10-25';
+export const APP_VERSION = '2.7.4';
+export const BUILD_DATE = '2026-11-21';
 export const DB_SCHEMA_VERSION = 9;
-export const RELEASE_NAME = 'Mobile Top Navbar Ergonomics & Responsive Overflow Fix';
+export const RELEASE_NAME = 'Zero-Latency Offline PWA Engine & Auto-Seeding Database';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.7.4',
+    date: '2026-11-21',
+    title: 'Zero-Latency Offline PWA Engine, Auto-Seeding Database & Intelligent Fallbacks',
+    highlight: true,
+    features: [
+      'Offline Service Worker Architecture: Full PWA Service Worker caching all 16 clinical routes, Next.js static assets, and local JSON registries with Network-First and Cache-First strategies',
+      'Automatic Offline Seeding: Seamless startup auto-seeding across all clinical datasets (drugs, guidelines, physical exams, ECG diagnoses, ICD-10) without obstructive sync modals',
+      'Zero-Latency In-Memory Fallbacks: Guaranteed immediate access to Clinical Practice Guidelines and ICD-10 registry even on first load or fresh device setup',
+      'Offline Symptom Differential Engine: Intelligent local keyword matching against guidelines and ICD-10 codes when offline, replacing network errors with actionable clinical evidence',
+      'Mobile Offline Visual Indicator: Persistent OFFLINE status indicator on phone viewports keeping clinicians informed of connectivity state',
+    ],
+  },
   {
     version: '2.7.0',
     date: '2026-10-25',

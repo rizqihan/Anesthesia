@@ -26,17 +26,73 @@ export default function SymptomCheckerPage() {
   const handleAnalyze = async () => {
     if (!symptom.trim()) return;
     setLoading(true); setResult(''); setError('');
+
+    const runOfflineLookup = async () => {
+      const keywords = symptom.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+      const { GUIDELINES_DB } = await import('@/lib/guidelines');
+      const { ICD10_DB } = await import('@/lib/icd10');
+
+      const matchedGuidelines = GUIDELINES_DB.filter(g => {
+        const text = `${g.title.en} ${g.title.id} ${g.definition?.en || ''} ${g.definition?.id || ''} ${g.symptoms?.en || ''} ${g.symptoms?.id || ''}`.toLowerCase();
+        return keywords.some(k => text.includes(k));
+      });
+
+      const matchedCodes = ICD10_DB.filter(c => {
+        const text = `${c.code} ${c.name} ${c.indonesian || ''}`.toLowerCase();
+        return keywords.some(k => text.includes(k));
+      }).slice(0, 6);
+
+      if (matchedGuidelines.length > 0 || matchedCodes.length > 0) {
+        let md = `> ⚠️ **${language === 'en' ? 'Offline Mode Active' : 'Mode Offline Aktif'}**: ${language === 'en' ? 'AI neural analysis is unavailable without internet. Displaying matching evidence from the offline Clinical Practice Guidelines (CPGs) and ICD-10 registry.' : 'Analisis AI memerlukan koneksi internet. Menampilkan kecocokan dari Pedoman Praktik Klinis (PPK) dan registri ICD-10 offline.'}\n\n`;
+
+        if (matchedGuidelines.length > 0) {
+          md += `### 📋 ${language === 'en' ? 'Matching Clinical Guidelines' : 'Pedoman Praktik Klinis yang Cocok'}\n`;
+          for (const g of matchedGuidelines) {
+            const title = language === 'en' ? g.title.en : g.title.id;
+            const symptomsText = language === 'en' ? (g.symptoms?.en || '') : (g.symptoms?.id || '');
+            const defText = language === 'en' ? (g.definition?.en || '') : (g.definition?.id || '');
+            md += `* **[${title}](/guidelines)** (${g.category})\n  * **${language === 'en' ? 'Overview' : 'Definisi'}**: ${defText.slice(0, 160)}...\n  * **${language === 'en' ? 'Typical Findings' : 'Temuan Klinis'}**: ${symptomsText.slice(0, 160)}...\n\n`;
+          }
+        }
+
+        if (matchedCodes.length > 0) {
+          md += `### 🏷️ ${language === 'en' ? 'Matching ICD-10 Diagnostic Codes' : 'Kode Diagnostik ICD-10 Terkait'}\n`;
+          for (const c of matchedCodes) {
+            const name = language === 'en' ? c.name : (c.indonesian || c.name);
+            md += `* \`${c.code}\` — **${name}**\n`;
+          }
+          md += `\n*${language === 'en' ? 'View details in the' : 'Lihat detail di'} [ICD-10 Registry](/icd10).*`;
+        }
+
+        setResult(md);
+        addSymptomHistory({ query: symptom, result: md });
+        return true;
+      }
+      return false;
+    };
+
     if (isOffline) {
-      setError(language === 'en' ? 'OFFLINE MODE: Requires internet for AI analysis.' : 'MODE OFFLINE: Memerlukan internet.');
-      setLoading(false); return;
+      const found = await runOfflineLookup();
+      if (!found) {
+        setError(language === 'en' 
+          ? 'OFFLINE MODE: No matching local guidelines found for this query. Connect to internet for open-ended AI synthesis or check Guidelines (/guidelines) and ICD-10 (/icd10).' 
+          : 'MODE OFFLINE: Tidak ada pedoman lokal yang cocok dengan kata kunci ini. Hubungkan ke internet untuk analisis AI atau telusuri Panduan (/guidelines) dan ICD-10 (/icd10).');
+      }
+      setLoading(false);
+      return;
     }
+
     try {
       const prompt = `You are a medical assistant used by doctors. Analyze: "${symptom}". Respond in ${language === 'en' ? 'English' : 'Indonesian'}. Provide differential diagnosis, red flags, and next steps. Start with a disclaimer.`;
       const aiResponse = await generateAIResponse(prompt);
       setResult(aiResponse);
       addSymptomHistory({ query: symptom, result: aiResponse });
     } catch (err: any) {
-      setError(err.message || (language === 'en' ? 'Failed to analyze.' : 'Gagal menganalisis.'));
+      // If network fails during AI call, attempt offline fallback
+      const found = await runOfflineLookup();
+      if (!found) {
+        setError(err.message || (language === 'en' ? 'Failed to analyze.' : 'Gagal menganalisis.'));
+      }
     } finally { setLoading(false); }
   };
 

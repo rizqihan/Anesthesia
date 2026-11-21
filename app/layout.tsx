@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -67,6 +68,7 @@ export default function RootLayout({
         className="antialiased min-h-screen text-[var(--text-primary)] bg-[var(--bg-base)]"
         suppressHydrationWarning
       >
+        <ServiceWorkerRegister />
         {children}
       </body>
     </html>

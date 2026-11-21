@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import db, { type GuidelineRecord } from '@/lib/db';
+import { GUIDELINES_DB } from '@/lib/guidelines';
 import { useAppStore } from '@/store/appStore';
 import { translations } from '@/lib/i18n';
 import { generateSingleCPG } from '@/lib/syncAgent';
@@ -114,6 +115,9 @@ export default function GuidelinesPage() {
     let list: GuidelineRecord[] = [];
     if (!search.trim()) {
       list = await db.guidelines.toArray();
+      if (list.length === 0) {
+        list = GUIDELINES_DB as GuidelineRecord[];
+      }
     } else {
       const lowerSearch = search.toLowerCase();
       list = await db.guidelines.filter(g =>
@@ -121,6 +125,13 @@ export default function GuidelinesPage() {
         g.title.id.toLowerCase().includes(lowerSearch) ||
         g.category.toLowerCase().includes(lowerSearch)
       ).toArray();
+      if (list.length === 0) {
+        list = (GUIDELINES_DB as GuidelineRecord[]).filter(g =>
+          g.title.en.toLowerCase().includes(lowerSearch) ||
+          g.title.id.toLowerCase().includes(lowerSearch) ||
+          g.category.toLowerCase().includes(lowerSearch)
+        );
+      }
     }
     
     // Sort alphabetically based on the current language selection

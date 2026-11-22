@@ -8,7 +8,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16.4.6-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.1-blue?style=flat&logo=react)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.3.5-38bdf8?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
-[![Motion](https://img.shields.io/badge/Motion-12.38.0-f43f5e?style=flat)](https://motion.dev/)
+[![Motion](https://img.shields.io/badge/Motion-14.14.0-f43f5e?style=flat)](https://motion.dev/)
 [![Version](https://img.shields.io/badge/Version-v2.8.5-indigo?style=flat)](https://github.com/rizqihan/Anesthesia)
 [![Voice AI](https://img.shields.io/badge/Voice--AI-Web_Speech-purple?style=flat)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 [![Offline PWA](https://img.shields.io/badge/PWA-Offline--First-emerald?style=flat)](https://dexie.org/)
@@ -125,9 +125,9 @@ Modern hospital medicine demands rapid, error-free clinical calculations and imm
 | Layer | Technologies | Description |
 |---|---|---|
 | **Core Framework** | Next.js 16.4.6 (App Router & Turbopack) | Server and client hybrid architecture with zero-latency route prefetching |
-| **Runtime & Language** | Node.js 20+, TypeScript 5.9.3, React 19.2.1 | Strict type safety, React 19 compiler optimizations & concurrent hydration |
-| **Styling & Design System** | Tailwind CSS 4.3.5, PostCSS 8.5.33, Lucide React 0.553.0 | Surgical slate palette, responsive mobile clinical HUD, dual-theme engine |
-| **Motion Engine** | Motion 12.38.0 | Hardware-accelerated modal transitions, audio waveforms, and layout FLIP |
+| **Runtime & Language** | Node.js 22+, TypeScript 7.0.2, React 19.2.1 | Strict type safety, React 19 compiler optimizations & concurrent hydration |
+| **Styling & Design System** | Tailwind CSS 4.3.5, PostCSS 8.5.33, Lucide React 1.77.0 | Surgical slate palette, responsive mobile clinical HUD, dual-theme engine |
+| **Motion Engine** | Motion 14.14.0 | Hardware-accelerated modal transitions, audio waveforms, and layout FLIP |
 | **Voice & Speech Engine** | Web Speech API (`SpeechRecognition` & `SpeechSynthesis`) | Hands-free bedside voice queries, sterile scrub mode, and audio readback |
 | **State Management** | Zustand 5.1.0 | Reactive Active Case sync, persistent local settings, and patient labs |
 | **Offline Storage** | Dexie 4.4.7 (IndexedDB schema v9), idb-keyval 6.2.2, localforage | 100% offline client storage, zero-latency caching, auto-seeding datasets |
@@ -135,7 +135,7 @@ Modern hospital medicine demands rapid, error-free clinical calculations and imm
 | **Clinical Pharmacology** | Curated 163-Drug Hospital Database | Upper-bound safety caps, dilution recipes, and pediatric/adult dosing |
 | **Medical Safety & Regs** | LASA Acoustic Rules, ASRA Coags, WHO Growth Standards | High-alert sound-alike warnings, neuraxial washouts, z-score percentiles |
 | **Clinical Documentation** | Custom SBAR & SOAP Generator, pdfmake | EHR-ready progress notes (CPPT/SOAP) and 1-tap rounds SBAR PDF export |
-| **Clinical AI Integration** | Google GenAI SDK (`@google/genai` 1.17.0), Groq API, OpenAI-compatible | Offline differential fallbacks + optional dynamic LLM diagnostic reasoning |
+| **Clinical AI Integration** | Google GenAI SDK (`@google/genai` 3.6.1), Groq API, OpenAI-compatible | Offline differential fallbacks + optional dynamic LLM diagnostic reasoning |
 
 ---
 

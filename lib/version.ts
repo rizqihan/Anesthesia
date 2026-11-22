@@ -6,17 +6,31 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.8.0';
+export const APP_VERSION = '2.8.5';
 export const BUILD_DATE = '2026-11-22';
 export const DB_SCHEMA_VERSION = 9;
-export const RELEASE_NAME = 'Bedside Hands-Free Voice-Activated Lookups & Sterile Field Assistant';
+export const RELEASE_NAME = 'High-Fidelity Procedural B-Mode Ultrasound Suite & Clinical Scan Integration';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.8.5',
+    date: '2026-11-22',
+    title: 'High-Fidelity Procedural B-Mode Ultrasound Simulator & Clinical Scan Integration',
+    highlight: true,
+    features: [
+      'High-Fidelity Procedural B-Mode Engine: Physics-based ultrasound simulator rendering genuine transducer footprints (Curvilinear, Phased Array, Linear), Rayleigh acoustic speckle, depth attenuation, and time-gain compensation (TGC)',
+      'Dynamic Hemodynamic & Respiratory Cine Loops: Real-time cardiac valve flickering (mitral AMVL/PMVL, aortic), myocardial wall thickening, respiratory pleural sliding & comet-tail sweeps, inspiratory IVC collapse, and probe compression',
+      'Clinical Ultrasound Scans Integration: Curated real clinical patient scans across 9 critical windows (PLAX normal, A4C normal & cor pulmonale/TAPSE, IVC normal & plethoric Doppler, eFAST LUQ splenorenal, eFAST suprapubic bladder, transverse IJV/carotid, and popliteal DVT)',
+      'Dual Viewing Mode ("Real Photo" vs "Cine Sim"): Seamless 1-tap toggling between static authenticated clinical scans and dynamic procedural cineloop motion',
+      'Local Clinical Scan Uploader: Offline drag-and-drop / file import stored in IndexedDB (idb-keyval), enabling clinicians to populate cases with their own hospital scanner images with instant reversion',
+      'Full-Featured Machine HUD & Lightbox: Live Gain (dB), Near/Far TGC, Color Flow Doppler (CFM), interactive digital calipers (mm readouts), colormaps (Grayscale, Amber, Ice), and zoom/invert lightbox modal',
+    ],
+  },
   {
     version: '2.8.0',
     date: '2026-11-22',
     title: 'Bedside Hands-Free Voice-Activated Lookups & Sterile Field Assistant (Pillar 5 Complete)',
-    highlight: true,
+    highlight: false,
     features: [
       'Hands-Free Voice Recognition: Zero-latency offline speech recognition powered by Web Speech API for scrubbed sterile fields and resuscitation crises',
       'Clinical Intent Parsing Engine: Intelligent bilingual (EN & ID) regex/token parsing covering emergency push doses, 163-drug pharmacopeia, medical calculators, and navigation',

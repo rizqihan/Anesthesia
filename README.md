@@ -9,7 +9,7 @@
 [![React](https://img.shields.io/badge/React-19.2.1-blue?style=flat&logo=react)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.3.5-38bdf8?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
 [![Motion](https://img.shields.io/badge/Motion-12.38.0-f43f5e?style=flat)](https://motion.dev/)
-[![Version](https://img.shields.io/badge/Version-v2.8.0-indigo?style=flat)](https://github.com/rizqihan/Anesthesia)
+[![Version](https://img.shields.io/badge/Version-v2.8.5-indigo?style=flat)](https://github.com/rizqihan/Anesthesia)
 [![Voice AI](https://img.shields.io/badge/Voice--AI-Web_Speech-purple?style=flat)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 [![Offline PWA](https://img.shields.io/badge/PWA-Offline--First-emerald?style=flat)](https://dexie.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)

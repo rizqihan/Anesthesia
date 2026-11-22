@@ -23,9 +23,16 @@ import {
   Sliders,
   Sparkles,
   Stethoscope,
-  Activity
+  Activity,
+  ZoomIn,
+  ZoomOut,
+  RotateCcw,
+  Sun,
+  Ruler,
+  Upload
 } from 'lucide-react';
 import db from '@/lib/db';
+import POCUSProceduralUltrasound from './POCUSProceduralUltrasound';
 
 interface POCUSAtlasProps {
   onSelectCase?: (caseId: string) => void;
@@ -41,15 +48,20 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
   const [isSaved, setIsSaved] = useState(false);
   const [compressionSlider, setCompressionSlider] = useState(0); // 0 = no compression, 100 = full probe pressure
   const [displayMode, setDisplayMode] = useState<'real' | 'schematic'>('real');
+  const [normalSubView, setNormalSubView] = useState<'procedural' | 'photo'>('photo');
+  const [pathologySubView, setPathologySubView] = useState<'procedural' | 'photo'>('photo');
+  const [lightboxZoom, setLightboxZoom] = useState<number>(1);
+  const [lightboxInvert, setLightboxInvert] = useState<boolean>(false);
   const [fullscreenPhoto, setFullscreenPhoto] = useState<{
-    url: string;
+    url?: string;
     title: string;
     subtitle: string;
     caption: string;
     signName?: string;
     modality: string;
     isPathology: boolean;
-  } | null>(null); // 0 = no compression, 100 = full probe pressure
+    isProcedural?: boolean;
+  } | null>(null);
 
   const [prevSelectedCaseId, setPrevSelectedCaseId] = useState(selectedCaseId);
 
@@ -64,6 +76,8 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
 
   const currentCase = POCUS_CASES[currentCaseId] || POCUS_CASES['efast-ruq'];
   const protocolMeta = POCUS_PROTOCOLS.find((p) => p.id === activeProtocol) || POCUS_PROTOCOLS[0];
+  const isNormalJpg = !!currentCase.normalPhoto?.url?.endsWith('.jpg');
+  const isPathologyJpg = !!currentCase.pathologyPhoto?.url?.endsWith('.jpg');
 
   const handleProtocolChange = (protoId: POCUSProtocolId) => {
     setActiveProtocol(protoId);
@@ -319,43 +333,45 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
                     Normal Finding (Physiological)
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-slate-400">FPS: 30 • GAIN: 68dB</span>
+                <div className="flex items-center gap-2">
+                  {displayMode === 'real' && (
+                    isNormalJpg ? (
+                      <div className="flex items-center gap-1 bg-black/50 p-0.5 rounded-lg border border-white/10 text-[10px]">
+                        <button
+                          onClick={() => setNormalSubView('procedural')}
+                          className={`px-2 py-0.5 rounded transition-all ${
+                            normalSubView === 'procedural'
+                              ? 'bg-emerald-600 text-white font-[800] shadow'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Cine Sim
+                        </button>
+                        <button
+                          onClick={() => setNormalSubView('photo')}
+                          className={`px-2 py-0.5 rounded transition-all ${
+                            normalSubView === 'photo'
+                              ? 'bg-emerald-600 text-white font-[800] shadow'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Real Photo
+                        </button>
+                      </div>
+                    ) : (
+                      <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/50 px-2 py-0.5 rounded border border-cyan-500/30 flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-cyan-400" />
+                        <span>B-Mode Cine</span>
+                      </span>
+                    )
+                  )}
+                  <span className="text-[10px] font-mono text-slate-400">FPS: 36 • 60dB</span>
+                </div>
               </div>
 
               {/* Ultrasound Screen Simulator / Real USG Capture */}
               <div className="relative aspect-[4/3] bg-black flex items-center justify-center p-2 select-none overflow-hidden">
-                {displayMode === 'real' && currentCase.normalPhoto ? (
-                  <div
-                    onClick={() => setFullscreenPhoto({
-                      url: currentCase.normalPhoto!.url,
-                      title: currentCase.title,
-                      subtitle: currentCase.subtitle,
-                      caption: currentCase.normalPhoto!.caption,
-                      signName: currentCase.normalPhoto!.signName,
-                      modality: currentCase.normalPhoto!.modality,
-                      isPathology: false
-                    })}
-                    className="w-full h-full relative group cursor-pointer flex items-center justify-center"
-                    title="Click to view full-resolution ultrasound capture"
-                  >
-                    <img
-                      src={currentCase.normalPhoto.url}
-                      alt={currentCase.normalPhoto.caption}
-                      className="w-full h-full object-contain rounded-lg shadow-inner"
-                    />
-                    <div className="absolute top-3 right-3 bg-black/75 hover:bg-black/90 text-cyan-300 px-2.5 py-1 rounded-lg text-[11px] font-[700] border border-cyan-500/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow-lg backdrop-blur">
-                      <Maximize2 className="w-3.5 h-3.5" />
-                      <span>Full Resolution</span>
-                    </div>
-                    <div className="absolute bottom-3 left-3 bg-black/80 text-white px-2.5 py-1 rounded-lg text-[10px] font-mono border border-white/20 backdrop-blur flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                      <span className="font-[800] text-emerald-300">{currentCase.normalPhoto.modality}</span>
-                      {currentCase.normalPhoto.signName && (
-                        <span className="text-slate-300 border-l border-white/20 pl-2">{currentCase.normalPhoto.signName}</span>
-                      )}
-                    </div>
-                  </div>
-                ) : (
+                {displayMode === 'schematic' ? (
                   <UltrasoundScreenGraphic 
                     caseData={currentCase} 
                     isPathology={false} 
@@ -364,18 +380,94 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
                     activeLandmark={activeLandmark}
                     onSelectLandmark={setActiveLandmark}
                   />
+                ) : (
+                  // Real USG Mode: Show Real Photo if user requested, otherwise high-fidelity procedural simulation
+                  normalSubView === 'photo' && isNormalJpg && currentCase.normalPhoto ? (
+                    <div
+                      onClick={() => {
+                        setLightboxZoom(1);
+                        setLightboxInvert(false);
+                        setFullscreenPhoto({
+                          url: currentCase.normalPhoto!.url,
+                          title: currentCase.title,
+                          subtitle: currentCase.subtitle,
+                          caption: currentCase.normalPhoto!.caption,
+                          signName: currentCase.normalPhoto!.signName,
+                          modality: currentCase.normalPhoto!.modality,
+                          isPathology: false,
+                          isProcedural: false
+                        });
+                      }}
+                      className="w-full h-full relative group cursor-pointer flex items-center justify-center"
+                      title="Click to view full-resolution ultrasound capture"
+                    >
+                      <img
+                        src={currentCase.normalPhoto.url}
+                        alt={currentCase.normalPhoto.caption}
+                        className="w-full h-full object-contain rounded-lg shadow-inner"
+                      />
+                      <div className="absolute top-3 right-3 bg-black/75 hover:bg-black/90 text-cyan-300 px-2.5 py-1 rounded-lg text-[11px] font-[700] border border-cyan-500/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow-lg backdrop-blur">
+                        <Maximize2 className="w-3.5 h-3.5" />
+                        <span>Full Resolution</span>
+                      </div>
+                      <div className="absolute bottom-3 left-3 bg-black/80 text-white px-2.5 py-1 rounded-lg text-[10px] font-mono border border-white/20 backdrop-blur flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                        <span className="font-[800] text-emerald-300">{currentCase.normalPhoto.modality}</span>
+                        <span className="text-slate-300 border-l border-white/20 pl-2">Clinical Archive</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <POCUSProceduralUltrasound
+                      caseData={currentCase}
+                      isPathology={false}
+                      compressionPct={compressionSlider}
+                      showLandmarks={showLandmarks}
+                      activeLandmark={activeLandmark}
+                      onSelectLandmark={setActiveLandmark}
+                      onOpenFullscreen={() => {
+                        setLightboxZoom(1);
+                        setLightboxInvert(false);
+                        setFullscreenPhoto({
+                          url: currentCase.normalPhoto?.url,
+                          title: currentCase.title,
+                          subtitle: currentCase.subtitle,
+                          caption: currentCase.normalPhoto?.caption || currentCase.normalDescription,
+                          signName: currentCase.normalPhoto?.signName,
+                          modality: currentCase.normalPhoto?.modality || 'B-Mode',
+                          isPathology: false,
+                          isProcedural: !isNormalJpg || normalSubView === 'procedural'
+                        });
+                      }}
+                    />
+                  )
                 )}
               </div>
 
               <div className="p-4 bg-[#070c17] border-t border-white/5 space-y-2">
-                {displayMode === 'real' && currentCase.normalPhoto && (
-                  <div className="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-[11px] text-emerald-200 flex items-start gap-2">
-                    <Camera className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                    <div className="leading-relaxed">
-                      <span className="font-[800] text-emerald-300">Real USG Capture: </span>
-                      <span>{currentCase.normalPhoto.caption}</span>
+                {displayMode === 'real' && (
+                  isNormalJpg && normalSubView === 'photo' && currentCase.normalPhoto ? (
+                    <div className="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-[11px] text-emerald-200 flex items-start gap-2">
+                      <Camera className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                      <div className="leading-relaxed">
+                        <span className="font-[800] text-emerald-300">Verified Clinical Scan: </span>
+                        <span>{currentCase.normalPhoto.caption}</span>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="p-2.5 rounded-xl bg-cyan-950/25 border border-cyan-500/30 text-[11px] text-cyan-200 flex items-start gap-2">
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                      <div className="leading-relaxed">
+                        <span className="font-[800] text-cyan-300">
+                          {isNormalJpg ? 'High-Fidelity Procedural Simulation: ' : 'Procedural B-Mode Simulator: '}
+                        </span>
+                        <span>
+                          {isNormalJpg
+                            ? 'Simulating real-time acoustic physics & dynamic hemodynamics. You can switch to the clinical photo anytime.'
+                            : 'Clinical archival photo pending integration. Displaying high-fidelity procedural ultrasound simulation with live Rayleigh speckle, beam physics & probe compression. You can also upload your own clinical scan via the toolbar.'}
+                        </span>
+                      </div>
+                    </div>
+                  )
                 )}
                 <h4 className="text-[13px] font-[800] text-slate-200">Normal Acoustic Characteristics:</h4>
                 <p className="text-[12px] text-slate-400 leading-relaxed">{currentCase.normalDescription}</p>
@@ -401,43 +493,47 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
                     {currentCase.pathologySignName}
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-rose-300 bg-rose-500/20 px-1.5 py-0.5 rounded border border-rose-500/30">
-                  POSITIVE PATHOLOGY
-                </span>
+                <div className="flex items-center gap-2">
+                  {displayMode === 'real' && (
+                    isPathologyJpg ? (
+                      <div className="flex items-center gap-1 bg-black/50 p-0.5 rounded-lg border border-white/10 text-[10px]">
+                        <button
+                          onClick={() => setPathologySubView('procedural')}
+                          className={`px-2 py-0.5 rounded transition-all ${
+                            pathologySubView === 'procedural'
+                              ? 'bg-rose-600 text-white font-[800] shadow'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Cine Sim
+                        </button>
+                        <button
+                          onClick={() => setPathologySubView('photo')}
+                          className={`px-2 py-0.5 rounded transition-all ${
+                            pathologySubView === 'photo'
+                              ? 'bg-rose-600 text-white font-[800] shadow'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Real Photo
+                        </button>
+                      </div>
+                    ) : (
+                      <span className="text-[10px] font-mono text-rose-300 bg-rose-950/50 px-2 py-0.5 rounded border border-rose-500/30 flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-rose-400" />
+                        <span>B-Mode Cine</span>
+                      </span>
+                    )
+                  )}
+                  <span className="text-[10px] font-mono text-rose-300 bg-rose-500/20 px-1.5 py-0.5 rounded border border-rose-500/30">
+                    POSITIVE PATHOLOGY
+                  </span>
+                </div>
               </div>
 
               {/* Ultrasound Screen Simulator / Real USG Capture */}
               <div className="relative aspect-[4/3] bg-black flex items-center justify-center p-2 select-none overflow-hidden">
-                {displayMode === 'real' && currentCase.pathologyPhoto ? (
-                  <div
-                    onClick={() => setFullscreenPhoto({
-                      url: currentCase.pathologyPhoto!.url,
-                      title: currentCase.pathologyTitle,
-                      subtitle: currentCase.title,
-                      caption: currentCase.pathologyPhoto!.caption,
-                      signName: currentCase.pathologySignName,
-                      modality: currentCase.pathologyPhoto!.modality,
-                      isPathology: true
-                    })}
-                    className="w-full h-full relative group cursor-pointer flex items-center justify-center"
-                    title="Click to view full-resolution ultrasound capture"
-                  >
-                    <img
-                      src={currentCase.pathologyPhoto.url}
-                      alt={currentCase.pathologyPhoto.caption}
-                      className="w-full h-full object-contain rounded-lg shadow-inner"
-                    />
-                    <div className="absolute top-3 right-3 bg-black/75 hover:bg-black/90 text-rose-300 px-2.5 py-1 rounded-lg text-[11px] font-[700] border border-rose-500/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow-lg backdrop-blur">
-                      <Maximize2 className="w-3.5 h-3.5" />
-                      <span>Full Resolution</span>
-                    </div>
-                    <div className="absolute bottom-3 left-3 bg-black/80 text-white px-2.5 py-1 rounded-lg text-[10px] font-mono border border-white/20 backdrop-blur flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
-                      <span className="font-[800] text-rose-300">{currentCase.pathologyPhoto.modality}</span>
-                      <span className="text-rose-200 border-l border-white/20 pl-2 font-[800]">{currentCase.pathologySignName}</span>
-                    </div>
-                  </div>
-                ) : (
+                {displayMode === 'schematic' ? (
                   <UltrasoundScreenGraphic 
                     caseData={currentCase} 
                     isPathology={true} 
@@ -446,18 +542,94 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
                     activeLandmark={activeLandmark}
                     onSelectLandmark={setActiveLandmark}
                   />
+                ) : (
+                  // Real USG Mode
+                  pathologySubView === 'photo' && isPathologyJpg && currentCase.pathologyPhoto ? (
+                    <div
+                      onClick={() => {
+                        setLightboxZoom(1);
+                        setLightboxInvert(false);
+                        setFullscreenPhoto({
+                          url: currentCase.pathologyPhoto!.url,
+                          title: currentCase.pathologyTitle,
+                          subtitle: currentCase.title,
+                          caption: currentCase.pathologyPhoto!.caption,
+                          signName: currentCase.pathologySignName,
+                          modality: currentCase.pathologyPhoto!.modality,
+                          isPathology: true,
+                          isProcedural: false
+                        });
+                      }}
+                      className="w-full h-full relative group cursor-pointer flex items-center justify-center"
+                      title="Click to view full-resolution ultrasound capture"
+                    >
+                      <img
+                        src={currentCase.pathologyPhoto.url}
+                        alt={currentCase.pathologyPhoto.caption}
+                        className="w-full h-full object-contain rounded-lg shadow-inner"
+                      />
+                      <div className="absolute top-3 right-3 bg-black/75 hover:bg-black/90 text-rose-300 px-2.5 py-1 rounded-lg text-[11px] font-[700] border border-rose-500/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow-lg backdrop-blur">
+                        <Maximize2 className="w-3.5 h-3.5" />
+                        <span>Full Resolution</span>
+                      </div>
+                      <div className="absolute bottom-3 left-3 bg-black/80 text-white px-2.5 py-1 rounded-lg text-[10px] font-mono border border-white/20 backdrop-blur flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+                        <span className="font-[800] text-rose-300">{currentCase.pathologyPhoto.modality}</span>
+                        <span className="text-rose-200 border-l border-white/20 pl-2 font-[800]">{currentCase.pathologySignName}</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <POCUSProceduralUltrasound
+                      caseData={currentCase}
+                      isPathology={true}
+                      compressionPct={compressionSlider}
+                      showLandmarks={showLandmarks}
+                      activeLandmark={activeLandmark}
+                      onSelectLandmark={setActiveLandmark}
+                      onOpenFullscreen={() => {
+                        setLightboxZoom(1);
+                        setLightboxInvert(false);
+                        setFullscreenPhoto({
+                          url: currentCase.pathologyPhoto?.url,
+                          title: currentCase.pathologyTitle,
+                          subtitle: currentCase.title,
+                          caption: currentCase.pathologyPhoto?.caption || currentCase.pathologyDescription,
+                          signName: currentCase.pathologySignName,
+                          modality: currentCase.pathologyPhoto?.modality || 'B-Mode',
+                          isPathology: true,
+                          isProcedural: !isPathologyJpg || pathologySubView === 'procedural'
+                        });
+                      }}
+                    />
+                  )
                 )}
               </div>
 
               <div className="p-4 bg-[#070c17] border-t border-white/5 space-y-2">
-                {displayMode === 'real' && currentCase.pathologyPhoto && (
-                  <div className="p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/40 text-[11px] text-rose-200 flex items-start gap-2">
-                    <Camera className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" />
-                    <div className="leading-relaxed">
-                      <span className="font-[800] text-rose-300">Pathognomonic USG Sign: </span>
-                      <span>{currentCase.pathologyPhoto.caption}</span>
+                {displayMode === 'real' && (
+                  isPathologyJpg && pathologySubView === 'photo' && currentCase.pathologyPhoto ? (
+                    <div className="p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/40 text-[11px] text-rose-200 flex items-start gap-2">
+                      <Camera className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" />
+                      <div className="leading-relaxed">
+                        <span className="font-[800] text-rose-300">Pathognomonic USG Sign: </span>
+                        <span>{currentCase.pathologyPhoto.caption}</span>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="p-2.5 rounded-xl bg-rose-950/25 border border-rose-500/30 text-[11px] text-rose-200 flex items-start gap-2">
+                      <Sparkles className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" />
+                      <div className="leading-relaxed">
+                        <span className="font-[800] text-rose-300">
+                          {isPathologyJpg ? 'High-Fidelity Procedural Simulation: ' : 'Procedural Pathology Simulator: '}
+                        </span>
+                        <span>
+                          {isPathologyJpg
+                            ? 'Simulating acoustic pathognomonic characteristics with dynamic tissue motion.'
+                            : 'Clinical archival photo pending integration. Displaying high-fidelity procedural ultrasound simulation reproducing characteristic acoustic pathology (shadows, enhancements, fluid ripples, wall hypokinesis). You can upload a real case scan via the toolbar.'}
+                        </span>
+                      </div>
+                    </div>
+                  )
                 )}
                 <h4 className="text-[13px] font-[800] text-rose-200">{currentCase.pathologyTitle}</h4>
                 <p className="text-[12px] text-slate-400 leading-relaxed">{currentCase.pathologyDescription}</p>
@@ -583,6 +755,9 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
                 }`}>
                   {fullscreenPhoto.modality}
                 </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-[800] bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 uppercase">
+                  {fullscreenPhoto.isProcedural ? 'Procedural B-Mode Model' : 'Clinical Archive Scan'}
+                </span>
                 <div>
                   <h3 className="text-[15px] font-[900] text-white tracking-tight">
                     {fullscreenPhoto.title}
@@ -595,22 +770,82 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
                 </div>
               </div>
 
-              <button
-                onClick={() => setFullscreenPhoto(null)}
-                className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
-                title="Close (Esc)"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              {/* Inspection Controls & Close */}
+              <div className="flex items-center gap-2">
+                {!fullscreenPhoto.isProcedural && (
+                  <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10 text-[11px]">
+                    <button
+                      onClick={() => setLightboxZoom((prev) => Math.min(3, prev + 0.5))}
+                      className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10"
+                      title="Zoom In"
+                    >
+                      <ZoomIn className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => setLightboxZoom((prev) => Math.max(1, prev - 0.5))}
+                      className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10"
+                      title="Zoom Out"
+                    >
+                      <ZoomOut className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setLightboxZoom(1);
+                        setLightboxInvert(false);
+                      }}
+                      className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10"
+                      title="Reset Zoom & Filters"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => setLightboxInvert(!lightboxInvert)}
+                      className={`p-1.5 rounded-lg border transition-colors ${
+                        lightboxInvert
+                          ? 'bg-amber-500/30 text-amber-300 border-amber-500/50'
+                          : 'text-slate-300 hover:text-white border-transparent'
+                      }`}
+                      title="Toggle Grayscale Invert"
+                    >
+                      <Sun className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+
+                <button
+                  onClick={() => setFullscreenPhoto(null)}
+                  className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors ml-2"
+                  title="Close (Esc)"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Main Image Viewport */}
-            <div className="flex-1 bg-black flex items-center justify-center p-4 overflow-hidden min-h-[300px]">
-              <img
-                src={fullscreenPhoto.url}
-                alt={fullscreenPhoto.caption}
-                className="max-h-[65vh] w-auto max-w-full object-contain rounded-lg shadow-2xl"
-              />
+            <div className="flex-1 bg-black flex items-center justify-center p-4 overflow-hidden min-h-[340px] relative">
+              {fullscreenPhoto.isProcedural ? (
+                <div className="w-full h-full max-w-2xl aspect-[4/3]">
+                  <POCUSProceduralUltrasound
+                    caseData={currentCase}
+                    isPathology={fullscreenPhoto.isPathology}
+                    compressionPct={compressionSlider}
+                  />
+                </div>
+              ) : (
+                <div className="overflow-auto max-w-full max-h-[68vh] flex items-center justify-center p-2">
+                  <img
+                    src={fullscreenPhoto.url}
+                    alt={fullscreenPhoto.caption}
+                    style={{
+                      transform: `scale(${lightboxZoom})`,
+                      filter: lightboxInvert ? 'invert(1) hue-rotate(180deg)' : 'none',
+                      transition: 'transform 0.15s ease-out'
+                    }}
+                    className="max-h-[65vh] w-auto max-w-full object-contain rounded-lg shadow-2xl select-none"
+                  />
+                </div>
+              )}
             </div>
 
             {/* Educational Footer Legend */}
@@ -619,12 +854,19 @@ export default function POCUSAtlas({ onSelectCase, selectedCaseId }: POCUSAtlasP
                 <span className="font-[800] text-cyan-300">Bedside Clinical Interpretation: </span>
                 <span>{fullscreenPhoto.caption}</span>
               </div>
-              <button
-                onClick={() => setFullscreenPhoto(null)}
-                className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-[700] text-[12px] shrink-0"
-              >
-                Close Full View
-              </button>
+              <div className="flex items-center gap-3 shrink-0">
+                {!fullscreenPhoto.isProcedural && (
+                  <span className="text-[11px] font-mono text-slate-400">
+                    Zoom: {Math.round(lightboxZoom * 100)}%
+                  </span>
+                )}
+                <button
+                  onClick={() => setFullscreenPhoto(null)}
+                  className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-[700] text-[12px] shrink-0"
+                >
+                  Close Full View
+                </button>
+              </div>
             </div>
           </div>
         </div>

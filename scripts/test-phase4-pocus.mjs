@@ -227,3 +227,25 @@ test('POCUS Photos & Assets Integrity Across All Cases', () => {
   }
 });
 
+test('Procedural B-Mode Ultrasound Engine & Custom Scan Integration', () => {
+  const proceduralPath = path.resolve(process.cwd(), 'components/pocus/POCUSProceduralUltrasound.tsx');
+  assert.ok(fs.existsSync(proceduralPath), 'POCUSProceduralUltrasound.tsx must exist');
+  const proceduralCode = fs.readFileSync(proceduralPath, 'utf8');
+  assert.ok(proceduralCode.includes('POCUSProceduralUltrasound'), 'Component must be exported');
+  assert.ok(proceduralCode.includes('gainDb'), 'Gain adjustment must be supported');
+  assert.ok(proceduralCode.includes('colorDoppler'), 'Color Doppler CFM must be supported');
+  assert.ok(proceduralCode.includes('calipersActive'), 'Digital calipers must be supported');
+
+  const customScanPath = path.resolve(process.cwd(), 'lib/pocusCustomScans.ts');
+  assert.ok(fs.existsSync(customScanPath), 'pocusCustomScans.ts must exist');
+  const customScanCode = fs.readFileSync(customScanPath, 'utf8');
+  assert.ok(customScanCode.includes('getCustomScan'), 'getCustomScan must be exported');
+  assert.ok(customScanCode.includes('saveCustomScan'), 'saveCustomScan must be exported');
+  assert.ok(customScanCode.includes('deleteCustomScan'), 'deleteCustomScan must be exported');
+
+  const atlasPath = path.resolve(process.cwd(), 'components/pocus/POCUSAtlas.tsx');
+  const atlasCode = fs.readFileSync(atlasPath, 'utf8');
+  assert.ok(atlasCode.includes('POCUSProceduralUltrasound'), 'POCUSAtlas must integrate procedural ultrasound engine');
+});
+
+

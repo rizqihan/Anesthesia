@@ -462,23 +462,36 @@ export default function POCUSMannequin({ activeCaseId, onSelectCase }: POCUSMann
             </p>
 
             {/* Real Ultrasound Capture Preview Thumbnail */}
-            {(lockedCase.normalPhoto || lockedCase.pathologyPhoto) && (
-              <div className="flex items-center gap-2.5 p-2 rounded-xl bg-black/50 border border-white/10">
-                <img
-                  src={lockedCase.normalPhoto?.url || lockedCase.pathologyPhoto?.url}
-                  alt={lockedCase.title}
-                  className="w-16 h-12 object-cover rounded-lg border border-white/10 shrink-0"
-                />
-                <div className="text-[11px] min-w-0">
-                  <span className="text-[10px] font-mono text-cyan-400 font-[800] block uppercase">
-                    {lockedCase.normalPhoto?.modality || lockedCase.pathologyPhoto?.modality} • Ultrasound Capture
-                  </span>
-                  <span className="text-slate-300 truncate block">
-                    {lockedCase.normalPhoto?.signName || lockedCase.pathologyPhoto?.signName || lockedCase.title}
-                  </span>
+            {(lockedCase.normalPhoto || lockedCase.pathologyPhoto) && (() => {
+              const photo = lockedCase.normalPhoto || lockedCase.pathologyPhoto;
+              const isJpg = photo?.url?.endsWith('.jpg');
+              return (
+                <div className="flex items-center gap-2.5 p-2 rounded-xl bg-black/50 border border-white/10">
+                  <img
+                    src={photo?.url}
+                    alt={lockedCase.title}
+                    className="w-16 h-12 object-cover rounded-lg border border-white/10 shrink-0"
+                  />
+                  <div className="text-[11px] min-w-0">
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <span className="text-[10px] font-mono text-cyan-400 font-[800] uppercase">
+                        {photo?.modality}
+                      </span>
+                      <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded border ${
+                        isJpg
+                          ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                          : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+                      }`}>
+                        {isJpg ? 'Clinical Scan' : 'B-Mode Simulation'}
+                      </span>
+                    </div>
+                    <span className="text-slate-300 truncate block">
+                      {photo?.signName || lockedCase.title}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
             <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1.5 text-[11px]">
               <div className="flex justify-between text-slate-400">

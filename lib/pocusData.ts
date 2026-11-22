@@ -217,7 +217,7 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'No fluid collection in the subphrenic space'
     ],
     normalPhoto: {
-          "url": "/images/pocus/efast_luq_normal.svg",
+          "url": "/images/pocus/efast_luq_normal.jpg",
           "caption": "Normal splenorenal view (LUQ). Intact apposition of spleen and left kidney capsule with diaphragmatic mirror image artifact and no fluid in the subphrenic space.",
           "label": "Normal Splenorenal Recess",
           "modality": "B-Mode",
@@ -291,7 +291,7 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Intact pelvic fascial planes'
     ],
     normalPhoto: {
-          "url": "/images/pocus/efast_pelvis_normal.svg",
+          "url": "/images/pocus/efast_pelvis_normal.jpg",
           "caption": "Normal suprapubic pelvic view. Full distended urinary bladder with crisp muscular walls and clear anechoic urine without posterior fluid collections.",
           "label": "Normal Distended Bladder",
           "modality": "B-Mode",
@@ -963,7 +963,7 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Symmetric aortic valve leaflet excursion'
     ],
     normalPhoto: {
-          "url": "/images/pocus/focus_plax_normal.svg",
+          "url": "/images/pocus/focus_plax_normal.jpg",
           "caption": "Normal parasternal long axis (PLAX) view. Normal LV contractility, anterior mitral leaflet touching the septum in early diastole (EPSS < 7mm), normal aortic valve opening.",
           "label": "Normal PLAX View",
           "modality": "2D Sector",
@@ -1115,7 +1115,7 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'No McConnell\'s sign'
     ],
     normalPhoto: {
-          "url": "/images/pocus/focus_a4c_normal.svg",
+          "url": "/images/pocus/focus_a4c_normal.jpg",
           "caption": "Normal apical 4-chamber (A4C) view. Apex formed by the left ventricle; RV is triangular and <= 2/3 of LV cavity size; symmetric mitral and tricuspid valve excursions.",
           "label": "Normal Apical 4-Chamber",
           "modality": "2D Sector",
@@ -1131,7 +1131,7 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'TAPSE < 16 mm indicating depressed RV systolic function'
     ],
     pathologyPhoto: {
-          "url": "/images/pocus/focus_a4c_pathology.svg",
+          "url": "/images/pocus/focus_a4c_pathology.jpg",
           "caption": "Severe acute RV failure / Cor Pulmonale on A4C view. Markedly dilated right ventricle (RV > LV) with McConnell's sign: akinesia of the mid-RV free wall with preserved hyperdynamic contraction at the RV apex.",
           "label": "RV Dilatation & McConnell Sign",
           "modality": "2D Sector",
@@ -1264,7 +1264,7 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Estimated central venous pressure (CVP) ~ 5-8 mmHg'
     ],
     normalPhoto: {
-          "url": "/images/pocus/focus_ivc_normal.svg",
+          "url": "/images/pocus/focus_ivc_normal.jpg",
           "caption": "Normal inferior vena cava (IVC) longitudinal view. Caliber 1.6 cm with > 50% inspiratory collapse, indicating low central venous pressure (0-5 mmHg) and high likelihood of fluid responsiveness.",
           "label": "Normal Collapsible IVC",
           "modality": "B-Mode",
@@ -1280,7 +1280,7 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Flat IVC (< 1.5 cm, > 50% collapse): low CVP (0-5 mmHg)'
     ],
     pathologyPhoto: {
-          "url": "/images/pocus/focus_ivc_pathology.svg",
+          "url": "/images/pocus/focus_ivc_pathology.jpg",
           "caption": "Plethoric non-collapsing IVC on longitudinal view. Caliber 2.6 cm with < 15% inspiratory collapse, reflecting elevated right atrial pressure / CVP (15-20 mmHg) in tamponade, RV failure, or severe volume overload.",
           "label": "Plethoric Non-Collapsing IVC",
           "modality": "B-Mode",
@@ -1345,7 +1345,7 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'IJV caliber increases > 20% in Trendelenburg position'
     ],
     normalPhoto: {
-          "url": "/images/pocus/vasc_ijv_normal.svg",
+          "url": "/images/pocus/vasc_ijv_normal.jpg",
           "caption": "Normal internal jugular vein (IJV) transverse view. Large, oval, thin-walled IJV lateral to round pulsatile carotid artery; collapses completely and easily under gentle transducer compression.",
           "label": "Normal Compressible IJV",
           "modality": "B-Mode",
@@ -1508,7 +1508,7 @@ export const POCUS_CASES: Record<string, POCUSCase> = {
       'Absent Doppler flow or absent flow augmentation with distal calf squeeze'
     ],
     pathologyPhoto: {
-          "url": "/images/pocus/vasc_dvt_pathology.svg",
+          "url": "/images/pocus/vasc_dvt_pathology.jpg",
           "caption": "Acute popliteal deep vein thrombosis. Popliteal vein is dilated, fails to collapse under firm probe compression, and contains an occlusive intraluminal thrombus superficial to the popliteal artery.",
           "label": "Popliteal Deep Vein Thrombosis",
           "modality": "B-Mode",

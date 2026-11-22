@@ -1,6 +1,17 @@
 {
   "name": "Anesthesia",
-  "description": "A collection of offline-capable medical mini-apps including dosage calculators, drug interaction checkers, and a symptom checker tailored for Indonesian and English users.",
-  "requestFramePermissions": [],
-  "majorCapabilities": []
+  "version": "2.8.0",
+  "description": "Offline-first clinical decision support system, acute resuscitation toolkit, bedside voice assistant, and comprehensive medical reference suite for healthcare professionals.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "Hands-Free Bedside Voice-Activated Lookups",
+    "Point-of-Care Ultrasound (POCUS) Suite",
+    "Emergency Push-Dose & Resuscitation Protocols",
+    "Antimicrobial Stewardship & SBAR Rounds Handoff",
+    "163-Drug Clinical Pharmacopeia & Interaction Matrix",
+    "Evidence-Based Clinical Risk Scores & Calculators",
+    "Zero-Latency Offline PWA with Client-Side Database"
+  ]
 }

@@ -6,9 +6,11 @@
 *A high-performance, 100% offline-first clinical decision support system, resuscitation toolkit, and medical reference suite engineered for physicians, residents, general practitioners, emergency teams, and healthcare professionals.*
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.4.2-black?style=flat&logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.3.1-blue?style=flat&logo=react)](https://react.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.3.3-38bdf8?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
-[![Motion](https://img.shields.io/badge/Motion-12.43.0-f43f5e?style=flat)](https://motion.dev/)
+[![React](https://img.shields.io/badge/React-19.2.1-blue?style=flat&logo=react)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.11-38bdf8?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
+[![Motion](https://img.shields.io/badge/Motion-12.38.0-f43f5e?style=flat)](https://motion.dev/)
+[![Version](https://img.shields.io/badge/Version-v2.8.0-indigo?style=flat)](https://github.com/rizqihan/Anesthesia)
+[![Voice AI](https://img.shields.io/badge/Voice--AI-Web_Speech-purple?style=flat)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 [![Offline PWA](https://img.shields.io/badge/PWA-Offline--First-emerald?style=flat)](https://dexie.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -42,72 +44,98 @@ Modern hospital medicine demands rapid, error-free clinical calculations and imm
 
 ## ⚡ Core Capabilities & Features
 
-### 1. Decoupled Route Architecture (Next.js 16 App Router)
-* **Public Landing Page (`/` — Persuade Mode):** Authoritative clinical portal featuring an interactive real-time patient weight slider, instant dosing calculations (Propofol, Rocuronium, Fentanyl, Sugammadex, Holliday-Segar fluid maintenance), and an animated programmatic SVG sinus rhythm monitor.
-* **Clinical Command Center (`/dashboard` — Operate Mode):** A distraction-free workspace organized into functional medical categories:
-  * *Acute Care & Crisis Protocols*
-  * *Critical Care & Bedside Calculators*
-  * *Clinical Assessment, Guidelines & Pharmacology*
+### 1. Bedside Voice Assistant & Hands-Free Lookups (`Cmd + M` / `Ctrl + M`)
+* **Sterile Field & Resuscitation Operation:** Zero-latency speech recognition powered by the native **Web Speech API** for scrubbed procedural fields (central lines, epidural/spinals) and emergency bays.
+* **Intelligent Clinical Intent Parser:** Bilingual (`en` & `id`) regex/token matching for 163 drugs, push-dose recipes, and medical calculators.
+* **Look-Alike / Sound-Alike (LASA) Acoustic Safeguards:** Proactive acoustic collision detection warning against dangerous sound-alikes (e.g., *Epinephrine* vs *Ephedrine*, *Hydralazine* vs *Hydroxyzine*, *Cefazolin* vs *Ceftriaxone*, *Dopamine* vs *Dobutamine*).
+* **Continuous Scrub Mode:** Keeps listening between queries with real-time waveform visualizers and automated **Text-to-Speech (TTS)** voice readback.
+* **Active Case Voice Mutations:** Hands-free verbal updates to patient parameters (e.g., *"Set patient weight 68 kg"*, *"Ubah tinggi badan 165 cm"*).
 
 ### 2. Emergency & Resuscitation Crisis Card (`/emergency`)
-One-click weight-calculated rapid push doses with tactile copy-to-clipboard feedback:
-* **Cardiac Arrest (ACLS):** Epinephrine ($0.01\text{ mg/kg}$ / $0.1\text{ mg/mL}$ volume calculation), Amiodarone ($300\text{ mg} \to 150\text{ mg}$).
-* **Hemodynamic Instability & Shock:** Ephedrine, Phenylephrine, Atropine.
-* **Severe Anaphylaxis:** Epinephrine IM ($0.01\text{ mg/kg}$ up to $0.5\text{ mg}$), Diphenhydramine, Hydrocortisone.
-* **Acute Airway & Laryngospasm:** Succinylcholine, Sugammadex routine ($2\text{ mg/kg}$) vs immediate rescue ($16\text{ mg/kg}$).
-* **Toxicities & Critical Emergencies:** Malignant Hyperthermia (Dantrolene $2.5\text{ mg/kg}$ with vial counter and sterile water reconstitution) and LAST (20% Lipid Emulsion bolus and infusion rates).
+* **Multi-Method Push-Dose Epinephrine:** Dilution recipes for $10\ \mu\text{g/mL}$ (ampule in $100\text{ mL}$ bag vs $1\text{ mL}$ in $9\text{ mL}$ syringe) with strict 10x overdose protection.
+* **Cardiac Arrest (ACLS):** Synchronized 2-minute CPR cycle timer with rhythm check prompts, shock counter, and automated Epinephrine / Amiodarone intervals.
+* **Pediatric Broselow Emergency Tape:** Color-coded weight/length zones with endotracheal tube sizes, blade types, and resuscitation drug doses.
+* **Crisis Pathways:** Status Epilepticus 4-phase escalation protocol, Hypertensive Crisis MAP titration, and Anaphylaxis IM vs monitored IV protocols.
+* **Toxicities & Critical Antidotes:** Malignant Hyperthermia (Dantrolene $2.5\text{ mg/kg}$ with vial calculator) and LAST (20% Lipid Emulsion bolus and infusion rates).
 
-### 3. Active Case Session Tray
-* Persistent patient parameters (`Weight`, `Height`, `Age`, `Sex`, `ASA Class`, `Mallampati`) stored in Zustand with local storage persistence.
-* Tactile weight adjustment steppers (`-5kg`, `-1kg`, `+1kg`, `+5kg`) and rapid presets (`10kg` to `100kg`).
-* Automatically pre-populates all formulas across Medical Calculators and Drug Dosing without repetitive data entry.
+### 3. Point-of-Care Ultrasound (POCUS) Suite (`/pocus`)
+* **Bedside USG Protocols:** Guided views and clinical checklists for eFAST (RUQ, LUQ, Pelvis, Subxiphoid), BLUE protocol lung points, FOCUS cardiac views, and DVT vascular access.
+* **Quantitative Caliper Engines:** Real-time IVC collapsibility index (spontaneous breathing) & distensibility index (mechanical ventilation), 3-axis bladder volume calculation, and elliptical area measurement.
+* **High-Fidelity Pathology Atlas & DICOM:** Vector ultrasound graphics and multi-frame DICOM cine-loop viewer.
 
-### 4. Bedside Medical Calculators (`/calculators` & `/dosage`)
-* **Renal Clearance:** Cockcroft-Gault Creatinine Clearance (CrCl) and eGFR equations for bedside antibiotic and drug adjustments.
-* **Anthropometrics & Body Composition:** BMI, Ideal Body Weight (IBW - Devine formula), and Adjusted Body Weight (ABW) for hydrophilic drug calculations.
-* **Hemodynamics & Respiratory:** Mean Arterial Pressure (MAP), Allowable Blood Loss (ABL), PaO2/FiO2 ratio (Berlin ARDS definition), and Holliday-Segar (4-2-1) maintenance fluid rates.
-* **Airway Geometry:** Pediatric and adult endotracheal tube (ETT) diameter and depth estimation formulas.
+### 4. Antimicrobial Stewardship & SBAR Handoff (`/antimicrobial`)
+* **Syndromic Empiric Antibiotic Selector:** First-line and alternative regimens for pneumonia, pyelonephritis, intra-abdominal sepsis, cellulitis, and meningitis.
+* **Renal Dose Safety Cutoffs:** Automated flags based on Cockcroft-Gault CrCl and race-free CKD-EPI 2021 eGFR with Cefepime neurotoxicity warnings.
+* **Therapeutic Drug Monitoring Nomograms:** Vancomycin AUC/trough targets and Hartford aminoglycoside once-daily extended-interval nomograms.
+* **Bedside Rounds SBAR PDF Export:** One-tap hospital handoff sheet compiling active vitals, renal metrics, and crisis dosing.
 
-### 5. 12-Lead ECG Simulator & Case Quiz (`/ecg`)
-* Calibrated SVG waveform generator simulating standard 25 mm/s and 10 mm/mV pink grid paper.
-* Interactive pathologies: STEMI (Anterior, Inferior, Lateral), Wellens Syndrome, Brugada Type 1 & 2, Hyperkalemia, Pericarditis, and continuous sinus rhythm strips.
-* Integrated clinical case quiz with progressive hint reveals and differential reasoning.
+### 5. Evidence-Based Clinical Risk Scores & Calculators (`/calculators` & `/dosage`)
+* **Cardiovascular & Hemodynamics:** Wells DVT and PE (with PERC rule), CHA₂DS₂-VASc, HAS-BLED, HEART Score for chest pain, Glasgow-Blatchford (GBS), Shock Index, and Mean Arterial Pressure (MAP).
+* **Critical Care & Sepsis:** CURB-65, Pneumonia Severity Index (PSI), qSOFA, SOFA, Glasgow Coma Scale (GCS & GCS-P), and NIHSS with tPA contraindications checklist.
+* **Hepatology & Renal:** MELD-Na, Child-Pugh, Cockcroft-Gault CrCl, and CKD-EPI 2021 eGFR.
+* **Airway & Surgery:** Endotracheal tube (ETT) diameter and lip depth estimation, Allowable Blood Loss (ABL), and Holliday-Segar fluid maintenance rates.
 
-### 6. Universal Command Palette (`Cmd + K` / `Ctrl + K`)
-* Keyboard-driven instant navigation across all 19 tools, calculators, crisis protocols, clinical guidelines, and diagnostic coding.
+### 6. Diagnostic Lab Engines & 4-Step ABG Analyzer
+* **Arterial Blood Gas (ABG) Interpreter:** 4-step acid-base interpretation (metabolic vs respiratory, Anion Gap, Winter's formula compensation, and Delta-Delta ratio for mixed disorders).
+* **Electrolyte Safety Calculators:** Hyperglycemia-corrected sodium, free water deficit in hypernatremia, hypoalbuminemia-corrected calcium, and potassium repletion safety rules.
 
-### 7. Drug Interaction Safety Matrix & Formulary (`/interactions` & `/formulary`)
-* Multi-drug cross-reaction analysis with categorized severity indicators.
-* Comprehensive clinical pharmacology database covering indications, adult and pediatric dosing, contraindications, and routes of administration.
+### 7. ASRA Regional Coagulation & Syringe Pump Titrator
+* **ASRA Coagulation Matrix:** Evidence-based neuraxial and deep peripheral block safety intervals for anticoagulants (Warfarin INR targets, DOAC washout times, Heparin, and antiplatelets).
+* **Vasoactive Syringe Pump Titrator:** Real-time infusion rate calculators ($\mu\text{g/kg/min}$, $\mu\text{g/min}$, $\text{mL/hr}$) for Norepinephrine, Epinephrine, Dopamine, Dobutamine, Nicardipine, and Vasopressin.
 
-### 8. Physical Examination & Anatomical Map (`/physical-exam`)
-* Interactive 2D anatomical selector map with structured step-by-step physical examination procedures, normal versus abnormal clinical findings, and airway scoring.
+### 8. 163-Drug General Hospital Pharmacopeia (`/formulary` & `/interactions`)
+* **Multi-Specialty Formulary:** Dosing, indications, contraindications, routes, and clinical pearls across acute care, anesthesia, antibiotics, analgesics, and cardiology.
+* **Clinical Safety Caps:** Strict upper-bound capping preventing computational overdoses.
+* **Drug Interaction Matrix:** Offline multi-drug cross-reaction evaluation highlighting fatal and contraindicated sedative/anesthetic combinations.
 
-### 9. Zero-Latency Offline Storage & Diagnostic Search (`/icd10` & `/guidelines`)
-* Client-side IndexedDB database powered by Dexie.
-* 14,000+ searchable ICD-10 diagnostic codes and structured Clinical Practice Guidelines (CPGs) across medical specialties function seamlessly without internet access.
+### 9. WHO Child Growth & Pediatric Tools
+* **WHO Growth Standards:** Real-time z-scores and percentiles for weight-for-age, height-for-age, and weight-for-height.
+* **Neonatal & Infant Scores:** APGAR scoring and Silverman-Anderson respiratory distress index.
 
-### 10. Impeccable Motion & Minimalist Design System
-* Built according to the Impeccable design standard (zero generic AI slop, no neon gradients, no decorative animation clutter).
-* Restrained surgical slate palette (`#080c15` / `#0e1424`) with tabular monospace typography for numerical dosages.
-* Hardware-accelerated transitions with full respect for `prefers-reduced-motion`.
+### 10. Active Case Session Tray & Structured SOAP Note Generator
+* **Persistent Patient Tray:** Real-time global parameters (`Weight`, `Height`, `Age`, `Sex`, `ASA Class`, `Mallampati`) stored in Zustand with local persistence.
+* **Structured Clinical SOAP Notes:** 1-tap generation of EHR-ready progress notes (CPPT in Indonesian / SOAP in English) from active case data, labs, and calculated scores.
 
-### 11. Full Bilingual Support
-* Native clinical parity in **English (`en`)** and **Indonesian (`id`)**.
+### 11. 12-Lead Calibrated SVG ECG Simulator & Case Quiz (`/ecg`)
+* Calibrated SVG waveform generator simulating standard $25\text{ mm/s}$ and $10\text{ mm/mV}$ pink grid paper.
+* Interactive pathologies: STEMI (Anterior, Inferior, Lateral), Wellens Syndrome, Brugada Type 1 & 2, Hyperkalemia, and Pericarditis with progressive case quiz drills.
+
+### 12. Physical Examination & Anatomical Map (`/physical-exam`)
+* Interactive 2D anatomical selector map with structured step-by-step physical examination procedures, normal versus abnormal clinical findings, and airway Mallampati evaluation.
+
+### 13. Zero-Latency Offline PWA & 1-Tap Bedside Installation
+* **PWA Service Worker:** Comprehensive client-side caching of all 16 clinical routes and Next.js assets.
+* **Automated Data Auto-Seeding:** Seamless client startup auto-seeding across Dexie IndexedDB datasets without blocking UI modals.
+* **1-Tap Standalone Install:** Platform-aware install modal for iOS Safari, Android, and Desktop.
+
+### 14. Dual-Theme Engine with Medical Monitor Isolation
+* High-contrast **Light Mode** for bright outpatient clinics & **Dark Mode** for dimmed ORs and ICUs.
+* **Medical Monitor Isolation (`data-preserve-dark`):** Dedicated scotopic black viewports (`#030712`) preserving physiological telemetry contrast for ECG waveforms and POCUS ultrasound scans.
+
+### 15. Universal Command Palette (`Cmd + K` / `Ctrl + K`)
+* Keyboard-driven instant navigation across all tools, calculators, crisis protocols, clinical guidelines, and diagnostic coding.
+
+### 16. Full Bilingual Clinical Parity
+* Native clinical parity in **English (`en`)** and **Indonesian (`id`)** across all calculators, emergency protocols, guidelines, and voice commands.
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technologies |
-|---|---|
-| **Framework** | Next.js 16.4.2 (App Router with Turbopack) |
-| **UI & Styling** | React 19.3.1, Tailwind CSS 4.3.3, Lucide React |
-| **Motion Engine** | Motion 12.43.0 (hardware-accelerated transforms, layoutId FLIP) |
-| **State & Session** | Zustand 5.0.15 (with local storage persistence) |
-| **Offline Storage** | Dexie 4.4.6, idb-keyval 6.3.0 |
-| **AI Integration** | Google Gemini API, GROQ, OpenAI-compatible endpoints |
-| **Reports & Export** | pdfmake, html-to-pdfmake |
+| Layer | Technologies | Description |
+|---|---|---|
+| **Core Framework** | Next.js 16.4.2 (App Router & Turbopack) | Server and client hybrid architecture with zero-latency route prefetching |
+| **Runtime & Language** | Node.js 20+, TypeScript 5.9.3, React 19.2.1 | Strict type safety, React 19 compiler optimizations & concurrent hydration |
+| **Styling & Design System** | Tailwind CSS 4.1.11, PostCSS, Lucide React 0.553.0 | Surgical slate palette, responsive mobile clinical HUD, dual-theme engine |
+| **Motion Engine** | Motion 12.38.0 | Hardware-accelerated modal transitions, audio waveforms, and layout FLIP |
+| **Voice & Speech Engine** | Web Speech API (`SpeechRecognition` & `SpeechSynthesis`) | Hands-free bedside voice queries, sterile scrub mode, and audio readback |
+| **State Management** | Zustand 5.0.13 | Reactive Active Case sync, persistent local settings, and patient labs |
+| **Offline Storage** | Dexie 4.4.2 (IndexedDB schema v9), idb-keyval 6.2.2, localforage | 100% offline client storage, zero-latency caching, auto-seeding datasets |
+| **PWA Architecture** | Service Worker, Web App Manifest, Standalone PWA Engine | 1-tap installation modal, fullscreen standalone mode, offline fallbacks |
+| **Clinical Pharmacology** | Curated 163-Drug Hospital Database | Upper-bound safety caps, dilution recipes, and pediatric/adult dosing |
+| **Medical Safety & Regs** | LASA Acoustic Rules, ASRA Coags, WHO Growth Standards | High-alert sound-alike warnings, neuraxial washouts, z-score percentiles |
+| **Clinical Documentation** | Custom SBAR & SOAP Generator, pdfmake | EHR-ready progress notes (CPPT/SOAP) and 1-tap rounds SBAR PDF export |
+| **Clinical AI Integration** | Google GenAI SDK (`@google/genai` 1.17.0), Groq API, OpenAI-compatible | Offline differential fallbacks + optional dynamic LLM diagnostic reasoning |
 
 ---
 
@@ -211,39 +239,60 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ```
 Anesthesia/
 ├── app/
-│   ├── (marketing)/           # Public-facing landing page (Persuade Mode)
-│   │   ├── layout.tsx         # Marketing topbar & footer
-│   │   └── page.tsx           # Interactive weight slider & live dosing HUD
-│   ├── (app)/                 # Authenticated / Clinical Workspace (Operate Mode)
+│   ├── (app)/                 # Unified Clinical Workspace (Operate Mode)
 │   │   ├── layout.tsx         # Clinical AppShell wrapper
 │   │   ├── dashboard/         # Command Center categorized workspaces
-│   │   ├── emergency/         # Resuscitation & crisis push doses
-│   │   ├── calculators/       # Renal, fluid, hemodynamic & airway formulas
-│   │   ├── dosage/            # Pediatric & adult weight-based dosing
+│   │   ├── emergency/         # Resuscitation, ACLS timer & push doses
+│   │   ├── antimicrobial/     # Empiric stewardship & rounds SBAR export
+│   │   ├── pocus/             # Point-of-Care Ultrasound & DICOM viewer
+│   │   ├── calculators/       # Renal, fluid, hemodynamic & MDCalc risk scores
+│   │   ├── dosage/            # Pediatric & adult weight-based dosing with safety caps
 │   │   ├── ecg/               # 12-lead calibrated SVG simulator & quiz
 │   │   ├── interactions/      # Multi-drug interaction safety matrix
-│   │   ├── formulary/         # Clinical pharmacology & routes
+│   │   ├── formulary/         # 163-drug general hospital pharmacopeia
 │   │   ├── physical-exam/     # 2D clickable body map & airway exam
-│   │   ├── symptoms/          # Differential diagnosis assistant
-│   │   ├── guidelines/        # Clinical Practice Guidelines (CPGs)
-│   │   ├── icd10/             # Offline 14,000+ ICD-10 search
-│   │   └── settings/          # Local storage, language, backup & restore
+│   │   ├── symptoms/          # Differential diagnosis assistant & offline fallbacks
+│   │   ├── guidelines/        # Offline structured Clinical Practice Guidelines
+│   │   ├── icd10/             # 14,000+ ICD-10 diagnostic search
+│   │   ├── settings/          # Local storage, language, backup & AI config
+│   │   └── tutorial/          # Interactive bedside clinical workflow guides
+│   ├── api/
+│   │   └── groq/              # Server-side sliding rate limiter & AI proxy
 │   ├── layout.tsx             # Root layout with fonts & PWA metadata
 │   ├── template.tsx           # Motion transitions (hardware-accelerated)
 │   └── globals.css            # Tailwind 4 styling & CSS variables
 ├── components/
-│   ├── ActiveCaseModal.tsx    # Patient parameters tray (Weight, Height, ASA)
-│   ├── CommandPalette.tsx     # Cmd+K universal search across all tools
-│   ├── AppShell.tsx           # Clinical workspace sidebar and topbar
-│   └── Navigation.tsx         # Navigation header and language toggle
+│   ├── VoiceLookupHUD.tsx     # Bedside hands-free voice assistant modal
+│   ├── ActiveCaseModal.tsx    # Patient parameters tray (Weight, Height, ASA, Labs)
+│   ├── CommandPalette.tsx     # Cmd+K universal search across all clinical tools
+│   ├── SOAPNoteModal.tsx      # EHR-ready progress note generator (CPPT / SOAP)
+│   ├── PWAInstallModal.tsx    # Universal multi-platform PWA installation guide
+│   ├── ReleaseNotesModal.tsx  # Centralized version changelog viewer
+│   ├── AppShell.tsx           # Clinical workspace sidebar, header & mobile HUD
+│   ├── asra/                  # ASRA regional coagulation matrix components
+│   ├── emergency/             # ACLS timers, Broselow picker & crisis engines
+│   └── pocus/                 # Ultrasound caliper tools & DICOM viewer
+├── hooks/
+│   └── useVoiceLookup.ts      # Web Speech API recognition & synthesis controller
 ├── store/
-│   └── appStore.ts            # Zustand global state (Active Case, Language, Settings)
+│   └── appStore.ts            # Zustand global state (Active Case, Labs, Language, Theme)
 ├── lib/
-│   ├── db.ts                  # Dexie IndexedDB offline schema
-│   ├── calculators.ts         # Validated medical equations
-│   ├── drugs.ts               # Pharmacopeia database
-│   └── i18n.ts                # English & Indonesian clinical dictionary
+│   ├── voiceIntentParser.ts   # Bilingual clinical voice intent & LASA protection engine
+│   ├── emergencyProtocols.ts  # ACLS, Broselow zones, seizure & anaphylaxis protocols
+│   ├── antimicrobialData.ts   # Syndromic antibiotic regimens & renal cutoffs
+│   ├── asraCoagsData.ts       # Anticoagulant washout intervals for neuraxial blocks
+│   ├── pocusData.ts           # POCUS views, caliper algorithms & pathology cases
+│   ├── soapGenerator.ts       # Bilingual structured SOAP / CPPT synthesis
+│   ├── sbarPdfExport.ts       # Hospital-grade bedside rounds SBAR PDF generator
+│   ├── drugInteractions.ts    # Multi-drug cross-reaction safety evaluation
+│   ├── pediatricData.ts       # WHO child growth z-scores & pediatric vital norms
+│   ├── db.ts                  # Dexie IndexedDB offline schema (v9)
+│   ├── drugs.ts               # 163-drug hospital pharmacopeia database
+│   ├── i18n.ts                # English & Indonesian clinical dictionary
+│   └── version.ts             # Centralized versioning & release changelog
+├── scripts/                   # Automated clinical verification test suites (Phases 1-11)
 └── public/
+    ├── sw.js                  # Offline Service Worker with Network-First caching
     └── manifest.json          # Progressive Web App manifest
 ```
 

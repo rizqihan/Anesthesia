@@ -5,9 +5,9 @@
 
 *A high-performance, 100% offline-first clinical decision support system, resuscitation toolkit, and medical reference suite engineered for physicians, residents, general practitioners, emergency teams, and healthcare professionals.*
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.4.2-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.4.6-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.1-blue?style=flat&logo=react)](https://react.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.11-38bdf8?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.3.5-38bdf8?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
 [![Motion](https://img.shields.io/badge/Motion-12.38.0-f43f5e?style=flat)](https://motion.dev/)
 [![Version](https://img.shields.io/badge/Version-v2.8.0-indigo?style=flat)](https://github.com/rizqihan/Anesthesia)
 [![Voice AI](https://img.shields.io/badge/Voice--AI-Web_Speech-purple?style=flat)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
@@ -124,13 +124,13 @@ Modern hospital medicine demands rapid, error-free clinical calculations and imm
 
 | Layer | Technologies | Description |
 |---|---|---|
-| **Core Framework** | Next.js 16.4.2 (App Router & Turbopack) | Server and client hybrid architecture with zero-latency route prefetching |
+| **Core Framework** | Next.js 16.4.6 (App Router & Turbopack) | Server and client hybrid architecture with zero-latency route prefetching |
 | **Runtime & Language** | Node.js 20+, TypeScript 5.9.3, React 19.2.1 | Strict type safety, React 19 compiler optimizations & concurrent hydration |
-| **Styling & Design System** | Tailwind CSS 4.1.11, PostCSS, Lucide React 0.553.0 | Surgical slate palette, responsive mobile clinical HUD, dual-theme engine |
+| **Styling & Design System** | Tailwind CSS 4.3.5, PostCSS 8.5.33, Lucide React 0.553.0 | Surgical slate palette, responsive mobile clinical HUD, dual-theme engine |
 | **Motion Engine** | Motion 12.38.0 | Hardware-accelerated modal transitions, audio waveforms, and layout FLIP |
 | **Voice & Speech Engine** | Web Speech API (`SpeechRecognition` & `SpeechSynthesis`) | Hands-free bedside voice queries, sterile scrub mode, and audio readback |
-| **State Management** | Zustand 5.0.13 | Reactive Active Case sync, persistent local settings, and patient labs |
-| **Offline Storage** | Dexie 4.4.2 (IndexedDB schema v9), idb-keyval 6.2.2, localforage | 100% offline client storage, zero-latency caching, auto-seeding datasets |
+| **State Management** | Zustand 5.1.0 | Reactive Active Case sync, persistent local settings, and patient labs |
+| **Offline Storage** | Dexie 4.4.7 (IndexedDB schema v9), idb-keyval 6.2.2, localforage | 100% offline client storage, zero-latency caching, auto-seeding datasets |
 | **PWA Architecture** | Service Worker, Web App Manifest, Standalone PWA Engine | 1-tap installation modal, fullscreen standalone mode, offline fallbacks |
 | **Clinical Pharmacology** | Curated 163-Drug Hospital Database | Upper-bound safety caps, dilution recipes, and pediatric/adult dosing |
 | **Medical Safety & Regs** | LASA Acoustic Rules, ASRA Coags, WHO Growth Standards | High-alert sound-alike warnings, neuraxial washouts, z-score percentiles |

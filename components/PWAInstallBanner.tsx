@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Download, Smartphone, CheckCircle2, X, Sparkles, 
-  WifiOff, ShieldCheck, ArrowRight, Info, HelpCircle
+  WifiOff, ShieldCheck, HelpCircle, Info
 } from 'lucide-react';
 import { usePWAInstall } from '@/hooks/usePWAInstall';
 import { translations } from '@/lib/i18n';
@@ -29,9 +29,7 @@ export default function PWAInstallBanner({ onOpenGuide, language }: PWAInstallBa
       if (dismissed === 'true') {
         setIsDismissed(true);
       }
-    } catch (e) {
-      // LocalStorage access fail safe
-    }
+    } catch (e) {}
   }, []);
 
   const handleDismiss = () => {
@@ -46,16 +44,16 @@ export default function PWAInstallBanner({ onOpenGuide, language }: PWAInstallBa
       const result = await promptInstall();
       if (result === 'accepted') {
         setJustInstalled(true);
+        return;
       }
-    } else {
-      // Open guide modal for iOS or manual install
-      onOpenGuide();
     }
+    // If prompt is not directly available, open the guide modal with instructions
+    onOpenGuide();
   };
 
   if (!isMounted) return null;
 
-  // If already installed and running standalone
+  // If already installed and running in standalone mode
   if (isInstalled || justInstalled) {
     return (
       <div className="p-3.5 rounded-xl bg-gradient-to-r from-emerald-50 via-teal-50/60 to-slate-50 dark:from-emerald-950/25 dark:via-teal-950/20 dark:to-[#0b1220] border border-emerald-200 dark:border-emerald-500/30 flex items-center justify-between gap-3 shadow-xs">
@@ -91,7 +89,7 @@ export default function PWAInstallBanner({ onOpenGuide, language }: PWAInstallBa
     );
   }
 
-  // If dismissed by user, do not render the banner
+  // If dismissed by user
   if (isDismissed) {
     return null;
   }
@@ -99,7 +97,7 @@ export default function PWAInstallBanner({ onOpenGuide, language }: PWAInstallBa
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, y: -8 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, height: 0, marginBottom: 0 }}
         transition={{ duration: 0.3 }}
@@ -112,7 +110,7 @@ export default function PWAInstallBanner({ onOpenGuide, language }: PWAInstallBa
           {/* Left: Info & Badges */}
           <div className="flex items-start gap-3.5">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform mt-0.5">
-              <Download className="w-5 h-5 animate-bounce-subtle" />
+              <Download className="w-5 h-5" />
             </div>
 
             <div className="space-y-1.5">
@@ -154,20 +152,21 @@ export default function PWAInstallBanner({ onOpenGuide, language }: PWAInstallBa
 
           {/* Right: Actions */}
           <div className="flex items-center gap-2.5 shrink-0 self-end lg:self-center pl-14 sm:pl-0">
+            {/* ALWAYS "Install App Now" button */}
             <button
               onClick={handleInstallClick}
-              className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-98 text-white font-[700] text-[12.5px] flex items-center gap-2 shadow-sm shadow-blue-500/20 transition-all cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-[700] text-[12.5px] flex items-center gap-2 shadow-sm shadow-blue-500/20 transition-all cursor-pointer"
             >
               <Download className="w-4 h-4" />
-              <span>{canPrompt ? t.pwa_install_btn : t.pwa_guide_btn}</span>
+              <span>{language === 'en' ? 'Install App Now' : 'Instal Aplikasi Sekarang'}</span>
             </button>
 
             <button
               onClick={onOpenGuide}
-              className="px-3.5 py-2 rounded-xl bg-white/90 hover:bg-white dark:bg-white/[0.06] dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-[600] text-[12px] transition-all cursor-pointer flex items-center gap-1.5"
+              className="px-3.5 py-2.5 rounded-xl bg-white/90 hover:bg-white dark:bg-white/[0.06] dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-[600] text-[12px] transition-all cursor-pointer flex items-center gap-1.5"
             >
               <HelpCircle className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
-              <span>{language === 'en' ? 'Guide' : 'Panduan'}</span>
+              <span>{language === 'en' ? 'Instructions' : 'Panduan'}</span>
             </button>
 
             {/* Dismiss X */}

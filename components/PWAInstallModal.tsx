@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   X, Smartphone, Monitor, Apple, CheckCircle2, 
   Download, Share2, PlusSquare, Sparkles, ShieldCheck, 
-  WifiOff, ArrowRight, ExternalLink 
+  WifiOff, ArrowRight, ExternalLink, Info, AlertCircle 
 } from 'lucide-react';
 import { usePWAInstall } from '@/hooks/usePWAInstall';
 import { translations } from '@/lib/i18n';
@@ -23,8 +23,9 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
   const t = translations[language];
 
   // Default active tab based on detected platform
-  const [activeTab, setActiveTab] = useState<PlatformTab>('desktop');
+  const [activeTab, setActiveTab] = useState<PlatformTab>('android');
   const [installSuccess, setInstallSuccess] = useState(false);
+  const [showManualGuide, setShowManualGuide] = useState(false);
 
   useEffect(() => {
     if (isIOS) {
@@ -45,15 +46,20 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  const handleNativePrompt = async () => {
-    const res = await promptInstall();
-    if (res === 'accepted') {
-      setInstallSuccess(true);
-      setTimeout(() => {
-        onClose();
-        setInstallSuccess(false);
-      }, 1500);
+  const handleInstallClickInModal = async () => {
+    if (canPrompt) {
+      const res = await promptInstall();
+      if (res === 'accepted') {
+        setInstallSuccess(true);
+        setTimeout(() => {
+          onClose();
+          setInstallSuccess(false);
+        }, 1500);
+        return;
+      }
     }
+    // If native prompt cannot be triggered directly by code, show clear guidance
+    setShowManualGuide(true);
   };
 
   if (!isOpen) return null;
@@ -100,7 +106,7 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
+              className="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-all cursor-pointer"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -110,7 +116,7 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
           {/* Quick Platform Tabs */}
           <div className="flex items-center gap-2 px-4 sm:px-5 pt-3 pb-2 border-b border-slate-200 dark:border-white/[0.06] bg-slate-50/50 dark:bg-white/[0.02]">
             <button
-              onClick={() => setActiveTab('ios')}
+              onClick={() => { setActiveTab('ios'); setShowManualGuide(false); }}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[12px] font-[700] transition-all cursor-pointer ${
                 activeTab === 'ios'
                   ? 'bg-blue-600 text-white shadow-xs'
@@ -125,7 +131,7 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
             </button>
 
             <button
-              onClick={() => setActiveTab('android')}
+              onClick={() => { setActiveTab('android'); setShowManualGuide(false); }}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[12px] font-[700] transition-all cursor-pointer ${
                 activeTab === 'android'
                   ? 'bg-blue-600 text-white shadow-xs'
@@ -140,7 +146,7 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
             </button>
 
             <button
-              onClick={() => setActiveTab('desktop')}
+              onClick={() => { setActiveTab('desktop'); setShowManualGuide(false); }}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[12px] font-[700] transition-all cursor-pointer ${
                 activeTab === 'desktop'
                   ? 'bg-blue-600 text-white shadow-xs'
@@ -156,29 +162,39 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
           </div>
 
           {/* Modal Body */}
-          <div className="p-4 sm:p-6 overflow-y-auto space-y-5">
-            {/* If native prompt available */}
-            {canPrompt && (
+          <div className="p-4 sm:p-6 overflow-y-auto space-y-4">
+            {/* Primary Action Box: ALWAYS VISIBLE WITH "INSTALL APP NOW" BUTTON */}
+            {!isInstalled && (
               <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-sm">
-                    <Sparkles className="w-4 h-4" />
+                  <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/20">
+                    <Download className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-[13px] font-[800] text-slate-900 dark:text-white">
-                      {language === 'en' ? 'Direct 1-Click Install Ready' : 'Instalasi 1-Klik Siap'}
+                    <h4 className="text-[14px] font-[800] text-slate-900 dark:text-white">
+                      {language === 'en' ? 'Install Anesthesia Suite' : 'Instal Aplikasi Anesthesia'}
                     </h4>
-                    <p className="text-[11.5px] text-slate-600 dark:text-slate-300">
-                      {language === 'en'
-                        ? 'Your browser supports immediate native installation dialog.'
-                        : 'Peramban Anda mendukung dialog instalasi aplikasi langsung.'}
+                    <p className="text-[12px] text-slate-600 dark:text-slate-300">
+                      {canPrompt
+                        ? (language === 'en'
+                            ? 'Ready for 1-click install dialog on this browser.'
+                            : 'Siap untuk dialog instalasi 1-klik di peramban ini.')
+                        : activeTab === 'ios'
+                        ? (language === 'en'
+                            ? 'On iOS Safari, use the Share button below.'
+                            : 'Di Safari iOS, gunakan tombol Bagikan di bawah.')
+                        : (language === 'en'
+                            ? 'Tap below to launch install or use browser menu.'
+                            : 'Ketuk di bawah untuk menginstal atau gunakan menu peramban.')}
                     </p>
                   </div>
                 </div>
+
+                {/* THE "INSTALL APP NOW" BUTTON */}
                 <button
-                  onClick={handleNativePrompt}
+                  onClick={handleInstallClickInModal}
                   disabled={installSuccess}
-                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-98 text-white font-[700] text-[12.5px] flex items-center justify-center gap-2 shadow-sm transition-all shrink-0 cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-[700] text-[13px] flex items-center justify-center gap-2 shadow-md shadow-blue-500/25 transition-all shrink-0 cursor-pointer"
                 >
                   {installSuccess ? (
                     <>
@@ -188,13 +204,41 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
                   ) : (
                     <>
                       <Download className="w-4 h-4" />
-                      <span>{t.pwa_try_install_again}</span>
+                      <span>{language === 'en' ? 'Install App Now' : 'Instal Aplikasi Sekarang'}</span>
                     </>
                   )}
                 </button>
               </div>
             )}
 
+            {/* Manual Menu Hint (Shows when user clicks install but browser requires menu action) */}
+            {showManualGuide && !canPrompt && (
+              <motion.div
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-500/30 text-amber-900 dark:text-amber-200 text-[12px] flex items-start gap-2.5"
+              >
+                <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-[700] mb-0.5">
+                    {activeTab === 'ios'
+                      ? (language === 'en' ? 'iOS Safari Add to Home Screen:' : 'Tambah ke Layar Utama iOS Safari:')
+                      : (language === 'en' ? 'Browser Menu Install:' : 'Instal Melalui Menu Browser:')}
+                  </div>
+                  <div>
+                    {activeTab === 'ios'
+                      ? (language === 'en'
+                          ? 'Tap the Share icon at the bottom of Safari, then choose "Add to Home Screen".'
+                          : 'Ketuk ikon Bagikan di bar menu bawah Safari, lalu pilih "Tambah ke Layar Utama".')
+                      : (language === 'en'
+                          ? 'Tap the three dots (⋮) in the top-right corner of your browser and select "Install app" or "Add to Home screen".'
+                          : 'Ketuk ikon tiga titik (⋮) di pojok kanan atas peramban Anda dan pilih "Instal aplikasi" atau "Tambahkan ke Layar Utama".')}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Standalone Active Badge */}
             {isInstalled && (
               <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/30 flex items-center gap-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
@@ -205,7 +249,7 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
             )}
 
             {/* Platform Instructions */}
-            <div className="space-y-3">
+            <div className="space-y-3 pt-1">
               <h3 className="text-[13px] font-[800] text-slate-900 dark:text-slate-100 flex items-center gap-2">
                 <span>{language === 'en' ? 'Step-by-Step Instructions' : 'Langkah-Langkah Instalasi'}</span>
                 <span className="text-[11px] font-normal text-slate-500 dark:text-slate-400">
@@ -260,9 +304,9 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
                     </div>
                     <div className="text-[12.5px] text-slate-700 dark:text-slate-300">
                       {language === 'en' ? (
-                        <>Tap <strong>Add</strong> in the top-right corner. The Anesthesia app icon will appear directly on your home screen and open without Safari address bars.</>
+                        <>Tap <strong>Add</strong> in the top-right corner. The Anesthesia app icon will appear directly on your home screen and open in standalone mode.</>
                       ) : (
-                        <>Ketuk <strong>Tambah (Add)</strong> di pojok kanan atas. Ikon Anesthesia akan langsung muncul di layar utama Anda dan terbuka tanpa bilah alamat Safari.</>
+                        <>Ketuk <strong>Tambah (Add)</strong> di pojok kanan atas. Ikon Anesthesia akan langsung muncul di layar utama Anda dan terbuka dalam mode mandiri.</>
                       )}
                     </div>
                   </div>
@@ -277,9 +321,9 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
                     </div>
                     <div className="text-[12.5px] text-slate-700 dark:text-slate-300">
                       {language === 'en' ? (
-                        <>Tap <strong>&quot;Install App Now&quot;</strong> button above, or open the browser menu (<strong>⋮</strong> three dots in top-right corner).</>
+                        <>Tap the <strong className="text-blue-600 dark:text-blue-400">&quot;Install App Now&quot;</strong> button above. If your browser requires manual confirmation, tap the browser menu (<strong>⋮</strong> three dots in top-right corner).</>
                       ) : (
-                        <>Ketuk tombol <strong>&quot;Instal Aplikasi&quot;</strong> di atas, atau buka menu peramban (<strong>⋮</strong> ikon tiga titik di pojok kanan atas).</>
+                        <>Ketuk tombol <strong className="text-blue-600 dark:text-blue-400">&quot;Instal Aplikasi Sekarang&quot;</strong> di atas. Jika peramban membutuhkan konfirmasi manual, buka menu peramban (<strong>⋮</strong> ikon tiga titik di pojok kanan atas).</>
                       )}
                     </div>
                   </div>
@@ -303,7 +347,7 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
                     </div>
                     <div className="text-[12.5px] text-slate-700 dark:text-slate-300">
                       {language === 'en' ? (
-                        <>Confirm the prompt by tapping <strong>Install</strong>. Anesthesia will install into your App Drawer and Home Screen.</>
+                        <>Confirm by tapping <strong>Install</strong>. Anesthesia will install into your App Drawer and Home Screen.</>
                       ) : (
                         <>Konfirmasi dengan mengetuk <strong>Instal</strong>. Anesthesia akan terpasang di daftar aplikasi dan layar utama Anda.</>
                       )}
@@ -320,9 +364,9 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
                     </div>
                     <div className="text-[12.5px] text-slate-700 dark:text-slate-300">
                       {language === 'en' ? (
-                        <>Look at the right side of your browser URL address bar for the <strong className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400"><Download className="w-3.5 h-3.5 inline" /> Install</strong> or monitor icon.</>
+                        <>Click the <strong className="text-blue-600 dark:text-blue-400">&quot;Install App Now&quot;</strong> button above, or look at the right side of your address bar for the <strong className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400"><Download className="w-3.5 h-3.5 inline" /> Install</strong> icon.</>
                       ) : (
-                        <>Lihat sisi kanan kolom alamat URL browser Anda untuk ikon <strong className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400"><Download className="w-3.5 h-3.5 inline" /> Instal</strong> atau ikon layar komputer.</>
+                        <>Klik tombol <strong className="text-blue-600 dark:text-blue-400">&quot;Instal Aplikasi Sekarang&quot;</strong> di atas, atau lihat sisi kanan kolom alamat URL untuk ikon <strong className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400"><Download className="w-3.5 h-3.5 inline" /> Instal</strong>.</>
                       )}
                     </div>
                   </div>

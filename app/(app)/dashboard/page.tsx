@@ -7,22 +7,19 @@ import { translations } from '@/lib/i18n';
 import { 
   Calculator, Pill, Activity, Syringe, BookOpen, WifiOff, Book, 
   ArrowRight, Stethoscope, AlertOctagon, Heart, User, Clock,
-  Cpu, Droplet, Sparkles, ShieldCheck, ShieldAlert, Radio,
-  Download, CheckCircle2, Smartphone
+  Cpu, Droplet, Sparkles, ShieldCheck, ShieldAlert, Radio
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { usePWAInstall } from '@/hooks/usePWAInstall';
 import PWAInstallBanner from '@/components/PWAInstallBanner';
 import PWAInstallModal from '@/components/PWAInstallModal';
 
 interface ToolItem {
   title: string;
   icon: React.ElementType;
-  href?: string;
+  href: string;
   desc: string;
   badge: string;
   highlight?: string;
-  onClick?: () => void;
 }
 
 interface ToolSection {
@@ -36,15 +33,6 @@ export default function DashboardPage() {
   const t = translations[language];
 
   const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
-  const { isInstalled, canPrompt, promptInstall } = usePWAInstall();
-
-  const handleQuickInstall = async () => {
-    if (canPrompt) {
-      await promptInstall();
-    } else {
-      setIsPwaModalOpen(true);
-    }
-  };
 
   const weight = parseFloat(activeCase.patientWeight) || 70;
   const height = parseFloat(activeCase.patientHeight) || 170;
@@ -156,13 +144,6 @@ export default function DashboardPage() {
           desc: language === 'en' ? 'Fast offline search across 14,000+ ICD-10 diagnostic codes' : 'Pencarian offline cepat lebih dari 14.000 kode ICD-10',
           badge: 'OFFLINE',
         },
-        {
-          title: language === 'en' ? 'PWA Offline Installation & Setup' : 'Instalasi & Pengaturan PWA Luring',
-          icon: Smartphone,
-          desc: language === 'en' ? 'Install native-grade app for offline bedside use, fullscreen display & 1-tap launch' : 'Instal aplikasi mandiri untuk penggunaan luring bedside, layar penuh & 1-ketuk buka',
-          badge: isInstalled ? 'INSTALLED' : 'PWA READY',
-          onClick: () => setIsPwaModalOpen(true),
-        },
       ],
     },
   ];
@@ -173,7 +154,7 @@ export default function DashboardPage() {
       <div className="p-5 md:p-6 rounded-2xl bg-gradient-to-r from-blue-50/90 via-indigo-50/70 to-slate-50 dark:from-[#0d1629] dark:via-[#0e172e] dark:to-[#0a1020] border border-slate-200/80 dark:border-white/10 shadow-sm dark:shadow-xl relative overflow-hidden">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           <div>
-            <div className="flex flex-wrap items-center gap-2 mb-1.5">
+            <div className="flex items-center gap-2 mb-1.5">
               <span className="px-2 py-0.5 rounded-full text-[10px] font-[800] bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 uppercase tracking-wider">
                 Clinical Workspace
               </span>
@@ -181,27 +162,6 @@ export default function DashboardPage() {
                 <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
                 {language === 'en' ? 'Zero Latency Offline' : 'Offline Siap Tanpa Latensi'}
               </span>
-
-              {/* PWA Quick Install / Status Button */}
-              {isInstalled ? (
-                <button
-                  onClick={() => setIsPwaModalOpen(true)}
-                  className="flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-[700] bg-emerald-100/90 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 hover:bg-emerald-200/80 transition-all cursor-pointer"
-                  title={language === 'en' ? 'PWA installed & running standalone. Click for options.' : 'PWA terinstal & berjalan mandiri. Klik untuk opsi.'}
-                >
-                  <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
-                  <span>{language === 'en' ? 'PWA Installed' : 'PWA Terinstal'}</span>
-                </button>
-              ) : (
-                <button
-                  onClick={handleQuickInstall}
-                  className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-[800] bg-blue-600 hover:bg-blue-700 active:scale-95 text-white shadow-xs transition-all cursor-pointer group"
-                  title={language === 'en' ? 'Install Progressive Web App for bedside use' : 'Instal Progressive Web App untuk penggunaan klinis'}
-                >
-                  <Download className="w-3 h-3 group-hover:translate-y-0.5 transition-transform" />
-                  <span>{language === 'en' ? 'Install PWA' : 'Instal PWA'}</span>
-                </button>
-              )}
             </div>
 
             <h1 className="text-[22px] md:text-[26px] font-[900] text-slate-900 dark:text-slate-100 tracking-tight">
@@ -245,9 +205,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-
-      {/* ─── PWA Installation Banner ─── */}
-      <PWAInstallBanner onOpenGuide={() => setIsPwaModalOpen(true)} language={language} />
 
       {/* ─── Fast-Access Crisis Banner ─── */}
       <Link href="/emergency" className="block">
@@ -295,74 +252,52 @@ export default function DashboardPage() {
               {section.items.map((tool) => {
                 const Icon = tool.icon;
                 const isUrgent = tool.highlight === 'urgent';
-                const cardContent = (
-                  <div
-                    className={`h-full p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between group cursor-pointer ${
-                      isUrgent
-                        ? 'bg-rose-50/70 dark:bg-rose-950/20 border-rose-200 dark:border-rose-500/30 hover:border-rose-300 dark:hover:border-rose-500/60 hover:bg-rose-100/60 dark:hover:bg-rose-950/30 shadow-xs dark:shadow-none'
-                        : 'bg-white dark:bg-[#0d1424] border-slate-200 dark:border-white/[0.08] hover:border-blue-400 dark:hover:border-blue-500/40 hover:bg-blue-50/30 dark:hover:bg-[#111a30] shadow-xs dark:shadow-none'
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <div
-                          className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border ${
-                            isUrgent
-                              ? 'bg-rose-500/10 text-rose-600 dark:bg-rose-600/20 dark:text-rose-300 border-rose-200 dark:border-rose-500/30'
-                              : 'bg-blue-500/10 text-blue-600 dark:bg-blue-600/20 dark:text-blue-400 border-blue-200 dark:border-blue-500/30'
-                          }`}
-                        >
-                          <Icon className="w-4 h-4" />
+                return (
+                  <Link key={tool.href} href={tool.href} className="block h-full">
+                    <div
+                      className={`h-full p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between group cursor-pointer ${
+                        isUrgent
+                          ? 'bg-rose-50/70 dark:bg-rose-950/20 border-rose-200 dark:border-rose-500/30 hover:border-rose-300 dark:hover:border-rose-500/60 hover:bg-rose-100/60 dark:hover:bg-rose-950/30 shadow-xs dark:shadow-none'
+                          : 'bg-white dark:bg-[#0d1424] border-slate-200 dark:border-white/[0.08] hover:border-blue-400 dark:hover:border-blue-500/40 hover:bg-blue-50/30 dark:hover:bg-[#111a30] shadow-xs dark:shadow-none'
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <div
+                            className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border ${
+                              isUrgent
+                                ? 'bg-rose-500/10 text-rose-600 dark:bg-rose-600/20 dark:text-rose-300 border-rose-200 dark:border-rose-500/30'
+                                : 'bg-blue-500/10 text-blue-600 dark:bg-blue-600/20 dark:text-blue-400 border-blue-200 dark:border-blue-500/30'
+                            }`}
+                          >
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <span
+                            className={`text-[9px] font-[800] px-2 py-0.5 rounded-full border tracking-wider font-mono ${
+                              isUrgent
+                                ? 'bg-rose-100 text-rose-700 border-rose-200 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/30'
+                                : tool.badge === 'AI AIDED'
+                                ? 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-500/15 dark:text-purple-300 dark:border-purple-500/30'
+                                : 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30'
+                            }`}
+                          >
+                            {tool.badge}
+                          </span>
                         </div>
-                        <span
-                          className={`text-[9px] font-[800] px-2 py-0.5 rounded-full border tracking-wider font-mono ${
-                            isUrgent
-                              ? 'bg-rose-100 text-rose-700 border-rose-200 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/30'
-                              : tool.badge === 'AI AIDED'
-                              ? 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-500/15 dark:text-purple-300 dark:border-purple-500/30'
-                              : tool.badge === 'INSTALLED' || tool.badge === 'PWA READY'
-                              ? 'bg-sky-100 text-sky-700 border-sky-200 dark:bg-sky-500/15 dark:text-sky-300 dark:border-sky-500/30'
-                              : 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30'
-                          }`}
-                        >
-                          {tool.badge}
-                        </span>
+
+                        <h3 className="text-[14px] font-[700] text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-white transition-colors mb-1">
+                          {tool.title}
+                        </h3>
+                        <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                          {tool.desc}
+                        </p>
                       </div>
 
-                      <h3 className="text-[14px] font-[700] text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-white transition-colors mb-1">
-                        {tool.title}
-                      </h3>
-                      <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                        {tool.desc}
-                      </p>
+                      <div className="flex items-center text-[11px] font-[600] text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 pt-2 border-t border-slate-100 dark:border-white/[0.04]">
+                        <span>{language === 'en' ? 'Open Workspace' : 'Buka Alat'}</span>
+                        <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
-
-                    <div className="flex items-center text-[11px] font-[600] text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 pt-2 border-t border-slate-100 dark:border-white/[0.04]">
-                      <span>
-                        {tool.onClick
-                          ? (language === 'en' ? 'View Setup & Install' : 'Lihat Panduan & Pasang')
-                          : (language === 'en' ? 'Open Workspace' : 'Buka Alat')}
-                      </span>
-                      <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                );
-
-                if (tool.onClick) {
-                  return (
-                    <button
-                      key={tool.title}
-                      onClick={tool.onClick}
-                      className="block h-full text-left w-full cursor-pointer focus:outline-none"
-                    >
-                      {cardContent}
-                    </button>
-                  );
-                }
-
-                return (
-                  <Link key={tool.href || tool.title} href={tool.href || '#'} className="block h-full">
-                    {cardContent}
                   </Link>
                 );
               })}
@@ -370,6 +305,9 @@ export default function DashboardPage() {
           </div>
         ))}
       </div>
+
+      {/* ─── Single PWA Installation Card (Placed cleanly at the bottom) ─── */}
+      <PWAInstallBanner onOpenGuide={() => setIsPwaModalOpen(true)} language={language} />
 
       {/* ─── PWA Installation Modal ─── */}
       <PWAInstallModal

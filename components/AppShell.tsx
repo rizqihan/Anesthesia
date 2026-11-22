@@ -542,13 +542,19 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           className="hidden md:flex flex-col shrink-0 overflow-hidden relative bg-white dark:bg-[#090e1a] border-r border-slate-200 dark:border-white/[0.07]"
         >
           {/* Collapse header */}
-          <div className="flex items-center justify-between px-4 h-[48px] border-b border-slate-200 dark:border-white/[0.05]">
-            <span className={`text-[10px] uppercase tracking-[1.5px] font-[800] text-slate-500 dark:text-slate-400 truncate ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>
-              Clinical Suite
-            </span>
+          <div className={`flex items-center h-[48px] border-b border-slate-200 dark:border-white/[0.05] ${
+            isCollapsed ? 'justify-center px-0' : 'justify-between px-4'
+          }`}>
+            {!isCollapsed && (
+              <span className="text-[10px] uppercase tracking-[1.5px] font-[800] text-slate-500 dark:text-slate-400 truncate">
+                Clinical Suite
+              </span>
+            )}
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="p-1 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+              title={isCollapsed ? (language === 'en' ? 'Expand sidebar' : 'Perluas sidebar') : (language === 'en' ? 'Collapse sidebar' : 'Ciutkan sidebar')}
+              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               <ChevronLeft className={`w-4 h-4 transition-transform ${isCollapsed ? 'rotate-180' : ''}`} />
             </button>
@@ -567,7 +573,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   className="block"
                 >
                   <div
-                    className={`flex items-center px-3 py-2 rounded-xl text-[13px] font-[600] transition-all ${
+                    className={`flex items-center py-2 rounded-xl text-[13px] font-[600] transition-all ${
+                      isCollapsed ? 'justify-center px-0' : 'px-3'
+                    } ${
                       isActive
                         ? isEmergency
                           ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-600/25 dark:text-rose-200 dark:border-rose-500/40 shadow-sm'
@@ -593,9 +601,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* AI / Offline & Version Footer */}
-          <div className="p-3 border-t border-slate-200 dark:border-white/[0.05] bg-slate-50 dark:bg-[#070b14]/60 space-y-2">
-            <div className="flex items-center gap-2.5">
-              <span className={statusDotClass} />
+          <div className={`border-t border-slate-200 dark:border-white/[0.05] bg-slate-50 dark:bg-[#070b14]/60 space-y-2 ${
+            isCollapsed ? 'p-2' : 'p-3'
+          }`}>
+            <div className={`flex items-center ${isCollapsed ? 'justify-center py-0.5' : 'gap-2.5'}`}>
+              <span className={statusDotClass} title={isCollapsed ? `${getProviderName()} Engine: ${statusLabel}` : undefined} />
               {!isCollapsed && (
                 <div className="text-[11px] truncate leading-tight flex-1">
                   <div className="text-slate-500 dark:text-slate-400">{getProviderName()} Engine</div>

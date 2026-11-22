@@ -2,6 +2,22 @@
 
 import { useEffect } from 'react';
 
+// Declare custom property on window for global prompt caching
+declare global {
+  interface Window {
+    __pwa_install_prompt?: any;
+  }
+}
+
+// Intercept beforeinstallprompt early in the client lifecycle
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    window.__pwa_install_prompt = e;
+    window.dispatchEvent(new CustomEvent('pwa_prompt_ready'));
+  });
+}
+
 export default function ServiceWorkerRegister() {
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {

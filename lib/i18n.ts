@@ -279,7 +279,25 @@ export const translations = {
     theme_light: 'Light Mode (Clinic & Wards)',
     theme_light_desc: 'High-contrast crisp daylight palette for pre-op clinics, wards, and documentation',
     theme_system: 'System Default',
-    theme_system_desc: 'Automatically mirrors your device OS light/dark schedule'
+    theme_system_desc: 'Automatically mirrors your device OS light/dark schedule',
+    install_pwa: 'Install PWA',
+    pwa_installed: 'PWA Installed',
+    pwa_standalone_active: 'Standalone Mode Active',
+    pwa_banner_title: 'Install Anesthesia Suite for Offline Bedside Access',
+    pwa_banner_desc: 'Install as a standalone native app on your phone, tablet, or desktop. Instant zero-latency launch in the OR & ICU with 100% offline database access.',
+    pwa_install_btn: 'Install App Now',
+    pwa_guide_btn: 'How to Install',
+    pwa_installed_badge: 'App Installed & Offline Ready',
+    pwa_modal_title: 'Install Anesthesia as a Standalone App',
+    pwa_modal_subtitle: 'Full offline reliability, fullscreen interface, and quick launch from your home screen or desktop.',
+    pwa_feature_offline: '100% Offline Access',
+    pwa_feature_offline_desc: 'Full access to 14,000+ ICD-10 codes, Drug Formulary, & Crisis Cards without internet.',
+    pwa_feature_fullscreen: 'Distraction-Free Screen',
+    pwa_feature_fullscreen_desc: 'No browser address bar or tabs — maximize bedside screen real estate.',
+    pwa_feature_privacy: 'Private & Local Processing',
+    pwa_feature_privacy_desc: 'Patient calculations and data remain 100% secure on your local device.',
+    pwa_try_install_again: 'Launch Native Install Dialog',
+    pwa_dismiss: 'Dismiss banner'
   },
   id: {
     app_name: 'Anesthesia',
@@ -561,7 +579,25 @@ export const translations = {
     theme_light: 'Mode Terang (Klinik & Bangsal)',
     theme_light_desc: 'Palet terang kontras tinggi untuk klinik pra-operasi, bangsal, dan dokumentasi',
     theme_system: 'Ikuti Sistem',
-    theme_system_desc: 'Mengikuti pengaturan mode terang/gelap pada perangkat OS Anda secara otomatis'
+    theme_system_desc: 'Mengikuti pengaturan mode terang/gelap pada perangkat OS Anda secara otomatis',
+    install_pwa: 'Instal PWA',
+    pwa_installed: 'PWA Terinstal',
+    pwa_standalone_active: 'Mode Mandiri Aktif',
+    pwa_banner_title: 'Instal Aplikasi Anesthesia untuk Akses Bedside Offline',
+    pwa_banner_desc: 'Instal sebagai aplikasi mandiri di ponsel, tablet, atau PC Anda. Terbuka instan tanpa latensi di OK & ICU dengan akses basis data luring lengkap.',
+    pwa_install_btn: 'Instal Aplikasi Sekarang',
+    pwa_guide_btn: 'Panduan Instalasi',
+    pwa_installed_badge: 'Aplikasi Terinstal & Siap Offline',
+    pwa_modal_title: 'Instal Anesthesia sebagai Aplikasi Mandiri',
+    pwa_modal_subtitle: 'Keandalan luring penuh, tampilan layar penuh bebas gangguan, dan akses cepat dari layar utama atau desktop.',
+    pwa_feature_offline: '100% Akses Luring',
+    pwa_feature_offline_desc: 'Akses penuh ke 14.000+ kode ICD-10, Formularium Obat, & Kartu Krisis tanpa internet.',
+    pwa_feature_fullscreen: 'Layar Bebas Gangguan',
+    pwa_feature_fullscreen_desc: 'Tanpa bilah alamat browser atau tab — maksimalkan bidang pandang di bedside.',
+    pwa_feature_privacy: 'Privasi & Pemrosesan Lokal',
+    pwa_feature_privacy_desc: 'Perhitungan klinis dan data pasien tetap 100% aman tersimpan di perangkat Anda.',
+    pwa_try_install_again: 'Buka Dialog Instalasi',
+    pwa_dismiss: 'Tutup banner'
   }
 };
 

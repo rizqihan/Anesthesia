@@ -10,6 +10,7 @@ import RiskScoresTab from '@/components/calculators/RiskScoresTab';
 import DiagnosticLabTab from '@/components/calculators/DiagnosticLabTab';
 import PediatricGrowthSuite from '@/components/pediatric/PediatricGrowthSuite';
 import ASRACoagsNavigator from '@/components/asra/ASRACoagsNavigator';
+import BedsideCalculatorSelector from '@/components/calculators/BedsideCalculatorSelector';
 
 const inputClass = "glass-input w-full px-3 py-2.5 text-[13px] font-[500]";
 const labelClass = "form-label";
@@ -368,23 +369,6 @@ export default function CalculatorsPage() {
     }
   };
 
-  const tabs = [
-    { id: 'bmi', label: t.bmi },
-    { id: 'ibw', label: t.ibw_abw },
-    { id: 'cg', label: t.creatinine_clearance },
-    { id: 'egfr', label: t.egfr_calculator },
-    { id: 'map', label: t.map },
-    { id: 'anion_gap', label: t.anion_gap_title },
-    { id: 'asa', label: t.asa_title },
-    { id: 'mallampati', label: t.mallampati_title },
-    { id: 'ett', label: t.pediatric_ett },
-    { id: 'abl', label: t.allowable_blood_loss },
-    { id: 'pf', label: t.pf_ratio },
-    { id: 'ag', label: t.alveolar_gas },
-    { id: 'fm', label: t.fluid_maintenance },
-    { id: 'hs', label: t.holliday_segar },
-  ];
-
   return (
     <div className="space-y-5 max-w-2xl mx-auto">
       {/* Header */}
@@ -470,53 +454,14 @@ export default function CalculatorsPage() {
 
       {/* Bedside Mode */}
       {category === 'bedside' && (
-        <div className="space-y-5">
-          {/* Tab Selector: Dropdown on Mobile, Animated Pill Strip on Tablet/Desktop */}
-          <div className="space-y-1.5">
-        <label className={labelClass}>{t.select_calculator}</label>
-
-        {/* Mobile Dropdown */}
-        <div className="sm:hidden">
-          <select
-            value={activeTab}
-            onChange={(e) => setActiveTab(e.target.value)}
-            className="glass-input w-full px-3 py-2.5 text-[13px] font-[600]"
-          >
-            {tabs.map((tab) => (
-              <option key={tab.id} value={tab.id}>
-                {tab.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Tablet & Desktop Horizontal Pill Tabs with Motion Indicator */}
-        <div className="hidden sm:flex flex-wrap gap-1.5 p-1 rounded-xl bg-white/[0.03] border border-white/10">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <motion.button
-                key={tab.id}
-                whileTap={{ scale: 0.95 }}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-3 py-1.5 rounded-lg text-[12px] font-[600] transition-colors relative ${
-                  isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="calc-tab-pill"
-                    className="absolute inset-0 bg-blue-600/30 border border-blue-500/40 rounded-lg shadow-sm"
-                    transition={{ type: 'spring', bounce: 0.15, duration: 0.3 }}
-                  />
-                )}
-                <span className="relative z-10">{tab.label}</span>
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
+        <div className="space-y-4">
+          {/* Bedside Calculator Selector & Categorized Grid */}
+          <BedsideCalculatorSelector
+            activeTab={activeTab}
+            onSelectTab={setActiveTab}
+            language={language}
+            t={t}
+          />
 
       {/* Card */}
       <div className="glass-card-static overflow-hidden">
@@ -896,6 +841,9 @@ export default function CalculatorsPage() {
             {activeTab === 'ag' && t.info_alveolar_gas}
             {activeTab === 'fm' && t.info_fluid_maintenance}
             {activeTab === 'hs' && t.info_holliday_segar}
+            {activeTab === 'anion_gap' && t.info_anion_gap}
+            {activeTab === 'asa' && t.info_asa}
+            {activeTab === 'mallampati' && t.info_mallampati}
           </div>
         </div>
       </motion.div>

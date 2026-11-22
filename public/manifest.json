@@ -1,11 +1,19 @@
 {
-  "name": "Anesthesia",
+  "name": "Anesthesia — Point-of-Care Clinical Suite",
   "short_name": "Anesthesia",
-  "description": "Medical Professional Tools",
+  "description": "Offline-first point-of-care medical suite, clinical decision calculators, 12-lead ECG simulation, acute resuscitation dosing, and practice guidelines for healthcare professionals.",
   "start_url": "/",
+  "scope": "/",
+  "id": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#080d17",
   "theme_color": "#080d17",
+  "categories": [
+    "medical",
+    "health",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "/icon-192.png",

@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
+import { usePWAInstall } from '@/hooks/usePWAInstall';
 
 // Structuring English Content
 const contentEn = {
@@ -309,43 +310,11 @@ export default function TutorialPage() {
   // Track state of expanded FAQ items
   const [expandedFaqIndex, setExpandedFaqIndex] = useState<number | null>(null);
 
-  // PWA Installation states
-  const [isInstalled, setIsInstalled] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [isIOS, setIsIOS] = useState(false);
-
-  useEffect(() => {
-    // Check if running in standalone mode (already installed) and detect iOS device
-    queueMicrotask(() => {
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone;
-      setIsInstalled(!!isStandalone);
-
-      const userAgent = window.navigator.userAgent.toLowerCase();
-      const ios = /iphone|ipad|ipod/.test(userAgent);
-      setIsIOS(ios);
-    });
-
-    // Handle standard PWA installation prompt event
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
-  }, []);
+  // PWA Installation states via shared hook
+  const { isInstalled, canPrompt, isIOS, promptInstall } = usePWAInstall();
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      setIsInstalled(true);
-    }
-    setDeferredPrompt(null);
+    await promptInstall();
   };
 
   const toggleFaq = (index: number) => {
@@ -461,7 +430,7 @@ export default function TutorialPage() {
                 <p className="text-[11px] text-slate-400 leading-normal max-w-md">
                   {isInstalled 
                     ? content.sections.pwa.installedMsg 
-                    : deferredPrompt 
+                    : canPrompt 
                       ? content.sections.pwa.installBtnDesc 
                       : isIOS 
                         ? content.sections.pwa.iosSafariMsg 
@@ -474,7 +443,7 @@ export default function TutorialPage() {
                   <span className="status-dot status-dot-green" />
                   <span>STANDALONE</span>
                 </span>
-              ) : deferredPrompt ? (
+              ) : canPrompt ? (
                 <button
                   onClick={handleInstallClick}
                   className="btn-primary flex items-center justify-center gap-2 text-[12px] py-2.5 px-4 shadow-lg shrink-0 w-full sm:w-auto"

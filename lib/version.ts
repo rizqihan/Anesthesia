@@ -6,12 +6,25 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.7.4';
-export const BUILD_DATE = '2026-11-21';
+export const APP_VERSION = '2.7.5';
+export const BUILD_DATE = '2026-11-22';
 export const DB_SCHEMA_VERSION = 9;
-export const RELEASE_NAME = 'Zero-Latency Offline PWA Engine & Auto-Seeding Database';
+export const RELEASE_NAME = '1-Tap Bedside PWA Installation & Multi-Platform Guide';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.7.5',
+    date: '2026-11-22',
+    title: '1-Tap Bedside PWA Installation, Standalone Suite & Multi-Platform Guide',
+    highlight: true,
+    features: [
+      'Dashboard 1-Tap PWA Installation: Dedicated, non-intrusive installation card consolidated at the bottom of the clinical dashboard for quick bedside setup',
+      'Universal Multi-Platform Install Modal: Platform-aware modal automatically tailoring step-by-step guidance for iOS Safari, Android (Chrome/Edge/Samsung), and Desktop (Chrome/Edge/Brave)',
+      'Persistent "Install App Now" Action: High-visibility install action button that executes the native Chromium/Android prompt when available or provides instant contextual menu guidance',
+      'Early Event Interception: Early window-level capture of beforeinstallprompt preventing prompt loss during client-side hydration and SPA page transitions',
+      'Standalone Running State Indicator: Automated detection and confirmation badge when Anesthesia is actively running in fullscreen standalone PWA mode',
+    ],
+  },
   {
     version: '2.7.4',
     date: '2026-11-21',

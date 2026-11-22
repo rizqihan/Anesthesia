@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { usePWAInstall } from '@/hooks/usePWAInstall';
 import { translations } from '@/lib/i18n';
+import { APP_VERSION } from '@/lib/version';
 
 interface PWAInstallModalProps {
   isOpen: boolean;
@@ -442,7 +443,7 @@ export default function PWAInstallModal({ isOpen, onClose, language }: PWAInstal
           {/* Footer */}
           <div className="p-4 border-t border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-[#080d17] flex items-center justify-between">
             <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
-              Offline Cache Engine v2.7.4
+              Offline Cache Engine v{APP_VERSION}
             </span>
             <button
               onClick={onClose}

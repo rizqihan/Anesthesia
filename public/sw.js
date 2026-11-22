@@ -1,5 +1,5 @@
 // Anesthesia Clinical Suite - Offline PWA Service Worker
-const CACHE_VERSION = 'v2.7.4';
+const CACHE_VERSION = 'v2.7.5';
 const CACHE_NAME = `anesthesia-cache-${CACHE_VERSION}`;
 const STATIC_CACHE = `anesthesia-static-${CACHE_VERSION}`;
 

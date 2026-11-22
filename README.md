@@ -125,41 +125,41 @@ flowchart LR
 ```
 
 ### Pillar 1: Evidence-Based Clinical Risk Scores (MDCalc Benchmark)
-- [ ] **Cardiovascular & Thromboembolism:**
+- [x] **Cardiovascular & Thromboembolism:**
   - `CHA2DS2-VASc` score for atrial fibrillation stroke risk and anticoagulation threshold.
   - `Wells Score` for DVT and Pulmonary Embolism with PERC rule integration.
   - `HEART Score` for chest pain risk stratification in emergency departments.
-- [ ] **Pulmonology & Infectious Disease:**
+- [x] **Pulmonology & Infectious Disease:**
   - `CURB-65` and `Pneumonia Severity Index (PSI)` for pneumonia admission triage.
   - `qSOFA` and `SOFA` criteria for sepsis identification and organ dysfunction tracking.
-- [ ] **Neurology & Critical Care:**
+- [x] **Neurology & Critical Care:**
   - `Glasgow Coma Scale (GCS)` interactive calculator with pediatric modifications.
   - `NIH Stroke Scale (NIHSS)` step-by-step scoring with tPA contraindication checklist.
-- [ ] **Gastroenterology & Hepatology:**
+- [x] **Gastroenterology & Hepatology:**
   - `MELD-Na` and `Child-Pugh` score for end-stage liver disease mortality and drug dosing risk.
 
 ### Pillar 2: Broadened Resuscitation & Emergency Protocols
-- [ ] **ACLS & PALS Interactive Timers:** Synchronized 2-minute CPR cycle timer with rhythm check prompts, shock delivery tracker, and automated Epinephrine / Amiodarone intervals.
-- [ ] **Pediatric Emergency Tape (Broselow Equivalent):** Rapid color-coded weight and length-based emergency drug dosing and resuscitation equipment guide.
-- [ ] **Status Epilepticus Pathway:** First-line benzodiazepine dosing (Midazolam / Lorazepam) transitioning to second-line IV Levetiracetam / Valproate.
-- [ ] **Hypertensive Crisis Protocol:** Dosing and titration guides for IV Labetalol, Hydralazine, and Nicardipine with target blood pressure reduction parameters.
+- [x] **ACLS & PALS Interactive Timers:** Synchronized 2-minute CPR cycle timer with rhythm check prompts, shock delivery tracker, and automated Epinephrine / Amiodarone intervals.
+- [x] **Pediatric Emergency Tape (Broselow Equivalent):** Rapid color-coded weight and length-based emergency drug dosing and resuscitation equipment guide.
+- [x] **Status Epilepticus Pathway:** First-line benzodiazepine dosing (Midazolam / Lorazepam) transitioning to second-line IV Levetiracetam / Valproate.
+- [x] **Hypertensive Crisis Protocol:** Dosing and titration guides for IV Labetalol, Hydralazine, and Nicardipine with target blood pressure reduction parameters.
 
 ### Pillar 3: Antimicrobial Stewardship & Empiric Therapy
-- [ ] **Syndrome-Based Antibiotic Selector:** First-line and alternative empiric regimens for community-acquired pneumonia, acute pyelonephritis, cellulitis, meningitis, and intra-abdominal sepsis.
-- [ ] **Renal Dose Adjustment Alerts:** Automated flags and dose-reduction recommendations based on patient CrCl/eGFR calculated from the Active Case Tray.
-- [ ] **Vancomycin & Aminoglycoside Dosing Guide:** Trough-target calculators and extended-interval dosing regimens.
+- [x] **Syndrome-Based Antibiotic Selector:** First-line and alternative empiric regimens for community-acquired pneumonia, acute pyelonephritis, cellulitis, meningitis, and intra-abdominal sepsis.
+- [x] **Renal Dose Adjustment Alerts:** Automated flags and dose-reduction recommendations based on patient CrCl/eGFR calculated from the Active Case Tray.
+- [x] **Vancomycin & Aminoglycoside Dosing Guide:** Trough-target calculators and extended-interval dosing regimens.
 
 ### Pillar 4: Laboratory & Diagnostic Interpretation Engines
-- [ ] **Arterial Blood Gas (ABG) Analyzer:** 4-step acid-base interpretation (metabolic vs respiratory, anion gap calculation, Winter's formula for compensation, and Delta-Delta ratio for mixed disorders).
-- [ ] **Electrolyte Correction Calculators:**
+- [x] **Arterial Blood Gas (ABG) Analyzer:** 4-step acid-base interpretation (metabolic vs respiratory, anion gap calculation, Winter's formula for compensation, and Delta-Delta ratio for mixed disorders).
+- [x] **Electrolyte Correction Calculators:**
   - Sodium correction in hyperglycemia ($[\text{Na}^+] + 0.016 \times (\text{Glucose} - 100)$).
   - Free water deficit in hypernatremia.
   - Calcium correction for hypoalbuminemia.
   - Potassium repletion protocol with IV vs oral safety limits.
 
 ### Pillar 5: Hands-Free Bedside Workflows & Documentation
-- [ ] **Clinical Shift Rounds Summary:** One-tap PDF generation summarizing patient vitals, calculated scores, fluid rates, and drug regimens for handoffs.
-- [ ] **Voice-Activated Lookups:** Hands-free PWA voice queries for sterile procedure fields and resuscitation bays.
+- [x] **Clinical Shift Rounds Summary:** One-tap PDF generation summarizing patient vitals, calculated scores, fluid rates, and drug regimens for handoffs.
+- [x] **Voice-Activated Lookups:** Hands-free PWA voice queries for sterile procedure fields and resuscitation bays.
 
 ---
 

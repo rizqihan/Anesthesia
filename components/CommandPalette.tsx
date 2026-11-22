@@ -6,7 +6,7 @@ import { useAppStore } from '@/store/appStore';
 import { 
   Search, Calculator, Syringe, Activity, Pill, BookOpen, Stethoscope, 
   AlertOctagon, Book, Settings, User, ArrowRight, X, ShieldAlert, Printer, Radio, FileText,
-  Sun, Moon, Monitor
+  Sun, Moon, Monitor, Mic
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
@@ -16,9 +16,10 @@ interface CommandPaletteProps {
   onClose: () => void;
   onOpenCaseModal?: () => void;
   onOpenSoapModal?: () => void;
+  onOpenVoiceModal?: () => void;
 }
 
-export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpenSoapModal }: CommandPaletteProps) {
+export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpenSoapModal, onOpenVoiceModal }: CommandPaletteProps) {
   const router = useRouter();
   const { language } = useAppStore();
   const [query, setQuery] = useState('');
@@ -38,6 +39,17 @@ export default function CommandPalette({ isOpen, onClose, onOpenCaseModal, onOpe
   }, [isOpen, onClose]);
 
   const commands = [
+    {
+      id: 'voice-assistant',
+      title: language === 'en' ? '🎙️ Bedside Voice Assistant (Hands-Free)' : '🎙️ Asisten Suara Bedside (Hands-Free)',
+      subtitle: language === 'en' ? 'Voice lookups for push doses, drug calculations, & sterile fields' : 'Pencarian suara bebas genggam untuk dosis krisis & kamar bedah',
+      action: () => {
+        onClose();
+        if (onOpenVoiceModal) onOpenVoiceModal();
+      },
+      icon: Mic,
+      category: 'Patient',
+    },
     {
       id: 'emergency',
       title: language === 'en' ? '🚨 Emergency OR Crisis Card' : '🚨 Kartu Krisis Anestesi / Resusitasi',

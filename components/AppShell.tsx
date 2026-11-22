@@ -9,13 +9,14 @@ import {
   LayoutDashboard, Settings, ChevronLeft, WifiOff, Activity, Database, 
   RefreshCw, X, BookOpen, AlertOctagon, Calculator, Syringe, Pill, 
   Stethoscope, Book, Search, User, Globe, ShieldAlert, Printer, Radio, FileText,
-  Sun, Moon, Monitor
+  Sun, Moon, Monitor, Mic
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ActiveCaseModal from '@/components/ActiveCaseModal';
 import CommandPalette from '@/components/CommandPalette';
 import SOAPNoteModal from '@/components/SOAPNoteModal';
 import ReleaseNotesModal from '@/components/ReleaseNotesModal';
+import VoiceLookupHUD from '@/components/VoiceLookupHUD';
 import { exportBedsideRoundsPDF } from '@/lib/pdfGenerator';
 import { APP_VERSION } from '@/lib/version';
 
@@ -34,6 +35,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [isCmdPaletteOpen, setIsCmdPaletteOpen] = useState(false);
   const [isSoapModalOpen, setIsSoapModalOpen] = useState(false);
   const [isReleaseModalOpen, setIsReleaseModalOpen] = useState(false);
+  const [isVoiceHUDOpen, setIsVoiceHUDOpen] = useState(false);
 
   const isNotSynced = !isAutoSeeding &&
     !store.lastSyncDate && 
@@ -112,12 +114,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     };
   }, [setOfflineStatus]);
 
-  // Global keyboard shortcut: Cmd+K / Ctrl+K
+  // Global keyboard shortcuts: Cmd+K (search) & Cmd+M (voice assistant)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setIsCmdPaletteOpen((prev) => !prev);
+      } else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'm') {
+        e.preventDefault();
+        setIsVoiceHUDOpen((prev) => !prev);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -350,6 +355,17 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
           {/* Right controls */}
           <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 shrink-0">
+            {/* Bedside Voice Assistant trigger */}
+            <button
+              onClick={() => setIsVoiceHUDOpen(true)}
+              className="p-1.5 sm:px-2.5 sm:py-1.5 min-w-[34px] min-h-[34px] flex items-center justify-center gap-1.5 rounded-xl bg-emerald-50 border border-emerald-200 hover:border-emerald-300 text-emerald-700 hover:text-emerald-900 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:hover:border-emerald-500/30 dark:text-emerald-400 dark:hover:text-emerald-300 transition-all text-[12px] shrink-0"
+              title={language === 'en' ? 'Bedside Voice Assistant (Cmd+M)' : 'Asisten Suara Bedside (Cmd+M)'}
+              aria-label="Bedside Voice Assistant"
+            >
+              <Mic className="w-3.5 h-3.5" />
+              <span className="hidden xl:inline text-[11px] font-mono font-bold">VOICE</span>
+            </button>
+
             {/* Cmd+K Search trigger */}
             <button
               onClick={() => setIsCmdPaletteOpen(true)}
@@ -682,6 +698,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         onClose={() => setIsCmdPaletteOpen(false)} 
         onOpenCaseModal={() => setIsCaseModalOpen(true)}
         onOpenSoapModal={() => setIsSoapModalOpen(true)}
+        onOpenVoiceModal={() => setIsVoiceHUDOpen(true)}
+      />
+      <VoiceLookupHUD 
+        isOpen={isVoiceHUDOpen} 
+        onClose={() => setIsVoiceHUDOpen(false)} 
       />
 
       {/* Database Sync Warning Modal */}

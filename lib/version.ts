@@ -6,17 +6,31 @@ export interface ReleaseNote {
   features: string[];
 }
 
-export const APP_VERSION = '2.7.5';
+export const APP_VERSION = '2.8.0';
 export const BUILD_DATE = '2026-11-22';
 export const DB_SCHEMA_VERSION = 9;
-export const RELEASE_NAME = '1-Tap Bedside PWA Installation & Multi-Platform Guide';
+export const RELEASE_NAME = 'Bedside Hands-Free Voice-Activated Lookups & Sterile Field Assistant';
 
 export const APP_CHANGELOG: ReleaseNote[] = [
+  {
+    version: '2.8.0',
+    date: '2026-11-22',
+    title: 'Bedside Hands-Free Voice-Activated Lookups & Sterile Field Assistant (Pillar 5 Complete)',
+    highlight: true,
+    features: [
+      'Hands-Free Voice Recognition: Zero-latency offline speech recognition powered by Web Speech API for scrubbed sterile fields and resuscitation crises',
+      'Clinical Intent Parsing Engine: Intelligent bilingual (EN & ID) regex/token parsing covering emergency push doses, 163-drug pharmacopeia, medical calculators, and navigation',
+      'Look-Alike / Sound-Alike (LASA) Safeguards: Proactive acoustic safety warnings preventing catastrophic drug mix-ups (e.g. Epinephrine vs Ephedrine, Hydralazine vs Hydroxyzine)',
+      'Continuous Scrub Mode: Persistent listening mode with audio waveform visualizer and automatic Web Speech Synthesis (TTS) voice confirmation readback',
+      'Giant Bedside HUD Display: Ultra-high contrast clinical card layout legible from 2 meters across operating tables and emergency resuscitation bays',
+      'Active Case Voice Mutations: Hands-free verbal updates to patient parameters (weight, height, age, sex) reactively synchronizing across all open calculators',
+    ],
+  },
   {
     version: '2.7.5',
     date: '2026-11-22',
     title: '1-Tap Bedside PWA Installation, Standalone Suite & Multi-Platform Guide',
-    highlight: true,
+    highlight: false,
     features: [
       'Dashboard 1-Tap PWA Installation: Dedicated, non-intrusive installation card consolidated at the bottom of the clinical dashboard for quick bedside setup',
       'Universal Multi-Platform Install Modal: Platform-aware modal automatically tailoring step-by-step guidance for iOS Safari, Android (Chrome/Edge/Samsung), and Desktop (Chrome/Edge/Brave)',

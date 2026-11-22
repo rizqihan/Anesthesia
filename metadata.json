@@ -1,6 +1,6 @@
 {
   "name": "Anesthesia",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "Offline-first clinical decision support system, acute resuscitation toolkit, bedside voice assistant, and comprehensive medical reference suite for healthcare professionals.",
   "requestFramePermissions": [
     "microphone"
